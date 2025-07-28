@@ -420,6 +420,41 @@ button, [role="button"], .transition-colors {
   z-index: 1;
 }
 
+/* Modern header animations */
+@keyframes header-slide-down {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Header entrance animation */
+header {
+  animation: header-slide-down 0.5s ease-out;
+}
+
+/* Animated gradient background */
+.gradient-animated {
+  background-size: 200% 200%;
+  animation: gradient-shift 15s ease infinite;
+}
+
 /* Smooth theme transitions for sidebar and header */
 .sidebar-nav,
 .supabase-header,
@@ -1185,4 +1220,36 @@ button, [role="button"], .transition-colors {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* ==========================================
+ * MOBILE SAFE AREA UTILITIES
+ * ========================================== */
+
+/* Safe area insets for mobile devices */
+.safe-area-inset-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.pb-safe {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+/* Touch interactions */
+.touch-none {
+  touch-action: none;
+}
+
+/* Overscroll behavior */
+.overscroll-contain {
+  overscroll-behavior: contain;
+}
+
+/* Active states for mobile */
+.active\:scale-95:active {
+  transform: scale(0.95);
+}
+
+.active\:scale-\[0\.98\]:active {
+  transform: scale(0.98);
 }

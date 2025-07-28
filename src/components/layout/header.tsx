@@ -128,187 +128,208 @@ export function Header() {
   return (
     <header 
       id={headerId}
-      className="flex h-16 items-center justify-between border-b bg-[hsl(var(--header-background))]/95 backdrop-blur supports-[backdrop-filter]:bg-[hsl(var(--header-background))]/80 px-6"
+      className="sticky top-0 z-50 h-16 bg-[hsl(var(--header-background))]/95 backdrop-blur supports-[backdrop-filter]:bg-[hsl(var(--header-background))]/80 border-b border-border"
       role="banner"
       aria-label="Application header with search and user menu"
     >
-      <div className="flex items-center space-x-4">
-        {/* Logo and Title - same as mobile header */}
-        <div className="flex items-center space-x-3">
-          <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center shadow-sm">
-            <svg width="20" height="20" viewBox="0 0 32 32" className="text-primary-foreground">
-              <path d="M16 6l2.47 5.01L24 12.18l-4 3.9.94 5.5L16 19.15l-4.94 2.59.94-5.5-4-3.9 5.53-1.17L16 6z" fill="currentColor"/>
-            </svg>
+      <div className="h-full flex items-center justify-between px-6">
+        <div className="flex items-center space-x-6">
+          {/* Logo and Title */}
+          <div className="flex items-center space-x-3">
+            <div className="h-9 w-9 rounded-lg bg-primary flex items-center justify-center shadow-sm">
+              <svg width="20" height="20" viewBox="0 0 32 32" className="text-primary-foreground">
+                <path d="M16 6l2.47 5.01L24 12.18l-4 3.9.94 5.5L16 19.15l-4.94 2.59.94-5.5-4-3.9 5.53-1.17L16 6z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div>
+              <h1 className="font-semibold text-lg text-foreground">GS-CMS</h1>
+              <p className="text-xs text-muted-foreground">v5.0</p>
+            </div>
           </div>
-          <div>
-            <span className="font-semibold text-foreground text-lg">GS-CMS</span>
-            <div className="text-xs text-muted-foreground">v5.0</div>
-          </div>
+          
+          {/* Search Form */}
+          <form className="relative max-w-md" onSubmit={handleSearchSubmit} role="search">
+            <label 
+              id={searchLabelId}
+              htmlFor={searchId}
+              className="sr-only"
+            >
+              {t('search')} the application
+            </label>
+            <Search 
+              className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" 
+              aria-hidden="true"
+            />
+            <Input
+              id={searchId}
+              ref={searchInputRef}
+              type="search"
+              placeholder={t('search')}
+              className="pl-10 w-80"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              aria-labelledby={searchLabelId}
+              aria-describedby={`${searchId}-desc`}
+            />
+            <div id={`${searchId}-desc`} className="sr-only">
+              Press Enter to search, Escape to clear
+            </div>
+          </form>
         </div>
-        
-        {/* Search Form */}
-        <form className="relative max-w-md" onSubmit={handleSearchSubmit} role="search">
-          <label 
-            id={searchLabelId}
-            htmlFor={searchId}
-            className="sr-only"
-          >
-            {t('search')} the application
-          </label>
-          <Search 
-            className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" 
-            aria-hidden="true"
-          />
-          <Input
-            id={searchId}
-            ref={searchInputRef}
-            type="search"
-            placeholder={t('search')}
-            className="pl-10 w-80 bg-background border-input"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            aria-labelledby={searchLabelId}
-            aria-describedby={`${searchId}-desc`}
-          />
-          <div id={`${searchId}-desc`} className="sr-only">
-            Press Enter to search, Escape to clear
+
+        <div className="flex items-center space-x-3">
+          {/* Notifications with modern styling */}
+          <div className="relative">
+            <NotificationDropdown />
           </div>
-        </form>
-      </div>
 
-      <div className="flex items-center space-x-4">
-        {/* Notifications */}
-        <NotificationDropdown />
-
-        {/* User Menu */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button 
-              ref={userMenuButtonRef}
-              variant="ghost" 
-              className="flex items-center space-x-2"
-              aria-haspopup="menu"
-              aria-expanded={false}
-              aria-controls={userMenuId}
-              aria-labelledby={userMenuLabelId}
-              aria-label={`User menu for ${session?.user?.name || 'User'}`}
-            >
-              <div 
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-medium"
-                aria-hidden="true"
+          {/* Professional User Menu */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button 
+                ref={userMenuButtonRef}
+                variant="ghost" 
+                className="relative flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-accent transition-colors"
+                aria-haspopup="menu"
+                aria-expanded={false}
+                aria-controls={userMenuId}
+                aria-labelledby={userMenuLabelId}
+                aria-label={`User menu for ${session?.user?.name || 'User'}`}
               >
-                {session?.user?.name?.charAt(0)?.toUpperCase() || 'U'}
-              </div>
-              <div className="hidden md:block text-left">
-                <div className="text-sm font-medium">
-                  {session?.user?.name || 'User'}
-                </div>
-                <div className="text-xs text-muted-foreground mt-0.5">
-                  {session?.user?.email}
-                </div>
-                <div className="text-xs text-muted-foreground font-semibold mt-0.5">
-                  {session?.user?.role ? tRoles(session.user.role.toLowerCase()) : ''}
-                </div>
-              </div>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent 
-            id={userMenuId}
-            align="end" 
-            className="w-56"
-            role="menu"
-            aria-labelledby={userMenuLabelId}
-          >
-            <DropdownMenuLabel id={userMenuLabelId}>
-              {t('myAccount')}
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem role="menuitem">
-              <User className="mr-2 h-4 w-4" aria-hidden="true" />
-              {t('profile')}
-            </DropdownMenuItem>
-            
-            {/* Theme Toggle Inline */}
-            <div className="px-2 py-1.5" role="menuitem">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <Palette className="mr-2 h-4 w-4" aria-hidden="true" />
-                  <span className="text-sm">Theme</span>
-                </div>
-                <div className="ml-auto">
-                  <ThemeToggleItems />
-                </div>
-              </div>
-            </div>
-            
-            {/* Language Selector Inline */}
-            <div className="px-2 py-1.5" role="group" aria-label="Language selection">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <Languages className="mr-2 h-4 w-4" aria-hidden="true" />
-                  <span className="text-sm">Language</span>
-                </div>
-              </div>
-              <div className="mt-2 space-y-1" role="menu" aria-label="Available languages">
-                <DropdownMenuItem
-                  role="menuitem"
-                  onClick={() => handleLanguageChange('hr-HR')}
-                  disabled={isChangingLanguage}
-                  className="cursor-pointer px-2 py-1.5 text-xs"
-                  aria-label="Switch to Croatian language"
+                <div 
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-semibold"
+                  aria-hidden="true"
                 >
-                  <span aria-hidden="true">🇭🇷</span> Croatian
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  role="menuitem"
-                  onClick={() => handleLanguageChange('bs-BA')}
-                  disabled={isChangingLanguage}
-                  className="cursor-pointer px-2 py-1.5 text-xs"
-                  aria-label="Switch to Bosnian language"
-                >
-                  <span aria-hidden="true">🇧🇦</span> Bosnian
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  role="menuitem"
-                  onClick={() => handleLanguageChange('en-US')}
-                  disabled={isChangingLanguage}
-                  className="cursor-pointer px-2 py-1.5 text-xs"
-                  aria-label="Switch to English language"
-                >
-                  <span aria-hidden="true">🇺🇸</span> English
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  role="menuitem"
-                  onClick={() => handleLanguageChange('de-DE')}
-                  disabled={isChangingLanguage}
-                  className="cursor-pointer px-2 py-1.5 text-xs"
-                  aria-label="Switch to German language"
-                >
-                  <span aria-hidden="true">🇩🇪</span> German
-                </DropdownMenuItem>
-              </div>
-            </div>
-            
-            <DropdownMenuSeparator />
-            <DropdownMenuItem 
-              role="menuitem"
-              onClick={handleSignOut}
-              className="text-destructive focus:text-destructive"
-              aria-label="Sign out of your account"
+                  {session?.user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                </div>
+                <div className="hidden lg:block text-left">
+                  <div className="text-sm font-medium text-foreground">
+                    {session?.user?.name || 'User'}
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    {session?.user?.role ? tRoles(session.user.role.toLowerCase()) : ''}
+                  </div>
+                </div>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent 
+              id={userMenuId}
+              align="end" 
+              className="w-64 mt-2"
+              role="menu"
+              aria-labelledby={userMenuLabelId}
             >
-              <LogOut className="mr-2 h-4 w-4" aria-hidden="true" />
-              {t('signOut')}
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+              {/* User Info Section */}
+              <div className="px-4 py-3 border-b">
+                <div className="flex items-center space-x-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-semibold">
+                    {session?.user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                  </div>
+                  <div>
+                    <div className="text-sm font-medium">
+                      {session?.user?.name || 'User'}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {session?.user?.email || ''}
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-        {/* Live region for announcements */}
-        <div
-          aria-live="polite"
-          aria-atomic="true"
-          className="sr-only"
-          id={`${headerId}-announcements`}
-        />
+              {/* Account Settings */}
+              <div className="py-2">
+                <DropdownMenuItem role="menuitem" className="px-4 py-2">
+                  <User className="mr-3 h-4 w-4" aria-hidden="true" />
+                  <span className="text-sm">{t('profile')}</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem role="menuitem" className="px-4 py-2">
+                  <Settings className="mr-3 h-4 w-4" aria-hidden="true" />
+                  <span className="text-sm">Settings</span>
+                </DropdownMenuItem>
+              </div>
+
+              <DropdownMenuSeparator />
+
+              {/* Preferences */}
+              <div className="py-2">
+                {/* Theme Selector */}
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger className="px-4 py-2">
+                    <Palette className="mr-3 h-4 w-4" aria-hidden="true" />
+                    <span className="text-sm">Theme</span>
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuSubContent>
+                    <ThemeToggleItems />
+                  </DropdownMenuSubContent>
+                </DropdownMenuSub>
+
+                {/* Language Selector */}
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger className="px-4 py-2">
+                    <Languages className="mr-3 h-4 w-4" aria-hidden="true" />
+                    <span className="text-sm">Language</span>
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuSubContent>
+                    <DropdownMenuItem
+                      role="menuitem"
+                      onClick={() => handleLanguageChange('en-US')}
+                      disabled={isChangingLanguage}
+                      className="cursor-pointer"
+                    >
+                      <span className="mr-2">🇺🇸</span> English
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      role="menuitem"
+                      onClick={() => handleLanguageChange('hr-HR')}
+                      disabled={isChangingLanguage}
+                      className="cursor-pointer"
+                    >
+                      <span className="mr-2">🇭🇷</span> Croatian
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      role="menuitem"
+                      onClick={() => handleLanguageChange('bs-BA')}
+                      disabled={isChangingLanguage}
+                      className="cursor-pointer"
+                    >
+                      <span className="mr-2">🇧🇦</span> Bosnian
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      role="menuitem"
+                      onClick={() => handleLanguageChange('de-DE')}
+                      disabled={isChangingLanguage}
+                      className="cursor-pointer"
+                    >
+                      <span className="mr-2">🇩🇪</span> German
+                    </DropdownMenuItem>
+                  </DropdownMenuSubContent>
+                </DropdownMenuSub>
+              </div>
+
+              <DropdownMenuSeparator />
+
+              {/* Sign Out */}
+              <div className="py-2">
+                <DropdownMenuItem 
+                  role="menuitem"
+                  onClick={handleSignOut}
+                  className="px-4 py-2 text-destructive focus:text-destructive"
+                >
+                  <LogOut className="mr-3 h-4 w-4" aria-hidden="true" />
+                  <span className="text-sm">{t('signOut')}</span>
+                </DropdownMenuItem>
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* Live region for announcements */}
+          <div
+            aria-live="polite"
+            aria-atomic="true"
+            className="sr-only"
+            id={`${headerId}-announcements`}
+          />
+        </div>
       </div>
     </header>
   )

@@ -16,7 +16,7 @@ import {
   DropdownMenuSubTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
-import { MobileSidebar } from './mobile-sidebar'
+import { MobileBottomMenu } from './mobile-bottom-menu'
 import { NotificationDropdown } from '@/components/notifications/notification-dropdown'
 import { useSession, signOut } from 'next-auth/react'
 import {
@@ -109,34 +109,21 @@ export function MobileHeader({ className }: MobileHeaderProps) {
   return (
     <header className={`mobile-header sticky top-0 w-full border-b bg-[hsl(var(--header-background))]/95 backdrop-blur supports-[backdrop-filter]:bg-[hsl(var(--header-background))]/80 ${className}`}>
       <div className="flex h-16 items-center px-4 lg:px-6">
-        {/* Left side - Menu button and title */}
-        <div className="flex items-center space-x-4">
+        {/* Left side - Logo and title */}
+        <div className="flex items-center space-x-3 flex-1">
+          <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center shadow-sm">
+            <svg width="20" height="20" viewBox="0 0 32 32" className="text-primary-foreground">
+              <path d="M16 6l2.47 5.01L24 12.18l-4 3.9.94 5.5L16 19.15l-4.94 2.59.94-5.5-4-3.9 5.53-1.17L16 6z" fill="currentColor"/>
+            </svg>
+          </div>
           <div>
-            <MobileSidebar />
-          </div>
-          <div className="flex items-center space-x-3">
-            <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center shadow-sm">
-              <svg width="20" height="20" viewBox="0 0 32 32" className="text-primary-foreground">
-                <path d="M16 6l2.47 5.01L24 12.18l-4 3.9.94 5.5L16 19.15l-4.94 2.59.94-5.5-4-3.9 5.53-1.17L16 6z" fill="currentColor"/>
-              </svg>
-            </div>
-            <div>
-              <span className="font-semibold text-foreground text-lg">GS-CMS</span>
-              <div className="text-xs text-muted-foreground">v5.0</div>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <h1 className="text-lg font-semibold truncate text-foreground">{getPageTitle()}</h1>
-            {session?.user?.name && (
-              <p className="text-xs text-muted-foreground truncate">
-                {t('welcome')}, {session.user.name.split(' ')[0]}
-              </p>
-            )}
+            <span className="font-semibold text-foreground text-lg">GS-CMS</span>
+            <div className="text-xs text-muted-foreground">v5.0</div>
           </div>
         </div>
 
         {/* Right side - Actions */}
-        <div className="ml-auto flex items-center space-x-3">
+        <div className="flex items-center space-x-2">
           {/* Search Toggle */}
           <Button
             variant="ghost"
@@ -147,7 +134,6 @@ export function MobileHeader({ className }: MobileHeaderProps) {
             <Search className="h-4 w-4" />
             <span className="sr-only">{t('toggleSearch')}</span>
           </Button>
-
 
           {/* Notifications */}
           <NotificationDropdown />
@@ -232,6 +218,9 @@ export function MobileHeader({ className }: MobileHeaderProps) {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          {/* Mobile Menu - Hamburger */}
+          <MobileBottomMenu />
         </div>
       </div>
 
