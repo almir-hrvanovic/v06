@@ -5203,3 +5203,690 @@ Same origin redirect to: http://localhost:3000/auth/signin
  GET /api/notifications 200 in 290ms
 Middleware check: { pathname: '/dashboard/installHook.js.map', hasSessionToken: true }
  GET /dashboard/installHook.js.map 404 in 51ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+🔧 Language API PUT started
+🔍 Getting server auth...
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+✅ Session retrieved: Valid
+📥 Parsing params...
+🎯 Target user ID: cmdn2297k0001i0funnk9a4d0 Session user ID: cmdn2297k0001i0funnk9a4d0
+📦 Parsing request body...
+📝 Request body: { language: 'en-US' }
+✅ Validating language with schema...
+🎯 Validated language: en-US
+💾 Checking if user exists...
+prisma:query SELECT 1
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+✅ User found: admin@al-star.im Current language: en-US
+💾 Updating user language preference...
+prisma:query UPDATE "public"."users" SET "preferredLanguage" = $1, "updatedAt" = $2 WHERE ("public"."users"."id" = $3 AND 1=1) RETURNING "public"."users"."id", "public"."users"."preferredLanguage"
+✅ Database updated: { preferredLanguage: 'en-US' }
+🍪 Creating response with cookie...
+✅ Cookie set, returning response
+ PUT /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 131ms
+Middleware check: { pathname: '/dashboard/assignments', hasSessionToken: true }
+ GET /dashboard/assignments 200 in 88ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+ GET /api/console-monitor/status 200 in 27ms
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 112ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 19ms
+Middleware check: { pathname: '/api/items', hasSessionToken: true }
+Middleware check: { pathname: '/api/users', hasSessionToken: true }
+Middleware check: { pathname: '/dashboard/assignments', hasSessionToken: true }
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+Middleware check: { pathname: '/auth/signin', hasSessionToken: true }
+ GET /auth/signin 200 in 139ms
+ GET /dashboard/assignments 200 in 152ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: false }
+[31m[auth][error][0m UnknownAction: Only GET and POST requests are supported. Read more at https://errors.authjs.dev#unknownaction
+    at toInternalRequest (webpack-internal:///(rsc)/./node_modules/@auth/core/lib/utils/web.js:33:19)
+    at Auth (webpack-internal:///(rsc)/./node_modules/@auth/core/index.js:87:103)
+    at httpHandler (webpack-internal:///(rsc)/./node_modules/next-auth/index.js:142:82)
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_hooks:80:14)
+    at AppRouteRouteModule.do (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:10:32926)
+    at /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:10:42314
+    at /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/trace/tracer.js:169:36
+    at NoopContextManager.with (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NoopTracer.startActiveSpan (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18093)
+    at ProxyTracer.startActiveSpan (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18854)
+    at /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/trace/tracer.js:151:103
+    at NoopContextManager.with (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NextTracerImpl.trace (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/trace/tracer.js:151:28)
+    at /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:10:42175
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_hooks:91:14)
+    at /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:10:39987
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_hooks:91:14)
+    at /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:10:39944
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_hooks:91:14)
+    at AppRouteRouteModule.handle (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:10:39898)
+    at doRender (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/base-server.js:1452:60)
+    at responseGenerator (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/base-server.js:1822:34)
+    at ResponseCache.get (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/response-cache/index.js:49:20)
+    at DevServer.renderToResponseWithComponentsImpl (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/base-server.js:1832:53)
+[90m[auth][debug]:[0m request {}
+ HEAD /api/auth/session 400 in 102ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+ GET /api/console-monitor/status 200 in 42ms
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 39ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 25ms
+Middleware check: { pathname: '/api/items', hasSessionToken: true }
+Middleware check: { pathname: '/api/users', hasSessionToken: true }
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT 1
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiry_items"."id" FROM "public"."inquiry_items" WHERE "public"."inquiry_items"."status" IN (CAST($1::text AS "public"."ItemStatus")) OFFSET $2) AS "sub"
+prisma:query SELECT "public"."inquiry_items"."id", "public"."inquiry_items"."name", "public"."inquiry_items"."description", "public"."inquiry_items"."quantity", "public"."inquiry_items"."unit", "public"."inquiry_items"."status"::text, "public"."inquiry_items"."notes", "public"."inquiry_items"."requestedDelivery", "public"."inquiry_items"."createdAt", "public"."inquiry_items"."updatedAt", "public"."inquiry_items"."inquiryId", "public"."inquiry_items"."assignedToId" FROM "public"."inquiry_items" WHERE "public"."inquiry_items"."status" IN (CAST($1::text AS "public"."ItemStatus")) ORDER BY "public"."inquiry_items"."createdAt" DESC LIMIT $2 OFFSET $3
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/items?status=PENDING&limit=50 200 in 167ms
+prisma:query SELECT "public"."inquiries"."id", "public"."inquiries"."title", "public"."inquiries"."description", "public"."inquiries"."status"::text, "public"."inquiries"."priority"::text, "public"."inquiries"."deadline", "public"."inquiries"."totalValue", "public"."inquiries"."createdAt", "public"."inquiries"."updatedAt", "public"."inquiries"."customerId", "public"."inquiries"."createdById", "public"."inquiries"."assignedToId" FROM "public"."inquiries" WHERE "public"."inquiries"."id" IN ($1,$2) OFFSET $3
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name" FROM "public"."customers" WHERE "public"."customers"."id" IN ($1,$2) OFFSET $3
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."cost_calculations"."id", "public"."cost_calculations"."materialCost", "public"."cost_calculations"."laborCost", "public"."cost_calculations"."overheadCost", "public"."cost_calculations"."totalCost", "public"."cost_calculations"."notes", "public"."cost_calculations"."isApproved", "public"."cost_calculations"."approvedAt", "public"."cost_calculations"."createdAt", "public"."cost_calculations"."updatedAt", "public"."cost_calculations"."inquiryItemId", "public"."cost_calculations"."calculatedById" FROM "public"."cost_calculations" WHERE "public"."cost_calculations"."inquiryItemId" IN ($1,$2,$3) OFFSET $4
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 174ms
+ GET /api/users?role=VP&active=true 200 in 176ms
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."name", "public"."users"."role"::text, "public"."users"."isActive", "public"."users"."createdAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_createdInquiries", 0) AS "_aggr_count_createdInquiries", COALESCE("aggr_selection_1_Inquiry"."_aggr_count_assignedInquiries", 0) AS "_aggr_count_assignedInquiries", COALESCE("aggr_selection_2_InquiryItem"."_aggr_count_inquiryItems", 0) AS "_aggr_count_inquiryItems", COALESCE("aggr_selection_3_CostCalculation"."_aggr_count_costCalculations", 0) AS "_aggr_count_costCalculations" FROM "public"."users" LEFT JOIN (SELECT "public"."inquiries"."createdById", COUNT(*) AS "_aggr_count_createdInquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."createdById") AS "aggr_selection_0_Inquiry" ON ("public"."users"."id" = "aggr_selection_0_Inquiry"."createdById") LEFT JOIN (SELECT "public"."inquiries"."assignedToId", COUNT(*) AS "_aggr_count_assignedInquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."assignedToId") AS "aggr_selection_1_Inquiry" ON ("public"."users"."id" = "aggr_selection_1_Inquiry"."assignedToId") LEFT JOIN (SELECT "public"."inquiry_items"."assignedToId", COUNT(*) AS "_aggr_count_inquiryItems" FROM "public"."inquiry_items" WHERE 1=1 GROUP BY "public"."inquiry_items"."assignedToId") AS "aggr_selection_2_InquiryItem" ON ("public"."users"."id" = "aggr_selection_2_InquiryItem"."assignedToId") LEFT JOIN (SELECT "public"."cost_calculations"."calculatedById", COUNT(*) AS "_aggr_count_costCalculations" FROM "public"."cost_calculations" WHERE 1=1 GROUP BY "public"."cost_calculations"."calculatedById") AS "aggr_selection_3_CostCalculation" ON ("public"."users"."id" = "aggr_selection_3_CostCalculation"."calculatedById") WHERE ("public"."users"."role" = CAST($1::text AS "public"."UserRole") AND "public"."users"."isActive" = $2) ORDER BY "public"."users"."name" ASC OFFSET $3
+Middleware check: { pathname: '/api/items', hasSessionToken: true }
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+Middleware check: { pathname: '/api/users', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiry_items"."id" FROM "public"."inquiry_items" WHERE "public"."inquiry_items"."status" IN (CAST($1::text AS "public"."ItemStatus")) OFFSET $2) AS "sub"
+prisma:query SELECT "public"."inquiry_items"."id", "public"."inquiry_items"."name", "public"."inquiry_items"."description", "public"."inquiry_items"."quantity", "public"."inquiry_items"."unit", "public"."inquiry_items"."status"::text, "public"."inquiry_items"."notes", "public"."inquiry_items"."requestedDelivery", "public"."inquiry_items"."createdAt", "public"."inquiry_items"."updatedAt", "public"."inquiry_items"."inquiryId", "public"."inquiry_items"."assignedToId" FROM "public"."inquiry_items" WHERE "public"."inquiry_items"."status" IN (CAST($1::text AS "public"."ItemStatus")) ORDER BY "public"."inquiry_items"."createdAt" DESC LIMIT $2 OFFSET $3
+prisma:query SELECT "public"."inquiries"."id", "public"."inquiries"."title", "public"."inquiries"."description", "public"."inquiries"."status"::text, "public"."inquiries"."priority"::text, "public"."inquiries"."deadline", "public"."inquiries"."totalValue", "public"."inquiries"."createdAt", "public"."inquiries"."updatedAt", "public"."inquiries"."customerId", "public"."inquiries"."createdById", "public"."inquiries"."assignedToId" FROM "public"."inquiries" WHERE "public"."inquiries"."id" IN ($1,$2) OFFSET $3
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name" FROM "public"."customers" WHERE "public"."customers"."id" IN ($1,$2) OFFSET $3
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
+ GET /api/items?status=PENDING&limit=50 200 in 48ms
+prisma:query SELECT "public"."cost_calculations"."id", "public"."cost_calculations"."materialCost", "public"."cost_calculations"."laborCost", "public"."cost_calculations"."overheadCost", "public"."cost_calculations"."totalCost", "public"."cost_calculations"."notes", "public"."cost_calculations"."isApproved", "public"."cost_calculations"."approvedAt", "public"."cost_calculations"."createdAt", "public"."cost_calculations"."updatedAt", "public"."cost_calculations"."inquiryItemId", "public"."cost_calculations"."calculatedById" FROM "public"."cost_calculations" WHERE "public"."cost_calculations"."inquiryItemId" IN ($1,$2,$3) OFFSET $4
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 53ms
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."name", "public"."users"."role"::text, "public"."users"."isActive", "public"."users"."createdAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_createdInquiries", 0) AS "_aggr_count_createdInquiries", COALESCE("aggr_selection_1_Inquiry"."_aggr_count_assignedInquiries", 0) AS "_aggr_count_assignedInquiries", COALESCE("aggr_selection_2_InquiryItem"."_aggr_count_inquiryItems", 0) AS "_aggr_count_inquiryItems", COALESCE("aggr_selection_3_CostCalculation"."_aggr_count_costCalculations", 0) AS "_aggr_count_costCalculations" FROM "public"."users" LEFT JOIN (SELECT "public"."inquiries"."createdById", COUNT(*) AS "_aggr_count_createdInquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."createdById") AS "aggr_selection_0_Inquiry" ON ("public"."users"."id" = "aggr_selection_0_Inquiry"."createdById") LEFT JOIN (SELECT "public"."inquiries"."assignedToId", COUNT(*) AS "_aggr_count_assignedInquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."assignedToId") AS "aggr_selection_1_Inquiry" ON ("public"."users"."id" = "aggr_selection_1_Inquiry"."assignedToId") LEFT JOIN (SELECT "public"."inquiry_items"."assignedToId", COUNT(*) AS "_aggr_count_inquiryItems" FROM "public"."inquiry_items" WHERE 1=1 GROUP BY "public"."inquiry_items"."assignedToId") AS "aggr_selection_2_InquiryItem" ON ("public"."users"."id" = "aggr_selection_2_InquiryItem"."assignedToId") LEFT JOIN (SELECT "public"."cost_calculations"."calculatedById", COUNT(*) AS "_aggr_count_costCalculations" FROM "public"."cost_calculations" WHERE 1=1 GROUP BY "public"."cost_calculations"."calculatedById") AS "aggr_selection_3_CostCalculation" ON ("public"."users"."id" = "aggr_selection_3_CostCalculation"."calculatedById") WHERE ("public"."users"."role" = CAST($1::text AS "public"."UserRole") AND "public"."users"."isActive" = $2) ORDER BY "public"."users"."name" ASC OFFSET $3
+ GET /api/users?role=VP&active=true 200 in 53ms
+Middleware check: { pathname: '/dashboard/installHook.js.map', hasSessionToken: true }
+ GET /dashboard/installHook.js.map 404 in 37ms
+Middleware check: { pathname: '/api/auth/csrf', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/csrf 200 in 346ms
+Middleware check: { pathname: '/api/auth/signout', hasSessionToken: true }
+NextAuth redirect callback: { url: '/auth/signin', baseUrl: 'http://localhost:3000' }
+Relative redirect to: http://localhost:3000/auth/signin
+ POST /api/auth/signout 200 in 83ms
+Middleware check: { pathname: '/auth/signin', hasSessionToken: false }
+ GET /auth/signin 200 in 895ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: false }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 97ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: false }
+Middleware check: { pathname: '/auth/installHook.js.map', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 42ms
+ GET /auth/installHook.js.map 404 in 50ms
+Middleware check: { pathname: '/api/auth/providers', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/providers 200 in 88ms
+Middleware check: { pathname: '/api/auth/csrf', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/csrf 200 in 12ms
+Middleware check: { pathname: '/api/auth/callback/credentials', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT 1
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."name", "public"."users"."role"::text, "public"."users"."password", "public"."users"."isActive", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ POST /api/auth/callback/credentials? 200 in 521ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 97ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+Middleware check: { pathname: '/auth/signin', hasSessionToken: true }
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ○ Compiling /dashboard ...
+ GET /auth/signin 200 in 6242ms
+Middleware check: { pathname: '/auth/signin', hasSessionToken: true }
+ ✓ Compiled /dashboard in 15s (1458 modules)
+ GET /auth/signin?email=almir%40al-star.im&password=password123 200 in 7950ms
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+ GET /api/console-monitor/status 200 in 18ms
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 101ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 12ms
+Middleware check: { pathname: '/api/auth/providers', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/providers 200 in 68ms
+Middleware check: { pathname: '/api/auth/csrf', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/csrf 200 in 13ms
+Middleware check: { pathname: '/api/auth/callback/credentials', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+prisma:query SELECT 1
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."name", "public"."users"."role"::text, "public"."users"."password", "public"."users"."isActive", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ POST /api/auth/callback/credentials? 200 in 464ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/auth/session 200 in 116ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 14ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 67ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/notifications 200 in 14ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/notifications 200 in 9ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+🔧 Language API PUT started
+🔍 Getting server auth...
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+✅ Session retrieved: Valid
+📥 Parsing params...
+🎯 Target user ID: cmdn2297k0001i0funnk9a4d0 Session user ID: cmdn2297k0001i0funnk9a4d0
+📦 Parsing request body...
+📝 Request body: { language: 'hr-HR' }
+✅ Validating language with schema...
+🎯 Validated language: hr-HR
+💾 Checking if user exists...
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+✅ User found: admin@al-star.im Current language: en-US
+💾 Updating user language preference...
+prisma:query UPDATE "public"."users" SET "preferredLanguage" = $1, "updatedAt" = $2 WHERE ("public"."users"."id" = $3 AND 1=1) RETURNING "public"."users"."id", "public"."users"."preferredLanguage"
+✅ Database updated: { preferredLanguage: 'hr-HR' }
+🍪 Creating response with cookie...
+✅ Cookie set, returning response
+ PUT /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 402ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 137ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+ GET /api/console-monitor/status 200 in 16ms
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/auth/session 200 in 96ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/auth/session 200 in 16ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/notifications 200 in 11ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/notifications 200 in 12ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 75ms
+Middleware check: { pathname: '/auth/signin', hasSessionToken: true }
+ GET /auth/signin 200 in 26ms
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+ GET /api/console-monitor/status 200 in 110ms
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/auth/session 200 in 243ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/auth/session 200 in 14ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/notifications 200 in 15ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/notifications 200 in 13ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+🔧 Language API PUT started
+🔍 Getting server auth...
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+✅ Session retrieved: Valid
+📥 Parsing params...
+🎯 Target user ID: cmdn2297k0001i0funnk9a4d0 Session user ID: cmdn2297k0001i0funnk9a4d0
+📦 Parsing request body...
+📝 Request body: { language: 'bs-BA' }
+✅ Validating language with schema...
+🎯 Validated language: bs-BA
+💾 Checking if user exists...
+prisma:query SELECT 1
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+✅ User found: admin@al-star.im Current language: hr-HR
+💾 Updating user language preference...
+prisma:query UPDATE "public"."users" SET "preferredLanguage" = $1, "updatedAt" = $2 WHERE ("public"."users"."id" = $3 AND 1=1) RETURNING "public"."users"."id", "public"."users"."preferredLanguage"
+✅ Database updated: { preferredLanguage: 'bs-BA' }
+🍪 Creating response with cookie...
+✅ Cookie set, returning response
+ PUT /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 122ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 57ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+ GET /api/console-monitor/status 200 in 17ms
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/auth/session 200 in 201ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+Middleware check: { pathname: '/auth/signin', hasSessionToken: true }
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 11.16ms
+Reading changed files: 166.342ms
+Sorting candidates: 0.072ms
+Generate rules: 0.194ms
+Build stylesheet: 0.002ms
+Potential classes:  144
+Active contexts:  1
+JIT TOTAL: 283.343ms
+
+
+ ✓ Compiled in 7s (2222 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /auth/signin 200 in 5217ms
+ GET /dashboard 200 in 5224ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+ GET /api/console-monitor/status 200 in 28ms
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/auth/session 200 in 96ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/auth/session 200 in 12ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/notifications 200 in 17ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/notifications 200 in 11ms
+Middleware check: { pathname: '/api/auth/csrf', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/auth/csrf 200 in 93ms
+Middleware check: { pathname: '/api/auth/signout', hasSessionToken: true }
+NextAuth redirect callback: { url: '/auth/signin', baseUrl: 'http://localhost:3000' }
+Relative redirect to: http://localhost:3000/auth/signin
+ POST /api/auth/signout 200 in 13ms
+Middleware check: { pathname: '/auth/signin', hasSessionToken: false }
+ GET /auth/signin 200 in 89ms
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: false }
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 95ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 17ms
+Middleware check: { pathname: '/auth/installHook.js.map', hasSessionToken: true }
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 644ms (2212 modules)
+ GET /auth/installHook.js.map 404 in 1242ms
+Middleware check: { pathname: '/api/auth/providers', hasSessionToken: false }
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/providers 200 in 75ms
+Middleware check: { pathname: '/api/auth/csrf', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/csrf 200 in 11ms
+Middleware check: { pathname: '/api/auth/callback/credentials', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT 1
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."name", "public"."users"."role"::text, "public"."users"."password", "public"."users"."isActive", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ POST /api/auth/callback/credentials? 200 in 512ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 75ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 25ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 31ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 19ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 11ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+🔧 Language API PUT started
+🔍 Getting server auth...
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+✅ Session retrieved: Valid
+📥 Parsing params...
+🎯 Target user ID: cmdn2297k0001i0funnk9a4d0 Session user ID: cmdn2297k0001i0funnk9a4d0
+📦 Parsing request body...
+📝 Request body: { language: 'hr-HR' }
+✅ Validating language with schema...
+🎯 Validated language: hr-HR
+💾 Checking if user exists...
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+✅ User found: admin@al-star.im Current language: bs-BA
+💾 Updating user language preference...
+prisma:query UPDATE "public"."users" SET "preferredLanguage" = $1, "updatedAt" = $2 WHERE ("public"."users"."id" = $3 AND 1=1) RETURNING "public"."users"."id", "public"."users"."preferredLanguage"
+✅ Database updated: { preferredLanguage: 'hr-HR' }
+🍪 Creating response with cookie...
+✅ Cookie set, returning response
+ PUT /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 221ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 203ms
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+ GET /api/console-monitor/status 200 in 22ms
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 91ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 14ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 21ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 61ms
+Middleware check: { pathname: '/dashboard/customers', hasSessionToken: true }
+ ○ Compiling /dashboard/customers ...
+ ✓ Compiled /dashboard/customers in 921ms (1429 modules)
+ GET /dashboard/customers 200 in 1164ms
+Middleware check: { pathname: '/api/customers', hasSessionToken: true }
+ ○ Compiling /api/customers ...
+ ✓ Compiled /api/customers in 4.5s (1431 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_inquiries", 0) AS "_aggr_count_inquiries" FROM "public"."customers" LEFT JOIN (SELECT "public"."inquiries"."customerId", COUNT(*) AS "_aggr_count_inquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."customerId") AS "aggr_selection_0_Inquiry" ON ("public"."customers"."id" = "aggr_selection_0_Inquiry"."customerId") WHERE 1=1 ORDER BY "public"."customers"."createdAt" DESC OFFSET $1
+ GET /api/customers? 200 in 4579ms
+Middleware check: { pathname: '/api/customers', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_inquiries", 0) AS "_aggr_count_inquiries" FROM "public"."customers" LEFT JOIN (SELECT "public"."inquiries"."customerId", COUNT(*) AS "_aggr_count_inquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."customerId") AS "aggr_selection_0_Inquiry" ON ("public"."customers"."id" = "aggr_selection_0_Inquiry"."customerId") WHERE 1=1 ORDER BY "public"."customers"."createdAt" DESC OFFSET $1
+ GET /api/customers? 200 in 10ms
+Middleware check: { pathname: '/api/customers', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT 1
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt" FROM "public"."customers" WHERE "public"."customers"."email" = $1 LIMIT $2 OFFSET $3
+prisma:query BEGIN
+prisma:query INSERT INTO "public"."customers" ("id","name","email","phone","address","isActive","createdAt","updatedAt") VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING "public"."customers"."id"
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_inquiries", 0) AS "_aggr_count_inquiries" FROM "public"."customers" LEFT JOIN (SELECT "public"."inquiries"."customerId", COUNT(*) AS "_aggr_count_inquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."customerId") AS "aggr_selection_0_Inquiry" ON ("public"."customers"."id" = "aggr_selection_0_Inquiry"."customerId") WHERE "public"."customers"."id" = $1 LIMIT $2 OFFSET $3
+prisma:query COMMIT
+prisma:query INSERT INTO "public"."audit_logs" ("id","action","entity","entityId","newData","metadata","timestamp","userId") VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING "public"."audit_logs"."id", "public"."audit_logs"."action", "public"."audit_logs"."entity", "public"."audit_logs"."entityId", "public"."audit_logs"."oldData", "public"."audit_logs"."newData", "public"."audit_logs"."metadata", "public"."audit_logs"."timestamp", "public"."audit_logs"."userId", "public"."audit_logs"."inquiryId"
+ POST /api/customers 200 in 19ms
+Middleware check: { pathname: '/api/customers', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_inquiries", 0) AS "_aggr_count_inquiries" FROM "public"."customers" LEFT JOIN (SELECT "public"."inquiries"."customerId", COUNT(*) AS "_aggr_count_inquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."customerId") AS "aggr_selection_0_Inquiry" ON ("public"."customers"."id" = "aggr_selection_0_Inquiry"."customerId") WHERE 1=1 ORDER BY "public"."customers"."createdAt" DESC OFFSET $1
+ GET /api/customers? 200 in 9ms
+Middleware check: { pathname: '/dashboard/users', hasSessionToken: true }
+ GET /dashboard/users 200 in 228ms
+Middleware check: { pathname: '/api/users', hasSessionToken: true }
+ ○ Compiling /api/users ...
+ ✓ Compiled /api/users in 6.1s (1433 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."name", "public"."users"."role"::text, "public"."users"."isActive", "public"."users"."createdAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_createdInquiries", 0) AS "_aggr_count_createdInquiries", COALESCE("aggr_selection_1_Inquiry"."_aggr_count_assignedInquiries", 0) AS "_aggr_count_assignedInquiries", COALESCE("aggr_selection_2_InquiryItem"."_aggr_count_inquiryItems", 0) AS "_aggr_count_inquiryItems", COALESCE("aggr_selection_3_CostCalculation"."_aggr_count_costCalculations", 0) AS "_aggr_count_costCalculations" FROM "public"."users" LEFT JOIN (SELECT "public"."inquiries"."createdById", COUNT(*) AS "_aggr_count_createdInquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."createdById") AS "aggr_selection_0_Inquiry" ON ("public"."users"."id" = "aggr_selection_0_Inquiry"."createdById") LEFT JOIN (SELECT "public"."inquiries"."assignedToId", COUNT(*) AS "_aggr_count_assignedInquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."assignedToId") AS "aggr_selection_1_Inquiry" ON ("public"."users"."id" = "aggr_selection_1_Inquiry"."assignedToId") LEFT JOIN (SELECT "public"."inquiry_items"."assignedToId", COUNT(*) AS "_aggr_count_inquiryItems" FROM "public"."inquiry_items" WHERE 1=1 GROUP BY "public"."inquiry_items"."assignedToId") AS "aggr_selection_2_InquiryItem" ON ("public"."users"."id" = "aggr_selection_2_InquiryItem"."assignedToId") LEFT JOIN (SELECT "public"."cost_calculations"."calculatedById", COUNT(*) AS "_aggr_count_costCalculations" FROM "public"."cost_calculations" WHERE 1=1 GROUP BY "public"."cost_calculations"."calculatedById") AS "aggr_selection_3_CostCalculation" ON ("public"."users"."id" = "aggr_selection_3_CostCalculation"."calculatedById") WHERE 1=1 ORDER BY "public"."users"."name" ASC OFFSET $1
+ GET /api/users 200 in 6205ms
+Middleware check: { pathname: '/api/users', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."name", "public"."users"."role"::text, "public"."users"."isActive", "public"."users"."createdAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_createdInquiries", 0) AS "_aggr_count_createdInquiries", COALESCE("aggr_selection_1_Inquiry"."_aggr_count_assignedInquiries", 0) AS "_aggr_count_assignedInquiries", COALESCE("aggr_selection_2_InquiryItem"."_aggr_count_inquiryItems", 0) AS "_aggr_count_inquiryItems", COALESCE("aggr_selection_3_CostCalculation"."_aggr_count_costCalculations", 0) AS "_aggr_count_costCalculations" FROM "public"."users" LEFT JOIN (SELECT "public"."inquiries"."createdById", COUNT(*) AS "_aggr_count_createdInquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."createdById") AS "aggr_selection_0_Inquiry" ON ("public"."users"."id" = "aggr_selection_0_Inquiry"."createdById") LEFT JOIN (SELECT "public"."inquiries"."assignedToId", COUNT(*) AS "_aggr_count_assignedInquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."assignedToId") AS "aggr_selection_1_Inquiry" ON ("public"."users"."id" = "aggr_selection_1_Inquiry"."assignedToId") LEFT JOIN (SELECT "public"."inquiry_items"."assignedToId", COUNT(*) AS "_aggr_count_inquiryItems" FROM "public"."inquiry_items" WHERE 1=1 GROUP BY "public"."inquiry_items"."assignedToId") AS "aggr_selection_2_InquiryItem" ON ("public"."users"."id" = "aggr_selection_2_InquiryItem"."assignedToId") LEFT JOIN (SELECT "public"."cost_calculations"."calculatedById", COUNT(*) AS "_aggr_count_costCalculations" FROM "public"."cost_calculations" WHERE 1=1 GROUP BY "public"."cost_calculations"."calculatedById") AS "aggr_selection_3_CostCalculation" ON ("public"."users"."id" = "aggr_selection_3_CostCalculation"."calculatedById") WHERE 1=1 ORDER BY "public"."users"."name" ASC OFFSET $1
+ GET /api/users 200 in 12ms
+Middleware check: { pathname: '/installHook.js.map', hasSessionToken: true }
+ GET /installHook.js.map 404 in 1197ms

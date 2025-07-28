@@ -49,8 +49,9 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
       document.cookie = `locale=${normalizedPreference}; path=/; max-age=${365 * 24 * 60 * 60}; samesite=lax`
       lastSyncedLocale.current = normalizedPreference
       
-      // Reload the page to apply the new locale
-      window.location.reload()
+      // Don't reload automatically - let the user trigger it if needed
+      // This prevents the "operation aborted" errors
+      console.log('Language preference updated. Page reload may be required for full effect.')
     } else {
       // Mark as synced even if no update was needed
       lastSyncedLocale.current = normalizedPreference
