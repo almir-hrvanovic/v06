@@ -62,3 +62,992 @@ Middleware check: { pathname: '/auth/signin', hasSessionToken: false }
  ○ Compiling /auth/signin ...
  ✓ Compiled /auth/signin in 967ms (1504 modules)
  GET /auth/signin 200 in 1801ms
+Middleware check: { pathname: '/auth/signin', hasSessionToken: false }
+ GET /auth/signin 200 in 466ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1408ms (1483 modules)
+ GET /_next/static/css/app/layout.css?v=1753710010504 404 in 2163ms
+ GET /_next/static/css/app/layout.css?v=1753710012162 404 in 167ms
+ GET /_next/static/chunks/webpack.js?v=1753710010504 404 in 2356ms
+ GET /_next/static/css/app/layout.css?v=1753710012806 404 in 56ms
+ GET /_next/static/chunks/main-app.js?v=1753710010504 404 in 278ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 277ms
+ GET /_next/static/chunks/app/auth/signin/page.js 404 in 276ms
+ GET /_next/static/css/app/layout.css?v=1753710012165 404 in 62ms
+ GET /_next/static/chunks/app/layout.js 404 in 317ms
+ GET /_next/static/css/app/layout.css?v=1753710012989 404 in 76ms
+ GET /_next/static/css/app/layout.css?v=1753710013055 404 in 113ms
+ GET /_next/static/css/app/layout.css?v=1753710012811 404 in 115ms
+ GET /_next/static/css/app/layout.css?v=1753710012808 404 in 118ms
+ GET /_next/static/css/app/layout.css?v=1753710012807 404 in 120ms
+ GET /_next/static/css/app/layout.css?v=1753710013084 404 in 143ms
+ GET /_next/static/css/app/layout.css?v=1753710012911 404 in 157ms
+ GET /_next/static/css/app/layout.css?v=1753710013143 404 in 95ms
+ GET /_next/static/css/app/layout.css?v=1753710013142 404 in 97ms
+ GET /_next/static/css/app/layout.css?v=1753710013141 404 in 101ms
+ GET /_next/static/css/app/layout.css?v=1753710013218 404 in 126ms
+ GET /_next/static/css/app/layout.css?v=1753710013267 404 in 126ms
+ GET /_next/static/css/app/layout.css?v=1753710013319 404 in 62ms
+ GET /_next/static/css/app/layout.css?v=1753710013318 404 in 70ms
+ GET /_next/static/css/app/layout.css?v=1753710013379 404 in 94ms
+ GET /_next/static/css/app/layout.css?v=1753710013423 404 in 87ms
+ GET /_next/static/css/app/layout.css?v=1753710013471 404 in 149ms
+ GET /_next/static/css/app/layout.css?v=1753710013470 404 in 155ms
+ GET /_next/static/css/app/layout.css?v=1753710013505 404 in 212ms
+ GET /_next/static/css/app/layout.css?v=1753710013541 404 in 216ms
+ GET /_next/static/css/app/layout.css?v=1753710013593 404 in 73ms
+ GET /_next/static/css/app/layout.css?v=1753710013592 404 in 77ms
+ GET /_next/static/css/app/layout.css?v=1753710013692 404 in 93ms
+ GET /_next/static/css/app/layout.css?v=1753710013777 404 in 91ms
+ GET /_next/static/css/app/layout.css?v=1753710013848 404 in 67ms
+ GET /_next/static/css/app/layout.css?v=1753710013847 404 in 72ms
+ GET /_next/static/css/app/layout.css?v=1753710013889 404 in 151ms
+ GET /_next/static/css/app/layout.css?v=1753710013921 404 in 147ms
+ GET /_next/static/css/app/layout.css?v=1753710013970 404 in 94ms
+ GET /_next/static/css/app/layout.css?v=1753710013969 404 in 104ms
+ GET /_next/static/css/app/layout.css?v=1753710014011 404 in 126ms
+ GET /_next/static/css/app/layout.css?v=1753710014071 404 in 117ms
+ GET /_next/static/css/app/layout.css?v=1753710014152 404 in 106ms
+ GET /_next/static/css/app/layout.css?v=1753710014151 404 in 113ms
+ GET /_next/static/css/app/layout.css?v=1753710014211 404 in 124ms
+ GET /_next/static/css/app/layout.css?v=1753710014252 404 in 144ms
+ GET /_next/static/css/app/layout.css?v=1753710014313 404 in 93ms
+ GET /_next/static/css/app/layout.css?v=1753710014373 404 in 93ms
+ GET /_next/static/css/app/layout.css?v=1753710014314 404 in 96ms
+ GET /_next/static/css/app/layout.css?v=1753710014416 404 in 99ms
+ GET /_next/static/css/app/layout.css?v=1753710014488 404 in 168ms
+ GET /_next/static/css/app/layout.css?v=1753710014490 404 in 178ms
+ GET /_next/static/css/app/layout.css?v=1753710014489 404 in 181ms
+ GET /_next/static/css/app/layout.css?v=1753710014581 404 in 189ms
+ GET /_next/static/css/app/layout.css?v=1753710014618 404 in 60ms
+ GET /_next/static/css/app/layout.css?v=1753710014617 404 in 64ms
+ GET /_next/static/css/app/layout.css?v=1753710014846 404 in 42ms
+ GET /_next/static/css/app/layout.css?v=1753710014877 404 in 66ms
+ GET /_next/static/css/app/layout.css?v=1753710014876 404 in 70ms
+ GET /_next/static/css/app/layout.css?v=1753710014931 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710014962 404 in 44ms
+ GET /_next/static/css/app/layout.css?v=1753710015011 404 in 57ms
+ GET /_next/static/css/app/layout.css?v=1753710015041 404 in 65ms
+ GET /_next/static/css/app/layout.css?v=1753710015067 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753710015119 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710015145 404 in 30ms
+ GET /_next/static/css/app/layout.css?v=1753710015173 404 in 47ms
+ GET /_next/static/css/app/layout.css?v=1753710015203 404 in 39ms
+ GET /_next/static/css/app/layout.css?v=1753710015229 404 in 35ms
+ GET /_next/static/css/app/layout.css?v=1753710015268 404 in 36ms
+ GET /_next/static/css/app/layout.css?v=1753710015299 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710015328 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753710015353 404 in 29ms
+ GET /_next/static/css/app/layout.css?v=1753710015377 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710015403 404 in 36ms
+ GET /_next/static/css/app/layout.css?v=1753710015427 404 in 29ms
+ GET /_next/static/css/app/layout.css?v=1753710015452 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710015479 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710015501 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710015530 404 in 43ms
+ GET /_next/static/css/app/layout.css?v=1753710015557 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753710015586 404 in 44ms
+ GET /_next/static/css/app/layout.css?v=1753710015620 404 in 36ms
+ GET /_next/static/css/app/layout.css?v=1753710015645 404 in 88ms
+ GET /_next/static/css/app/layout.css?v=1753710015681 404 in 130ms
+ GET /_next/static/css/app/layout.css?v=1753710015708 404 in 72ms
+ GET /_next/static/css/app/layout.css?v=1753710015799 404 in 35ms
+ GET /_next/static/css/app/layout.css?v=1753710015877 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710015901 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710015930 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710015958 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710015985 404 in 43ms
+ GET /_next/static/css/app/layout.css?v=1753710016010 404 in 44ms
+ GET /_next/static/css/app/layout.css?v=1753710016038 404 in 49ms
+ GET /_next/static/css/app/layout.css?v=1753710016073 404 in 30ms
+ GET /_next/static/css/app/layout.css?v=1753710016115 404 in 35ms
+ GET /_next/static/css/app/layout.css?v=1753710016146 404 in 33ms
+ GET /_next/static/css/app/layout.css?v=1753710016169 404 in 29ms
+ GET /_next/static/css/app/layout.css?v=1753710016199 404 in 30ms
+ GET /_next/static/css/app/layout.css?v=1753710016221 404 in 28ms
+ GET /_next/static/css/app/layout.css?v=1753710016245 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710016270 404 in 39ms
+ GET /_next/static/css/app/layout.css?v=1753710016293 404 in 39ms
+ GET /_next/static/css/app/layout.css?v=1753710016322 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710016352 404 in 36ms
+ GET /_next/static/css/app/layout.css?v=1753710016381 404 in 44ms
+ GET /_next/static/css/app/layout.css?v=1753710016410 404 in 33ms
+ GET /_next/static/css/app/layout.css?v=1753710016439 404 in 28ms
+ GET /_next/static/css/app/layout.css?v=1753710016471 404 in 33ms
+ GET /_next/static/css/app/layout.css?v=1753710016499 404 in 36ms
+ GET /_next/static/css/app/layout.css?v=1753710016520 404 in 30ms
+ GET /_next/static/css/app/layout.css?v=1753710016549 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710016577 404 in 28ms
+ GET /_next/static/css/app/layout.css?v=1753710016600 404 in 46ms
+ GET /_next/static/css/app/layout.css?v=1753710016628 404 in 42ms
+ GET /_next/static/css/app/layout.css?v=1753710016650 404 in 50ms
+ GET /_next/static/css/app/layout.css?v=1753710016691 404 in 130ms
+ GET /_next/static/css/app/layout.css?v=1753710016716 404 in 103ms
+ GET /_next/static/css/app/layout.css?v=1753710016760 404 in 44ms
+ GET /_next/static/css/app/layout.css?v=1753710016908 404 in 42ms
+ GET /_next/static/css/app/layout.css?v=1753710016935 404 in 30ms
+ GET /_next/static/css/app/layout.css?v=1753710016971 404 in 44ms
+ GET /_next/static/css/app/layout.css?v=1753710017000 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753710017023 404 in 37ms
+ GET /_next/static/css/app/layout.css?v=1753710017055 404 in 48ms
+ GET /_next/static/css/app/layout.css?v=1753710017079 404 in 44ms
+ GET /_next/static/css/app/layout.css?v=1753710017112 404 in 27ms
+ GET /_next/static/css/app/layout.css?v=1753710017152 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753710017179 404 in 26ms
+ GET /_next/static/css/app/layout.css?v=1753710017201 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710017226 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710017248 404 in 42ms
+ GET /_next/static/css/app/layout.css?v=1753710017271 404 in 27ms
+ GET /_next/static/css/app/layout.css?v=1753710017301 404 in 37ms
+ GET /_next/static/css/app/layout.css?v=1753710017324 404 in 26ms
+ GET /_next/static/css/app/layout.css?v=1753710017345 404 in 38ms
+ GET /_next/static/css/app/layout.css?v=1753710017372 404 in 28ms
+ GET /_next/static/css/app/layout.css?v=1753710017395 404 in 35ms
+ GET /_next/static/css/app/layout.css?v=1753710017422 404 in 26ms
+ GET /_next/static/css/app/layout.css?v=1753710017447 404 in 37ms
+ GET /_next/static/css/app/layout.css?v=1753710017470 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710017495 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710017520 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753710017546 404 in 47ms
+ GET /_next/static/css/app/layout.css?v=1753710017571 404 in 33ms
+ GET /_next/static/css/app/layout.css?v=1753710017597 404 in 62ms
+ GET /_next/static/css/app/layout.css?v=1753710017631 404 in 26ms
+ GET /_next/static/css/app/layout.css?v=1753710017663 404 in 40ms
+ GET /_next/static/css/app/layout.css?v=1753710017702 404 in 61ms
+ GET /_next/static/css/app/layout.css?v=1753710017724 404 in 88ms
+ GET /_next/static/css/app/layout.css?v=1753710017767 404 in 102ms
+ GET /_next/static/css/app/layout.css?v=1753710017820 404 in 91ms
+ GET /_next/static/css/app/layout.css?v=1753710017919 404 in 62ms
+ GET /_next/static/css/app/layout.css?v=1753710017963 404 in 130ms
+ GET /_next/static/css/app/layout.css?v=1753710018031 404 in 28ms
+ GET /_next/static/css/app/layout.css?v=1753710018091 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710018188 404 in 27ms
+ GET /_next/static/css/app/layout.css?v=1753710018213 404 in 41ms
+ GET /_next/static/css/app/layout.css?v=1753710018244 404 in 30ms
+ GET /_next/static/css/app/layout.css?v=1753710018268 404 in 51ms
+ GET /_next/static/css/app/layout.css?v=1753710018294 404 in 29ms
+ GET /_next/static/css/app/layout.css?v=1753710018322 404 in 41ms
+ GET /_next/static/css/app/layout.css?v=1753710018357 404 in 22ms
+ GET /_next/static/css/app/layout.css?v=1753710018384 404 in 42ms
+ GET /_next/static/css/app/layout.css?v=1753710018408 404 in 29ms
+ GET /_next/static/css/app/layout.css?v=1753710018429 404 in 41ms
+ GET /_next/static/css/app/layout.css?v=1753710018461 404 in 33ms
+ GET /_next/static/css/app/layout.css?v=1753710018487 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710018511 404 in 33ms
+ GET /_next/static/css/app/layout.css?v=1753710018529 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710018560 404 in 28ms
+ GET /_next/static/css/app/layout.css?v=1753710018575 404 in 42ms
+ GET /_next/static/css/app/layout.css?v=1753710018609 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753710018623 404 in 52ms
+ GET /_next/static/css/app/layout.css?v=1753710018656 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753710018672 404 in 44ms
+ GET /_next/static/css/app/layout.css?v=1753710018716 404 in 44ms
+ GET /_next/static/css/app/layout.css?v=1753710018731 404 in 90ms
+ GET /_next/static/css/app/layout.css?v=1753710018776 404 in 69ms
+ GET /_next/static/css/app/layout.css?v=1753710018795 404 in 101ms
+ GET /_next/static/css/app/layout.css?v=1753710018891 404 in 30ms
+ GET /_next/static/css/app/layout.css?v=1753710018928 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710018988 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710019004 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710019037 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710019053 404 in 42ms
+ GET /_next/static/css/app/layout.css?v=1753710019087 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710019104 404 in 46ms
+ GET /_next/static/css/app/layout.css?v=1753710019135 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753710019152 404 in 42ms
+ GET /_next/static/css/app/layout.css?v=1753710019199 404 in 28ms
+ GET /_next/static/css/app/layout.css?v=1753710019215 404 in 41ms
+ GET /_next/static/css/app/layout.css?v=1753710019245 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753710019259 404 in 44ms
+ GET /_next/static/css/app/layout.css?v=1753710019290 404 in 35ms
+ GET /_next/static/css/app/layout.css?v=1753710019306 404 in 47ms
+ GET /_next/static/css/app/layout.css?v=1753710019340 404 in 35ms
+ GET /_next/static/css/app/layout.css?v=1753710019356 404 in 48ms
+ GET /_next/static/css/app/layout.css?v=1753710019391 404 in 36ms
+ GET /_next/static/css/app/layout.css?v=1753710019410 404 in 51ms
+ GET /_next/static/css/app/layout.css?v=1753710019444 404 in 30ms
+ GET /_next/static/css/app/layout.css?v=1753710019461 404 in 44ms
+ GET /_next/static/css/app/layout.css?v=1753710019499 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710019514 404 in 42ms
+ GET /_next/static/css/app/layout.css?v=1753710019550 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710019565 404 in 44ms
+ GET /_next/static/css/app/layout.css?v=1753710019596 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753710019613 404 in 48ms
+ GET /_next/static/css/app/layout.css?v=1753710019644 404 in 35ms
+ GET /_next/static/css/app/layout.css?v=1753710019659 404 in 50ms
+ GET /_next/static/css/app/layout.css?v=1753710019700 404 in 41ms
+ GET /_next/static/css/app/layout.css?v=1753710019719 404 in 59ms
+ GET /_next/static/css/app/layout.css?v=1753710019754 404 in 52ms
+ GET /_next/static/css/app/layout.css?v=1753710019775 404 in 111ms
+ GET /_next/static/css/app/layout.css?v=1753710019818 404 in 64ms
+ GET /_next/static/css/app/layout.css?v=1753710019841 404 in 63ms
+ GET /_next/static/css/app/layout.css?v=1753710019993 404 in 29ms
+ GET /_next/static/css/app/layout.css?v=1753710020012 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710020046 404 in 29ms
+ GET /_next/static/css/app/layout.css?v=1753710020060 404 in 39ms
+ GET /_next/static/css/app/layout.css?v=1753710020096 404 in 38ms
+ GET /_next/static/css/app/layout.css?v=1753710020110 404 in 59ms
+ GET /_next/static/css/app/layout.css?v=1753710020144 404 in 29ms
+ GET /_next/static/css/app/layout.css?v=1753710020160 404 in 41ms
+ GET /_next/static/css/app/layout.css?v=1753710020216 404 in 35ms
+ GET /_next/static/css/app/layout.css?v=1753710020230 404 in 47ms
+ GET /_next/static/css/app/layout.css?v=1753710020261 404 in 28ms
+ GET /_next/static/css/app/layout.css?v=1753710020280 404 in 42ms
+ GET /_next/static/css/app/layout.css?v=1753710020312 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710020327 404 in 48ms
+ GET /_next/static/css/app/layout.css?v=1753710020359 404 in 30ms
+ GET /_next/static/css/app/layout.css?v=1753710020374 404 in 41ms
+ GET /_next/static/css/app/layout.css?v=1753710020411 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753710020427 404 in 41ms
+ GET /_next/static/css/app/layout.css?v=1753710020456 404 in 27ms
+ GET /_next/static/css/app/layout.css?v=1753710020473 404 in 41ms
+ GET /_next/static/css/app/layout.css?v=1753710020502 404 in 30ms
+ GET /_next/static/css/app/layout.css?v=1753710020516 404 in 46ms
+ GET /_next/static/css/app/layout.css?v=1753710020547 404 in 28ms
+ GET /_next/static/css/app/layout.css?v=1753710020564 404 in 41ms
+ GET /_next/static/css/app/layout.css?v=1753710020598 404 in 30ms
+ GET /_next/static/css/app/layout.css?v=1753710020612 404 in 41ms
+ GET /_next/static/css/app/layout.css?v=1753710020644 404 in 37ms
+ GET /_next/static/css/app/layout.css?v=1753710020660 404 in 65ms
+ GET /_next/static/css/app/layout.css?v=1753710020690 404 in 49ms
+ GET /_next/static/css/app/layout.css?v=1753710020710 404 in 62ms
+ GET /_next/static/css/app/layout.css?v=1753710020763 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753710020792 404 in 93ms
+ GET /_next/static/css/app/layout.css?v=1753710020829 404 in 60ms
+ GET /_next/static/css/app/layout.css?v=1753710020844 404 in 84ms
+ GET /_next/static/css/app/layout.css?v=1753710020954 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753710020974 404 in 44ms
+ GET /_next/static/css/app/layout.css?v=1753710021041 404 in 35ms
+ GET /_next/static/css/app/layout.css?v=1753710021057 404 in 47ms
+ GET /_next/static/css/app/layout.css?v=1753710021090 404 in 35ms
+ GET /_next/static/css/app/layout.css?v=1753710021105 404 in 53ms
+ GET /_next/static/css/app/layout.css?v=1753710021145 404 in 46ms
+ GET /_next/static/css/app/layout.css?v=1753710021163 404 in 56ms
+ GET /_next/static/css/app/layout.css?v=1753710021208 404 in 30ms
+ GET /_next/static/css/app/layout.css?v=1753710021234 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710021268 404 in 37ms
+ GET /_next/static/css/app/layout.css?v=1753710021283 404 in 50ms
+ GET /_next/static/css/app/layout.css?v=1753710021317 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710021336 404 in 43ms
+ GET /_next/static/css/app/layout.css?v=1753710021371 404 in 28ms
+ GET /_next/static/css/app/layout.css?v=1753710021386 404 in 41ms
+ GET /_next/static/css/app/layout.css?v=1753710021417 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710021431 404 in 43ms
+ GET /_next/static/css/app/layout.css?v=1753710021463 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753710021482 404 in 42ms
+ GET /_next/static/css/app/layout.css?v=1753710021510 404 in 36ms
+ GET /_next/static/css/app/layout.css?v=1753710021527 404 in 49ms
+ GET /_next/static/css/app/layout.css?v=1753710021556 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710021573 404 in 47ms
+ GET /_next/static/css/app/layout.css?v=1753710021610 404 in 29ms
+ GET /_next/static/css/app/layout.css?v=1753710021628 404 in 44ms
+ GET /_next/static/css/app/layout.css?v=1753710021661 404 in 30ms
+ GET /_next/static/css/app/layout.css?v=1753710021675 404 in 57ms
+ GET /_next/static/css/app/layout.css?v=1753710021714 404 in 155ms
+ GET /_next/static/css/app/layout.css?v=1753710021728 404 in 378ms
+ GET /_next/static/css/app/layout.css?v=1753710021782 404 in 67ms
+ GET /_next/static/css/app/layout.css?v=1753710021816 404 in 111ms
+ GET /_next/static/css/app/layout.css?v=1753710022164 404 in 62ms
+ GET /_next/static/css/app/layout.css?v=1753710022197 404 in 84ms
+ GET /_next/static/css/app/layout.css?v=1753710022278 404 in 47ms
+ GET /_next/static/css/app/layout.css?v=1753710022309 404 in 63ms
+ GET /_next/static/css/app/layout.css?v=1753710022372 404 in 48ms
+ GET /_next/static/css/app/layout.css?v=1753710022393 404 in 68ms
+ GET /_next/static/css/app/layout.css?v=1753710022443 404 in 58ms
+ GET /_next/static/css/app/layout.css?v=1753710022470 404 in 78ms
+ GET /_next/static/css/app/layout.css?v=1753710022523 404 in 51ms
+ GET /_next/static/css/app/layout.css?v=1753710022547 404 in 67ms
+ GET /_next/static/css/app/layout.css?v=1753710022611 404 in 59ms
+ GET /_next/static/css/app/layout.css?v=1753710022642 404 in 74ms
+ GET /_next/static/css/app/layout.css?v=1753710022688 404 in 37ms
+ GET /_next/static/css/app/layout.css?v=1753710022716 404 in 60ms
+ GET /_next/static/css/app/layout.css?v=1753710022776 404 in 42ms
+ GET /_next/static/css/app/layout.css?v=1753710022794 404 in 59ms
+ GET /_next/static/css/app/layout.css?v=1753710022842 404 in 43ms
+ GET /_next/static/css/app/layout.css?v=1753710022862 404 in 90ms
+ GET /_next/static/css/app/layout.css?v=1753710022905 404 in 387ms
+Middleware check: { pathname: '/', hasSessionToken: false }
+ ○ Compiling / ...
+ ✓ Compiled / in 560ms (1144 modules)
+ GET / 200 in 1343ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 535ms (1487 modules)
+ GET /_next/static/css/app/layout.css?v=1753710124700 404 in 897ms
+ GET /_next/static/css/app/layout.css?v=1753710125851 404 in 189ms
+ GET /_next/static/chunks/main-app.js?v=1753710124700 404 in 1078ms
+ GET /_next/static/css/app/layout.css?v=1753710126265 404 in 27ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 232ms
+ GET /_next/static/chunks/app/page.js 404 in 247ms
+ GET /_next/static/chunks/app/layout.js 404 in 244ms
+ GET /_next/static/css/app/layout.css?v=1753710125852 404 in 46ms
+ GET /_next/static/css/app/layout.css?v=1753710126348 404 in 64ms
+ GET /_next/static/css/app/layout.css?v=1753710126266 404 in 70ms
+ GET /_next/static/css/app/layout.css?v=1753710126384 404 in 84ms
+ GET /_next/static/css/app/layout.css?v=1753710126404 404 in 127ms
+ GET /_next/static/css/app/layout.css?v=1753710126453 404 in 94ms
+ GET /_next/static/css/app/layout.css?v=1753710126479 404 in 100ms
+ GET /_next/static/css/app/layout.css?v=1753710126514 404 in 95ms
+ GET /_next/static/css/app/layout.css?v=1753710126612 404 in 63ms
+ GET /_next/static/css/app/layout.css?v=1753710126645 404 in 85ms
+ GET /_next/static/css/app/layout.css?v=1753710126682 404 in 96ms
+ GET /_next/static/css/app/layout.css?v=1753710126728 404 in 37ms
+ GET /_next/static/css/app/layout.css?v=1753710126758 404 in 53ms
+ GET /_next/static/css/app/layout.css?v=1753710126798 404 in 63ms
+ GET /_next/static/css/app/layout.css?v=1753710126841 404 in 35ms
+ GET /_next/static/css/app/layout.css?v=1753710126858 404 in 50ms
+ GET /_next/static/css/app/layout.css?v=1753710126880 404 in 57ms
+ GET /_next/static/css/app/layout.css?v=1753710126917 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753710126933 404 in 50ms
+ GET /_next/static/css/app/layout.css?v=1753710126953 404 in 57ms
+ GET /_next/static/css/app/layout.css?v=1753710126986 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710127001 404 in 51ms
+ GET /_next/static/css/app/layout.css?v=1753710127021 404 in 56ms
+ GET /_next/static/css/app/layout.css?v=1753710127051 404 in 33ms
+ GET /_next/static/css/app/layout.css?v=1753710127066 404 in 69ms
+ GET /_next/static/css/app/layout.css?v=1753710127090 404 in 111ms
+ GET /_next/static/css/app/layout.css?v=1753710127119 404 in 124ms
+ GET /_next/static/css/app/layout.css?v=1753710127136 404 in 79ms
+ GET /_next/static/css/app/layout.css?v=1753710127163 404 in 80ms
+ GET /_next/static/css/app/layout.css?v=1753710127318 404 in 36ms
+ GET /_next/static/css/app/layout.css?v=1753710127340 404 in 51ms
+ GET /_next/static/css/app/layout.css?v=1753710127377 404 in 56ms
+ GET /_next/static/css/app/layout.css?v=1753710127414 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710127428 404 in 47ms
+ GET /_next/static/css/app/layout.css?v=1753710127452 404 in 51ms
+ GET /_next/static/css/app/layout.css?v=1753710127481 404 in 33ms
+ GET /_next/static/css/app/layout.css?v=1753710127499 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710127517 404 in 73ms
+ GET /_next/static/css/app/layout.css?v=1753710127546 404 in 38ms
+ GET /_next/static/css/app/layout.css?v=1753710127560 404 in 60ms
+ GET /_next/static/css/app/layout.css?v=1753710127580 404 in 67ms
+ GET /_next/static/css/app/layout.css?v=1753710127627 404 in 38ms
+ GET /_next/static/css/app/layout.css?v=1753710127642 404 in 56ms
+ GET /_next/static/css/app/layout.css?v=1753710127669 404 in 64ms
+ GET /_next/static/css/app/layout.css?v=1753710127706 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710127725 404 in 51ms
+ GET /_next/static/css/app/layout.css?v=1753710127746 404 in 58ms
+ GET /_next/static/css/app/layout.css?v=1753710127778 404 in 37ms
+ GET /_next/static/css/app/layout.css?v=1753710127796 404 in 52ms
+ GET /_next/static/css/app/layout.css?v=1753710127816 404 in 61ms
+ GET /_next/static/css/app/layout.css?v=1753710127852 404 in 33ms
+ GET /_next/static/css/app/layout.css?v=1753710127869 404 in 47ms
+ GET /_next/static/css/app/layout.css?v=1753710127891 404 in 63ms
+ GET /_next/static/css/app/layout.css?v=1753710127925 404 in 30ms
+ GET /_next/static/css/app/layout.css?v=1753710127941 404 in 46ms
+ GET /_next/static/css/app/layout.css?v=1753710127960 404 in 53ms
+ GET /_next/static/css/app/layout.css?v=1753710127997 404 in 29ms
+ GET /_next/static/css/app/layout.css?v=1753710128011 404 in 47ms
+ GET /_next/static/css/app/layout.css?v=1753710128029 404 in 52ms
+ GET /_next/static/css/app/layout.css?v=1753710128062 404 in 30ms
+ GET /_next/static/css/app/layout.css?v=1753710128075 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710128096 404 in 55ms
+ GET /_next/static/css/app/layout.css?v=1753710128123 404 in 53ms
+ GET /_next/static/css/app/layout.css?v=1753710128137 404 in 84ms
+ GET /_next/static/css/app/layout.css?v=1753710128157 404 in 133ms
+ GET /_next/static/css/app/layout.css?v=1753710128197 404 in 47ms
+ GET /_next/static/css/app/layout.css?v=1753710128219 404 in 43ms
+ GET /_next/static/css/app/layout.css?v=1753710128258 404 in 51ms
+ GET /_next/static/css/app/layout.css?v=1753710128351 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710128364 404 in 54ms
+ GET /_next/static/css/app/layout.css?v=1753710128382 404 in 71ms
+ GET /_next/static/css/app/layout.css?v=1753710128410 404 in 37ms
+ GET /_next/static/css/app/layout.css?v=1753710128424 404 in 35ms
+Middleware check: { pathname: '/', hasSessionToken: false }
+ GET /_next/static/css/app/layout.css?v=1753710190997 404 in 36ms
+ GET / 200 in 144ms
+ GET /_next/static/css/app/layout.css?v=1753710191067 404 in 118ms
+ GET /_next/static/css/app/layout.css?v=1753710191160 404 in 30ms
+ GET /_next/static/chunks/main-app.js?v=1753710190997 404 in 186ms
+ GET /_next/static/chunks/app/layout.js 404 in 188ms
+ GET /_next/static/chunks/app/page.js 404 in 187ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 188ms
+ GET /_next/static/css/app/layout.css?v=1753710191296 404 in 136ms
+ GET /_next/static/css/app/layout.css?v=1753710191162 404 in 115ms
+ GET /_next/static/css/app/layout.css?v=1753710191161 404 in 122ms
+ GET /_next/static/css/app/layout.css?v=1753710191348 404 in 166ms
+ GET /_next/static/css/app/layout.css?v=1753710191514 404 in 39ms
+ GET /_next/static/css/app/layout.css?v=1753710191578 404 in 61ms
+ GET /_next/static/css/app/layout.css?v=1753710191685 404 in 41ms
+ GET /_next/static/css/app/layout.css?v=1753710191703 404 in 60ms
+ GET /_next/static/css/app/layout.css?v=1753710191752 404 in 40ms
+ GET /_next/static/css/app/layout.css?v=1753710191775 404 in 72ms
+ GET /_next/static/css/app/layout.css?v=1753710191821 404 in 71ms
+ GET /_next/static/css/app/layout.css?v=1753710191843 404 in 145ms
+ GET /_next/static/css/app/layout.css?v=1753710191907 404 in 72ms
+ GET /_next/static/css/app/layout.css?v=1753710191937 404 in 115ms
+ GET /_next/static/css/app/layout.css?v=1753710192060 404 in 36ms
+ GET /_next/static/css/app/layout.css?v=1753710192090 404 in 60ms
+ GET /_next/static/css/app/layout.css?v=1753710192177 404 in 122ms
+ GET /_next/static/css/app/layout.css?v=1753710192195 404 in 134ms
+ GET /_next/static/css/app/layout.css?v=1753710192267 404 in 144ms
+ GET /_next/static/css/app/layout.css?v=1753710192304 404 in 238ms
+ GET /_next/static/css/app/layout.css?v=1753710192418 404 in 104ms
+ GET /_next/static/css/app/layout.css?v=1753710192485 404 in 129ms
+ GET /_next/static/css/app/layout.css?v=1753710192685 404 in 83ms
+ GET /_next/static/css/app/layout.css?v=1753710192726 404 in 186ms
+ GET /_next/static/css/app/layout.css?v=1753710192834 404 in 193ms
+ GET /_next/static/css/app/layout.css?v=1753710192872 404 in 208ms
+ GET /_next/static/css/app/layout.css?v=1753710193119 404 in 113ms
+ GET /_next/static/css/app/layout.css?v=1753710193263 404 in 121ms
+ GET /_next/static/css/app/layout.css?v=1753710193391 404 in 92ms
+ GET /_next/static/css/app/layout.css?v=1753710193330 404 in 101ms
+ GET /_next/static/css/app/layout.css?v=1753710193473 404 in 93ms
+ GET /_next/static/css/app/layout.css?v=1753710193472 404 in 95ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: false }
+Redirecting to signin - no session token
+ GET /_next/static/css/app/layout.css?v=1753710193565 404 in 56ms
+ GET /_next/static/css/app/layout.css?v=1753710193564 404 in 58ms
+Middleware check: { pathname: '/auth/signin', hasSessionToken: false }
+ GET /_next/static/css/app/layout.css?v=1753710193681 404 in 48ms
+ GET /_next/static/css/app/layout.css?v=1753710193680 404 in 52ms
+ ○ Compiling /auth/signin ...
+ ✓ Compiled /auth/signin in 1371ms (1508 modules)
+ GET /_next/static/css/app/layout.css?v=1753710193742 404 in 2164ms
+ GET /auth/signin 200 in 2515ms
+ GET /_next/static/css/app/layout.css?v=1753710195996 404 in 116ms
+ GET /_next/static/css/app/layout.css?v=1753710196187 404 in 220ms
+ GET /_next/static/css/app/layout.css?v=1753710196339 404 in 99ms
+ GET /_next/static/chunks/main-app.js?v=1753710195996 404 in 459ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 441ms
+ GET /_next/static/chunks/app/auth/signin/page.js 404 in 455ms
+ GET /_next/static/chunks/app/layout.js 404 in 454ms
+ GET /_next/static/css/app/layout.css?v=1753710196599 404 in 110ms
+ GET /_next/static/css/app/layout.css?v=1753710196291 404 in 317ms
+ GET /_next/static/css/app/layout.css?v=1753710196340 404 in 117ms
+ GET /_next/static/css/app/layout.css?v=1753710196436 404 in 101ms
+ GET /_next/static/css/app/layout.css?v=1753710196435 404 in 110ms
+ GET /_next/static/css/app/layout.css?v=1753710196731 404 in 117ms
+ GET /_next/static/css/app/layout.css?v=1753710197019 404 in 72ms
+Middleware check: { pathname: '/auth/signin', hasSessionToken: false }
+ GET /_next/static/css/app/layout.css?v=1753710197048 404 in 79ms
+ GET /_next/static/css/app/layout.css?v=1753710197081 404 in 89ms
+ GET /_next/static/css/app/layout.css?v=1753710197122 404 in 86ms
+ GET /_next/static/css/app/layout.css?v=1753710197204 404 in 64ms
+ GET /_next/static/css/app/layout.css?v=1753710197183 404 in 87ms
+ GET /_next/static/css/app/layout.css?v=1753710197233 404 in 81ms
+ GET /_next/static/css/app/layout.css?v=1753710197263 404 in 115ms
+ GET /_next/static/css/app/layout.css?v=1753710197389 404 in 32ms
+ GET /auth/signin 200 in 300ms
+ GET /_next/static/css/app/layout.css?v=1753710197506 404 in 73ms
+ GET /_next/static/css/app/layout.css?v=1753710197563 404 in 23ms
+ GET /_next/static/chunks/main-app.js?v=1753710197389 404 in 132ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 140ms
+ GET /_next/static/css/app/layout.css?v=1753710197641 404 in 25ms
+ GET /_next/static/chunks/app/auth/signin/page.js 404 in 142ms
+ GET /_next/static/chunks/app/layout.js 404 in 143ms
+ GET /_next/static/css/app/layout.css?v=1753710197545 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710197672 404 in 54ms
+ GET /_next/static/css/app/layout.css?v=1753710197596 404 in 61ms
+ GET /_next/static/css/app/layout.css?v=1753710197595 404 in 72ms
+ GET /_next/static/css/app/layout.css?v=1753710197698 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710197716 404 in 55ms
+ GET /_next/static/css/app/layout.css?v=1753710197737 404 in 90ms
+ GET /_next/static/css/app/layout.css?v=1753710197736 404 in 96ms
+ GET /_next/static/css/app/layout.css?v=1753710197782 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753710197797 404 in 68ms
+ GET /_next/static/css/app/layout.css?v=1753710197815 404 in 122ms
+ GET /_next/static/css/app/layout.css?v=1753710197890 404 in 68ms
+ GET /_next/static/css/app/layout.css?v=1753710197904 404 in 49ms
+ GET /_next/static/css/app/layout.css?v=1753710197927 404 in 57ms
+ GET /_next/static/css/app/layout.css?v=1753710198051 404 in 29ms
+ GET /_next/static/css/app/layout.css?v=1753710198064 404 in 54ms
+ GET /_next/static/css/app/layout.css?v=1753710198083 404 in 70ms
+ GET /_next/static/css/app/layout.css?v=1753710198117 404 in 43ms
+ GET /_next/static/css/app/layout.css?v=1753710198131 404 in 57ms
+ GET /_next/static/css/app/layout.css?v=1753710198154 404 in 65ms
+ GET /_next/static/css/app/layout.css?v=1753710198201 404 in 39ms
+ GET /_next/static/css/app/layout.css?v=1753710198222 404 in 63ms
+ GET /_next/static/css/app/layout.css?v=1753710198245 404 in 75ms
+ GET /_next/static/css/app/layout.css?v=1753710198275 404 in 38ms
+ GET /_next/static/css/app/layout.css?v=1753710198293 404 in 52ms
+ GET /_next/static/css/app/layout.css?v=1753710198322 404 in 58ms
+ GET /_next/static/css/app/layout.css?v=1753710198359 404 in 38ms
+ GET /_next/static/css/app/layout.css?v=1753710198376 404 in 53ms
+ GET /_next/static/css/app/layout.css?v=1753710198399 404 in 60ms
+ GET /_next/static/css/app/layout.css?v=1753710198430 404 in 29ms
+ GET /_next/static/css/app/layout.css?v=1753710198451 404 in 46ms
+ GET /_next/static/css/app/layout.css?v=1753710198471 404 in 51ms
+ GET /_next/static/css/app/layout.css?v=1753710198503 404 in 28ms
+ GET /_next/static/css/app/layout.css?v=1753710198518 404 in 47ms
+ GET /_next/static/css/app/layout.css?v=1753710198535 404 in 54ms
+ GET /_next/static/css/app/layout.css?v=1753710198565 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753710198579 404 in 48ms
+ GET /_next/static/css/app/layout.css?v=1753710198598 404 in 53ms
+ GET /_next/static/css/app/layout.css?v=1753710198629 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710198644 404 in 51ms
+ GET /_next/static/css/app/layout.css?v=1753710198664 404 in 58ms
+ GET /_next/static/css/app/layout.css?v=1753710198693 404 in 35ms
+ GET /_next/static/css/app/layout.css?v=1753710198707 404 in 52ms
+ GET /_next/static/css/app/layout.css?v=1753710198729 404 in 66ms
+ GET /_next/static/css/app/layout.css?v=1753710198763 404 in 398ms
+ GET /_next/static/css/app/layout.css?v=1753710198781 404 in 428ms
+ GET /_next/static/css/app/layout.css?v=1753710198802 404 in 367ms
+ GET /_next/static/css/app/layout.css?v=1753710198861 404 in 92ms
+ GET /_next/static/css/app/layout.css?v=1753710199074 404 in 146ms
+ GET /_next/static/css/app/layout.css?v=1753710199261 404 in 150ms
+ GET /_next/static/css/app/layout.css?v=1753710199332 404 in 54ms
+ GET /_next/static/css/app/layout.css?v=1753710199374 404 in 71ms
+ GET /_next/static/css/app/layout.css?v=1753710199430 404 in 76ms
+ GET /_next/static/css/app/layout.css?v=1753710199515 404 in 68ms
+ GET /_next/static/css/app/layout.css?v=1753710199540 404 in 115ms
+ GET /_next/static/css/app/layout.css?v=1753710199569 404 in 147ms
+ GET /_next/static/css/app/layout.css?v=1753710199611 404 in 95ms
+ GET /_next/static/css/app/layout.css?v=1753710199643 404 in 139ms
+ GET /_next/static/css/app/layout.css?v=1753710199696 404 in 215ms
+ GET /_next/static/css/app/layout.css?v=1753710199783 404 in 414ms
+ GET /_next/static/css/app/layout.css?v=1753710199830 404 in 465ms
+ GET /_next/static/css/app/layout.css?v=1753710199887 404 in 478ms
+ GET /_next/static/css/app/layout.css?v=1753710200067 404 in 62ms
+ GET /_next/static/css/app/layout.css?v=1753710200205 404 in 97ms
+ GET /_next/static/css/app/layout.css?v=1753710200508 404 in 99ms
+ GET /_next/static/css/app/layout.css?v=1753710200568 404 in 50ms
+ GET /_next/static/css/app/layout.css?v=1753710200601 404 in 78ms
+ GET /_next/static/css/app/layout.css?v=1753710200636 404 in 84ms
+ GET /_next/static/css/app/layout.css?v=1753710200690 404 in 47ms
+ GET /_next/static/css/app/layout.css?v=1753710200715 404 in 64ms
+ GET /_next/static/css/app/layout.css?v=1753710200747 404 in 71ms
+ GET /_next/static/css/app/layout.css?v=1753710200796 404 in 46ms
+ GET /_next/static/css/app/layout.css?v=1753710200816 404 in 62ms
+ GET /_next/static/css/app/layout.css?v=1753710200844 404 in 67ms
+ GET /_next/static/css/app/layout.css?v=1753710200883 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710200908 404 in 57ms
+ GET /_next/static/css/app/layout.css?v=1753710200929 404 in 62ms
+ GET /_next/static/css/app/layout.css?v=1753710200963 404 in 59ms
+ GET /_next/static/css/app/layout.css?v=1753710200980 404 in 60ms
+ GET /_next/static/css/app/layout.css?v=1753710201000 404 in 66ms
+ GET /_next/static/css/app/layout.css?v=1753710201052 404 in 37ms
+ GET /_next/static/css/app/layout.css?v=1753710201078 404 in 51ms
+ GET /_next/static/css/app/layout.css?v=1753710201098 404 in 58ms
+ GET /_next/static/css/app/layout.css?v=1753710201130 404 in 43ms
+ GET /_next/static/css/app/layout.css?v=1753710201151 404 in 66ms
+ GET /_next/static/css/app/layout.css?v=1753710201170 404 in 73ms
+ GET /_next/static/css/app/layout.css?v=1753710201209 404 in 30ms
+ GET /_next/static/css/app/layout.css?v=1753710201227 404 in 44ms
+ GET /_next/static/css/app/layout.css?v=1753710201263 404 in 53ms
+ GET /_next/static/css/app/layout.css?v=1753710201291 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710201307 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710201324 404 in 53ms
+ GET /_next/static/css/app/layout.css?v=1753710201354 404 in 33ms
+ GET /_next/static/css/app/layout.css?v=1753710201367 404 in 101ms
+ GET /_next/static/css/app/layout.css?v=1753710201386 404 in 118ms
+ GET /_next/static/css/app/layout.css?v=1753710201417 404 in 26ms
+ GET /_next/static/css/app/layout.css?v=1753710201431 404 in 43ms
+ GET /_next/static/css/app/layout.css?v=1753710201477 404 in 51ms
+ GET /_next/static/css/app/layout.css?v=1753710201545 404 in 29ms
+ GET /_next/static/css/app/layout.css?v=1753710201558 404 in 49ms
+ GET /_next/static/css/app/layout.css?v=1753710201578 404 in 53ms
+ GET /_next/static/css/app/layout.css?v=1753710201603 404 in 29ms
+ GET /_next/static/css/app/layout.css?v=1753710201616 404 in 43ms
+ GET /_next/static/css/app/layout.css?v=1753710201637 404 in 52ms
+ GET /_next/static/css/app/layout.css?v=1753710201670 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710201683 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710201702 404 in 47ms
+ GET /_next/static/css/app/layout.css?v=1753710201733 404 in 29ms
+ GET /_next/static/css/app/layout.css?v=1753710201751 404 in 41ms
+ GET /_next/static/css/app/layout.css?v=1753710201767 404 in 48ms
+ GET /_next/static/css/app/layout.css?v=1753710201794 404 in 27ms
+ GET /_next/static/css/app/layout.css?v=1753710201807 404 in 41ms
+ GET /_next/static/css/app/layout.css?v=1753710201824 404 in 50ms
+ GET /_next/static/css/app/layout.css?v=1753710201852 404 in 26ms
+ GET /_next/static/css/app/layout.css?v=1753710201864 404 in 42ms
+ GET /_next/static/css/app/layout.css?v=1753710201882 404 in 51ms
+ GET /_next/static/css/app/layout.css?v=1753710201912 404 in 61ms
+ GET /_next/static/css/app/layout.css?v=1753710201924 404 in 126ms
+ GET /_next/static/css/app/layout.css?v=1753710201941 404 in 151ms
+ GET /_next/static/css/app/layout.css?v=1753710201979 404 in 41ms
+ GET /_next/static/css/app/layout.css?v=1753710202009 404 in 53ms
+ GET /_next/static/css/app/layout.css?v=1753710202058 404 in 61ms
+ GET /_next/static/css/app/layout.css?v=1753710202155 404 in 53ms
+ GET /_next/static/css/app/layout.css?v=1753710202172 404 in 78ms
+ GET /_next/static/css/app/layout.css?v=1753710202190 404 in 86ms
+ GET /_next/static/css/app/layout.css?v=1753710202229 404 in 35ms
+ GET /_next/static/css/app/layout.css?v=1753710202255 404 in 46ms
+ GET /_next/static/css/app/layout.css?v=1753710202294 404 in 55ms
+ GET /_next/static/css/app/layout.css?v=1753710202325 404 in 27ms
+ GET /_next/static/css/app/layout.css?v=1753710202339 404 in 41ms
+ GET /_next/static/css/app/layout.css?v=1753710202360 404 in 50ms
+ GET /_next/static/css/app/layout.css?v=1753710202388 404 in 49ms
+ GET /_next/static/css/app/layout.css?v=1753710202402 404 in 78ms
+ GET /_next/static/css/app/layout.css?v=1753710202419 404 in 111ms
+ GET /_next/static/css/app/layout.css?v=1753710202455 404 in 42ms
+ GET /_next/static/css/app/layout.css?v=1753710202474 404 in 56ms
+ GET /_next/static/css/app/layout.css?v=1753710202507 404 in 63ms
+ GET /_next/static/css/app/layout.css?v=1753710202578 404 in 36ms
+ GET /_next/static/css/app/layout.css?v=1753710202595 404 in 55ms
+ GET /_next/static/css/app/layout.css?v=1753710202620 404 in 65ms
+ GET /_next/static/css/app/layout.css?v=1753710202652 404 in 41ms
+ GET /_next/static/css/app/layout.css?v=1753710202671 404 in 52ms
+ GET /_next/static/css/app/layout.css?v=1753710202693 404 in 55ms
+ GET /_next/static/css/app/layout.css?v=1753710202731 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710202750 404 in 48ms
+ GET /_next/static/css/app/layout.css?v=1753710202769 404 in 53ms
+ GET /_next/static/css/app/layout.css?v=1753710202801 404 in 36ms
+ GET /_next/static/css/app/layout.css?v=1753710202817 404 in 53ms
+ GET /_next/static/css/app/layout.css?v=1753710202837 404 in 61ms
+ GET /_next/static/css/app/layout.css?v=1753710202867 404 in 29ms
+ GET /_next/static/css/app/layout.css?v=1753710202886 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710202908 404 in 50ms
+ GET /_next/static/css/app/layout.css?v=1753710202939 404 in 26ms
+ GET /_next/static/css/app/layout.css?v=1753710202953 404 in 42ms
+ GET /_next/static/css/app/layout.css?v=1753710202970 404 in 51ms
+ GET /_next/static/css/app/layout.css?v=1753710202998 404 in 39ms
+ GET /_next/static/css/app/layout.css?v=1753710203011 404 in 56ms
+ GET /_next/static/css/app/layout.css?v=1753710203030 404 in 69ms
+ GET /_next/static/css/app/layout.css?v=1753710203057 404 in 27ms
+ GET /_next/static/css/app/layout.css?v=1753710203078 404 in 49ms
+ GET /_next/static/css/app/layout.css?v=1753710203101 404 in 57ms
+ GET /_next/static/css/app/layout.css?v=1753710203135 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710203147 404 in 61ms
+ GET /_next/static/css/app/layout.css?v=1753710203168 404 in 73ms
+ GET /_next/static/css/app/layout.css?v=1753710203200 404 in 118ms
+ GET /_next/static/css/app/layout.css?v=1753710203215 404 in 144ms
+ GET /_next/static/css/app/layout.css?v=1753710203246 404 in 185ms
+ GET /_next/static/css/app/layout.css?v=1753710203304 404 in 197ms
+ GET /_next/static/css/app/layout.css?v=1753710203365 404 in 66ms
+ GET /_next/static/css/app/layout.css?v=1753710203407 404 in 59ms
+ GET /_next/static/css/app/layout.css?v=1753710203664 404 in 35ms
+ GET /_next/static/css/app/layout.css?v=1753710203683 404 in 53ms
+ GET /_next/static/css/app/layout.css?v=1753710203704 404 in 59ms
+ GET /_next/static/css/app/layout.css?v=1753710203736 404 in 39ms
+ GET /_next/static/css/app/layout.css?v=1753710203754 404 in 61ms
+ GET /_next/static/css/app/layout.css?v=1753710203775 404 in 93ms
+ GET /_next/static/css/app/layout.css?v=1753710203809 404 in 82ms
+ GET /_next/static/css/app/layout.css?v=1753710203825 404 in 124ms
+ GET /_next/static/css/app/layout.css?v=1753710203849 404 in 208ms
+ GET /_next/static/css/app/layout.css?v=1753710203927 404 in 98ms
+ GET /_next/static/css/app/layout.css?v=1753710203962 404 in 204ms
+ GET /_next/static/css/app/layout.css?v=1753710204012 404 in 256ms
+ GET /_next/static/css/app/layout.css?v=1753710204169 404 in 104ms
+ GET /_next/static/css/app/layout.css?v=1753710204210 404 in 214ms
+ GET /_next/static/css/app/layout.css?v=1753710204304 404 in 322ms
+ GET /_next/static/css/app/layout.css?v=1753710204452 404 in 71ms
+ GET /_next/static/css/app/layout.css?v=1753710204496 404 in 114ms
+ GET /_next/static/css/app/layout.css?v=1753710204597 404 in 150ms
+ GET /_next/static/css/app/layout.css?v=1753710204797 404 in 130ms
+ GET /_next/static/css/app/layout.css?v=1753710204830 404 in 263ms
+ GET /_next/static/css/app/layout.css?v=1753710204882 404 in 308ms
+ GET /_next/static/css/app/layout.css?v=1753710204982 404 in 79ms
+ GET /_next/static/css/app/layout.css?v=1753710205046 404 in 107ms
+ GET /_next/static/css/app/layout.css?v=1753710205132 404 in 131ms
+ GET /_next/static/css/app/layout.css?v=1753710205328 404 in 49ms
+ GET /_next/static/css/app/layout.css?v=1753710205368 404 in 70ms
+ GET /_next/static/css/app/layout.css?v=1753710205414 404 in 87ms
+ GET /_next/static/css/app/layout.css?v=1753710205476 404 in 55ms
+ GET /_next/static/css/app/layout.css?v=1753710205499 404 in 78ms
+ GET /_next/static/css/app/layout.css?v=1753710205530 404 in 79ms
+ GET /_next/static/css/app/layout.css?v=1753710205576 404 in 48ms
+ GET /_next/static/css/app/layout.css?v=1753710205602 404 in 66ms
+ GET /_next/static/css/app/layout.css?v=1753710205639 404 in 88ms
+ GET /_next/static/css/app/layout.css?v=1753710205671 404 in 60ms
+ GET /_next/static/css/app/layout.css?v=1753710205694 404 in 53ms
+ GET /_next/static/css/app/layout.css?v=1753710205724 404 in 59ms
+ GET /_next/static/css/app/layout.css?v=1753710205793 404 in 33ms
+ GET /_next/static/css/app/layout.css?v=1753710205807 404 in 49ms
+ GET /_next/static/css/app/layout.css?v=1753710205833 404 in 54ms
+ GET /_next/static/css/app/layout.css?v=1753710205862 404 in 35ms
+ GET /_next/static/css/app/layout.css?v=1753710205878 404 in 51ms
+ GET /_next/static/css/app/layout.css?v=1753710205899 404 in 59ms
+ GET /_next/static/css/app/layout.css?v=1753710205928 404 in 29ms
+ GET /_next/static/css/app/layout.css?v=1753710205944 404 in 43ms
+ GET /_next/static/css/app/layout.css?v=1753710205967 404 in 49ms
+ GET /_next/static/css/app/layout.css?v=1753710205994 404 in 30ms
+ GET /_next/static/css/app/layout.css?v=1753710206009 404 in 49ms
+ GET /_next/static/css/app/layout.css?v=1753710206027 404 in 60ms
+ GET /_next/static/css/app/layout.css?v=1753710206056 404 in 33ms
+ GET /_next/static/css/app/layout.css?v=1753710206069 404 in 48ms
+ GET /_next/static/css/app/layout.css?v=1753710206091 404 in 59ms
+ GET /_next/static/css/app/layout.css?v=1753710206126 404 in 35ms
+ GET /_next/static/css/app/layout.css?v=1753710206142 404 in 59ms
+ GET /_next/static/css/app/layout.css?v=1753710206161 404 in 84ms
+ GET /_next/static/css/app/layout.css?v=1753710206196 404 in 38ms
+ GET /_next/static/css/app/layout.css?v=1753710206212 404 in 63ms
+ GET /_next/static/css/app/layout.css?v=1753710206234 404 in 81ms
+ GET /_next/static/css/app/layout.css?v=1753710206296 404 in 43ms
+ GET /_next/static/css/app/layout.css?v=1753710206312 404 in 60ms
+ GET /_next/static/css/app/layout.css?v=1753710206344 404 in 82ms
+ GET /_next/static/css/app/layout.css?v=1753710206393 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710206410 404 in 56ms
+ GET /_next/static/css/app/layout.css?v=1753710206437 404 in 73ms
+ GET /_next/static/css/app/layout.css?v=1753710206489 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710206505 404 in 53ms
+ GET /_next/static/css/app/layout.css?v=1753710206530 404 in 63ms
+ GET /_next/static/css/app/layout.css?v=1753710206577 404 in 27ms
+ GET /_next/static/css/app/layout.css?v=1753710206595 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710206615 404 in 63ms
+ GET /_next/static/css/app/layout.css?v=1753710206652 404 in 36ms
+ GET /_next/static/css/app/layout.css?v=1753710206664 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710206684 404 in 78ms
+ GET /_next/static/css/app/layout.css?v=1753710206725 404 in 34ms
+ GET /_next/static/css/app/layout.css?v=1753710206740 404 in 47ms
+ GET /_next/static/css/app/layout.css?v=1753710206758 404 in 52ms
+ GET /_next/static/css/app/layout.css?v=1753710206817 404 in 30ms
+ GET /_next/static/css/app/layout.css?v=1753710206830 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710206852 404 in 51ms
+ GET /_next/static/css/app/layout.css?v=1753710206879 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753710206895 404 in 47ms
+ GET /_next/static/css/app/layout.css?v=1753710206913 404 in 51ms
+ GET /_next/static/css/app/layout.css?v=1753710206941 404 in 26ms
+ GET /_next/static/css/app/layout.css?v=1753710206957 404 in 39ms
+ GET /_next/static/css/app/layout.css?v=1753710206976 404 in 48ms
+ GET /_next/static/css/app/layout.css?v=1753710207003 404 in 27ms
+ GET /_next/static/css/app/layout.css?v=1753710207016 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710207032 404 in 50ms
+ GET /_next/static/css/app/layout.css?v=1753710207061 404 in 26ms
+ GET /_next/static/css/app/layout.css?v=1753710207074 404 in 42ms
+ GET /_next/static/css/app/layout.css?v=1753710207091 404 in 48ms
+ GET /_next/static/css/app/layout.css?v=1753710207121 404 in 32ms
+ GET /_next/static/css/app/layout.css?v=1753710207133 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710207152 404 in 45ms
+ GET /_next/static/css/app/layout.css?v=1753710207179 404 in 113ms
+ GET /_next/static/css/app/layout.css?v=1753710207193 404 in 211ms
+ GET /_next/static/css/app/layout.css?v=1753710207212 404 in 281ms
+ GET /_next/static/css/app/layout.css?v=1753710207242 404 in 53ms
+ GET /_next/static/css/app/layout.css?v=1753710207283 404 in 69ms
+ GET /_next/static/css/app/layout.css?v=1753710207412 404 in 79ms
+ GET /_next/static/css/app/layout.css?v=1753710207545 404 in 50ms
+ GET /_next/static/css/app/layout.css?v=1753710207563 404 in 63ms
+ GET /_next/static/css/app/layout.css?v=1753710207597 404 in 92ms
+Middleware check: { pathname: '/', hasSessionToken: true }
+ GET / 200 in 75ms
+ GET /_next/static/css/app/layout.css?v=1753710316703 404 in 119ms
+ GET /_next/static/chunks/main-app.js?v=1753710316703 404 in 117ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 118ms
+ GET /_next/static/chunks/app/layout.js 404 in 116ms
+ GET /_next/static/chunks/app/page.js 404 in 118ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 3.1s (1800 modules)
+ GET /dashboard 200 in 3944ms
+ GET /_next/static/css/app/layout.css?v=1753710324213 404 in 87ms
+ GET /_next/static/chunks/main-app.js?v=1753710324213 404 in 84ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 82ms
+ GET /_next/static/chunks/app/layout.js 404 in 56ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 34ms
+ GET /_next/static/chunks/main-app.js?v=1753710344342 404 in 104ms
+ GET /_next/static/css/app/layout.css?v=1753710344342 404 in 108ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 105ms
+ GET /_next/static/chunks/app/layout.js 404 in 79ms
+Middleware check: { pathname: '/auth/signin', hasSessionToken: false }
+ ✓ Compiled /auth/signin in 390ms (1140 modules)
+ GET /auth/signin 200 in 1210ms
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: false }
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: false }
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 1211ms (1635 modules)
+ ✓ Compiled /_not-found in 329ms (1639 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 2072ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /_next/static/webpack/94fb64f4959a51c7.webpack.hot-update.json 404 in 944ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: false }
+Middleware check: { pathname: '/auth/signin', hasSessionToken: false }
+ GET /auth/signin 200 in 76ms
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: false }
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: false }
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 62ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 14ms
+Middleware check: { pathname: '/auth/signin', hasSessionToken: false }
+ GET /auth/signin 200 in 61ms
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: false }
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 73ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 22ms
+Middleware check: { pathname: '/api/auth/providers', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/providers 200 in 39ms
+Middleware check: { pathname: '/api/auth/csrf', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/csrf 200 in 9ms
+Middleware check: { pathname: '/api/auth/callback/credentials', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."name", "public"."users"."role"::text, "public"."users"."password", "public"."users"."isActive", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+[31m[auth][error][0m CredentialsSignin: Read more at https://errors.authjs.dev#credentialssignin
+    at Module.callback (webpack-internal:///(rsc)/./node_modules/@auth/core/lib/actions/callback/index.js:246:23)
+    at async AuthInternal (webpack-internal:///(rsc)/./node_modules/@auth/core/lib/index.js:70:24)
+    at async Auth (webpack-internal:///(rsc)/./node_modules/@auth/core/index.js:130:34)
+    at async AppRouteRouteModule.do (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:10:32847)
+    at async AppRouteRouteModule.handle (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:10:39868)
+    at async doRender (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/base-server.js:1452:42)
+    at async responseGenerator (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/base-server.js:1822:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/base-server.js:1832:28)
+    at async DevServer.renderPageComponent (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/base-server.js:2257:24)
+    at async DevServer.renderToResponseImpl (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/base-server.js:2295:32)
+    at async DevServer.pipeImpl (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/base-server.js:959:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next-server.js:281:17)
+    at async DevServer.handleRequestImpl (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/base-server.js:853:17)
+    at async /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js:371:20
+    at async Span.traceAsyncFn (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/trace/trace.js:153:20)
+    at async DevServer.handleRequest (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js:368:24)
+    at async invokeRender (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/router-server.js:230:21)
+    at async handleRequest (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/router-server.js:408:24)
+    at async requestHandlerImpl (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/router-server.js:432:13)
+    at async Server.requestListener (/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js:146:13)
+ POST /api/auth/callback/credentials? 200 in 751ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 40ms
+Middleware check: { pathname: '/', hasSessionToken: false }
+ ✓ Compiled / in 485ms (1165 modules)
+ GET / 200 in 1023ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: false }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: false }
+ ✓ Compiled /api/auth/[...nextauth] in 302ms (1171 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 457ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: false }
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 18ms
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 23ms
+Middleware check: { pathname: '/auth/signin', hasSessionToken: false }
+ GET /auth/signin 200 in 356ms
+Middleware check: { pathname: '/api/auth/providers', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/providers 200 in 44ms
+Middleware check: { pathname: '/api/auth/csrf', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/csrf 200 in 8ms
+Middleware check: { pathname: '/api/auth/callback/credentials', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT 1
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."name", "public"."users"."role"::text, "public"."users"."password", "public"."users"."isActive", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ POST /api/auth/callback/credentials? 200 in 354ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 40ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 1051ms (1319 modules)
+ GET /dashboard 200 in 1425ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 59ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 750ms (1812 modules)
+ GET /_next/static/chunks/app/dashboard/page.js 404 in 1085ms
+ GET /_next/static/chunks/app/dashboard/layout.js 404 in 1086ms
+Middleware check: { pathname: '/api/auth/providers', hasSessionToken: true }
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/providers 200 in 56ms
+Middleware check: { pathname: '/api/auth/csrf', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/csrf 200 in 9ms
+Middleware check: { pathname: '/api/auth/callback/credentials', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."name", "public"."users"."role"::text, "public"."users"."password", "public"."users"."isActive", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ POST /api/auth/callback/credentials? 200 in 397ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 10ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 24ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 36ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+ ○ Compiling /api/notifications ...
+ ✓ Compiled /api/notifications in 945ms (1797 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 868ms
+ GET /api/notifications 200 in 1212ms
