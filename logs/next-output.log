@@ -1733,3 +1733,1232 @@ Middleware check: { pathname: '/dashboard', hasSessionToken: true }
  ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
 Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
  GET /dashboard 200 in 416ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 10.424ms
+Reading changed files: 14.625ms
+Sorting candidates: 0.432ms
+Generate rules: 2.875ms
+Build stylesheet: 0.003ms
+Potential classes:  346
+Active contexts:  1
+JIT TOTAL: 138.104ms
+
+
+ ✓ Compiled in 1272ms (1854 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 466ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 11.013ms
+Reading changed files: 529.878ms
+Sorting candidates: 0.53ms
+Generate rules: 2.508ms
+Build stylesheet: 0.004ms
+Potential classes:  386
+Active contexts:  1
+JIT TOTAL: 690.044ms
+
+
+ ✓ Compiled in 4.6s (1854 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 562ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 20.948ms
+Reading changed files: 128.88ms
+Sorting candidates: 0.647ms
+Generate rules: 2.36ms
+Build stylesheet: 0.005ms
+Potential classes:  348
+Active contexts:  1
+JIT TOTAL: 320.76ms
+
+
+ ✓ Compiled in 1654ms (1854 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 737ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard/settings. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard/settings 200 in 25ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+ ○ Compiling /api/users/[id]/language ...
+ ✓ Compiled /api/users/[id]/language in 2.9s (1344 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 3171ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 14ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 256ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 11.691ms
+Reading changed files: 20.405ms
+Sorting candidates: 0.365ms
+Generate rules: 1.63ms
+Build stylesheet: 0.002ms
+Potential classes:  379
+Active contexts:  1
+JIT TOTAL: 132.283ms
+
+
+ ✓ Compiled in 1229ms (1870 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 264ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 5.658ms
+Reading changed files: 20.302ms
+Sorting candidates: 0.427ms
+Generate rules: 3.667ms
+Build stylesheet: 1.298ms
+Potential classes:  446
+Active contexts:  1
+JIT TOTAL: 186.356ms
+
+
+ ✓ Compiled in 1950ms (1870 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 483ms
+Middleware check: { pathname: '/auth/signin', hasSessionToken: false }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /auth/signin. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /auth/signin 200 in 130ms
+Middleware check: { pathname: '/installHook.js.map', hasSessionToken: true }
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1360ms (1844 modules)
+ ⚠ Unsupported metadata viewport is configured in metadata export in /installHook.js.map. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /installHook.js.map 404 in 1740ms
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 31ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 23.398ms
+Reading changed files: 29.357ms
+Sorting candidates: 0.62ms
+Generate rules: 5.076ms
+Build stylesheet: 4.403ms
+Potential classes:  449
+Active contexts:  1
+JIT TOTAL: 171.24ms
+
+
+ ✓ Compiled in 3.4s (1854 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 456ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 21.11ms
+Reading changed files: 348.17ms
+Sorting candidates: 0.454ms
+Generate rules: 0.922ms
+Build stylesheet: 0.005ms
+Potential classes:  188
+Active contexts:  1
+JIT TOTAL: 651.663ms
+
+
+ ✓ Compiled in 5.7s (1854 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 900ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 2.4s (1335 modules)
+ ✓ Compiled (1337 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/console-monitor/status 200 in 3067ms
+ GET /api/auth/session 200 in 3086ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+ ○ Compiling /api/notifications ...
+ ✓ Compiled /api/notifications in 520ms (1339 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 1346ms
+ GET /api/auth/session 200 in 1344ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 13ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 7.531ms
+Reading changed files: 22.272ms
+Sorting candidates: 0.24ms
+Generate rules: 0.414ms
+Build stylesheet: 0.002ms
+Potential classes:  193
+Active contexts:  1
+JIT TOTAL: 123.271ms
+
+
+ ✓ Compiled in 6.4s (1858 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 568ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 6.874ms
+Reading changed files: 17.413ms
+Sorting candidates: 0.609ms
+Generate rules: 4.903ms
+Build stylesheet: 4.354ms
+Potential classes:  449
+Active contexts:  1
+JIT TOTAL: 124.085ms
+
+
+ ✓ Compiled in 3.9s (1854 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 360ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 414ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+ ✓ Compiled /api/auth/[...nextauth] in 465ms (1335 modules)
+ ✓ Compiled (1337 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+ GET /api/console-monitor/status 200 in 1014ms
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 969ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+ ✓ Compiled /api/notifications in 455ms (1339 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 1382ms
+ GET /api/notifications 200 in 1453ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 25ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 11.241ms
+Reading changed files: 7.702ms
+Sorting candidates: 0.237ms
+Generate rules: 1.959ms
+Build stylesheet: 0.002ms
+Potential classes:  446
+Active contexts:  1
+JIT TOTAL: 100.934ms
+
+
+ ✓ Compiled in 1208ms (1865 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 283ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 4.134ms
+Reading changed files: 6.429ms
+Sorting candidates: 0.233ms
+Generate rules: 2.25ms
+Build stylesheet: 1.206ms
+Potential classes:  446
+Active contexts:  1
+JIT TOTAL: 87.074ms
+
+
+ ✓ Compiled in 1155ms (1854 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 424ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 6.914ms
+Reading changed files: 15.715ms
+Sorting candidates: 0.256ms
+Generate rules: 2.203ms
+Build stylesheet: 0.002ms
+Potential classes:  466
+Active contexts:  1
+JIT TOTAL: 98.459ms
+
+
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ✓ Compiled in 1398ms (1854 modules)
+ GET /dashboard 200 in 708ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 675ms (1335 modules)
+ ✓ Compiled (1337 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/console-monitor/status 200 in 1133ms
+ GET /api/auth/session 200 in 1130ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 21ms
+Middleware check: { pathname: '/installHook.js.map', hasSessionToken: true }
+ ○ Compiling /_not-found ...
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ✓ Compiled /_not-found in 4.5s (1853 modules)
+ GET /installHook.js.map 404 in 5899ms
+ GET /dashboard 200 in 1691ms
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+ GET /api/console-monitor/status 200 in 35ms
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 90ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 27ms
+Middleware check: { pathname: '/installHook.js.map', hasSessionToken: true }
+ GET /installHook.js.map 404 in 1154ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 9.836ms
+Reading changed files: 168.408ms
+Sorting candidates: 0.506ms
+Generate rules: 3.092ms
+Build stylesheet: 0.002ms
+Potential classes:  467
+Active contexts:  1
+JIT TOTAL: 276.452ms
+
+
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ✓ Compiled in 3.5s (1867 modules)
+ GET /dashboard 200 in 1269ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+ GET /api/console-monitor/status 200 in 19ms
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 132ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 16ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+ ○ Compiling /api/notifications ...
+ ✓ Compiled /api/notifications in 1011ms (1340 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 1074ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 18ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 4.793ms
+Reading changed files: 17.129ms
+Sorting candidates: 0.265ms
+Generate rules: 2.019ms
+Build stylesheet: 0.002ms
+Potential classes:  467
+Active contexts:  1
+JIT TOTAL: 112.204ms
+
+
+ ✓ Compiled in 1553ms (1869 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 254ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 7.838ms
+Reading changed files: 10.092ms
+Sorting candidates: 0.291ms
+Generate rules: 2.363ms
+Build stylesheet: 0.004ms
+Potential classes:  465
+Active contexts:  1
+JIT TOTAL: 118.17ms
+
+
+Middleware check: { pathname: '/installHook.js.map', hasSessionToken: true }
+ ⨯ ./src/components/layout/mobile-header.tsx
+Error:   [31mx[0m Unexpected token `header`. Expected jsx identifier
+     ,-[[36;1;4m/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/components/layout/mobile-header.tsx[0m:125:1]
+ [2m122[0m |   }
+ [2m123[0m | 
+ [2m124[0m |   return (
+ [2m125[0m |     <header className={`mobile-header sticky top-0 w-full border-b bg-[hsl(var(--header-background))]/95 backdrop-blur supports-[backdrop-filter]:bg-[hsl(var(--header-background))]/80 ${className}`}>
+     : [35;1m     ^^^^^^[0m
+ [2m126[0m |       <div className="flex h-16 items-center px-4 lg:px-6">
+ [2m127[0m |         {/* Left side - Logo and title */}
+ [2m128[0m |         <div className="flex items-center space-x-3 flex-1">
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/layout/mobile-header.tsx
+./src/app/dashboard/dashboard-client.tsx
+ ○ Compiling /_error ...
+Middleware check: { pathname: '/installHook.js.map', hasSessionToken: true }
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⨯ ./src/components/layout/mobile-header.tsx
+Error:   [31mx[0m Unexpected token `header`. Expected jsx identifier
+     ,-[[36;1;4m/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/components/layout/mobile-header.tsx[0m:125:1]
+ [2m122[0m |   }
+ [2m123[0m | 
+ [2m124[0m |   return (
+ [2m125[0m |     <header className={`mobile-header sticky top-0 w-full border-b bg-[hsl(var(--header-background))]/95 backdrop-blur supports-[backdrop-filter]:bg-[hsl(var(--header-background))]/80 ${className}`}>
+     : [35;1m     ^^^^^^[0m
+ [2m126[0m |       <div className="flex h-16 items-center px-4 lg:px-6">
+ [2m127[0m |         {/* Left side - Logo and title */}
+ [2m128[0m |         <div className="flex items-center space-x-3 flex-1">
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/layout/mobile-header.tsx
+./src/app/dashboard/dashboard-client.tsx
+ GET /installHook.js.map 500 in 4056ms
+ GET /dashboard 500 in 2088ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 500 in 10ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 500 in 170ms
+Middleware check: { pathname: '/installHook.js.map', hasSessionToken: true }
+ GET /installHook.js.map 500 in 8ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 130.841ms
+Reading changed files: 672.186ms
+Sorting candidates: 0.429ms
+Generate rules: 2.167ms
+Build stylesheet: 0.002ms
+Potential classes:  465
+Active contexts:  1
+JIT TOTAL: 941.891ms
+
+
+ ✓ Compiled /_error in 5.6s (2097 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 131ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+ GET /api/console-monitor/status 200 in 27ms
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 91ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 14ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 14ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 11ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 8.596ms
+Reading changed files: 18.772ms
+Sorting candidates: 0.598ms
+Generate rules: 2.486ms
+Build stylesheet: 0.002ms
+Potential classes:  468
+Active contexts:  1
+JIT TOTAL: 121.118ms
+
+
+ ✓ Compiled in 3.4s (2095 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 510ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 200 in 28ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+ ○ Compiling /api/users/[id]/language ...
+ ✓ Compiled /api/users/[id]/language in 3.9s (1389 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 4076ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 14ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 9.494ms
+Reading changed files: 9.643ms
+Sorting candidates: 0.219ms
+Generate rules: 1.752ms
+Build stylesheet: 0.002ms
+Potential classes:  348
+Active contexts:  1
+JIT TOTAL: 119.341ms
+
+
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ✓ Compiled in 2.9s (2111 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 437ms
+ GET /dashboard 200 in 454ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 20ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 200 in 25ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT 1
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 115ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 25ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 13ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 11.426ms
+Reading changed files: 66.595ms
+Sorting candidates: 0.46ms
+Generate rules: 2.202ms
+Build stylesheet: 0.003ms
+Potential classes:  350
+Active contexts:  1
+JIT TOTAL: 185.278ms
+
+
+ ✓ Compiled in 1452ms (2111 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 590ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 6.613ms
+Reading changed files: 9.235ms
+Sorting candidates: 0.303ms
+Generate rules: 2.702ms
+Build stylesheet: 0.004ms
+Potential classes:  352
+Active contexts:  1
+JIT TOTAL: 109.796ms
+
+
+ ✓ Compiled in 1180ms (2111 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 380ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 200 in 52ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT 1
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 104ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 10ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 16ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 7.552ms
+Reading changed files: 33.202ms
+Sorting candidates: 0.718ms
+Generate rules: 5.757ms
+Build stylesheet: 6.247ms
+Potential classes:  357
+Active contexts:  1
+JIT TOTAL: 235.135ms
+
+
+ ✓ Compiled in 4.1s (2111 modules)
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 200 in 301ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 200 in 25ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 92ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 15ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 30ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 200 in 29ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT 1
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 88ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 18ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 19ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 200 in 278ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT 1
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 65ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 22ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 200 in 13ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 12ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 200 in 356ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT 1
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 75ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 14ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 7.498ms
+Reading changed files: 750.386ms
+Sorting candidates: 5.814ms
+Generate rules: 62.162ms
+Build stylesheet: 140.622ms
+Potential classes:  488
+Active contexts:  1
+JIT TOTAL: 1.241s
+
+
+Middleware check: { pathname: '/installHook.js.map', hasSessionToken: true }
+ ○ Compiling /_not-found ...
+ ⨯ ./src/app/dashboard/settings/page.tsx:13:1
+Module not found: Can't resolve '@/components/ui/separator'
+  11 | import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+  12 | import { Switch } from '@/components/ui/switch'
+> 13 | import { Separator } from '@/components/ui/separator'
+     | ^
+  14 | import { toast } from 'sonner'
+  15 | import { useRouter } from 'next/navigation'
+  16 | import { useTheme } from '@/contexts/theme-context'
+
+https://nextjs.org/docs/messages/module-not-found
+ ⨯ ./src/app/dashboard/settings/page.tsx:13:1
+Module not found: Can't resolve '@/components/ui/separator'
+  11 | import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+  12 | import { Switch } from '@/components/ui/switch'
+> 13 | import { Separator } from '@/components/ui/separator'
+     | ^
+  14 | import { toast } from 'sonner'
+  15 | import { useRouter } from 'next/navigation'
+  16 | import { useTheme } from '@/contexts/theme-context'
+
+https://nextjs.org/docs/messages/module-not-found
+ GET /installHook.js.map 500 in 6267ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 500 in 21ms
+Middleware check: { pathname: '/dashboard/installHook.js.map', hasSessionToken: true }
+ GET /dashboard/installHook.js.map 500 in 12ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 500 in 20ms
+Middleware check: { pathname: '/dashboard/installHook.js.map', hasSessionToken: true }
+ GET /dashboard/installHook.js.map 500 in 4ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 500 in 19ms
+Middleware check: { pathname: '/dashboard/installHook.js.map', hasSessionToken: true }
+ GET /dashboard/installHook.js.map 500 in 5ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 188.555ms
+Reading changed files: 513.106ms
+Sorting candidates: 0.026ms
+Generate rules: 1.058ms
+Build stylesheet: 2.574ms
+Potential classes:  46
+Active contexts:  1
+JIT TOTAL: 874.64ms
+
+
+ ✓ Compiled /_error in 4.6s (2126 modules)
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 200 in 1224ms
+ GET /_next/static/webpack/6f084efc6f007790.webpack.hot-update.json 404 in 68ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 3.1s (1394 modules)
+ ✓ Compiled (1396 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/console-monitor/status 200 in 5034ms
+ GET /api/auth/session 200 in 5038ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 10ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+ ○ Compiling /api/users/[id]/language ...
+ ✓ Compiled /api/users/[id]/language in 931ms (1398 modules)
+ ✓ Compiled (1410 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ ⨯ [Error: Cannot find module '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/server/pages/_document.js'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/require.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/utils.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/swc/options.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/swc/index.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/config.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 4876ms
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/notifications 500 in 4891ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ ⨯ [Error: Cannot find module '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/server/pages/_document.js'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/require.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/utils.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/swc/options.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/swc/index.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/config.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /api/users/cmdn2297k0001i0funnk9a4d0/language 200 in 493ms
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ ⨯ Failed to generate static paths for /api/users/[id]/language:
+[Error: Cannot find module './vendor-chunks/next.js'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/server/webpack-runtime.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/server/app/api/users/[id]/language/route.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/require.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/utils.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/static-paths-worker.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/compiled/jest-worker/processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Failed to generate static paths for /api/users/[id]/language:
+[Error: Cannot find module './vendor-chunks/next.js'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/server/webpack-runtime.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/server/app/api/users/[id]/language/route.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/require.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/utils.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/static-paths-worker.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/compiled/jest-worker/processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /api/notifications 500 in 511ms
+Middleware check: {
+  pathname: '/api/users/cmdn2297k0001i0funnk9a4d0/language',
+  hasSessionToken: true
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/next.js'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/server/webpack-runtime.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/server/app/api/users/[id]/language/route.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/require.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/utils.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/static-paths-worker.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/compiled/jest-worker/processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/api/users/cmdn2297k0001i0funnk9a4d0/language'
+}
+ ⨯ [Error: Cannot find module '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/server/pages/_document.js'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/require.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/utils.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/swc/options.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/swc/index.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/config.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /api/users/cmdn2297k0001i0funnk9a4d0/language 500 in 825ms
+ ⨯ [Error: Cannot find module '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/server/pages/_document.js'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/require.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/utils.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/swc/options.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/swc/index.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/config.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /_next/static/css/app/layout.css?v=1753726560753 500 in 46ms
+ ⨯ [Error: Cannot find module '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/server/pages/_document.js'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/require.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/utils.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/swc/options.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/swc/index.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/config.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/server/pages/_document.js'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/require.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/utils.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/swc/options.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/swc/index.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/config.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /_next/static/css/app/layout.css?v=1753726560753 500 in 65ms
+ GET /_next/static/css/app/layout.css?v=1753726560753 500 in 63ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 14.986ms
+Reading changed files: 14.831ms
+Sorting candidates: 0.405ms
+Generate rules: 1.842ms
+Build stylesheet: 0.002ms
+Potential classes:  490
+Active contexts:  1
+JIT TOTAL: 193.675ms
+
+
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 10.3s (2112 modules)
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /_next/static/css/app/layout.css?v=1753726560753 404 in 3149ms
+ GET /_next/static/css/app/layout.css?v=1753726560753 404 in 3037ms
+ GET /dashboard/settings 200 in 49ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 8.078ms
+Reading changed files: 349.881ms
+Sorting candidates: 5.866ms
+Generate rules: 38.944ms
+Build stylesheet: 0.004ms
+Potential classes:  502
+Active contexts:  1
+JIT TOTAL: 980.99ms
+
+
+ ✓ Compiled in 5.1s (2126 modules)
+Middleware check: { pathname: '/dashboard/approvals', hasSessionToken: true }
+ ○ Compiling /dashboard/approvals ...
+ ✓ Compiled /dashboard/approvals in 4.6s (2131 modules)
+ GET /dashboard/approvals 200 in 5010ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 200 in 33ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 200 in 28ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 200 in 59ms
+ GET /_next/static/css/app/layout.css?v=1753726777020 404 in 207ms
+ GET /_next/static/css/app/layout.css?v=1753726777020 404 in 41ms
+Failed to get source map: [Error: Failed to read file contents of /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js.] {
+  [cause]: [Error: ENOENT: no such file or directory, open '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'] {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'
+  }
+}
+Failed to get source map: [Error: Failed to read file contents of /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js.] {
+  [cause]: [Error: ENOENT: no such file or directory, open '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'] {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'
+  }
+}
+Failed to get source map: [Error: Failed to read file contents of /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js.] {
+  [cause]: [Error: ENOENT: no such file or directory, open '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'] {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'
+  }
+}
+Failed to get source map: [Error: Failed to read file contents of /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js.] {
+  [cause]: [Error: ENOENT: no such file or directory, open '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'] {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'
+  }
+}
+Failed to get source map: [Error: Failed to read file contents of /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js.] {
+  [cause]: [Error: ENOENT: no such file or directory, open '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'] {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'
+  }
+}
+Failed to get source map: [Error: Failed to read file contents of /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js.] {
+  [cause]: [Error: ENOENT: no such file or directory, open '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'] {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'
+  }
+}
+Failed to get source map: [Error: Failed to read file contents of /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js.] {
+  [cause]: [Error: ENOENT: no such file or directory, open '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'] {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'
+  }
+}
+Failed to get source map: [Error: Failed to read file contents of /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js.] {
+  [cause]: [Error: ENOENT: no such file or directory, open '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'] {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'
+  }
+}
+Failed to get source map: [Error: Failed to read file contents of /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js.] {
+  [cause]: [Error: ENOENT: no such file or directory, open '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'] {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'
+  }
+}
+Failed to get source map: [Error: Failed to read file contents of /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js.] {
+  [cause]: [Error: ENOENT: no such file or directory, open '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'] {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'
+  }
+}
+Failed to get source map: [Error: Failed to read file contents of /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js.] {
+  [cause]: [Error: ENOENT: no such file or directory, open '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'] {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'
+  }
+}
+Failed to get source map: [Error: Failed to read file contents of /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js.] {
+  [cause]: [Error: ENOENT: no such file or directory, open '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'] {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/static/chunks/main-app.js'
+  }
+}
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 200 in 122ms
+ GET /_next/static/css/app/layout.css?v=1753726789626 404 in 147ms
+ GET /_next/static/chunks/main-app.js?v=1753726789626 404 in 131ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 119ms
+ GET /_next/static/chunks/app/dashboard/layout.js 404 in 115ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 200 in 51ms
+ GET /_next/static/css/app/layout.css?v=1753726804304 404 in 120ms
+ GET /_next/static/chunks/main-app.js?v=1753726804304 404 in 114ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 96ms
+ GET /_next/static/chunks/app/dashboard/layout.js 404 in 90ms

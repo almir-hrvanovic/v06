@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
@@ -21,15 +21,12 @@ import { NotificationDropdown } from '@/components/notifications/notification-dr
 import { useSession, signOut } from 'next-auth/react'
 import {
   Search,
-  Bell,
   User,
   LogOut,
   Plus,
-  Filter,
   Languages,
   Palette,
 } from 'lucide-react'
-import { LanguageSelector } from '@/components/ui/language-selector'
 import { ThemeToggleItems } from '@/components/ui/theme-toggle'
 import { useTranslations } from 'next-intl'
 
@@ -46,6 +43,24 @@ export function MobileHeader({ className }: MobileHeaderProps) {
   const t = useTranslations('header')
   const tNav = useTranslations('navigation.main')
   const tRoles = useTranslations('roles')
+  
+  // Check if we're on a tablet/iPad size
+  const [isTablet, setIsTablet] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth >= 768
+    }
+    return false
+  })
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setIsTablet(window.innerWidth >= 768)
+    }
+    
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const handleLanguageChange = async (locale: string) => {
     setIsChangingLanguage(true)
@@ -138,14 +153,15 @@ export function MobileHeader({ className }: MobileHeaderProps) {
           {/* Notifications */}
           <NotificationDropdown />
 
-          {/* User Menu */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="h-9 w-9 p-0 hover:bg-[hsl(var(--nav-hover))]"
-              >
+          {/* User Menu - Hidden on mobile, visible on tablets */}
+          {isTablet && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="flex h-9 w-9 p-0 hover:bg-[hsl(var(--nav-hover))]"
+                >
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-medium shadow-sm">
                   {session?.user?.name?.charAt(0)?.toUpperCase() || 'U'}
                 </div>
@@ -218,9 +234,10 @@ export function MobileHeader({ className }: MobileHeaderProps) {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          )}
 
-          {/* Mobile Menu - Hamburger */}
-          <MobileBottomMenu />
+          {/* Mobile Menu - Hamburger - Only on phones */}
+          {!isTablet && <MobileBottomMenu />}
         </div>
       </div>
 

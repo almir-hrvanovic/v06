@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle, SheetDescription } from '@/components/ui/sheet'
-import { useSession } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
 import { UserRole } from '@prisma/client'
 import { useTranslations } from 'next-intl'
 import { useSidebar } from '@/contexts/sidebar-context'
@@ -28,6 +28,7 @@ import {
   X,
   Workflow,
   ChevronRight,
+  LogOut,
 } from 'lucide-react'
 
 interface NavItem {
@@ -117,6 +118,12 @@ const navItems: NavItem[] = [
     icon: Workflow,
     roles: ['SUPERUSER', 'ADMIN'],
   },
+  {
+    titleKey: 'navigation.main.settings',
+    href: '/dashboard/settings',
+    icon: Settings,
+    roles: ['SUPERUSER', 'ADMIN', 'MANAGER', 'SALES', 'VPP', 'VP', 'TECH'],
+  },
 ]
 
 interface MobileBottomMenuProps {
@@ -176,8 +183,8 @@ export function MobileBottomMenu({ className }: MobileBottomMenuProps) {
 
           {/* Header with Sheet Title for accessibility */}
           <div className="px-4 pb-3">
-            <SheetTitle asChild>
-              <h2 className="text-lg font-semibold">Navigation</h2>
+            <SheetTitle>
+              <span className="text-lg font-semibold">Navigation</span>
             </SheetTitle>
             <SheetDescription className="sr-only">
               Main navigation menu. Swipe down to close.
@@ -242,13 +249,18 @@ export function MobileBottomMenu({ className }: MobileBottomMenuProps) {
                   <p className="text-xs text-muted-foreground truncate">{session?.user?.email}</p>
                 </div>
               </div>
-              <Link
-                href="/dashboard/settings"
-                onClick={() => setIsOpen(false)}
-                className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted hover:bg-accent transition-colors active:scale-95 flex-shrink-0"
+              <Button
+                onClick={() => {
+                  setIsOpen(false)
+                  signOut({ callbackUrl: '/auth/signin' })
+                }}
+                variant="ghost"
+                size="sm"
+                className="flex items-center space-x-2 text-destructive hover:text-destructive hover:bg-destructive/10"
               >
-                <Settings className="h-4 w-4" />
-              </Link>
+                <LogOut className="h-4 w-4" />
+                <span className="text-sm">Sign Out</span>
+              </Button>
             </div>
           </div>
         </div>

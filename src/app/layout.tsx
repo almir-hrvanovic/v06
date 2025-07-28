@@ -14,7 +14,11 @@ import { NextIntlClientProvider } from 'next-intl'
 import { cookies } from 'next/headers'
 import { ErrorBoundary } from '@/components/error-boundary'
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ 
+  subsets: ["latin"],
+  display: 'swap',
+  preload: true,
+})
 
 export const metadata: Metadata = {
   title: "GS-CMS v05 - Customer Relationship & Quote Management System",
@@ -22,7 +26,11 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.svg',
   },
-  viewport: 'width=device-width, initial-scale=1.0',
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1.0,
 };
 
 export default async function RootLayout({
