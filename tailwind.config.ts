@@ -17,6 +17,11 @@ export default {
       },
     },
     extend: {
+      screens: {
+        'xs': '475px',
+        '3xl': '1600px',
+        '4xl': '2560px',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -69,6 +74,12 @@ export default {
           "expand-button-hover": "hsl(var(--sidebar-expand-button-hover))",
         },
       },
+      spacing: {
+        'sidebar-collapsed': 'var(--sidebar-width-collapsed)',
+        'sidebar-expanded': 'var(--sidebar-width-expanded)',
+        'sidebar-mobile': 'var(--sidebar-mobile-width)',
+        'touch-target': 'var(--sidebar-touch-target-min)',
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -83,10 +94,82 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "slide-in": {
+          from: { 
+            transform: "translate3d(-100%, 0, 0)",
+            opacity: "0"
+          },
+          to: { 
+            transform: "translate3d(0, 0, 0)",
+            opacity: "1"
+          },
+        },
+        "slide-out": {
+          from: { 
+            transform: "translate3d(0, 0, 0)",
+            opacity: "1"
+          },
+          to: { 
+            transform: "translate3d(-100%, 0, 0)",
+            opacity: "0"
+          },
+        },
+        "expand-sidebar": {
+          from: { width: "var(--sidebar-width-collapsed)" },
+          to: { width: "var(--sidebar-width-expanded)" },
+        },
+        "collapse-sidebar": {
+          from: { width: "var(--sidebar-width-expanded)" },
+          to: { width: "var(--sidebar-width-collapsed)" },
+        },
+        "fade-in-overlay": {
+          from: { 
+            opacity: "0",
+            backdropFilter: "blur(0px)"
+          },
+          to: { 
+            opacity: "1",
+            backdropFilter: "blur(4px)"
+          },
+        },
+        "fade-out-overlay": {
+          from: { 
+            opacity: "1",
+            backdropFilter: "blur(4px)"
+          },
+          to: { 
+            opacity: "0",
+            backdropFilter: "blur(0px)"
+          },
+        },
+        "scale-in": {
+          from: { 
+            transform: "scale(0.8) rotate(-90deg)",
+            opacity: "0"
+          },
+          to: { 
+            transform: "scale(1) rotate(0deg)",
+            opacity: "1"
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "slide-in": "slide-in var(--sidebar-transition-duration) var(--sidebar-transition-timing)",
+        "slide-out": "slide-out var(--sidebar-transition-duration) var(--sidebar-transition-timing)",
+        "expand-sidebar": "expand-sidebar var(--sidebar-transition-duration) var(--sidebar-transition-timing)",
+        "collapse-sidebar": "collapse-sidebar var(--sidebar-transition-duration) var(--sidebar-transition-timing)",
+        "fade-in-overlay": "fade-in-overlay var(--sidebar-overlay-transition)",
+        "fade-out-overlay": "fade-out-overlay var(--sidebar-overlay-transition)",
+        "scale-in": "scale-in 0.3s ease-out",
+      },
+      transitionDuration: {
+        'sidebar': 'var(--sidebar-transition-duration)',
+        'sidebar-overlay': 'var(--sidebar-overlay-transition)',
+      },
+      transitionTimingFunction: {
+        'sidebar': 'var(--sidebar-transition-timing)',
       },
     },
   },

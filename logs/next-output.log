@@ -280,3 +280,462 @@ Middleware check: { pathname: '/dashboard', hasSessionToken: true }
  GET /_next/static/chunks/app/dashboard/page.js 404 in 2599ms
  GET /_next/static/chunks/app/dashboard/layout.js 404 in 2602ms
  GET /_next/static/chunks/app/layout.js 404 in 2597ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 129ms
+ GET /_next/static/chunks/main-app.js?v=1753717613564 404 in 171ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 131ms
+ GET /_next/static/css/app/layout.css?v=1753717613564 404 in 174ms
+ GET /_next/static/chunks/app/dashboard/layout.js 404 in 126ms
+ GET /_next/static/chunks/app/dashboard/page.js 404 in 126ms
+ GET /_next/static/chunks/app/layout.js 404 in 103ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 57ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 443ms
+ GET /_next/static/chunks/app/dashboard/layout.js 404 in 442ms
+ GET /_next/static/css/app/layout.css?v=1753717951689 404 in 450ms
+ GET /_next/static/chunks/main-app.js?v=1753717951689 404 in 448ms
+ GET /_next/static/chunks/app/dashboard/page.js 404 in 441ms
+ GET /_next/static/chunks/app/layout.js 404 in 406ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 347ms
+ GET /_next/static/css/app/layout.css?v=1753717961571 404 in 216ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 211ms
+ GET /_next/static/chunks/main-app.js?v=1753717961571 404 in 212ms
+ GET /_next/static/chunks/app/dashboard/layout.js 404 in 209ms
+ GET /_next/static/chunks/app/dashboard/page.js 404 in 183ms
+ GET /_next/static/chunks/app/layout.js 404 in 39ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 34ms
+ GET /_next/static/chunks/app/dashboard/page.js 404 in 113ms
+ GET /_next/static/css/app/layout.css?v=1753717968136 404 in 117ms
+ GET /_next/static/chunks/main-app.js?v=1753717968136 404 in 113ms
+ GET /_next/static/chunks/app/dashboard/layout.js 404 in 111ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 113ms
+ GET /_next/static/chunks/app/layout.js 404 in 97ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 27ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753717969139 404 in 113ms
+ GET /_next/static/chunks/app/dashboard/page.js 404 in 105ms
+ GET /_next/static/chunks/main-app.js?v=1753717969139 404 in 111ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 111ms
+ GET /_next/static/chunks/app/dashboard/layout.js 404 in 108ms
+ GET /_next/static/chunks/app/layout.js 404 in 88ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 33ms
+ GET /_next/static/css/app/layout.css?v=1753717969314 404 in 104ms
+ GET /_next/static/chunks/app/dashboard/page.js 404 in 100ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 102ms
+ GET /_next/static/chunks/app/dashboard/layout.js 404 in 101ms
+ GET /_next/static/chunks/main-app.js?v=1753717969314 404 in 104ms
+ GET /_next/static/chunks/app/layout.js 404 in 79ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 30ms
+ GET /_next/static/chunks/main-app.js?v=1753717969485 404 in 106ms
+ GET /_next/static/css/app/layout.css?v=1753717969485 404 in 110ms
+ GET /_next/static/chunks/app/dashboard/page.js 404 in 107ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 106ms
+ GET /_next/static/chunks/app/dashboard/layout.js 404 in 109ms
+ GET /_next/static/chunks/app/layout.js 404 in 93ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 30ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 109ms
+ GET /_next/static/css/app/layout.css?v=1753717969662 404 in 116ms
+ GET /_next/static/chunks/app/dashboard/page.js 404 in 109ms
+ GET /_next/static/chunks/main-app.js?v=1753717969662 404 in 115ms
+ GET /_next/static/chunks/app/dashboard/layout.js 404 in 115ms
+ GET /_next/static/chunks/app/layout.js 404 in 101ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 218ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 27ms
+ GET /_next/static/chunks/app/dashboard/page.js 404 in 31ms
+ GET /_next/static/css/app/layout.css?v=1753717970153 404 in 35ms
+ GET /_next/static/chunks/main-app.js?v=1753717970153 404 in 32ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 31ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 29ms
+ GET /_next/static/chunks/app/dashboard/layout.js 404 in 77ms
+ GET /_next/static/css/app/layout.css?v=1753717970297 404 in 83ms
+ GET /_next/static/chunks/main-app.js?v=1753717970297 404 in 81ms
+ GET /_next/static/chunks/app/dashboard/page.js 404 in 80ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 80ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 29ms
+ GET /_next/static/chunks/app/dashboard/page.js 404 in 93ms
+ GET /_next/static/css/app/layout.css?v=1753717970455 404 in 98ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 95ms
+ GET /_next/static/chunks/app/dashboard/layout.js 404 in 93ms
+ GET /_next/static/chunks/app/layout.js 404 in 74ms
+ GET /_next/static/chunks/main-app.js?v=1753717970455 404 in 97ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 31ms
+ GET /_next/static/chunks/app/dashboard/page.js 404 in 109ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 110ms
+ GET /_next/static/chunks/main-app.js?v=1753717970604 404 in 112ms
+ GET /_next/static/css/app/layout.css?v=1753717970604 404 in 115ms
+ GET /_next/static/chunks/app/dashboard/layout.js 404 in 110ms
+ GET /_next/static/chunks/app/layout.js 404 in 66ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 33ms
+ GET /_next/static/chunks/app/dashboard/page.js 404 in 182ms
+ GET /_next/static/css/app/layout.css?v=1753717970789 404 in 187ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 182ms
+ GET /_next/static/chunks/app/dashboard/layout.js 404 in 181ms
+ GET /_next/static/chunks/app/layout.js 404 in 159ms
+ GET /_next/static/chunks/main-app.js?v=1753717970789 404 in 186ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 48ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 28ms
+ GET /_next/static/css/app/layout.css?v=1753717971204 404 in 114ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 110ms
+ GET /_next/static/chunks/app/dashboard/layout.js 404 in 109ms
+ GET /_next/static/chunks/main-app.js?v=1753717971204 404 in 111ms
+ GET /_next/static/chunks/app/dashboard/page.js 404 in 112ms
+ GET /_next/static/chunks/app/layout.js 404 in 86ms
+ ✓ Compiled in 710ms (694 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Setting up new context...
+Finding changed files: 13.113ms
+Reading changed files: 368.854ms
+Sorting candidates: 7.706ms
+Generate rules: 209.898ms
+Build stylesheet: 2.472ms
+Potential classes:  7989
+Active contexts:  2
+JIT TOTAL: 935.515ms
+
+
+ ✓ Compiled in 4.3s (2061 modules)
+ ✓ Compiled in 585ms (1353 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Setting up new context...
+Finding changed files: 8.766ms
+Reading changed files: 228.723ms
+Sorting candidates: 6.125ms
+Generate rules: 174.205ms
+Build stylesheet: 6.341ms
+Potential classes:  7989
+Active contexts:  2
+JIT TOTAL: 586.624ms
+
+
+ ✓ Compiled in 1433ms (708 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 746ms
+ ✓ Compiled /_not-found in 438ms (2051 modules)
+ GET /_next/static/chunks/app/dashboard/layout.js 404 in 1339ms
+ GET /_next/static/chunks/main-app.js?v=1753718166698 404 in 1374ms
+ GET /_next/static/chunks/app/dashboard/page.js 404 in 1322ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 1341ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 7.752ms
+Reading changed files: 18.892ms
+Sorting candidates: 0.655ms
+Generate rules: 10.533ms
+Build stylesheet: 12.304ms
+Potential classes:  524
+Active contexts:  2
+JIT TOTAL: 140.739ms
+
+
+ ✓ Compiled in 775ms (711 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Setting up new context...
+Finding changed files: 6.556ms
+Reading changed files: 801.247ms
+Sorting candidates: 15.209ms
+Generate rules: 284.527ms
+Build stylesheet: 2.76ms
+Potential classes:  8092
+Active contexts:  2
+JIT TOTAL: 1.343s
+
+
+ ✓ Compiled in 3s (2065 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 4.674ms
+Reading changed files: 4.267ms
+Sorting candidates: 0.084ms
+Generate rules: 1.056ms
+Build stylesheet: 1.234ms
+Potential classes:  171
+Active contexts:  2
+JIT TOTAL: 123.41ms
+
+
+ ✓ Compiled in 758ms (711 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Setting up new context...
+Finding changed files: 10.424ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/styles/i18n.css
+Setting up new context...
+JIT TOTAL: 192.835ms
+
+
+(node:822855) Warning: Label 'JIT TOTAL' already exists for console.time()
+Reading changed files: 316.294ms
+Sorting candidates: 9.509ms
+Generate rules: 182.855ms
+Build stylesheet: 2.352ms
+Potential classes:  8147
+Active contexts:  3
+
+
+(node:822855) Warning: No such label 'JIT TOTAL' for console.timeEnd()
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/@uploadthing/react/dist/index.css
+Setting up new context...
+JIT TOTAL: 55.926ms
+
+
+ ✓ Compiled in 1635ms (734 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Setting up new context...
+Finding changed files: 9.194ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/styles/i18n.css
+Setting up new context...
+JIT TOTAL: 237.543ms
+
+
+(node:822855) Warning: Label 'JIT TOTAL' already exists for console.time()
+Reading changed files: 416.818ms
+Sorting candidates: 7.601ms
+Generate rules: 153.132ms
+Build stylesheet: 4.334ms
+Potential classes:  8248
+Active contexts:  3
+
+
+(node:822855) Warning: No such label 'JIT TOTAL' for console.timeEnd()
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/@uploadthing/react/dist/index.css
+Setting up new context...
+JIT TOTAL: 58.222ms
+
+
+ ✓ Compiled in 1773ms (734 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 14.592ms
+Reading changed files: 13.725ms
+Sorting candidates: 0.443ms
+Generate rules: 2.061ms
+Build stylesheet: 0.005ms
+Potential classes:  291
+Active contexts:  3
+JIT TOTAL: 196.315ms
+
+
+ ✓ Compiled in 1264ms (708 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 9.348ms
+Reading changed files: 18.045ms
+Sorting candidates: 0.597ms
+Generate rules: 9.626ms
+Build stylesheet: 4.923ms
+Potential classes:  337
+Active contexts:  3
+JIT TOTAL: 185.07ms
+
+
+ ✓ Compiled in 1203ms (708 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 10.154ms
+Reading changed files: 13.713ms
+Sorting candidates: 0.465ms
+Generate rules: 8.141ms
+Build stylesheet: 2.661ms
+Potential classes:  361
+Active contexts:  3
+JIT TOTAL: 190.309ms
+
+
+ ✓ Compiled in 1184ms (708 modules)
+ ✓ Compiled in 5.8s (2051 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 9.792ms
+Reading changed files: 25.692ms
+Sorting candidates: 0.436ms
+Generate rules: 3.509ms
+Build stylesheet: 0.003ms
+Potential classes:  460
+Active contexts:  3
+JIT TOTAL: 153.639ms
+
+
+ ✓ Compiled in 1728ms (2065 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 5.643ms
+Reading changed files: 10.564ms
+Sorting candidates: 0.369ms
+Generate rules: 4.054ms
+Build stylesheet: 0.003ms
+Potential classes:  328
+Active contexts:  3
+JIT TOTAL: 139.039ms
+
+
+ ✓ Compiled in 1689ms (2065 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 10.52ms
+Reading changed files: 209.589ms
+Sorting candidates: 0.544ms
+Generate rules: 4.111ms
+Build stylesheet: 0.004ms
+Potential classes:  457
+Active contexts:  3
+JIT TOTAL: 365.891ms
+
+
+ ✓ Compiled in 2.2s (2065 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 7.921ms
+Reading changed files: 13.38ms
+Sorting candidates: 0.36ms
+Generate rules: 3.382ms
+Build stylesheet: 0.004ms
+Potential classes:  333
+Active contexts:  3
+JIT TOTAL: 186.883ms
+
+
+ ✓ Compiled in 1327ms (710 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 5.681ms
+Reading changed files: 7.23ms
+Sorting candidates: 0.327ms
+Generate rules: 1.779ms
+Build stylesheet: 0.005ms
+Potential classes:  286
+Active contexts:  3
+JIT TOTAL: 114.325ms
+
+
+ ✓ Compiled in 781ms (710 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 4.648ms
+Reading changed files: 11.994ms
+Sorting candidates: 0.379ms
+Generate rules: 7.812ms
+Build stylesheet: 0.002ms
+Potential classes:  567
+Active contexts:  3
+JIT TOTAL: 115.887ms
+
+
+ ✓ Compiled in 647ms (710 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 8.624ms
+Reading changed files: 19.214ms
+Sorting candidates: 0.439ms
+Generate rules: 3.379ms
+Build stylesheet: 3.987ms
+Potential classes:  449
+Active contexts:  3
+JIT TOTAL: 160.472ms
+
+
+ ✓ Compiled in 1732ms (2065 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 13.376ms
+Reading changed files: 0.011ms
+Sorting candidates: 0.006ms
+Generate rules: 0.086ms
+Build stylesheet: 0.002ms
+Potential classes:  1
+Active contexts:  3
+JIT TOTAL: 219.18ms
+
+
+ ✓ Compiled in 1442ms (710 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⨯ Error: Could not find the module "/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next-intl/dist/esm/production/shared/NextIntlClientProvider.js#default" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>) {
+  digest: '690810335'
+}
+ ⨯ TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.t [as require] (.next/server/webpack-runtime.js:1:143)
+    at JSON.parse (<anonymous>) {
+  digest: '1428242362'
+}
+TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.t [as require] (.next/server/webpack-runtime.js:1:143)
+    at JSON.parse (<anonymous>)
+ ⨯ TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.t [as require] (.next/server/webpack-runtime.js:1:143)
+    at JSON.parse (<anonymous>) {
+  page: '/dashboard'
+}
+ GET /dashboard 500 in 2230ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 2.8s (2055 modules)
+ GET /_next/static/chunks/main.js 404 in 3626ms
+ GET /_next/static/chunks/pages/_app.js 404 in 3625ms
+ GET /_next/static/chunks/pages/_error.js 404 in 3611ms
+ GET /_next/static/chunks/react-refresh.js 404 in 3611ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 367ms
+ GET /_next/static/css/app/layout.css?v=1753718494378 404 in 168ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 165ms
+ GET /_next/static/chunks/main-app.js?v=1753718494378 404 in 168ms
+ GET /_next/static/chunks/app/dashboard/layout.js 404 in 166ms
+ GET /_next/static/chunks/app/dashboard/page.js 404 in 165ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 12.426ms
+Reading changed files: 29.401ms
+Sorting candidates: 0.632ms
+Generate rules: 9.563ms
+Build stylesheet: 4.206ms
+Potential classes:  534
+Active contexts:  3
+JIT TOTAL: 215.239ms
+
+
+ ✓ Compiled in 2.7s (2069 modules)
+[?25h

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
@@ -10,6 +10,14 @@ import { ResponsiveDrawer } from '@/components/ui/responsive-drawer'
 import { useSession } from 'next-auth/react'
 import { UserRole } from '@prisma/client'
 import { useTranslations } from 'next-intl'
+import { useSidebar } from '@/contexts/sidebar-context'
+import { 
+  useA11yFocusTrap, 
+  useA11yListNavigation, 
+  useA11yKeyboardNav,
+  useA11yId 
+} from '@/hooks/use-accessibility'
+import { KEYBOARD_KEYS, ariaProps, FocusManager } from '@/lib/accessibility'
 import {
   LayoutDashboard,
   Users,
@@ -122,67 +130,240 @@ interface MobileSidebarProps {
 }
 
 export function MobileSidebar({ className }: MobileSidebarProps) {
-  const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
   const { data: session } = useSession()
   const userRole = session?.user?.role
   const t = useTranslations()
+  
+  // Use enhanced sidebar context
+  const { 
+    isMobileOpen: isOpen, 
+    setIsMobileOpen: setIsOpen, 
+    toggleMobile: toggleOpen,
+    accessibility,
+    announceStateChange,
+    activeItemIndex,
+    setActiveItemIndex
+  } = useSidebar()
+
+  // Accessibility IDs
+  const menuButtonId = useA11yId('mobile-menu-btn')
+  const menuId = useA11yId('mobile-menu')
+  const navId = useA11yId('mobile-nav')
+  const closeButtonId = useA11yId('mobile-close-btn')
+
+  // Refs for focus management
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const navItemRefs = useRef<Map<string, HTMLElement>>(new Map())
+  const [focusedItemId, setFocusedItemId] = useState<string | null>(null)
 
   const filteredNavItems = navItems.filter(item => 
     userRole && item.roles.includes(userRole)
   )
 
+  // Focus trap for mobile menu
+  const focusTrap = useA11yFocusTrap(isOpen)
+
+  // Navigation elements for keyboard navigation
+  const navElements = Array.from(navItemRefs.current.values())
+
+  // List navigation for menu items
+  const listNavigation = useA11yListNavigation(navElements, {
+    orientation: 'vertical',
+    loop: true,
+    onSelect: (index) => {
+      const item = filteredNavItems[index]
+      if (item) {
+        setIsOpen(false)
+        // Small delay to allow drawer to close before navigation
+        setTimeout(() => {
+          window.location.href = item.href
+        }, 150)
+      }
+    },
+    onEscape: () => {
+      setIsOpen(false)
+      // Return focus to menu button
+      setTimeout(() => {
+        menuButtonRef.current?.focus()
+      }, 150)
+    }
+  })
+
+  // Register navigation item refs
+  const registerNavItem = (id: string, element: HTMLElement | null) => {
+    if (element) {
+      navItemRefs.current.set(id, element)
+    } else {
+      navItemRefs.current.delete(id)
+    }
+  }
+
+  // Handle menu open/close
+  const handleToggle = () => {
+    const newState = !isOpen
+    setIsOpen(newState)
+    
+    if (accessibility.announceStateChanges) {
+      announceStateChange(
+        'Mobile menu', 
+        newState ? 'opened' : 'closed',
+        newState ? 'Use Escape to close' : undefined
+      )
+    }
+  }
+
+  // Handle item selection
+  const handleItemClick = (item: NavItem) => {
+    setIsOpen(false)
+    
+    if (accessibility.announceStateChanges) {
+      announceStateChange('Navigation', `selected ${t(item.titleKey as any)}`)
+    }
+  }
+
+  // Auto-focus first item when menu opens
+  useEffect(() => {
+    if (isOpen && navElements.length > 0) {
+      // Small delay to ensure drawer is fully rendered
+      setTimeout(() => {
+        listNavigation.moveToFirst()
+      }, 200)
+    }
+  }, [isOpen, navElements.length])
+
+  // Keyboard navigation for menu button
+  const menuButtonKeyboard = useA11yKeyboardNav({
+    onEnter: handleToggle,
+    onSpace: handleToggle,
+    onArrowDown: () => {
+      if (isOpen && navElements.length > 0) {
+        listNavigation.moveToFirst()
+      }
+    }
+  })
+
   const SidebarContent = () => (
-    <div className="flex h-full w-full flex-col bg-white dark:bg-gray-900">
+    <div 
+      className={cn(
+        "flex h-full w-full flex-col bg-white dark:bg-gray-900",
+        accessibility.highContrast && "border border-solid"
+      )}
+      ref={focusTrap.containerRef}
+    >
       {/* Header */}
-      <div className="flex h-16 items-center justify-between px-6 border-b border-gray-200 dark:border-gray-700">
+      <header className="flex h-16 items-center justify-between px-6 border-b border-gray-200 dark:border-gray-700">
         <Link 
           href="/dashboard" 
-          className="flex items-center space-x-2"
-          onClick={() => setIsOpen(false)}
+          className="flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
+          onClick={() => {
+            setIsOpen(false)
+            announceStateChange('Navigation', 'selected Dashboard')
+          }}
+          aria-label="Go to Dashboard - GS CMS version 5"
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <span className="text-sm font-bold">GS</span>
+          <div 
+            className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground"
+            aria-hidden="true"
+          >
+            <svg width="16" height="16" viewBox="0 0 32 32" className="text-primary-foreground">
+              <path d="M16 6l2.47 5.01L24 12.18l-4 3.9.94 5.5L16 19.15l-4.94 2.59.94-5.5-4-3.9 5.53-1.17L16 6z" fill="currentColor"/>
+            </svg>
           </div>
           <span className="text-lg font-semibold">CMS v05</span>
         </Link>
-      </div>
+        
+        {/* Close button for better accessibility */}
+        <Button
+          id={closeButtonId}
+          variant="ghost"
+          size="sm"
+          onClick={() => setIsOpen(false)}
+          className="h-8 w-8 p-0"
+          aria-label="Close mobile navigation menu"
+        >
+          <X className="h-4 w-4" />
+          <span className="sr-only">Close menu</span>
+        </Button>
+      </header>
 
       {/* Navigation */}
-      <nav className="flex-1 space-y-1 px-3 py-4 overflow-y-auto" aria-label="Main navigation">
-        {filteredNavItems.map((item) => {
-          const isActive = pathname === item.href
-          const Icon = item.icon
+      <nav 
+        id={navId}
+        className="flex-1 space-y-1 px-3 py-4 overflow-y-auto" 
+        aria-label="Main navigation"
+        {...listNavigation.keyboardProps}
+      >
+        <div 
+          role="menu"
+          aria-orientation="vertical"
+          aria-activedescendant={focusedItemId || undefined}
+        >
+          {filteredNavItems.map((item, index) => {
+            const isActive = pathname === item.href
+            const Icon = item.icon
+            const title = t(item.titleKey as any)
+            const itemId = `mobile-nav-item-${item.href.replace(/\//g, '-')}`
+            const isFocused = activeItemIndex === index
 
-          return (
-            <Button
-              key={item.href}
-              variant={isActive ? 'secondary' : 'ghost'}
-              className={cn(
-                'w-full justify-start px-3 py-3 text-left h-auto',
-                isActive && 'bg-secondary text-secondary-foreground'
-              )}
-              asChild
-              onClick={() => setIsOpen(false)}
-            >
-              <Link href={item.href}>
-                <Icon className="mr-3 h-5 w-5 flex-shrink-0" />
-                <span className="truncate">{t(item.titleKey as any)}</span>
-                {item.badge && item.badge > 0 && (
-                  <Badge variant="destructive" className="ml-auto">
-                    {item.badge}
-                  </Badge>
+            return (
+              <Button
+                key={item.href}
+                ref={(el) => registerNavItem(itemId, el)}
+                id={itemId}
+                variant={isActive ? 'secondary' : 'ghost'}
+                className={cn(
+                  'w-full justify-start px-3 py-3 text-left h-auto',
+                  isActive && 'bg-secondary text-secondary-foreground',
+                  isFocused && 'ring-2 ring-primary ring-offset-2',
+                  accessibility.highContrast && isActive && 'border-2 border-current'
                 )}
-              </Link>
-            </Button>
-          )
-        })}
+                asChild
+                role="menuitem"
+                tabIndex={isFocused ? 0 : -1}
+                aria-current={isActive ? 'page' : undefined}
+                aria-describedby={item.badge ? `${itemId}-badge` : undefined}
+                onFocus={() => {
+                  setActiveItemIndex(index)
+                  setFocusedItemId(itemId)
+                }}
+                onBlur={() => {
+                  if (focusedItemId === itemId) {
+                    setFocusedItemId(null)
+                  }
+                }}
+                onClick={() => handleItemClick(item)}
+              >
+                <Link href={item.href}>
+                  <Icon 
+                    className="mr-3 h-5 w-5 flex-shrink-0" 
+                    aria-hidden="true"
+                  />
+                  <span className="truncate">{title}</span>
+                  {item.badge && item.badge > 0 && (
+                    <Badge 
+                      id={`${itemId}-badge`}
+                      variant="destructive" 
+                      className="ml-auto"
+                      aria-label={`${item.badge} notification${item.badge > 1 ? 's' : ''}`}
+                    >
+                      {item.badge}
+                    </Badge>
+                  )}
+                </Link>
+              </Button>
+            )
+          })}
+        </div>
       </nav>
 
       {/* User Info */}
-      <div className="border-t border-gray-200 dark:border-gray-700 p-4">
+      <div className="border-t border-gray-200 dark:border-gray-700 p-4" role="contentinfo">
         <div className="flex items-center space-x-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-medium flex-shrink-0">
+          <div 
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-medium flex-shrink-0"
+            aria-hidden="true"
+          >
             {session?.user?.name?.charAt(0)?.toUpperCase() || 'U'}
           </div>
           <div className="flex-1 min-w-0">
@@ -195,6 +376,14 @@ export function MobileSidebar({ className }: MobileSidebarProps) {
           </div>
         </div>
       </div>
+
+      {/* Live region for announcements */}
+      <div
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+        id={`${menuId}-announcements`}
+      />
     </div>
   )
 
@@ -203,13 +392,24 @@ export function MobileSidebar({ className }: MobileSidebarProps) {
       {/* Show on ALL screen sizes */}
       <div className={className}>
         <Button
+          id={menuButtonId}
+          ref={menuButtonRef}
           variant="ghost"
           size="sm"
           className="h-9 w-9 p-0"
-          onClick={() => setIsOpen(true)}
+          onClick={handleToggle}
+          {...menuButtonKeyboard.elementRef && { ref: menuButtonKeyboard.elementRef }}
+          {...ariaProps.button({
+            expanded: isOpen,
+            hasPopup: 'menu',
+            controls: menuId
+          })}
+          aria-label={`${isOpen ? 'Close' : 'Open'} mobile navigation menu`}
         >
           <Menu className="h-5 w-5" />
-          <span className="sr-only">Toggle navigation menu</span>
+          <span className="sr-only">
+            {isOpen ? 'Close' : 'Open'} navigation menu
+          </span>
         </Button>
       </div>
       
@@ -220,7 +420,15 @@ export function MobileSidebar({ className }: MobileSidebarProps) {
         title="Navigation Menu"
         description="Main Navigation"
         className="p-0"
+        {...ariaProps.dialog({
+          modal: true,
+          labelledBy: menuId,
+          describedBy: `${menuId}-description`
+        })}
       >
+        <div id={`${menuId}-description`} className="sr-only">
+          Use arrow keys to navigate, Enter to select, Escape to close.
+        </div>
         <SidebarContent />
       </ResponsiveDrawer>
     </>
