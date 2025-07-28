@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
+import { useSearchParams } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
@@ -11,6 +12,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Switch } from '@/components/ui/switch'
 import { Separator } from '@/components/ui/separator'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { useTheme } from '@/contexts/theme-context'
@@ -36,6 +47,10 @@ export default function SettingsPage() {
   const t = useTranslations('settings')
   const router = useRouter()
   const { theme, setTheme } = useTheme()
+  const searchParams = useSearchParams()
+  
+  // Get tab from URL or default to 'profile'
+  const tabFromUrl = searchParams.get('tab')
   
   // Form states
   const [profileData, setProfileData] = useState({
@@ -58,7 +73,33 @@ export default function SettingsPage() {
   
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
-  const [activeTab, setActiveTab] = useState('profile')
+  const [activeTab, setActiveTab] = useState(tabFromUrl || 'profile')
+  
+  // Track unsaved changes
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
+  const [showUnsavedDialog, setShowUnsavedDialog] = useState(false)
+  const [pendingNavigation, setPendingNavigation] = useState<string | null>(null)
+  
+  // Original data for comparison
+  const [originalProfileData, setOriginalProfileData] = useState(profileData)
+  const [originalNotifications, setOriginalNotifications] = useState(notifications)
+  const [originalLanguage, setOriginalLanguage] = useState(selectedLanguage)
+
+  // Check for unsaved changes
+  useEffect(() => {
+    const profileChanged = JSON.stringify(profileData) !== JSON.stringify(originalProfileData)
+    const notificationsChanged = JSON.stringify(notifications) !== JSON.stringify(originalNotifications)
+    const languageChanged = selectedLanguage !== originalLanguage
+    
+    setHasUnsavedChanges(profileChanged || notificationsChanged || languageChanged)
+  }, [profileData, notifications, selectedLanguage, originalProfileData, originalNotifications, originalLanguage])
+  
+  // Update active tab when URL changes
+  useEffect(() => {
+    if (tabFromUrl) {
+      setActiveTab(tabFromUrl)
+    }
+  }, [tabFromUrl])
 
   // Load user data and preferences
   useEffect(() => {
@@ -68,19 +109,30 @@ export default function SettingsPage() {
       setIsLoading(true)
       try {
         // Load profile data
-        setProfileData({
+        const loadedProfileData = {
           name: session.user.name || '',
           email: session.user.email || '',
           phone: '', // Would come from API
           company: '', // Would come from API
           role: session.user.role || '',
-        })
+        }
+        setProfileData(loadedProfileData)
+        setOriginalProfileData(loadedProfileData)
         
         // Load language preference
         const langResponse = await fetch(`/api/users/${session.user.id}/language`)
         if (langResponse.ok) {
           const data = await langResponse.json()
-          setSelectedLanguage(data.language)
+          // Convert full locale to short code for UI
+          const shortCodeMap: { [key: string]: string } = {
+            'hr-HR': 'hr',
+            'bs-BA': 'bs',
+            'en-US': 'en',
+            'de-DE': 'de'
+          }
+          const shortCode = shortCodeMap[data.language] || data.language.split('-')[0] || 'hr'
+          setSelectedLanguage(shortCode)
+          setOriginalLanguage(shortCode)
         }
         
         // Load notification preferences
@@ -98,11 +150,51 @@ export default function SettingsPage() {
     loadUserData()
   }, [session?.user])
 
+  // Handle navigation with unsaved changes
+  const handleNavigation = useCallback((destination: string) => {
+    if (hasUnsavedChanges) {
+      setPendingNavigation(destination)
+      setShowUnsavedDialog(true)
+    } else {
+      router.push(destination)
+    }
+  }, [hasUnsavedChanges, router])
+
+  // Handle close button
+  const handleClose = useCallback(() => {
+    handleNavigation('/dashboard')
+  }, [handleNavigation])
+
+  // Handle dialog actions
+  const handleDiscardChanges = () => {
+    setShowUnsavedDialog(false)
+    if (pendingNavigation) {
+      router.push(pendingNavigation)
+    }
+  }
+
+  const handleSaveAndNavigate = async () => {
+    // Save based on active tab
+    if (activeTab === 'profile') {
+      await handleSaveProfile()
+    } else if (activeTab === 'language') {
+      await handleSaveLanguage()
+    } else if (activeTab === 'notifications') {
+      await handleSaveNotifications()
+    }
+    
+    setShowUnsavedDialog(false)
+    if (pendingNavigation) {
+      router.push(pendingNavigation)
+    }
+  }
+
   const handleSaveProfile = async () => {
     setIsSaving(true)
     try {
       // API call to save profile
       toast.success('Profile updated successfully')
+      setOriginalProfileData(profileData)
     } catch (error) {
       toast.error('Failed to update profile')
     } finally {
@@ -115,19 +207,36 @@ export default function SettingsPage() {
     
     setIsSaving(true)
     try {
+      // Map short codes to full locale codes
+      const localeMap: { [key: string]: string } = {
+        'hr': 'hr-HR',
+        'bs': 'bs-BA',
+        'en': 'en-US',
+        'de': 'de-DE'
+      }
+      
+      const fullLocale = localeMap[selectedLanguage] || selectedLanguage
+      
       const response = await fetch(`/api/users/${session.user.id}/language`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ language: selectedLanguage }),
+        body: JSON.stringify({ language: fullLocale }),
       })
 
       if (response.ok) {
+        // Also set the cookie immediately for instant UI update
+        document.cookie = `locale=${fullLocale}; path=/; max-age=${365 * 24 * 60 * 60}; samesite=lax`
+        
         toast.success(t('language.saved'))
+        setOriginalLanguage(selectedLanguage)
         setTimeout(() => window.location.reload(), 1500)
       } else {
+        const error = await response.json()
+        console.error('Language save error:', error)
         toast.error(t('language.saveFailed'))
       }
     } catch (error) {
+      console.error('Language save exception:', error)
       toast.error(t('language.saveFailed'))
     } finally {
       setIsSaving(false)
@@ -139,6 +248,7 @@ export default function SettingsPage() {
     try {
       // API call to save notifications
       toast.success('Notification preferences updated')
+      setOriginalNotifications(notifications)
     } catch (error) {
       toast.error('Failed to update notifications')
     } finally {
@@ -167,10 +277,10 @@ export default function SettingsPage() {
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => router.back()}
-          className="h-10 w-10"
+          onClick={handleClose}
+          className="h-12 w-12 md:h-10 md:w-10 rounded-full hover:bg-muted"
         >
-          <X className="h-5 w-5" />
+          <X className="h-6 w-6 md:h-5 md:w-5" />
           <span className="sr-only">Close settings</span>
         </Button>
       </div>
@@ -609,6 +719,26 @@ export default function SettingsPage() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Unsaved Changes Dialog */}
+      <AlertDialog open={showUnsavedDialog} onOpenChange={setShowUnsavedDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Unsaved Changes</AlertDialogTitle>
+            <AlertDialogDescription>
+              You have unsaved changes. Do you want to save them before leaving?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={handleDiscardChanges}>
+              Discard Changes
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={handleSaveAndNavigate}>
+              Save & Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }

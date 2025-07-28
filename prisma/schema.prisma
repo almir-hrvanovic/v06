@@ -18,7 +18,7 @@ model User {
   password  String?  // For development - in production use proper hashing
   role      UserRole @default(SALES)
   isActive  Boolean  @default(true)
-  preferredLanguage String @default("hr")
+  preferredLanguage String @default("hr-HR")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

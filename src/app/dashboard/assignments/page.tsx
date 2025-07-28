@@ -143,8 +143,6 @@ export default function AssignmentsPage() {
     return <Badge variant={variant}>{label}</Badge>
   }
 
-  const selectedAssigneeName = vpUsers.find(vp => vp.id === selectedAssignee)?.name
-
   if (loading) {
     return (
       <div className="space-y-6">
@@ -178,6 +176,8 @@ export default function AssignmentsPage() {
       </div>
     )
   }
+
+  const selectedAssigneeName = vpUsers?.find(vp => vp.id === selectedAssignee)?.name
 
   return (
     <div className="space-y-6">
@@ -214,7 +214,7 @@ export default function AssignmentsPage() {
                   required
                 >
                   <option value="">Choose a VP...</option>
-                  {vpUsers.map((vp) => (
+                  {vpUsers?.map((vp) => (
                     <option key={vp.id} value={vp.id}>
                       {vp.name} ({vp.email})
                     </option>
@@ -274,7 +274,7 @@ export default function AssignmentsPage() {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{vpUsers.length}</div>
+            <div className="text-2xl font-bold">{vpUsers?.length || 0}</div>
           </CardContent>
         </Card>
 
@@ -331,7 +331,7 @@ export default function AssignmentsPage() {
         </CardHeader>
         <CardContent>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {vpUsers.map((vp) => {
+            {vpUsers?.map((vp) => {
               const assignedCount = (vp as any)._count?.inquiryItems || 0
               return (
                 <div key={vp.id} className="flex items-center justify-between p-4 border rounded-lg">
@@ -345,7 +345,7 @@ export default function AssignmentsPage() {
                   </div>
                 </div>
               )
-            })}
+            }) || []}
           </div>
         </CardContent>
       </Card>

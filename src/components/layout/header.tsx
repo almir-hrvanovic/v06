@@ -60,13 +60,22 @@ export function Header() {
       announceStateChange('Language', `changing to ${locale}`)
     }
     
+    if (!session?.user?.id) {
+      console.error('No user session found')
+      return
+    }
+    
     try {
       // Update user preference in the database
-      await fetch('/api/users/language', {
-        method: 'POST',
+      const response = await fetch(`/api/users/${session.user.id}/language`, {
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ language: locale })
       })
+      
+      if (!response.ok) {
+        throw new Error('Failed to update language preference')
+      }
       
       // Set cookie for immediate effect
       document.cookie = `locale=${locale}; path=/; max-age=${365 * 24 * 60 * 60}; samesite=lax`
@@ -132,23 +141,13 @@ export function Header() {
       role="banner"
       aria-label="Application header with search and user menu"
     >
-      <div className="h-full flex items-center justify-between px-6">
-        <div className="flex items-center space-x-6">
-          {/* Logo and Title */}
-          <div className="flex items-center space-x-3">
-            <div className="h-9 w-9 rounded-lg bg-primary flex items-center justify-center shadow-sm">
-              <svg width="20" height="20" viewBox="0 0 32 32" className="text-primary-foreground">
-                <path d="M16 6l2.47 5.01L24 12.18l-4 3.9.94 5.5L16 19.15l-4.94 2.59.94-5.5-4-3.9 5.53-1.17L16 6z" fill="currentColor"/>
-              </svg>
-            </div>
-            <div>
-              <h1 className="font-semibold text-lg text-foreground">GS-CMS</h1>
-              <p className="text-xs text-muted-foreground">v5.0</p>
-            </div>
-          </div>
-          
-          {/* Search Form */}
-          <form className="relative max-w-md" onSubmit={handleSearchSubmit} role="search">
+      <div className="h-full flex items-center px-6">
+        {/* Left spacer */}
+        <div className="flex-1" />
+        
+        {/* Search Form - Centered */}
+        <div className="w-full max-w-2xl px-8">
+          <form className="relative w-full" onSubmit={handleSearchSubmit} role="search">
             <label 
               id={searchLabelId}
               htmlFor={searchId}
@@ -165,7 +164,7 @@ export function Header() {
               ref={searchInputRef}
               type="search"
               placeholder={t('search')}
-              className="pl-10 w-80"
+              className="pl-10 w-full h-10"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               aria-labelledby={searchLabelId}
@@ -176,8 +175,9 @@ export function Header() {
             </div>
           </form>
         </div>
-
-        <div className="flex items-center space-x-3">
+        
+        {/* Right side - Actions */}
+        <div className="flex-1 flex items-center justify-end space-x-3">
           {/* Notifications with modern styling */}
           <div className="relative">
             <NotificationDropdown />
@@ -238,13 +238,17 @@ export function Header() {
 
               {/* Account Settings */}
               <div className="py-2">
-                <DropdownMenuItem role="menuitem" className="px-4 py-2">
-                  <User className="mr-3 h-4 w-4" aria-hidden="true" />
-                  <span className="text-sm">{t('profile')}</span>
+                <DropdownMenuItem role="menuitem" className="px-4 py-2" asChild>
+                  <Link href="/dashboard/settings?tab=profile">
+                    <User className="mr-3 h-4 w-4" aria-hidden="true" />
+                    <span className="text-sm">{t('profile')}</span>
+                  </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem role="menuitem" className="px-4 py-2">
-                  <Settings className="mr-3 h-4 w-4" aria-hidden="true" />
-                  <span className="text-sm">Settings</span>
+                <DropdownMenuItem role="menuitem" className="px-4 py-2" asChild>
+                  <Link href="/dashboard/settings?tab=notifications">
+                    <Settings className="mr-3 h-4 w-4" aria-hidden="true" />
+                    <span className="text-sm">Settings</span>
+                  </Link>
                 </DropdownMenuItem>
               </div>
 
