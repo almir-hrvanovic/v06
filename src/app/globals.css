@@ -78,14 +78,14 @@
     
     /* Comprehensive Dark Sidebar Color System */
     --sidebar-background: 240 6% 8%;
-    --sidebar-foreground: 240 6% 85%;
+    --sidebar-foreground: 240 6% 82%;
     --sidebar-border: 240 4% 16%;
     --sidebar-active: 151 60% 50%;
     --sidebar-active-foreground: 240 8% 7%;
     --sidebar-hover: 240 4% 14%;
     --sidebar-icon: 240 5% 65%;
     --sidebar-icon-active: 240 8% 7%;
-    --sidebar-text-secondary: 240 5% 65%;
+    --sidebar-text-secondary: 240 5% 68%;
     --sidebar-badge-bg: 151 60% 50%;
     --sidebar-badge-text: 240 8% 7%;
     --sidebar-separator: 240 4% 16%;

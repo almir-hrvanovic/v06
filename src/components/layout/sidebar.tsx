@@ -259,10 +259,8 @@ export function Sidebar() {
           isCollapsed ? 'w-16' : 'w-64',
           accessibility.highContrast && 'border-2 border-solid'
         )}
-        {...ariaProps.navigation(
-          isCollapsed ? 'Collapsed navigation menu' : 'Main navigation menu'
-        )}
-        {...sidebarKeyboard.elementRef && { ref: sidebarKeyboard.elementRef }}
+        role="navigation"
+        aria-label={isCollapsed ? 'Collapsed navigation menu' : 'Main navigation menu'}
       >
         {/* Header */}
         <div className="flex h-16 items-center sidebar-separator border-b px-4">
@@ -314,10 +312,8 @@ export function Sidebar() {
               accessibility.reducedMotion ? '' : 'duration-300',
               isCollapsed ? 'hidden' : 'ml-auto'
             )}
-            {...ariaProps.button({
-              expanded: !isCollapsed,
-              controls: navId
-            })}
+            aria-expanded={!isCollapsed}
+            aria-controls={navId}
             aria-label={`${isCollapsed ? 'Expand' : 'Collapse'} sidebar navigation. Keyboard shortcut: Control B`}
           >
             <ChevronLeft className="h-4 w-4" />
@@ -329,7 +325,6 @@ export function Sidebar() {
           id={navId}
           className="flex-1 overflow-y-auto p-3"
           aria-labelledby={logoId}
-          {...listNavigation.keyboardProps}
         >
           <div 
             className="space-y-1" 
@@ -423,10 +418,8 @@ export function Sidebar() {
               size="sm"
               onClick={handleToggleCollapsed}
               className="sidebar-expand-button w-full h-8 p-0 relative"
-              {...ariaProps.button({
-                expanded: false,
-                controls: navId
-              })}
+              aria-expanded={false}
+              aria-controls={navId}
               aria-label="Expand sidebar navigation. Keyboard shortcut: Control right bracket"
             >
               <ChevronRight className="h-4 w-4" />
@@ -443,10 +436,8 @@ export function Sidebar() {
               size="sm"
               onClick={handleToggleCollapsed}
               className="sidebar-expand-button h-8 w-8 p-0 rounded-full shadow-md"
-              {...ariaProps.button({
-                expanded: false,
-                controls: navId
-              })}
+              aria-expanded={false}
+              aria-controls={navId}
               aria-label="Expand sidebar navigation"
             >
               <ChevronRight className="h-3 w-3" />
