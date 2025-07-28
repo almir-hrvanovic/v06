@@ -71,12 +71,6 @@ export async function middleware(request: NextRequest) {
     return new NextResponse('Unauthorized', { status: 401 })
   }
 
-  // Redirect root to dashboard if has session token
-  if (pathname === '/' && sessionToken) {
-    console.log('Redirecting to dashboard - has session token')
-    return NextResponse.redirect(new URL('/dashboard', request.url))
-  }
-
   const response = NextResponse.next()
   
   // Add monitoring headers
