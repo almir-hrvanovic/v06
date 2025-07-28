@@ -102,3 +102,6 @@ tests/ui-validation/signin-page.spec.ts
 tests/ui-validation/visual-comparison.spec.ts
 playwright-report/index.html
 ui-testing-report.md
+
+#playwright-report
+playwright-report
