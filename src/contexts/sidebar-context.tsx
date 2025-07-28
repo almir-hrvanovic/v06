@@ -11,7 +11,7 @@ interface SidebarContextType {
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined)
 
 export function SidebarProvider({ children }: { children: React.ReactNode }) {
-  const [isCollapsed, setIsCollapsed] = useState(true)
+  const [isCollapsed, setIsCollapsed] = useState(false) // Default to expanded
 
   // Load collapsed state from localStorage
   useEffect(() => {
@@ -19,8 +19,8 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
     if (saved) {
       setIsCollapsed(saved === 'true')
     } else {
-      // Set default collapsed state if no saved preference
-      setIsCollapsed(true)
+      // Set default expanded state if no saved preference
+      setIsCollapsed(false)
     }
   }, [])
 

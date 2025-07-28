@@ -1,0 +1,64 @@
+
+> gs-cms-v05@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.1.8
+   - Local:        http://localhost:3000
+   - Network:      http://10.10.40.87:3000
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · turbo
+
+ ✓ Starting...
+ ✓ Ready in 2.9s
+ ✓ Compiled /src/middleware in 258ms (100 modules)
+Middleware check: { pathname: '/', hasSessionToken: false }
+ ○ Compiling / ...
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Setting up new context...
+Finding changed files: 15.551ms
+Reading changed files: 610.842ms
+Sorting candidates: 10.03ms
+Generate rules: 294.137ms
+Build stylesheet: 4.583ms
+Potential classes:  7855
+Active contexts:  1
+JIT TOTAL: 1.213s
+
+
+ ✓ Compiled / in 6.2s (1479 modules)
+ HEAD / 200 in 7616ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 11.862ms
+Reading changed files: 0.01ms
+Sorting candidates: 0.005ms
+Generate rules: 0.24ms
+Build stylesheet: 0.006ms
+Potential classes:  1
+Active contexts:  1
+JIT TOTAL: 140.989ms
+
+
+ ✓ Compiled in 663ms (335 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 7.276ms
+Reading changed files: 5.649ms
+Sorting candidates: 0.204ms
+Generate rules: 2.601ms
+Build stylesheet: 1.852ms
+Potential classes:  305
+Active contexts:  1
+JIT TOTAL: 94.927ms
+
+
+ ✓ Compiled in 705ms (335 modules)
+Middleware check: { pathname: '/auth/signin', hasSessionToken: false }
+ ○ Compiling /auth/signin ...
+ ✓ Compiled /auth/signin in 967ms (1504 modules)
+ GET /auth/signin 200 in 1801ms

@@ -31,6 +31,7 @@ import {
   Workflow,
   ChevronLeft,
   ChevronRight,
+  Database,
 } from 'lucide-react'
 
 interface NavItem {
@@ -142,19 +143,31 @@ export function Sidebar() {
   return (
     <TooltipProvider>
       <div className={cn(
-        'relative h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transition-all duration-300',
+        'relative h-screen sidebar-nav border-r border-border transition-all duration-300',
         isCollapsed ? 'w-16' : 'w-64'
       )}>
         {/* Header */}
-        <div className="flex h-16 items-center border-b border-gray-200 dark:border-gray-800 px-4">
+        <div className="flex h-16 items-center border-b border-border px-4">
           {!isCollapsed && (
-            <div className="flex items-center space-x-2">
-              <div className="h-8 w-8 rounded-lg bg-blue-600 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">GS</span>
+            <div className="flex items-center space-x-3">
+              <div className="h-9 w-9 rounded-lg bg-[hsl(var(--supabase-green))] flex items-center justify-center shadow-sm">
+                <Database className="h-5 w-5 text-white" />
               </div>
-              <span className="font-semibold text-gray-900 dark:text-white">
-                CMS
-              </span>
+              <div>
+                <span className="font-semibold text-sidebar-foreground text-lg">
+                  GS-CMS
+                </span>
+                <div className="text-xs text-muted-foreground">
+                  v5.0
+                </div>
+              </div>
+            </div>
+          )}
+          {isCollapsed && (
+            <div className="mx-auto">
+              <div className="h-8 w-8 rounded-lg bg-[hsl(var(--supabase-green))] flex items-center justify-center shadow-sm">
+                <Database className="h-4 w-4 text-white" />
+              </div>
             </div>
           )}
           <Button
@@ -162,21 +175,17 @@ export function Sidebar() {
             size="sm"
             onClick={toggleCollapsed}
             className={cn(
-              'h-8 w-8 p-0',
-              isCollapsed ? 'mx-auto' : 'ml-auto'
+              'h-8 w-8 p-0 hover:bg-[hsl(var(--nav-hover))] text-muted-foreground hover:text-foreground',
+              isCollapsed ? 'hidden' : 'ml-auto'
             )}
           >
-            {isCollapsed ? (
-              <ChevronRight className="h-4 w-4" />
-            ) : (
-              <ChevronLeft className="h-4 w-4" />
-            )}
+            <ChevronLeft className="h-4 w-4" />
           </Button>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto p-4">
-          <div className="space-y-2">
+        <nav className="flex-1 overflow-y-auto p-3">
+          <div className="space-y-1">
             {filteredNavItems.map((item) => {
               const Icon = item.icon
               const isActive = pathname === item.href
@@ -186,34 +195,31 @@ export function Sidebar() {
                 <Tooltip key={item.href} delayDuration={0}>
                   <TooltipTrigger asChild>
                     <Link href={item.href}>
-                      <Button
-                        variant={isActive ? 'default' : 'ghost'}
-                        size="sm"
+                      <div
                         className={cn(
-                          'w-full justify-start h-10',
-                          isCollapsed && 'px-2',
-                          isActive && 'bg-blue-600 text-white hover:bg-blue-700'
+                          'sidebar-nav-item',
+                          isActive && 'sidebar-nav-item-active'
                         )}
                       >
-                        <Icon className={cn(
-                          'h-4 w-4',
-                          !isCollapsed && 'mr-3'
-                        )} />
+                        <Icon className="h-4 w-4 flex-shrink-0" />
                         {!isCollapsed && (
                           <>
                             <span className="truncate">{title}</span>
                             {item.badge && (
-                              <Badge variant="secondary" className="ml-auto">
+                              <Badge 
+                                variant="secondary" 
+                                className="ml-auto bg-[hsl(var(--supabase-green))]/10 text-[hsl(var(--supabase-green))] border-0"
+                              >
                                 {item.badge}
                               </Badge>
                             )}
                           </>
                         )}
-                      </Button>
+                      </div>
                     </Link>
                   </TooltipTrigger>
                   {isCollapsed && (
-                    <TooltipContent side="right" sideOffset={5}>
+                    <TooltipContent side="right" sideOffset={8}>
                       <p>{title}</p>
                     </TooltipContent>
                   )}
@@ -222,6 +228,38 @@ export function Sidebar() {
             })}
           </div>
         </nav>
+
+        {/* Expand Button for Collapsed State */}
+        {isCollapsed && (
+          <div className="p-3 border-t border-border">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleCollapsed}
+              className="w-full h-8 p-0 hover:bg-[hsl(var(--nav-hover))] text-muted-foreground hover:text-foreground relative"
+              title="Expand sidebar"
+            >
+              <ChevronRight className="h-4 w-4" />
+              <span className="sr-only">Expand sidebar</span>
+            </Button>
+          </div>
+        )}
+        
+        {/* Floating expand button when completely collapsed */}
+        {isCollapsed && (
+          <div className="absolute -right-3 top-20 z-10">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={toggleCollapsed}
+              className="h-8 w-8 p-0 rounded-full bg-background shadow-md border-border hover:bg-[hsl(var(--nav-hover))]"
+              title="Expand sidebar"
+            >
+              <ChevronRight className="h-3 w-3" />
+              <span className="sr-only">Expand sidebar</span>
+            </Button>
+          </div>
+        )}
       </div>
     </TooltipProvider>
   )

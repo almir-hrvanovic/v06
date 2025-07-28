@@ -4,48 +4,70 @@
 
 @layer base {
   :root {
+    /* Supabase Light Theme */
     --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --foreground: 240 8% 15%;
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card-foreground: 240 8% 15%;
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
+    --popover-foreground: 240 8% 15%;
+    --primary: 151 60% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 6% 10%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+    --accent: 240 5% 96%;
+    --accent-foreground: 240 6% 10%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
-    --radius: 0.5rem;
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 151 60% 45%;
+    --radius: 8px;
+    
+    /* Supabase specific colors */
+    --supabase-green: 151 60% 45%;
+    --supabase-dark-green: 151 55% 40%;
+    --sidebar-background: 240 6% 97%;
+    --sidebar-foreground: 240 8% 15%;
+    --sidebar-active: 151 60% 45%;
+    --sidebar-active-foreground: 0 0% 100%;
+    --header-background: 0 0% 100%;
+    --nav-hover: 240 5% 92%;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    /* Supabase Dark Theme */
+    --background: 240 8% 7%;
+    --foreground: 240 6% 90%;
+    --card: 240 6% 10%;
+    --card-foreground: 240 6% 90%;
+    --popover: 240 6% 10%;
+    --popover-foreground: 240 6% 90%;
+    --primary: 151 60% 50%;
+    --primary-foreground: 240 8% 7%;
+    --secondary: 240 4% 16%;
+    --secondary-foreground: 240 6% 90%;
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 5% 65%;
+    --accent: 240 4% 16%;
+    --accent-foreground: 240 6% 90%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --border: 240 4% 16%;
+    --input: 240 4% 16%;
+    --ring: 151 60% 50%;
+    
+    /* Supabase dark specific colors */
+    --supabase-green: 151 60% 50%;
+    --supabase-dark-green: 151 55% 45%;
+    --sidebar-background: 240 6% 8%;
+    --sidebar-foreground: 240 6% 85%;
+    --sidebar-active: 151 60% 50%;
+    --sidebar-active-foreground: 240 8% 7%;
+    --header-background: 240 6% 10%;
+    --nav-hover: 240 4% 14%;
   }
 }
 
@@ -80,7 +102,51 @@
   }
   
   .data-table-wrapper {
-    @apply rounded-md border border-border;
+    @apply rounded-lg border border-border shadow-sm;
+  }
+
+  /* Supabase-style sidebar */
+  .sidebar-nav {
+    @apply bg-[hsl(var(--sidebar-background))] text-[hsl(var(--sidebar-foreground))];
+  }
+  
+  .sidebar-nav-item {
+    @apply flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-all hover:bg-[hsl(var(--nav-hover))];
+  }
+  
+  .sidebar-nav-item-active {
+    @apply bg-[hsl(var(--sidebar-active))] text-[hsl(var(--sidebar-active-foreground))] hover:bg-[hsl(var(--sidebar-active))]/90;
+  }
+
+  /* Supabase-style cards */
+  .supabase-card {
+    @apply rounded-lg border border-border bg-card p-6 shadow-sm transition-all hover:shadow-md;
+  }
+  
+  .supabase-card-header {
+    @apply mb-4 flex items-center justify-between;
+  }
+  
+  .supabase-card-title {
+    @apply text-lg font-semibold text-card-foreground;
+  }
+  
+  .supabase-card-description {
+    @apply text-sm text-muted-foreground;
+  }
+
+  /* Supabase-style buttons */
+  .btn-supabase-primary {
+    @apply bg-[hsl(var(--supabase-green))] text-white hover:bg-[hsl(var(--supabase-dark-green))] rounded-md px-4 py-2 text-sm font-medium transition-colors;
+  }
+  
+  .btn-supabase-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-md px-4 py-2 text-sm font-medium transition-colors;
+  }
+
+  /* Supabase-style header */
+  .supabase-header {
+    @apply bg-[hsl(var(--header-background))] border-b border-border shadow-sm;
   }
   
   .status-badge {

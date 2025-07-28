@@ -79,13 +79,24 @@ export function MobileHeader({ className }: MobileHeaderProps) {
   }
 
   return (
-    <header className={`sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 ${className}`}>
-      <div className="flex h-16 items-center px-4">
+    <header className={`sticky top-0 z-50 w-full border-b bg-[hsl(var(--header-background))]/95 backdrop-blur supports-[backdrop-filter]:bg-[hsl(var(--header-background))]/80 ${className}`}>
+      <div className="flex h-16 items-center px-4 lg:px-6">
         {/* Left side - Menu button and title */}
-        <div className="flex items-center space-x-3">
-          <MobileSidebar />
-          <div className="flex flex-col">
-            <h1 className="text-lg font-semibold truncate">{getPageTitle()}</h1>
+        <div className="flex items-center space-x-4">
+          <div className="md:hidden">
+            <MobileSidebar />
+          </div>
+          <div className="hidden lg:flex items-center space-x-3">
+            <div className="h-8 w-8 rounded-lg bg-[hsl(var(--supabase-green))] flex items-center justify-center shadow-sm">
+              <span className="text-white font-bold text-sm">GS</span>
+            </div>
+            <div>
+              <span className="font-semibold text-foreground text-lg">GS-CMS</span>
+              <div className="text-xs text-muted-foreground">v5.0</div>
+            </div>
+          </div>
+          <div className="lg:hidden flex flex-col">
+            <h1 className="text-lg font-semibold truncate text-foreground">{getPageTitle()}</h1>
             {session?.user?.name && (
               <p className="text-xs text-muted-foreground truncate">
                 {t('welcome')}, {session.user.name.split(' ')[0]}
@@ -95,12 +106,12 @@ export function MobileHeader({ className }: MobileHeaderProps) {
         </div>
 
         {/* Right side - Actions */}
-        <div className="ml-auto flex items-center space-x-2">
+        <div className="ml-auto flex items-center space-x-3">
           {/* Search Toggle */}
           <Button
             variant="ghost"
             size="sm"
-            className="h-9 w-9 p-0"
+            className="h-9 w-9 p-0 hover:bg-[hsl(var(--nav-hover))] text-muted-foreground hover:text-foreground"
             onClick={() => setShowSearch(!showSearch)}
           >
             <Search className="h-4 w-4" />
@@ -121,28 +132,28 @@ export function MobileHeader({ className }: MobileHeaderProps) {
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-9 w-9 p-0"
+                className="h-9 w-9 p-0 hover:bg-[hsl(var(--nav-hover))]"
               >
-                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-medium">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[hsl(var(--supabase-green))] text-white text-sm font-medium shadow-sm">
                   {session?.user?.name?.charAt(0)?.toUpperCase() || 'U'}
                 </div>
                 <span className="sr-only">{t('userMenu')}</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
-              <div className="px-2 py-1.5">
-                <p className="text-sm font-medium">{session?.user?.name || 'User'}</p>
+              <div className="px-3 py-2">
+                <p className="text-sm font-medium text-foreground">{session?.user?.name || 'User'}</p>
                 <p className="text-xs text-muted-foreground">{session?.user?.email}</p>
               </div>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
-                <Link href="/dashboard/settings">
+                <Link href="/dashboard/settings" className="cursor-pointer">
                   <Settings className="mr-2 h-4 w-4" />
                   {t('settings')}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => signOut()}>
+              <DropdownMenuItem onClick={() => signOut()} className="cursor-pointer text-destructive focus:text-destructive">
                 <LogOut className="mr-2 h-4 w-4" />
                 {t('signOut')}
               </DropdownMenuItem>

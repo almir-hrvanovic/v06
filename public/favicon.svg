@@ -2,4 +2,3 @@
   <rect width="32" height="32" rx="6" fill="#1f2937"/>
   <path d="M16 4l2.47 5.01L24 10.18l-4 3.9.94 5.5L16 17.15l-4.94 2.59.94-5.5-4-3.9 5.53-1.17L16 4z" fill="#fbbf24"/>
 </svg>
-EOF < /dev/null
