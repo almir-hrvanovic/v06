@@ -394,7 +394,7 @@ export function MobileSidebar({ className }: MobileSidebarProps) {
           ref={menuButtonRef}
           variant="ghost"
           size="sm"
-          className="h-9 w-9 p-0"
+          className="mobile-sidebar-trigger h-9 w-9 p-0"
           onClick={handleToggle}
           aria-expanded={isOpen}
           aria-haspopup="menu"

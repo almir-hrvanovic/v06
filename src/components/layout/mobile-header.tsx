@@ -107,7 +107,7 @@ export function MobileHeader({ className }: MobileHeaderProps) {
   }
 
   return (
-    <header className={`sticky top-0 z-50 w-full border-b bg-[hsl(var(--header-background))]/95 backdrop-blur supports-[backdrop-filter]:bg-[hsl(var(--header-background))]/80 ${className}`}>
+    <header className={`mobile-header sticky top-0 w-full border-b bg-[hsl(var(--header-background))]/95 backdrop-blur supports-[backdrop-filter]:bg-[hsl(var(--header-background))]/80 ${className}`}>
       <div className="flex h-16 items-center px-4 lg:px-6">
         {/* Left side - Menu button and title */}
         <div className="flex items-center space-x-4">

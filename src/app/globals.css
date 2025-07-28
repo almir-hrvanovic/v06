@@ -11,7 +11,7 @@
     --card-foreground: 240 8% 15%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 8% 15%;
-    --primary: 151 60% 45%;
+    --primary: 213 100% 50%;
     --primary-foreground: 0 0% 100%;
     --secondary: 240 5% 96%;
     --secondary-foreground: 240 6% 10%;
@@ -23,7 +23,7 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 6% 90%;
     --input: 240 6% 90%;
-    --ring: 151 60% 45%;
+    --ring: 213 100% 50%;
     --radius: 8px;
     
     /* Supabase specific colors */
@@ -34,7 +34,7 @@
     --sidebar-background: 240 6% 97%;
     --sidebar-foreground: 240 8% 15%;
     --sidebar-border: 240 6% 90%;
-    --sidebar-active: 151 60% 45%;
+    --sidebar-active: 213 100% 50%;
     --sidebar-active-foreground: 0 0% 100%;
     --sidebar-hover: 240 5% 92%;
     --sidebar-icon: 240 6% 46%;
@@ -43,7 +43,7 @@
     --sidebar-badge-bg: 151 60% 45%;
     --sidebar-badge-text: 0 0% 100%;
     --sidebar-separator: 240 6% 90%;
-    --sidebar-logo-bg: 151 60% 45%;
+    --sidebar-logo-bg: 213 100% 50%;
     --sidebar-expand-button: 240 6% 97%;
     --sidebar-expand-button-hover: 240 5% 92%;
     --header-background: 0 0% 100%;
@@ -58,7 +58,7 @@
     --card-foreground: 240 6% 85%;
     --popover: 240 6% 10%;
     --popover-foreground: 240 6% 85%;
-    --primary: 151 60% 50%;
+    --primary: 213 100% 55%;
     --primary-foreground: 240 8% 7%;
     --secondary: 240 4% 16%;
     --secondary-foreground: 240 6% 85%;
@@ -70,7 +70,7 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 4% 16%;
     --input: 240 4% 16%;
-    --ring: 151 60% 50%;
+    --ring: 213 100% 55%;
     
     /* Supabase dark specific colors */
     --supabase-blue: 213 100% 55%;
@@ -80,16 +80,16 @@
     --sidebar-background: 240 6% 8%;
     --sidebar-foreground: 240 6% 82%;
     --sidebar-border: 240 4% 16%;
-    --sidebar-active: 151 60% 50%;
+    --sidebar-active: 213 100% 55%;
     --sidebar-active-foreground: 240 8% 7%;
     --sidebar-hover: 240 4% 14%;
     --sidebar-icon: 240 5% 65%;
     --sidebar-icon-active: 240 8% 7%;
     --sidebar-text-secondary: 240 5% 68%;
-    --sidebar-badge-bg: 151 60% 50%;
+    --sidebar-badge-bg: 213 100% 55%;
     --sidebar-badge-text: 240 8% 7%;
     --sidebar-separator: 240 4% 16%;
-    --sidebar-logo-bg: 151 60% 50%;
+    --sidebar-logo-bg: 213 100% 55%;
     --sidebar-expand-button: 240 6% 10%;
     --sidebar-expand-button-hover: 240 4% 14%;
     --header-background: 240 6% 10%;
@@ -118,6 +118,16 @@
   :root {
     /* Store current theme state to prevent flash */
     --theme-transition-duration: 0.3s;
+    /* Mobile header z-index hierarchy */
+    --mobile-header-z-index: 110;
+  }
+  
+  /* Mobile header positioning fix */
+  .mobile-header {
+    z-index: var(--mobile-header-z-index);
+    position: sticky;
+    top: 0;
+    isolation: isolate;
   }
   
   /* Ensure all elements participate in theme transitions */
@@ -395,6 +405,21 @@ button, [role="button"], .transition-colors {
   color: hsl(var(--foreground)) !important;
 }
 
+/* Mobile header with proper z-index - CRITICAL FIX */
+.mobile-header {
+  z-index: var(--mobile-header-z-index);
+  position: sticky;
+  top: 0;
+  /* Ensure header stays above all overlays */
+  isolation: isolate;
+}
+
+/* Ensure mobile header button remains accessible when sidebar is open */
+.mobile-header .mobile-sidebar-trigger {
+  position: relative;
+  z-index: 1;
+}
+
 /* Smooth theme transitions for sidebar and header */
 .sidebar-nav,
 .supabase-header,
@@ -431,10 +456,13 @@ button, [role="button"], .transition-colors {
   --sidebar-item-padding: 0.75rem;
   --sidebar-item-gap: 0.75rem;
   
-  /* Z-index management */
+  /* Z-index management - Fixed hierarchy */
   --sidebar-z-index: 40;
   --sidebar-overlay-z-index: 35;
   --sidebar-floating-button-z-index: 45;
+  --mobile-header-z-index: 110; /* Above Sheet overlay (z-99) and content (z-100) */
+  --sheet-overlay-z-index: 99;
+  --sheet-content-z-index: 100;
   
   /* Responsive breakpoints */
   --breakpoint-sm: 640px;
