@@ -29,10 +29,23 @@
     /* Supabase specific colors */
     --supabase-green: 151 60% 45%;
     --supabase-dark-green: 151 55% 40%;
+    
+    /* Comprehensive Sidebar Color System */
     --sidebar-background: 240 6% 97%;
     --sidebar-foreground: 240 8% 15%;
+    --sidebar-border: 240 6% 90%;
     --sidebar-active: 151 60% 45%;
     --sidebar-active-foreground: 0 0% 100%;
+    --sidebar-hover: 240 5% 92%;
+    --sidebar-icon: 240 6% 46%;
+    --sidebar-icon-active: 0 0% 100%;
+    --sidebar-text-secondary: 240 4% 46%;
+    --sidebar-badge-bg: 151 60% 45%;
+    --sidebar-badge-text: 0 0% 100%;
+    --sidebar-separator: 240 6% 90%;
+    --sidebar-logo-bg: 151 60% 45%;
+    --sidebar-expand-button: 240 6% 97%;
+    --sidebar-expand-button-hover: 240 5% 92%;
     --header-background: 0 0% 100%;
     --nav-hover: 240 5% 92%;
   }
@@ -62,10 +75,23 @@
     /* Supabase dark specific colors */
     --supabase-green: 151 60% 50%;
     --supabase-dark-green: 151 55% 45%;
+    
+    /* Comprehensive Dark Sidebar Color System */
     --sidebar-background: 240 6% 8%;
     --sidebar-foreground: 240 6% 85%;
+    --sidebar-border: 240 4% 16%;
     --sidebar-active: 151 60% 50%;
     --sidebar-active-foreground: 240 8% 7%;
+    --sidebar-hover: 240 4% 14%;
+    --sidebar-icon: 240 5% 65%;
+    --sidebar-icon-active: 240 8% 7%;
+    --sidebar-text-secondary: 240 5% 65%;
+    --sidebar-badge-bg: 151 60% 50%;
+    --sidebar-badge-text: 240 8% 7%;
+    --sidebar-separator: 240 4% 16%;
+    --sidebar-logo-bg: 151 60% 50%;
+    --sidebar-expand-button: 240 6% 10%;
+    --sidebar-expand-button-hover: 240 4% 14%;
     --header-background: 240 6% 10%;
     --nav-hover: 240 4% 14%;
   }
@@ -76,7 +102,35 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground transition-colors duration-300;
+    @apply bg-background text-foreground;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Prevent flash during theme transitions */
+    overflow-x: hidden;
+  }
+  
+  /* Prevent flash of unstyled content during theme transitions */
+  html {
+    /* Ensure smooth theme transitions */
+    transition: color-scheme 0.3s ease;
+  }
+  
+  /* Theme transition optimization */
+  :root {
+    /* Store current theme state to prevent flash */
+    --theme-transition-duration: 0.3s;
+  }
+  
+  /* Ensure all elements participate in theme transitions */
+  * {
+    transition: background-color var(--theme-transition-duration) ease,
+                color var(--theme-transition-duration) ease,
+                border-color var(--theme-transition-duration) ease,
+                box-shadow var(--theme-transition-duration) ease;
+  }
+  
+  /* Prevent transition on page load to avoid initial flash */
+  .no-transition * {
+    transition: none !important;
   }
 }
 
@@ -105,17 +159,40 @@
     @apply rounded-lg border border-border shadow-sm;
   }
 
-  /* Supabase-style sidebar */
+  /* Supabase-style sidebar with comprehensive theme integration */
   .sidebar-nav {
-    @apply bg-[hsl(var(--sidebar-background))] text-[hsl(var(--sidebar-foreground))];
+    @apply bg-[hsl(var(--sidebar-background))] text-[hsl(var(--sidebar-foreground))] border-[hsl(var(--sidebar-border))];
   }
   
   .sidebar-nav-item {
-    @apply flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-all hover:bg-[hsl(var(--nav-hover))];
+    @apply flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium 
+           transition-all duration-300 ease-in-out
+           hover:bg-[hsl(var(--sidebar-hover))] 
+           text-[hsl(var(--sidebar-foreground))]
+           [&>svg]:text-[hsl(var(--sidebar-icon))]
+           [&>svg]:transition-colors
+           [&>svg]:duration-300;
   }
   
   .sidebar-nav-item-active {
-    @apply bg-[hsl(var(--sidebar-active))] text-[hsl(var(--sidebar-active-foreground))] hover:bg-[hsl(var(--sidebar-active))]/90;
+    @apply bg-[hsl(var(--sidebar-active))] 
+           text-[hsl(var(--sidebar-active-foreground))] 
+           hover:bg-[hsl(var(--sidebar-active))]/90
+           [&>svg]:text-[hsl(var(--sidebar-icon-active))]
+           shadow-sm;
+  }
+
+  .sidebar-separator {
+    @apply border-[hsl(var(--sidebar-separator))];
+  }
+
+  .sidebar-expand-button {
+    @apply bg-[hsl(var(--sidebar-expand-button))] 
+           hover:bg-[hsl(var(--sidebar-expand-button-hover))]
+           border-[hsl(var(--sidebar-border))]
+           text-[hsl(var(--sidebar-icon))]
+           hover:text-[hsl(var(--sidebar-foreground))]
+           transition-all duration-300;
   }
 
   /* Supabase-style cards */
@@ -272,6 +349,67 @@ body:has([data-state="open"]) {
   @apply overflow-hidden;
 }
 
+/* Prevent theme flash during language switches */
+html {
+  transition: none !important;
+  background-color: hsl(var(--background)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Prevent flash during theme transitions */
+html.light {
+  background-color: hsl(0 0% 100%) !important;
+  color: hsl(240 10% 3.9%) !important;
+}
+
+html.dark {
+  background-color: hsl(240 10% 3.9%) !important;
+  color: hsl(0 0% 98%) !important;
+}
+
+/* Enhanced theme transition for body */
+body {
+  transition: background-color 0.15s ease, color 0.15s ease;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+/* Smooth theme transitions for interactive elements only */
+button, [role="button"], .transition-colors {
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+/* Language switching optimizations */
+.language-switching {
+  /* Preserve theme colors during language change */
+  transition: none !important;
+}
+
+.language-switching * {
+  transition: none !important;
+}
+
+/* Theme flash prevention */
+.theme-preserving {
+  background-color: hsl(var(--background)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Smooth theme transitions for sidebar and header */
+.sidebar-nav,
+.supabase-header,
+[data-theme-container] {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Optimize specific components for theme transitions */
+.sidebar-nav-item,
+.supabase-card,
+.btn-supabase-primary,
+.btn-supabase-secondary {
+  transition: all 0.3s ease;
+}
+
 /* Custom animations */
 @keyframes slideIn {
   from {
@@ -308,4 +446,64 @@ body:has([data-state="open"]) {
   to {
     transform: translateX(100%);
   }
+}
+
+/* Language switching transition overlay */
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.8;
+  }
+}
+
+@keyframes fadeOutOverlay {
+  from {
+    opacity: 0.8;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Theme preservation during language switch */
+.language-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: hsl(var(--background));
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInOverlay 0.2s ease-out;
+}
+
+.language-transition-overlay.hiding {
+  animation: fadeOutOverlay 0.3s ease-out;
+}
+
+.language-transition-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: hsl(var(--foreground));
+}
+
+.language-transition-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid transparent;
+  border-top: 2px solid hsl(var(--primary));
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

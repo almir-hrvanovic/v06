@@ -18,14 +18,21 @@ export function DashboardClient({
       <SidebarProvider>
         <NotificationProvider>
           <div className="flex h-screen bg-background">
-            {/* Sidebar - Visible on desktop (md and up), hidden on mobile */}
-            <div className="hidden md:block">
+            {/* Sidebar - Visible on desktop (lg and up), hidden on mobile/tablet */}
+            <div className="hidden lg:block">
               <Sidebar />
             </div>
             
             <div className="flex flex-1 flex-col overflow-hidden">
-              {/* Mobile Header - Always visible on ALL screens */}
-              <MobileHeader className="supabase-header" />
+              {/* Desktop Header - Only on large screens with sidebar */}
+              <div className="hidden lg:block">
+                <Header />
+              </div>
+              
+              {/* Mobile/Tablet Header - Visible on smaller screens */}
+              <div className="lg:hidden">
+                <MobileHeader className="supabase-header" />
+              </div>
               
               {/* Main Content */}
               <main className="flex-1 overflow-y-auto p-6 lg:p-8" role="main" aria-label="Main content">

@@ -1051,3 +1051,411 @@ NextAuth redirect callback: {
 Same origin redirect to: http://localhost:3000/auth/signin
  GET /api/notifications 200 in 868ms
  GET /api/notifications 200 in 1212ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Setting up new context...
+Finding changed files: 20.575ms
+Reading changed files: 559.753ms
+Sorting candidates: 13.56ms
+Generate rules: 271.314ms
+Build stylesheet: 2.944ms
+Potential classes:  7863
+Active contexts:  1
+JIT TOTAL: 1.436s
+
+
+ ✓ Compiled in 5.1s (1803 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 16.257ms
+Reading changed files: 18.61ms
+Sorting candidates: 0.103ms
+Generate rules: 1.674ms
+Build stylesheet: 0.004ms
+Potential classes:  109
+Active contexts:  1
+JIT TOTAL: 201.637ms
+
+
+ ✓ Compiled in 1638ms (503 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Setting up new context...
+Finding changed files: 15.241ms
+Reading changed files: 469.508ms
+Sorting candidates: 12.33ms
+Generate rules: 274.217ms
+Build stylesheet: 4.434ms
+Potential classes:  7865
+Active contexts:  1
+JIT TOTAL: 1.056s
+
+
+ ✓ Compiled in 3.8s (1803 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/cache/webpack/client-development/0.pack.gz_' -> '/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/cache/webpack/client-development/0.pack.gz'
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 12.615ms
+Reading changed files: 16.241ms
+Sorting candidates: 0.383ms
+Generate rules: 3.534ms
+Build stylesheet: 0.004ms
+Potential classes:  301
+Active contexts:  1
+JIT TOTAL: 145.063ms
+
+
+ ✓ Compiled in 2.8s (1803 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 6.389ms
+Reading changed files: 7.36ms
+Sorting candidates: 0.233ms
+Generate rules: 1.23ms
+Build stylesheet: 0.002ms
+Potential classes:  247
+Active contexts:  1
+JIT TOTAL: 84.851ms
+
+
+ ✓ Compiled in 579ms (503 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Setting up new context...
+Finding changed files: 5.615ms
+Reading changed files: 406.523ms
+Sorting candidates: 16.254ms
+Generate rules: 292.08ms
+Build stylesheet: 4.886ms
+Potential classes:  7865
+Active contexts:  1
+JIT TOTAL: 917.45ms
+
+
+ ✓ Compiled in 2.1s (1803 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 7.893ms
+Reading changed files: 8.573ms
+Sorting candidates: 0.361ms
+Generate rules: 1.384ms
+Build stylesheet: 0.002ms
+Potential classes:  244
+Active contexts:  1
+JIT TOTAL: 108.662ms
+
+
+ ✓ Compiled in 862ms (503 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 7.569ms
+Reading changed files: 17.453ms
+Sorting candidates: 0.44ms
+Generate rules: 8.866ms
+Build stylesheet: 5.639ms
+Potential classes:  314
+Active contexts:  1
+JIT TOTAL: 125.559ms
+
+
+ ✓ Compiled in 2.4s (1803 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 6.201ms
+Reading changed files: 5.866ms
+Sorting candidates: 0.274ms
+Generate rules: 1.449ms
+Build stylesheet: 0.002ms
+Potential classes:  255
+Active contexts:  1
+JIT TOTAL: 108.179ms
+
+
+ ✓ Compiled in 728ms (503 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 7.925ms
+Reading changed files: 21.621ms
+Sorting candidates: 0.295ms
+Generate rules: 3.543ms
+Build stylesheet: 2.677ms
+Potential classes:  314
+Active contexts:  1
+JIT TOTAL: 120.726ms
+
+
+ ✓ Compiled in 1477ms (1803 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Setting up new context...
+Finding changed files: 8.785ms
+Reading changed files: 702.693ms
+Sorting candidates: 14.507ms
+Generate rules: 308.875ms
+Build stylesheet: 2.901ms
+Potential classes:  7886
+Active contexts:  1
+JIT TOTAL: 1.277s
+
+
+ ✓ Compiled in 3s (1803 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 15.806ms
+Reading changed files: 64.749ms
+Sorting candidates: 0.32ms
+Generate rules: 2.861ms
+Build stylesheet: 0.003ms
+Potential classes:  334
+Active contexts:  1
+JIT TOTAL: 174.363ms
+
+
+ ✓ Compiled in 1522ms (1803 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 741ms (1793 modules)
+ GET /dashboard 404 in 1649ms
+ GET /_next/static/chunks/main-app.js?v=1753712613215 404 in 80ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 80ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Setting up new context...
+Finding changed files: 24.24ms
+Reading changed files: 813.553ms
+Sorting candidates: 14.265ms
+Generate rules: 267.889ms
+Build stylesheet: 4.991ms
+Potential classes:  7886
+Active contexts:  1
+JIT TOTAL: 1.416s
+
+
+ ✓ Compiled in 4.4s (1807 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 15.346ms
+Reading changed files: 128.84ms
+Sorting candidates: 0.549ms
+Generate rules: 4.141ms
+Build stylesheet: 0.005ms
+Potential classes:  336
+Active contexts:  1
+JIT TOTAL: 307.34ms
+
+
+ ✓ Compiled in 4.5s (1807 modules)
+ ✓ Compiled in 875ms (1301 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 15.529ms
+Reading changed files: 78.157ms
+Sorting candidates: 0.431ms
+Generate rules: 3.955ms
+Build stylesheet: 6.167ms
+Potential classes:  310
+Active contexts:  1
+JIT TOTAL: 308.506ms
+
+
+ ✓ Compiled in 1567ms (506 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 30.737ms
+Reading changed files: 217.53ms
+Sorting candidates: 0.639ms
+Generate rules: 4.93ms
+Build stylesheet: 0.005ms
+Potential classes:  339
+Active contexts:  1
+JIT TOTAL: 490.164ms
+
+
+ ✓ Compiled in 10.4s (1803 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Setting up new context...
+Finding changed files: 17.685ms
+Reading changed files: 1.135s
+Sorting candidates: 19.105ms
+Generate rules: 316.585ms
+Build stylesheet: 4.811ms
+Potential classes:  7888
+Active contexts:  1
+JIT TOTAL: 1.913s
+
+
+ ✓ Compiled in 6.3s (1803 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Setting up new context...
+Finding changed files: 18.795ms
+Reading changed files: 1.019s
+Sorting candidates: 11.49ms
+Generate rules: 232.76ms
+Build stylesheet: 4.155ms
+Potential classes:  7888
+Active contexts:  1
+JIT TOTAL: 1.859s
+
+
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/styles/i18n.css
+JIT TOTAL: 1.223ms
+
+
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/@uploadthing/react/dist/index.css
+JIT TOTAL: 2.482ms
+
+
+ ✓ Compiled in 4.7s (529 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Setting up new context...
+Finding changed files: 14.066ms
+Reading changed files: 540.706ms
+Sorting candidates: 18.692ms
+Generate rules: 377.412ms
+Build stylesheet: 17.18ms
+Potential classes:  7888
+Active contexts:  2
+JIT TOTAL: 1.329s
+
+
+ ✓ Compiled in 5.8s (1803 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 8.249ms
+Reading changed files: 7.57ms
+Sorting candidates: 0.307ms
+Generate rules: 1.552ms
+Build stylesheet: 0.003ms
+Potential classes:  249
+Active contexts:  2
+JIT TOTAL: 134.467ms
+
+
+ ✓ Compiled in 1776ms (503 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 13.402ms
+Reading changed files: 355.211ms
+Sorting candidates: 0.617ms
+Generate rules: 45.508ms
+Build stylesheet: 0.005ms
+Potential classes:  342
+Active contexts:  2
+JIT TOTAL: 852.352ms
+
+
+ ✓ Compiled in 7.5s (1815 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 17.829ms
+Reading changed files: 17.235ms
+Sorting candidates: 0.823ms
+Generate rules: 4.953ms
+Build stylesheet: 0.005ms
+Potential classes:  340
+Active contexts:  2
+JIT TOTAL: 231.192ms
+
+
+ ✓ Compiled in 2.9s (1815 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 9.053ms
+Reading changed files: 10.666ms
+Sorting candidates: 0.135ms
+Generate rules: 2.855ms
+Build stylesheet: 10.165ms
+Potential classes:  116
+Active contexts:  2
+JIT TOTAL: 160.298ms
+
+
+ ✓ Compiled in 1886ms (1815 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Setting up new context...
+Finding changed files: 8.692ms
+Reading changed files: 515.633ms
+Sorting candidates: 14.408ms
+Generate rules: 312.176ms
+Build stylesheet: 2.133ms
+Potential classes:  7885
+Active contexts:  2
+JIT TOTAL: 1.125s
+
+
+ ✓ Compiled in 2.7s (1815 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 35.121ms
+Reading changed files: 1.045s
+Sorting candidates: 8.023ms
+Generate rules: 47.512ms
+Build stylesheet: 0.006ms
+Potential classes:  296
+Active contexts:  2
+JIT TOTAL: 1.930s
+
+
+ ✓ Compiled in 11.9s (1815 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 15.425ms
+Reading changed files: 36.006ms
+Sorting candidates: 0.564ms
+Generate rules: 4.109ms
+Build stylesheet: 0.004ms
+Potential classes:  339
+Active contexts:  2
+JIT TOTAL: 227.982ms
+
+
+ ✓ Compiled in 3.4s (1815 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 12.3ms
+Reading changed files: 13.261ms
+Sorting candidates: 0.079ms
+Generate rules: 0.778ms
+Build stylesheet: 0.002ms
+Potential classes:  94
+Active contexts:  2
+JIT TOTAL: 156.374ms
+
+
+ ✓ Compiled in 1580ms (1815 modules)
+[?25h

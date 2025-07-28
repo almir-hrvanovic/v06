@@ -1,0 +1,53 @@
+# Page snapshot
+
+```yaml
+- heading "GS-CMS v05" [level=1]
+- paragraph: Customer Relationship & Quote Management System
+- paragraph: Modern workflow management from inquiry to production
+- heading "Inquiry Management" [level=3]
+- paragraph: Create and manage customer inquiries with multiple items and priority levels
+- list:
+  - listitem: • Multi-item inquiries
+  - listitem: • Priority assignment
+  - listitem: • Customer tracking
+  - listitem: • Deadline management
+- heading "Role-Based Workflow" [level=3]
+- paragraph: Structured assignment system with VPP, VP, Manager, and Tech roles
+- list:
+  - listitem: • VPP item assignment
+  - listitem: • VP cost calculations
+  - listitem: • Manager approvals
+  - listitem: • Tech officer tasks
+- heading "Quote Generation" [level=3]
+- paragraph: Automated quote generation with margin control and approval workflow
+- list:
+  - listitem: • Cost-based pricing
+  - listitem: • Margin management
+  - listitem: • Quote validation
+  - listitem: • Production conversion
+- link "Access Dashboard":
+  - /url: /dashboard
+- link "Sign In":
+  - /url: /auth/signin
+- heading "System Features" [level=3]
+- list:
+  - listitem: ✓ Next.js 15 with App Router
+  - listitem: ✓ TypeScript for type safety
+  - listitem: ✓ Prisma ORM with PostgreSQL
+  - listitem: ✓ NextAuth.js authentication
+  - listitem: ✓ Tailwind CSS & shadcn/ui
+  - listitem: ✓ Role-based permissions
+- heading "Business Workflow" [level=3]
+- list:
+  - listitem: 1. Sales creates customer inquiries
+  - listitem: 2. VPP assigns items to VPs
+  - listitem: 3. VPs calculate production costs
+  - listitem: 4. Managers approve calculations
+  - listitem: 5. Sales generates quotes
+  - listitem: 6. System converts to production orders
+- img
+- text: 1 error
+- button "Hide Errors":
+  - img
+- alert
+```

@@ -128,12 +128,6 @@ export function Sidebar() {
       icon: Workflow,
       roles: ['SUPERUSER', 'ADMIN'],
     },
-    {
-      titleKey: 'navigation.main.settings',
-      href: '/dashboard/settings',
-      icon: Settings,
-      roles: ['SUPERUSER', 'ADMIN', 'MANAGER', 'SALES', 'VPP', 'VP', 'TECH'],
-    },
   ]
 
   const filteredNavItems = navItems.filter(item => 
@@ -147,17 +141,17 @@ export function Sidebar() {
         isCollapsed ? 'w-16' : 'w-64'
       )}>
         {/* Header */}
-        <div className="flex h-16 items-center border-b border-border px-4">
+        <div className="flex h-16 items-center sidebar-separator border-b px-4">
           {!isCollapsed && (
             <div className="flex items-center space-x-3">
-              <div className="h-9 w-9 rounded-lg bg-[hsl(var(--supabase-green))] flex items-center justify-center shadow-sm">
-                <Database className="h-5 w-5 text-white" />
+              <div className="h-9 w-9 rounded-lg bg-[hsl(var(--sidebar-logo-bg))] flex items-center justify-center shadow-sm transition-colors duration-300">
+                <Database className="h-5 w-5 text-[hsl(var(--sidebar-badge-text))]" />
               </div>
               <div>
-                <span className="font-semibold text-sidebar-foreground text-lg">
+                <span className="font-semibold text-[hsl(var(--sidebar-foreground))] text-lg transition-colors duration-300">
                   GS-CMS
                 </span>
-                <div className="text-xs text-muted-foreground">
+                <div className="text-xs text-[hsl(var(--sidebar-text-secondary))] transition-colors duration-300">
                   v5.0
                 </div>
               </div>
@@ -165,8 +159,8 @@ export function Sidebar() {
           )}
           {isCollapsed && (
             <div className="mx-auto">
-              <div className="h-8 w-8 rounded-lg bg-[hsl(var(--supabase-green))] flex items-center justify-center shadow-sm">
-                <Database className="h-4 w-4 text-white" />
+              <div className="h-8 w-8 rounded-lg bg-[hsl(var(--sidebar-logo-bg))] flex items-center justify-center shadow-sm transition-colors duration-300">
+                <Database className="h-4 w-4 text-[hsl(var(--sidebar-badge-text))]" />
               </div>
             </div>
           )}
@@ -175,7 +169,7 @@ export function Sidebar() {
             size="sm"
             onClick={toggleCollapsed}
             className={cn(
-              'h-8 w-8 p-0 hover:bg-[hsl(var(--nav-hover))] text-muted-foreground hover:text-foreground',
+              'h-8 w-8 p-0 hover:bg-[hsl(var(--sidebar-hover))] text-[hsl(var(--sidebar-icon))] hover:text-[hsl(var(--sidebar-foreground))] transition-all duration-300',
               isCollapsed ? 'hidden' : 'ml-auto'
             )}
           >
@@ -204,11 +198,11 @@ export function Sidebar() {
                         <Icon className="h-4 w-4 flex-shrink-0" />
                         {!isCollapsed && (
                           <>
-                            <span className="truncate">{title}</span>
+                            <span className="truncate transition-colors duration-300">{title}</span>
                             {item.badge && (
                               <Badge 
                                 variant="secondary" 
-                                className="ml-auto bg-[hsl(var(--supabase-green))]/10 text-[hsl(var(--supabase-green))] border-0"
+                                className="ml-auto bg-[hsl(var(--sidebar-badge-bg))]/10 text-[hsl(var(--sidebar-badge-bg))] border-0 transition-colors duration-300"
                               >
                                 {item.badge}
                               </Badge>
@@ -231,12 +225,12 @@ export function Sidebar() {
 
         {/* Expand Button for Collapsed State */}
         {isCollapsed && (
-          <div className="p-3 border-t border-border">
+          <div className="p-3 sidebar-separator border-t">
             <Button
               variant="ghost"
               size="sm"
               onClick={toggleCollapsed}
-              className="w-full h-8 p-0 hover:bg-[hsl(var(--nav-hover))] text-muted-foreground hover:text-foreground relative"
+              className="sidebar-expand-button w-full h-8 p-0 relative"
               title="Expand sidebar"
             >
               <ChevronRight className="h-4 w-4" />
@@ -252,7 +246,7 @@ export function Sidebar() {
               variant="outline"
               size="sm"
               onClick={toggleCollapsed}
-              className="h-8 w-8 p-0 rounded-full bg-background shadow-md border-border hover:bg-[hsl(var(--nav-hover))]"
+              className="sidebar-expand-button h-8 w-8 p-0 rounded-full shadow-md"
               title="Expand sidebar"
             >
               <ChevronRight className="h-3 w-3" />

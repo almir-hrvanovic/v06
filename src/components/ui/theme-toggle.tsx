@@ -45,3 +45,41 @@ export function ThemeToggle() {
     </DropdownMenu>
   )
 }
+
+// Theme toggle items for use within other dropdown menus
+export function ThemeToggleItems() {
+  const { theme, setTheme } = useTheme()
+  const t = useTranslations('theme')
+
+  return (
+    <div className="flex items-center space-x-1">
+      <Button
+        variant={theme === 'light' ? 'default' : 'ghost'}
+        size="sm"
+        onClick={() => setTheme('light')}
+        className="h-7 w-7 p-0"
+        title={t('light')}
+      >
+        <Sun className="h-3 w-3" />
+      </Button>
+      <Button
+        variant={theme === 'dark' ? 'default' : 'ghost'}
+        size="sm"
+        onClick={() => setTheme('dark')}
+        className="h-7 w-7 p-0"
+        title={t('dark')}
+      >
+        <Moon className="h-3 w-3" />
+      </Button>
+      <Button
+        variant={theme === 'system' ? 'default' : 'ghost'}
+        size="sm"
+        onClick={() => setTheme('system')}
+        className="h-7 w-7 p-0"
+        title={t('system')}
+      >
+        <Monitor className="h-3 w-3" />
+      </Button>
+    </div>
+  )
+}

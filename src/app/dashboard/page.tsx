@@ -106,23 +106,6 @@ export default function DashboardPage() {
             {t('dashboard.overview')}
           </p>
         </div>
-        <div className="flex items-center space-x-2">
-          <Badge 
-            variant="secondary" 
-            className="bg-[hsl(var(--supabase-green))]/10 text-[hsl(var(--supabase-green))] border-[hsl(var(--supabase-green))]/20 px-3 py-1"
-          >
-            {userRole ? (
-              (() => {
-                try {
-                  return t(`roles.${userRole}`)
-                } catch (error) {
-                  console.warn(`Translation missing for roles.${userRole}`, error)
-                  return userRole // Fallback to role name
-                }
-              })()
-            ) : ''}
-          </Badge>
-        </div>
       </div>
 
       {/* Stats Grid */}

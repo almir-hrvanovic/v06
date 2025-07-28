@@ -10,7 +10,10 @@ import {
   DropdownMenuContent, 
   DropdownMenuItem, 
   DropdownMenuSeparator, 
-  DropdownMenuTrigger 
+  DropdownMenuTrigger,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { MobileSidebar } from './mobile-sidebar'
@@ -20,13 +23,15 @@ import {
   Search,
   Bell,
   User,
-  Settings,
   LogOut,
   Plus,
   Filter,
   Languages,
+  Palette,
 } from 'lucide-react'
 import { LanguageSelector } from '@/components/ui/language-selector'
+import { ThemeToggleItems } from '@/components/ui/theme-toggle'
+import { MobileDropdownNav } from '@/components/navigation/mobile-dropdown-nav'
 import { useTranslations } from 'next-intl'
 
 interface MobileHeaderProps {
@@ -36,10 +41,34 @@ interface MobileHeaderProps {
 export function MobileHeader({ className }: MobileHeaderProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [showSearch, setShowSearch] = useState(false)
+  const [isChangingLanguage, setIsChangingLanguage] = useState(false)
   const pathname = usePathname()
   const { data: session } = useSession()
   const t = useTranslations('header')
   const tNav = useTranslations('navigation.main')
+  const tRoles = useTranslations('roles')
+
+  const handleLanguageChange = async (locale: string) => {
+    setIsChangingLanguage(true)
+    try {
+      // Update user preference in the database
+      await fetch('/api/users/language', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ language: locale })
+      })
+      
+      // Set cookie for immediate effect
+      document.cookie = `locale=${locale}; path=/; max-age=${365 * 24 * 60 * 60}; samesite=lax`
+      
+      // Refresh the page to apply new language
+      window.location.reload()
+    } catch (error) {
+      console.error('Failed to change language:', error)
+    } finally {
+      setIsChangingLanguage(false)
+    }
+  }
 
   const getPageTitle = () => {
     const pathSegments = pathname.split('/').filter(Boolean)
@@ -83,8 +112,8 @@ export function MobileHeader({ className }: MobileHeaderProps) {
       <div className="flex h-16 items-center px-4 lg:px-6">
         {/* Left side - Menu button and title */}
         <div className="flex items-center space-x-4">
-          <div className="md:hidden">
-            <MobileSidebar />
+          <div>
+            <MobileDropdownNav />
           </div>
           <div className="hidden lg:flex items-center space-x-3">
             <div className="h-8 w-8 rounded-lg bg-[hsl(var(--supabase-green))] flex items-center justify-center shadow-sm">
@@ -118,10 +147,6 @@ export function MobileHeader({ className }: MobileHeaderProps) {
             <span className="sr-only">{t('toggleSearch')}</span>
           </Button>
 
-          {/* Language Selector */}
-          <div className="hidden sm:block">
-            <LanguageSelector />
-          </div>
 
           {/* Notifications */}
           <NotificationDropdown />
@@ -144,14 +169,61 @@ export function MobileHeader({ className }: MobileHeaderProps) {
               <div className="px-3 py-2">
                 <p className="text-sm font-medium text-foreground">{session?.user?.name || 'User'}</p>
                 <p className="text-xs text-muted-foreground">{session?.user?.email}</p>
+                <p className="text-xs text-muted-foreground font-semibold mt-0.5">{session?.user?.role ? tRoles(session.user.role.toLowerCase()) : ''}</p>
               </div>
               <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link href="/dashboard/settings" className="cursor-pointer">
-                  <Settings className="mr-2 h-4 w-4" />
-                  {t('settings')}
-                </Link>
-              </DropdownMenuItem>
+              {/* Theme Toggle Inline */}
+              <div className="px-2 py-1.5">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <Palette className="mr-2 h-4 w-4" />
+                    <span className="text-sm">Theme</span>
+                  </div>
+                  <div className="ml-auto">
+                    <ThemeToggleItems />
+                  </div>
+                </div>
+              </div>
+              
+              {/* Language Selector Inline */}
+              <div className="px-2 py-1.5">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <Languages className="mr-2 h-4 w-4" />
+                    <span className="text-sm">Language</span>
+                  </div>
+                </div>
+                <div className="mt-2 space-y-1">
+                  <button
+                    onClick={() => handleLanguageChange('hr-HR')}
+                    disabled={isChangingLanguage}
+                    className="w-full text-left px-2 py-1.5 text-xs hover:bg-accent hover:text-accent-foreground rounded-sm transition-colors disabled:opacity-50"
+                  >
+                    🇭🇷 Croatian
+                  </button>
+                  <button
+                    onClick={() => handleLanguageChange('bs-BA')}
+                    disabled={isChangingLanguage}
+                    className="w-full text-left px-2 py-1.5 text-xs hover:bg-accent hover:text-accent-foreground rounded-sm transition-colors disabled:opacity-50"
+                  >
+                    🇧🇦 Bosnian
+                  </button>
+                  <button
+                    onClick={() => handleLanguageChange('en-US')}
+                    disabled={isChangingLanguage}
+                    className="w-full text-left px-2 py-1.5 text-xs hover:bg-accent hover:text-accent-foreground rounded-sm transition-colors disabled:opacity-50"
+                  >
+                    🇺🇸 English
+                  </button>
+                  <button
+                    onClick={() => handleLanguageChange('de-DE')}
+                    disabled={isChangingLanguage}
+                    className="w-full text-left px-2 py-1.5 text-xs hover:bg-accent hover:text-accent-foreground rounded-sm transition-colors disabled:opacity-50"
+                  >
+                    🇩🇪 German
+                  </button>
+                </div>
+              </div>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => signOut()} className="cursor-pointer text-destructive focus:text-destructive">
                 <LogOut className="mr-2 h-4 w-4" />

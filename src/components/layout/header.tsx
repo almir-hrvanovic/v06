@@ -1,6 +1,6 @@
 'use client'
 
-import { Bell, Search, User, LogOut, Settings, Languages } from 'lucide-react'
+import { Bell, Search, User, LogOut, Settings, Languages, Palette } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
@@ -11,9 +11,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
 } from '@/components/ui/dropdown-menu'
 import { NotificationDropdown } from '@/components/notifications/notification-dropdown'
-import { ThemeToggle } from '@/components/ui/theme-toggle'
+import { ThemeToggleItems } from '@/components/ui/theme-toggle'
 import { useSession, signOut } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
@@ -69,45 +72,6 @@ export function Header() {
         {/* Notifications */}
         <NotificationDropdown />
 
-        {/* Theme Toggle */}
-        <ThemeToggle />
-
-        {/* Language Switcher */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="sm">
-              <Languages className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>{t('language')}</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => handleLanguageChange('hr-HR')}
-              disabled={isChangingLanguage}
-            >
-              🇭🇷 {t('croatian')}
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => handleLanguageChange('bs-BA')}
-              disabled={isChangingLanguage}
-            >
-              🇧🇦 {t('bosnian')}
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => handleLanguageChange('en-US')}
-              disabled={isChangingLanguage}
-            >
-              🇺🇸 {t('english')}
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => handleLanguageChange('de-DE')}
-              disabled={isChangingLanguage}
-            >
-              🇩🇪 {t('german')}
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
 
         {/* User Menu */}
         <DropdownMenu>
@@ -120,25 +84,75 @@ export function Header() {
                 <div className="text-sm font-medium">
                   {session?.user?.name || 'User'}
                 </div>
-                <div className="text-xs text-gray-500">
+                <div className="text-xs text-muted-foreground mt-0.5">
+                  {session?.user?.email}
+                </div>
+                <div className="text-xs text-muted-foreground font-semibold mt-0.5">
                   {session?.user?.role ? tRoles(session.user.role.toLowerCase()) : ''}
                 </div>
               </div>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="end" className="w-56">
             <DropdownMenuLabel>{t('myAccount')}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <User className="mr-2 h-4 w-4" />
               {t('profile')}
             </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href="/dashboard/settings">
-                <Settings className="mr-2 h-4 w-4" />
-                {t('settings')}
-              </Link>
-            </DropdownMenuItem>
+            {/* Theme Toggle Inline */}
+            <div className="px-2 py-1.5">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <Palette className="mr-2 h-4 w-4" />
+                  <span className="text-sm">Theme</span>
+                </div>
+                <div className="ml-auto">
+                  <ThemeToggleItems />
+                </div>
+              </div>
+            </div>
+            
+            {/* Language Selector Inline */}
+            <div className="px-2 py-1.5">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <Languages className="mr-2 h-4 w-4" />
+                  <span className="text-sm">Language</span>
+                </div>
+              </div>
+              <div className="mt-2 space-y-1">
+                <DropdownMenuItem
+                  onClick={() => handleLanguageChange('hr-HR')}
+                  disabled={isChangingLanguage}
+                  className="cursor-pointer px-2 py-1.5 text-xs"
+                >
+                  🇭🇷 Croatian
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleLanguageChange('bs-BA')}
+                  disabled={isChangingLanguage}
+                  className="cursor-pointer px-2 py-1.5 text-xs"
+                >
+                  🇧🇦 Bosnian
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleLanguageChange('en-US')}
+                  disabled={isChangingLanguage}
+                  className="cursor-pointer px-2 py-1.5 text-xs"
+                >
+                  🇺🇸 English
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleLanguageChange('de-DE')}
+                  disabled={isChangingLanguage}
+                  className="cursor-pointer px-2 py-1.5 text-xs"
+                >
+                  🇩🇪 German
+                </DropdownMenuItem>
+              </div>
+            </div>
+            
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleSignOut}>
               <LogOut className="mr-2 h-4 w-4" />

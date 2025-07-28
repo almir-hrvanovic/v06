@@ -58,6 +58,7 @@ TodoWrite { todos: [
 - `researcher`: Information gathering
 - `planner`: Strategic planning
 - `system-architect`: High-level design
+- `code-analyzer`: Code analysis and insights
 
 ### Agent Spawning Pattern
 Always spawn multiple agents concurrently:
@@ -67,6 +68,9 @@ Task("Coder agent: Implement feature X with full specs")
 Task("Tester agent: Create comprehensive tests")
 Task("Reviewer agent: Review code quality and patterns")
 ```
+
+### Agent Initialization
+- Always initialise code-analyzer agent when analyst is needed
 
 ## 🔄 Workflow Patterns
 

@@ -29,7 +29,7 @@ import {
 } from 'lucide-react'
 
 interface NavItem {
-  title: string
+  titleKey: string
   href: string
   icon: React.ComponentType<{ className?: string }>
   roles: UserRole[]
@@ -38,87 +38,81 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   {
-    title: 'Dashboard',
+    titleKey: 'navigation.main.dashboard',
     href: '/dashboard',
     icon: LayoutDashboard,
     roles: ['SUPERUSER', 'ADMIN', 'MANAGER', 'SALES', 'VPP', 'VP', 'TECH'],
   },
   {
-    title: 'Customers',
+    titleKey: 'navigation.main.customers',
     href: '/dashboard/customers',
     icon: Users,
     roles: ['SUPERUSER', 'ADMIN', 'SALES'],
   },
   {
-    title: 'Users',
+    titleKey: 'navigation.main.users',
     href: '/dashboard/users',
     icon: UserCheck,
     roles: ['SUPERUSER', 'ADMIN'],
   },
   {
-    title: 'Inquiries',
+    titleKey: 'navigation.main.inquiries',
     href: '/dashboard/inquiries',
     icon: FileText,
     roles: ['SUPERUSER', 'ADMIN', 'MANAGER', 'SALES', 'VPP', 'VP'],
   },
   {
-    title: 'Search',
+    titleKey: 'navigation.main.search',
     href: '/dashboard/search',
     icon: Search,
     roles: ['SUPERUSER', 'ADMIN', 'MANAGER', 'SALES', 'VPP', 'VP', 'TECH'],
   },
   {
-    title: 'Assignments',
+    titleKey: 'navigation.main.assignments',
     href: '/dashboard/assignments',
     icon: Calculator,
     roles: ['SUPERUSER', 'ADMIN', 'VPP'],
   },
   {
-    title: 'Cost Calculations',
+    titleKey: 'navigation.main.costs',
     href: '/dashboard/costs',
     icon: Calculator,
     roles: ['SUPERUSER', 'ADMIN', 'MANAGER', 'VP'],
   },
   {
-    title: 'Approvals',
+    titleKey: 'navigation.main.approvals',
     href: '/dashboard/approvals',
     icon: CheckSquare,
     roles: ['SUPERUSER', 'ADMIN', 'MANAGER'],
   },
   {
-    title: 'Quotes',
+    titleKey: 'navigation.main.quotes',
     href: '/dashboard/quotes',
     icon: FileCheck,
     roles: ['SUPERUSER', 'ADMIN', 'MANAGER', 'SALES'],
   },
   {
-    title: 'Production Orders',
+    titleKey: 'navigation.main.production',
     href: '/dashboard/production',
     icon: Package,
     roles: ['SUPERUSER', 'ADMIN', 'MANAGER'],
   },
   {
-    title: 'Analytics',
+    titleKey: 'navigation.main.analytics',
     href: '/dashboard/analytics',
     icon: BarChart3,
     roles: ['SUPERUSER', 'ADMIN', 'MANAGER'],
   },
   {
-    title: 'Reports',
+    titleKey: 'navigation.main.reports',
     href: '/dashboard/reports',
     icon: FileBarChart,
     roles: ['SUPERUSER', 'ADMIN', 'MANAGER'],
   },
   {
-    title: 'Automation',
+    titleKey: 'navigation.main.automation',
     href: '/dashboard/automation',
     icon: Workflow,
-    roles: ['SUPERUSER', 'ADMIN'],
-  },
-  {
-    title: 'Settings',
-    href: '/dashboard/settings',
-    icon: Settings,
     roles: ['SUPERUSER', 'ADMIN'],
   },
 ]
@@ -132,7 +126,7 @@ export function MobileSidebar({ className }: MobileSidebarProps) {
   const pathname = usePathname()
   const { data: session } = useSession()
   const userRole = session?.user?.role
-  const t = useTranslations('titles')
+  const t = useTranslations()
 
   const filteredNavItems = navItems.filter(item => 
     userRole && item.roles.includes(userRole)
@@ -173,7 +167,7 @@ export function MobileSidebar({ className }: MobileSidebarProps) {
             >
               <Link href={item.href}>
                 <Icon className="mr-3 h-5 w-5 flex-shrink-0" />
-                <span className="truncate">{item.title}</span>
+                <span className="truncate">{t(item.titleKey as any)}</span>
                 {item.badge && item.badge > 0 && (
                   <Badge variant="destructive" className="ml-auto">
                     {item.badge}
@@ -223,8 +217,8 @@ export function MobileSidebar({ className }: MobileSidebarProps) {
         open={isOpen}
         onOpenChange={setIsOpen}
         side="left"
-        title={t("navigationMenu")}
-        description={t("mainNavigation")}
+        title="Navigation Menu"
+        description="Main Navigation"
         className="p-0"
       >
         <SidebarContent />
