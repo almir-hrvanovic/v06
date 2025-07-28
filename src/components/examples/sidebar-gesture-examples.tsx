@@ -285,16 +285,18 @@ export function PerformanceSidebar() {
 
 // Example 5: Integration with Existing Sidebar Context
 export function IntegratedSidebar() {
+  const gestureData = useSidebarGestures({
+    enableHapticFeedback: false,
+    enableAccessibilityMode: true
+  })
+  
   const {
     attachListeners,
     dragOffset,
     isGestureActive,
     platform,
     triggerHaptic
-  } = useSidebarGestures({
-    enableHapticFeedback: platform.supportsHaptics,
-    enableAccessibilityMode: true
-  })
+  } = gestureData
 
   return (
     <div 

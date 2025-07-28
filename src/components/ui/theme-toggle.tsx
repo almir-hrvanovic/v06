@@ -29,17 +29,17 @@ export function ThemeToggle() {
         <DropdownMenuItem onClick={() => setTheme('light')} className="cursor-pointer">
           <Sun className="mr-2 h-4 w-4 text-orange-500" />
           <span>{t('light')}</span>
-          {theme === 'light' && <span className="ml-auto text-[hsl(var(--supabase-green))]">✓</span>}
+          {theme === 'light' && <span className="ml-auto text-[hsl(var(--supabase-blue))]">✓</span>}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('dark')} className="cursor-pointer">
           <Moon className="mr-2 h-4 w-4 text-blue-500" />
           <span>{t('dark')}</span>
-          {theme === 'dark' && <span className="ml-auto text-[hsl(var(--supabase-green))]">✓</span>}
+          {theme === 'dark' && <span className="ml-auto text-[hsl(var(--supabase-blue))]">✓</span>}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('system')} className="cursor-pointer">
           <Monitor className="mr-2 h-4 w-4 text-gray-500" />
           <span>{t('system')}</span>
-          {theme === 'system' && <span className="ml-auto text-[hsl(var(--supabase-green))]">✓</span>}
+          {theme === 'system' && <span className="ml-auto text-[hsl(var(--supabase-blue))]">✓</span>}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

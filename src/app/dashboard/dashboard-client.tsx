@@ -30,7 +30,7 @@ export function DashboardClient({
               </div>
               
               {/* Mobile/Tablet Header - Visible on smaller screens */}
-              <div className="lg:hidden">
+              <div className="block lg:hidden">
                 <MobileHeader className="supabase-header" />
               </div>
               

@@ -27,8 +27,8 @@
     --radius: 8px;
     
     /* Supabase specific colors */
-    --supabase-green: 151 60% 45%;
-    --supabase-dark-green: 151 55% 40%;
+    --supabase-blue: 213 100% 50%;
+    --supabase-dark-blue: 213 100% 40%;
     
     /* Comprehensive Sidebar Color System */
     --sidebar-background: 240 6% 97%;
@@ -53,19 +53,19 @@
   .dark {
     /* Supabase Dark Theme */
     --background: 240 8% 7%;
-    --foreground: 240 6% 90%;
+    --foreground: 240 6% 85%;
     --card: 240 6% 10%;
-    --card-foreground: 240 6% 90%;
+    --card-foreground: 240 6% 85%;
     --popover: 240 6% 10%;
-    --popover-foreground: 240 6% 90%;
+    --popover-foreground: 240 6% 85%;
     --primary: 151 60% 50%;
     --primary-foreground: 240 8% 7%;
     --secondary: 240 4% 16%;
-    --secondary-foreground: 240 6% 90%;
+    --secondary-foreground: 240 6% 85%;
     --muted: 240 4% 16%;
     --muted-foreground: 240 5% 65%;
     --accent: 240 4% 16%;
-    --accent-foreground: 240 6% 90%;
+    --accent-foreground: 240 6% 85%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
     --border: 240 4% 16%;
@@ -73,8 +73,8 @@
     --ring: 151 60% 50%;
     
     /* Supabase dark specific colors */
-    --supabase-green: 151 60% 50%;
-    --supabase-dark-green: 151 55% 45%;
+    --supabase-blue: 213 100% 55%;
+    --supabase-dark-blue: 213 100% 45%;
     
     /* Comprehensive Dark Sidebar Color System */
     --sidebar-background: 240 6% 8%;
@@ -214,7 +214,7 @@
 
   /* Supabase-style buttons */
   .btn-supabase-primary {
-    @apply bg-[hsl(var(--supabase-green))] text-white hover:bg-[hsl(var(--supabase-dark-green))] rounded-md px-4 py-2 text-sm font-medium transition-colors;
+    @apply bg-[hsl(var(--supabase-blue))] text-white hover:bg-[hsl(var(--supabase-dark-blue))] rounded-md px-4 py-2 text-sm font-medium transition-colors;
   }
   
   .btn-supabase-secondary {

@@ -173,7 +173,7 @@ export default function DashboardPage() {
               {t('dashboard.stats.monthlyRevenue')}
             </CardTitle>
             <div className="p-2 bg-green-50 dark:bg-green-950 rounded-lg">
-              <TrendingUp className="h-4 w-4 text-[hsl(var(--supabase-green))]" />
+              <TrendingUp className="h-4 w-4 text-[hsl(var(--supabase-blue))]" />
             </div>
           </CardHeader>
           <CardContent>
@@ -304,7 +304,7 @@ export default function DashboardPage() {
               <>
                 <Button className="justify-start h-auto p-4 flex-col items-start space-y-2" variant="outline">
                   <div className="flex items-center space-x-2 w-full">
-                    <FileText className="h-4 w-4 text-[hsl(var(--supabase-green))]" />
+                    <FileText className="h-4 w-4 text-[hsl(var(--supabase-blue))]" />
                     <span className="font-medium">{t('dashboard.quickActions.newInquiry')}</span>
                   </div>
                 </Button>

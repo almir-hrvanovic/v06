@@ -156,7 +156,6 @@ export function Header() {
             onChange={(e) => setSearchQuery(e.target.value)}
             aria-labelledby={searchLabelId}
             aria-describedby={`${searchId}-desc`}
-            {...searchKeyboard.elementRef && { ref: searchKeyboard.elementRef }}
           />
           <div id={`${searchId}-desc`} className="sr-only">
             Press Enter to search, Escape to clear
@@ -175,13 +174,10 @@ export function Header() {
               ref={userMenuButtonRef}
               variant="ghost" 
               className="flex items-center space-x-2"
-              {...userMenuKeyboard.elementRef && { ref: userMenuKeyboard.elementRef }}
-              {...ariaProps.button({
-                hasPopup: 'menu',
-                expanded: false,
-                controls: userMenuId,
-                labelledBy: userMenuLabelId
-              })}
+              aria-haspopup="menu"
+              aria-expanded={false}
+              aria-controls={userMenuId}
+              aria-labelledby={userMenuLabelId}
               aria-label={`User menu for ${session?.user?.name || 'User'}`}
             >
               <div 

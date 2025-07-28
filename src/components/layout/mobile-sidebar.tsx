@@ -249,7 +249,6 @@ export function MobileSidebar({ className }: MobileSidebarProps) {
         "flex h-full w-full flex-col bg-white dark:bg-gray-900",
         accessibility.highContrast && "border border-solid"
       )}
-      ref={focusTrap.containerRef}
     >
       {/* Header */}
       <header className="flex h-16 items-center justify-between px-6 border-b border-gray-200 dark:border-gray-700">
@@ -292,7 +291,6 @@ export function MobileSidebar({ className }: MobileSidebarProps) {
         id={navId}
         className="flex-1 space-y-1 px-3 py-4 overflow-y-auto" 
         aria-label="Main navigation"
-        {...listNavigation.keyboardProps}
       >
         <div 
           role="menu"
@@ -398,12 +396,9 @@ export function MobileSidebar({ className }: MobileSidebarProps) {
           size="sm"
           className="h-9 w-9 p-0"
           onClick={handleToggle}
-          {...menuButtonKeyboard.elementRef && { ref: menuButtonKeyboard.elementRef }}
-          {...ariaProps.button({
-            expanded: isOpen,
-            hasPopup: 'menu',
-            controls: menuId
-          })}
+          aria-expanded={isOpen}
+          aria-haspopup="menu"
+          aria-controls={menuId}
           aria-label={`${isOpen ? 'Close' : 'Open'} mobile navigation menu`}
         >
           <Menu className="h-5 w-5" />
@@ -420,11 +415,9 @@ export function MobileSidebar({ className }: MobileSidebarProps) {
         title="Navigation Menu"
         description="Main Navigation"
         className="p-0"
-        {...ariaProps.dialog({
-          modal: true,
-          labelledBy: menuId,
-          describedBy: `${menuId}-description`
-        })}
+        aria-modal="true"
+        aria-labelledby={menuId}
+        aria-describedby={`${menuId}-description`}
       >
         <div id={`${menuId}-description`} className="sr-only">
           Use arrow keys to navigate, Enter to select, Escape to close.

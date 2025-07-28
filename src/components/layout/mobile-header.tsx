@@ -31,7 +31,6 @@ import {
 } from 'lucide-react'
 import { LanguageSelector } from '@/components/ui/language-selector'
 import { ThemeToggleItems } from '@/components/ui/theme-toggle'
-import { MobileDropdownNav } from '@/components/navigation/mobile-dropdown-nav'
 import { useTranslations } from 'next-intl'
 
 interface MobileHeaderProps {
@@ -113,9 +112,9 @@ export function MobileHeader({ className }: MobileHeaderProps) {
         {/* Left side - Menu button and title */}
         <div className="flex items-center space-x-4">
           <div>
-            <MobileDropdownNav />
+            <MobileSidebar />
           </div>
-          <div className="hidden lg:flex items-center space-x-3">
+          <div className="flex items-center space-x-3">
             <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center shadow-sm">
               <svg width="20" height="20" viewBox="0 0 32 32" className="text-primary-foreground">
                 <path d="M16 6l2.47 5.01L24 12.18l-4 3.9.94 5.5L16 19.15l-4.94 2.59.94-5.5-4-3.9 5.53-1.17L16 6z" fill="currentColor"/>
@@ -126,7 +125,7 @@ export function MobileHeader({ className }: MobileHeaderProps) {
               <div className="text-xs text-muted-foreground">v5.0</div>
             </div>
           </div>
-          <div className="lg:hidden flex flex-col">
+          <div className="flex flex-col">
             <h1 className="text-lg font-semibold truncate text-foreground">{getPageTitle()}</h1>
             {session?.user?.name && (
               <p className="text-xs text-muted-foreground truncate">
