@@ -33,3 +33,10 @@ Running generate... (Use --skip-generate to skip the generators)
 [0;32m2025-07-28 19:08:38[0m Still waiting for Next.js Application... (30/60 seconds)
 [0;32m2025-07-28 19:08:50[0m Still waiting for Next.js Application... (40/60 seconds)
 [0;32m2025-07-28 19:09:02[0m Still waiting for Next.js Application... (50/60 seconds)
+[0;32m2025-07-28 19:09:14[0m Still waiting for Next.js Application... (60/60 seconds)
+[0;34m2025-07-28 19:09:14 PHASE:[0m 6/6 - Health Verification
+[0;32m2025-07-28 19:09:19[0m Testing basic connectivity...
+[0;32m2025-07-28 19:09:29[0m ✅ Application is responding
+[1;33m2025-07-28 19:09:29 WARNING:[0m Health endpoint not available or not implemented
+[1;33m2025-07-28 19:09:29 WARNING:[0m API routes may not be available
+[0;32m2025-07-28 19:09:29[0m ✅ Health verification completed

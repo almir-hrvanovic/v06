@@ -11,3 +11,900 @@
 
  ✓ Starting...
  ✓ Ready in 1985ms
+ ✓ Compiled /src/middleware in 231ms (100 modules)
+Middleware check: { pathname: '/', hasSessionToken: false }
+ ○ Compiling / ...
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Setting up new context...
+Finding changed files: 11.306ms
+Reading changed files: 483.955ms
+Sorting candidates: 7.254ms
+Generate rules: 205.667ms
+Build stylesheet: 3.762ms
+Potential classes:  9037
+Active contexts:  1
+JIT TOTAL: 954.926ms
+
+
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 9.669ms
+Reading changed files: 0.008ms
+Sorting candidates: 0.003ms
+Generate rules: 0.099ms
+Build stylesheet: 0.003ms
+Potential classes:  1
+Active contexts:  1
+JIT TOTAL: 106.033ms
+
+
+ ✓ Compiled /dashboard in 8s (1826 modules)
+ ⚠ Unsupported metadata viewport is configured in metadata export in /. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET / 200 in 9227ms
+Middleware check: { pathname: '/api/health', hasSessionToken: false }
+ GET /dashboard 200 in 7543ms
+Middleware check: { pathname: '/api', hasSessionToken: false }
+Middleware check: { pathname: '/', hasSessionToken: false }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET / 200 in 43ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 1567ms (1822 modules)
+ GET /api/console-monitor/status 200 in 1757ms
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 2287ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 31ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+ ○ Compiling /api/notifications ...
+ ✓ Compiled /api/notifications in 588ms (1824 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 627ms
+ GET /api/notifications 200 in 658ms
+Middleware check: { pathname: '/', hasSessionToken: false }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET / 200 in 485ms
+Middleware check: { pathname: '/api/health', hasSessionToken: false }
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 13.64ms
+Reading changed files: 67.869ms
+Sorting candidates: 0.064ms
+Generate rules: 0.53ms
+Build stylesheet: 0.002ms
+Potential classes:  99
+Active contexts:  1
+JIT TOTAL: 184.037ms
+
+
+ ✓ Compiled in 1732ms (1814 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 504ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 171ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+ ✓ Compiled /api/auth/[...nextauth] in 340ms (1311 modules)
+ ✓ Compiled (1313 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/console-monitor/status 200 in 757ms
+ GET /api/auth/session 200 in 760ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 11ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+ ✓ Compiled /api/notifications in 250ms (1315 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 312ms
+ GET /api/notifications 200 in 333ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 9.482ms
+Reading changed files: 49.561ms
+Sorting candidates: 0.728ms
+Generate rules: 4.126ms
+Build stylesheet: 0.005ms
+Potential classes:  555
+Active contexts:  1
+JIT TOTAL: 262.012ms
+
+
+ ✓ Compiled in 2s (1814 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 578ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 310ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+ ✓ Compiled /api/auth/[...nextauth] in 259ms (1311 modules)
+ ✓ Compiled (1313 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/console-monitor/status 200 in 748ms
+ GET /api/auth/session 200 in 758ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 17ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+ ○ Compiling /api/notifications ...
+ ✓ Compiled /api/notifications in 519ms (1315 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 577ms
+ GET /api/notifications 200 in 623ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 7.342ms
+Reading changed files: 6.501ms
+Sorting candidates: 0.051ms
+Generate rules: 0.454ms
+Build stylesheet: 0.001ms
+Potential classes:  96
+Active contexts:  1
+JIT TOTAL: 111.132ms
+
+
+ ✓ Compiled in 1535ms (1825 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 256ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 124ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+ GET /api/console-monitor/status 200 in 15ms
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 45ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 11ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 16ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 10ms
+Middleware check: { pathname: '/', hasSessionToken: false }
+ ○ Compiling / ...
+ ✓ Compiled / in 1868ms (1328 modules)
+ ⚠ Unsupported metadata viewport is configured in metadata export in /. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET / 200 in 2767ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: false }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: false }
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+ GET /api/auth/session 200 in 49ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: false }
+NextAuth redirect callback: { url: 'http://localhost:3000', baseUrl: 'http://localhost:3000' }
+Same origin redirect to: http://localhost:3000
+ GET /api/auth/session 200 in 12ms
+Middleware check: { pathname: '/auth/signin', hasSessionToken: false }
+ ○ Compiling /auth/signin ...
+ ✓ Compiled /auth/signin in 1086ms (1831 modules)
+ ⚠ Unsupported metadata viewport is configured in metadata export in /auth/signin. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /auth/signin 200 in 1453ms
+Middleware check: { pathname: '/api/auth/providers', hasSessionToken: false }
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: { url: 'http://localhost:3000', baseUrl: 'http://localhost:3000' }
+Same origin redirect to: http://localhost:3000
+ GET /api/auth/providers 200 in 46ms
+Middleware check: { pathname: '/api/auth/csrf', hasSessionToken: false }
+NextAuth redirect callback: { url: 'http://localhost:3000', baseUrl: 'http://localhost:3000' }
+Same origin redirect to: http://localhost:3000
+ GET /api/auth/csrf 200 in 9ms
+Middleware check: { pathname: '/api/auth/callback/credentials', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."name", "public"."users"."role"::text, "public"."users"."password", "public"."users"."isActive", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ POST /api/auth/callback/credentials? 200 in 459ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 32ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 22ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 33ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 197ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 11ms
+Middleware check: { pathname: '/', hasSessionToken: false }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+Middleware check: { pathname: '/installHook.js.map', hasSessionToken: true }
+ GET / 200 in 576ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1142ms (1835 modules)
+ ⚠ Unsupported metadata viewport is configured in metadata export in /installHook.js.map. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /installHook.js.map 404 in 1520ms
+ ✓ Compiled in 801ms (1322 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 12.985ms
+Reading changed files: 15.016ms
+Sorting candidates: 0.059ms
+Generate rules: 0.639ms
+Build stylesheet: 0.011ms
+Potential classes:  96
+Active contexts:  1
+JIT TOTAL: 133.934ms
+
+
+ ✓ Compiled in 796ms (512 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 923ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 7.801ms
+Reading changed files: 4.358ms
+Sorting candidates: 0.052ms
+Generate rules: 0.453ms
+Build stylesheet: 0.001ms
+Potential classes:  99
+Active contexts:  1
+JIT TOTAL: 110.994ms
+
+
+ ✓ Compiled in 1253ms (1834 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 405ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 8.218ms
+Reading changed files: 10.813ms
+Sorting candidates: 0.115ms
+Generate rules: 0.527ms
+Build stylesheet: 0.002ms
+Potential classes:  96
+Active contexts:  1
+JIT TOTAL: 99.238ms
+
+
+ ✓ Compiled in 1787ms (1834 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 292ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 9.554ms
+Reading changed files: 6.657ms
+Sorting candidates: 0.098ms
+Generate rules: 0.514ms
+Build stylesheet: 0.001ms
+Potential classes:  96
+Active contexts:  1
+JIT TOTAL: 103.943ms
+
+
+ ✓ Compiled in 1063ms (1834 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 288ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 349ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 854ms (1329 modules)
+ ✓ Compiled (1331 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/console-monitor/status 200 in 1284ms
+ GET /api/auth/session 200 in 1282ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 12ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+ ○ Compiling /api/notifications ...
+ ✓ Compiled /api/notifications in 539ms (1333 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 611ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 11ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 6.015ms
+Reading changed files: 5.749ms
+Sorting candidates: 0.048ms
+Generate rules: 0.858ms
+Build stylesheet: 2.713ms
+Potential classes:  97
+Active contexts:  1
+JIT TOTAL: 101.171ms
+
+
+ ✓ Compiled in 1484ms (1845 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 310ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 8.555ms
+Reading changed files: 8.518ms
+Sorting candidates: 0.139ms
+Generate rules: 0.561ms
+Build stylesheet: 0.001ms
+Potential classes:  98
+Active contexts:  1
+JIT TOTAL: 103.04ms
+
+
+ ✓ Compiled in 919ms (1834 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 523ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 4.301ms
+Reading changed files: 4.707ms
+Sorting candidates: 0.073ms
+Generate rules: 0.501ms
+Build stylesheet: 0.002ms
+Potential classes:  98
+Active contexts:  1
+JIT TOTAL: 90.161ms
+
+
+ ✓ Compiled in 892ms (1834 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 487ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 5.201ms
+Reading changed files: 10.567ms
+Sorting candidates: 0.05ms
+Generate rules: 0.506ms
+Build stylesheet: 0.001ms
+Potential classes:  100
+Active contexts:  1
+JIT TOTAL: 94.584ms
+
+
+ ✓ Compiled in 583ms (512 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 25ms
+ ✓ Compiled in 576ms (1322 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 12.43ms
+Reading changed files: 4.784ms
+Sorting candidates: 0.069ms
+Generate rules: 1.185ms
+Build stylesheet: 2.151ms
+Potential classes:  101
+Active contexts:  1
+JIT TOTAL: 132.507ms
+
+
+ ✓ Compiled in 1681ms (1834 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 648ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 9.863ms
+Reading changed files: 13.426ms
+Sorting candidates: 0.113ms
+Generate rules: 0.754ms
+Build stylesheet: 0.001ms
+Potential classes:  105
+Active contexts:  1
+JIT TOTAL: 132.65ms
+
+
+ ✓ Compiled in 1154ms (1834 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 424ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 8.73ms
+Reading changed files: 11.091ms
+Sorting candidates: 0.143ms
+Generate rules: 0.721ms
+Build stylesheet: 0.003ms
+Potential classes:  101
+Active contexts:  1
+JIT TOTAL: 110.818ms
+
+
+ ✓ Compiled in 1157ms (1834 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 261ms
+Middleware check: { pathname: '/auth/signin', hasSessionToken: false }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /auth/signin. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+Middleware check: { pathname: '/installHook.js.map', hasSessionToken: true }
+ ○ Compiling /_not-found ...
+ GET /auth/signin 200 in 850ms
+ ✓ Compiled /_not-found in 2.1s (1824 modules)
+ ⚠ Unsupported metadata viewport is configured in metadata export in /installHook.js.map. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /installHook.js.map 404 in 2536ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 6.75ms
+Reading changed files: 75.817ms
+Sorting candidates: 0.057ms
+Generate rules: 0.714ms
+Build stylesheet: 0.002ms
+Potential classes:  106
+Active contexts:  1
+JIT TOTAL: 188.218ms
+
+
+ ✓ Compiled in 1987ms (1834 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 678ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 7.632ms
+Reading changed files: 11.994ms
+Sorting candidates: 0.129ms
+Generate rules: 0.824ms
+Build stylesheet: 0.002ms
+Potential classes:  126
+Active contexts:  1
+JIT TOTAL: 120.719ms
+
+
+ ✓ Compiled in 963ms (1834 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /dashboard 200 in 476ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⨯ ReferenceError: useState is not defined
+    at useState (src/app/dashboard/dashboard-client.tsx:17:44)
+  15 | }) {
+  16 |   // Test viewport width
+> 17 |   const [viewportWidth, setViewportWidth] = useState(0)
+     |                                            ^
+  18 |   
+  19 |   useEffect(() => {
+  20 |     const updateWidth = () => { {
+  digest: '782110088'
+}
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 500 in 169ms
+Middleware check: { pathname: '/installHook.js.map', hasSessionToken: true }
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1758ms (1824 modules)
+ ⚠ Unsupported metadata viewport is configured in metadata export in /installHook.js.map. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /installHook.js.map 404 in 3040ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⨯ ReferenceError: useState is not defined
+    at useState (src/app/dashboard/dashboard-client.tsx:17:44)
+  15 | }) {
+  16 |   // Test viewport width
+> 17 |   const [viewportWidth, setViewportWidth] = useState(0)
+     |                                            ^
+  18 |   
+  19 |   useEffect(() => {
+  20 |     const updateWidth = () => { {
+  digest: '782110088'
+}
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 500 in 153ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⨯ ReferenceError: useState is not defined
+    at useState (src/app/dashboard/dashboard-client.tsx:17:44)
+  15 | }) {
+  16 |   // Test viewport width
+> 17 |   const [viewportWidth, setViewportWidth] = useState(0)
+     |                                            ^
+  18 |   
+  19 |   useEffect(() => {
+  20 |     const updateWidth = () => { {
+  digest: '782110088'
+}
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 500 in 42ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 9.332ms
+Reading changed files: 18.086ms
+Sorting candidates: 0.139ms
+Generate rules: 0.838ms
+Build stylesheet: 0.002ms
+Potential classes:  128
+Active contexts:  1
+JIT TOTAL: 146.796ms
+
+
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ✓ Compiled in 2.2s (1838 modules)
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 652ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+Middleware check: { pathname: '/installHook.js.map', hasSessionToken: true }
+ ○ Compiling /api/auth/[...nextauth] ...
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/auth/signin', hasSessionToken: true }
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ✓ Compiled /api/auth/[...nextauth] in 2s (1833 modules)
+ ⚠ Unsupported metadata viewport is configured in metadata export in /installHook.js.map. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /installHook.js.map 404 in 2724ms
+ GET /dashboard 200 in 1060ms
+Middleware check: { pathname: '/installHook.js.map', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /installHook.js.map. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /installHook.js.map 404 in 47ms
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+ GET /api/console-monitor/status 200 in 28ms
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 158ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 29ms
+ ○ Compiling /api/notifications ...
+ ✓ Compiled /api/notifications in 758ms (1334 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 856ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 9ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 9.479ms
+Reading changed files: 36.085ms
+Sorting candidates: 0.157ms
+Generate rules: 1.588ms
+Build stylesheet: 2.097ms
+Potential classes:  137
+Active contexts:  1
+JIT TOTAL: 128.901ms
+
+
+ ✓ Compiled in 1648ms (1849 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 700ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 6.274ms
+Reading changed files: 6.473ms
+Sorting candidates: 0.102ms
+Generate rules: 1.2ms
+Build stylesheet: 0.002ms
+Potential classes:  140
+Active contexts:  1
+JIT TOTAL: 88.476ms
+
+
+ ✓ Compiled in 1203ms (1849 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 270ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 5.488ms
+Reading changed files: 7.912ms
+Sorting candidates: 0.07ms
+Generate rules: 0.747ms
+Build stylesheet: 0.003ms
+Potential classes:  149
+Active contexts:  1
+JIT TOTAL: 99.857ms
+
+
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+ ✓ Compiled in 1267ms (1849 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ✓ Compiled in 1ms (1334 modules)
+ ✓ Compiled in 1ms (1334 modules)
+ ✓ Compiled in 1ms (1334 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 1777ms
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 1781ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 6.914ms
+Reading changed files: 10.532ms
+Sorting candidates: 0.16ms
+Generate rules: 0.954ms
+Build stylesheet: 0.002ms
+Potential classes:  133
+Active contexts:  1
+JIT TOTAL: 117.47ms
+
+
+ ✓ Compiled in 667ms (512 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 40ms
+ ✓ Compiled in 1776ms (1328 modules)
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 11.959ms
+Reading changed files: 28.556ms
+Sorting candidates: 0.604ms
+Generate rules: 2.692ms
+Build stylesheet: 0.004ms
+Potential classes:  407
+Active contexts:  1
+JIT TOTAL: 217.195ms
+
+
+ ✓ Compiled in 2.3s (1834 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 1206ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 10.384ms
+Reading changed files: 17.381ms
+Sorting candidates: 0.334ms
+Generate rules: 2.456ms
+Build stylesheet: 0.006ms
+Potential classes:  458
+Active contexts:  1
+JIT TOTAL: 116.242ms
+
+
+ ✓ Compiled in 1547ms (1834 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 426ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 8.676ms
+Reading changed files: 20.401ms
+Sorting candidates: 0.553ms
+Generate rules: 2.747ms
+Build stylesheet: 0.004ms
+Potential classes:  459
+Active contexts:  1
+JIT TOTAL: 150.46ms
+
+
+ ✓ Compiled in 1381ms (1834 modules)
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⚠ Unsupported metadata viewport is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /dashboard 200 in 230ms

@@ -7,30 +7,45 @@ import { Header } from '@/components/layout/header'
 import { MobileHeader } from '@/components/layout/mobile-header'
 import { SessionGuard } from '@/components/providers/session-guard'
 import { Toaster } from 'sonner'
+import { useState, useEffect } from 'react'
 
 export function DashboardClient({
   children,
 }: {
   children: React.ReactNode
 }) {
+  // Test viewport width - initialize with a value that works on server
+  const [viewportWidth, setViewportWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 1920
+  )
+  
+  useEffect(() => {
+    const updateWidth = () => {
+      setViewportWidth(window.innerWidth)
+    }
+    updateWidth()
+    window.addEventListener('resize', updateWidth)
+    return () => window.removeEventListener('resize', updateWidth)
+  }, [])
+
   return (
     <SessionGuard>
       <SidebarProvider>
         <NotificationProvider>
           <div className="flex h-screen bg-background">
-            {/* Sidebar - Visible on desktop (xl and up), hidden on mobile/tablet */}
-            <div className="hidden xl:block">
+            {/* Sidebar - Visible on desktop (lg and up), hidden on mobile/tablet */}
+            <aside className="hidden lg:block w-64 flex-shrink-0">
               <Sidebar />
-            </div>
+            </aside>
             
             <div className="flex flex-1 flex-col overflow-hidden">
               {/* Desktop Header - Only when sidebar is visible */}
-              <div className="hidden xl:block">
+              <div style={{ display: viewportWidth >= 1024 ? 'block' : 'none' }}>
                 <Header />
               </div>
               
               {/* Mobile/Tablet Header - Visible when sidebar is hidden */}
-              <div className="xl:hidden">
+              <div style={{ display: viewportWidth < 1024 ? 'block' : 'none' }}>
                 <MobileHeader className="supabase-header" />
               </div>
               

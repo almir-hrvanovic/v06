@@ -388,7 +388,7 @@ export function MobileSidebar({ className }: MobileSidebarProps) {
   return (
     <>
       {/* Show on ALL screen sizes */}
-      <div className={className}>
+      <div className={className || "block"}>
         <Button
           id={menuButtonId}
           ref={menuButtonRef}

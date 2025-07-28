@@ -128,11 +128,24 @@ export function Header() {
   return (
     <header 
       id={headerId}
-      className="flex h-16 items-center justify-between border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-6"
+      className="flex h-16 items-center justify-between border-b bg-[hsl(var(--header-background))]/95 backdrop-blur supports-[backdrop-filter]:bg-[hsl(var(--header-background))]/80 px-6"
       role="banner"
       aria-label="Application header with search and user menu"
     >
       <div className="flex items-center space-x-4">
+        {/* Logo and Title - same as mobile header */}
+        <div className="flex items-center space-x-3">
+          <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center shadow-sm">
+            <svg width="20" height="20" viewBox="0 0 32 32" className="text-primary-foreground">
+              <path d="M16 6l2.47 5.01L24 12.18l-4 3.9.94 5.5L16 19.15l-4.94 2.59.94-5.5-4-3.9 5.53-1.17L16 6z" fill="currentColor"/>
+            </svg>
+          </div>
+          <div>
+            <span className="font-semibold text-foreground text-lg">GS-CMS</span>
+            <div className="text-xs text-muted-foreground">v5.0</div>
+          </div>
+        </div>
+        
         {/* Search Form */}
         <form className="relative max-w-md" onSubmit={handleSearchSubmit} role="search">
           <label 
@@ -143,7 +156,7 @@ export function Header() {
             {t('search')} the application
           </label>
           <Search 
-            className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" 
+            className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" 
             aria-hidden="true"
           />
           <Input
@@ -151,7 +164,7 @@ export function Header() {
             ref={searchInputRef}
             type="search"
             placeholder={t('search')}
-            className="pl-10 w-80"
+            className="pl-10 w-80 bg-background border-input"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             aria-labelledby={searchLabelId}
