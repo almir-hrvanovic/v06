@@ -3,7 +3,7 @@
  * Provides focus management, ARIA helpers, keyboard navigation, and more
  */
 
-import { RefObject } from 'react'
+import React, { RefObject } from 'react'
 
 // ARIA role definitions
 export const ARIA_ROLES = {

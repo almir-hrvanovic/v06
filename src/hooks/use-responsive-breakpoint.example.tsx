@@ -114,16 +114,16 @@ export function OptimizedBreakpointExample() {
         
         <div className="grid gap-4">
           <div className="flex flex-wrap gap-2">
-            {breakpoints.isSm && (
+            {breakpoints.current === 'sm' && (
               <span className="px-2 py-1 bg-orange-200 rounded text-sm">SM Active</span>
             )}
-            {breakpoints.isMd && (
+            {breakpoints.current === 'md' && (
               <span className="px-2 py-1 bg-yellow-200 rounded text-sm">MD Active</span>
             )}
-            {breakpoints.isLg && (
+            {breakpoints.current === 'lg' && (
               <span className="px-2 py-1 bg-green-200 rounded text-sm">LG Active</span>
             )}
-            {breakpoints.isXl && (
+            {breakpoints.current === 'xl' && (
               <span className="px-2 py-1 bg-blue-200 rounded text-sm">XL Active</span>
             )}
           </div>
@@ -164,25 +164,25 @@ export function CustomBreakpointsExample() {
             <strong>Custom Breakpoint:</strong> {current}
           </div>
 
-          {is('mobile') && (
+          {(is('xs') || is('sm')) && (
             <div className="bg-red-100 border border-red-300 p-4 rounded">
               📱 Mobile view optimized for touch interaction
             </div>
           )}
 
-          {is('tablet-portrait') && (
+          {is('ipad-pro') && (
             <div className="bg-blue-100 border border-blue-300 p-4 rounded">
-              📱 Tablet portrait - perfect for reading
+              📱 iPad Pro - perfect for reading
             </div>
           )}
 
-          {is('tablet-landscape') && (
+          {is('md') && (
             <div className="bg-green-100 border border-green-300 p-4 rounded">
               📱 Tablet landscape - great for productivity
             </div>
           )}
 
-          {is('ultrawide') && (
+          {(is('3xl') || is('4xl') || is('5xl') || is('6xl')) && (
             <div className="bg-purple-100 border border-purple-300 p-4 rounded">
               🖥️ Ultrawide monitor - maximize screen real estate
             </div>
@@ -349,7 +349,7 @@ export function ResponsiveDashboardExample() {
                 <h1 className="text-2xl font-bold">Dashboard</h1>
                 
                 {/* Mobile menu button */}
-                {isBelow('lg') && (
+                {(current === 'xs' || current === 'sm' || current === 'md') && (
                   <Button variant="outline" size="sm">
                     ☰ Menu
                   </Button>
@@ -372,11 +372,11 @@ export function ResponsiveDashboardExample() {
                 <Card key={i} className="p-6">
                   <h3 className="font-semibold mb-2">Card {i + 1}</h3>
                   <p className="text-sm text-gray-600">
-                    {isBelow('md') ? 'Mobile view' : 'Desktop view'} content
+                    {(current === 'xs' || current === 'sm') ? 'Mobile view' : 'Desktop view'} content
                   </p>
                   <div className="mt-4">
                     <Button 
-                      size={isBelow('md') ? 'sm' : 'default'}
+                      size={(current === 'xs' || current === 'sm') ? 'sm' : 'default'}
                       variant="outline"
                     >
                       Action
