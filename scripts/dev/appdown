@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# GS-CMS Application Shutdown Shortcut
+# This shortcut executes the full app shutdown script
+
+# Get the directory where this script is located (project root)
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Execute the app-down script from the scripts directory
+exec "$SCRIPT_DIR/scripts/app-down.sh" "$@"

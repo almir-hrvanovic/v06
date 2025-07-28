@@ -1,0 +1,9 @@
+[2025-07-28 13:25:47] [INFO] Starting robust application startup process
+[2025-07-28 13:25:47] [INFO] Logs: ./logs/startup-20250728_132547.log
+[2025-07-28 13:25:47] [INFO] Errors: ./logs/errors-20250728_132547.log
+[2025-07-28 13:25:47] [INFO] Health: ./logs/health-20250728_132547.log
+[2025-07-28 13:25:47] [INFO] Phase 1: Pre-flight System Checks
+[2025-07-28 13:25:47] [SUCCESS] Node.js detected: v22.17.1
+[2025-07-28 13:25:47] [SUCCESS] NPM detected: 11.5.1
+[2025-07-28 13:25:47] [SUCCESS] Port 3000 is available
+[2025-07-28 13:25:47] [FATAL] No environment configuration found (.env or .env.local)

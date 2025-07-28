@@ -1,0 +1,24 @@
+[2025-07-28 13:32:04] [INFO] Starting robust application startup process
+[2025-07-28 13:32:04] [INFO] Logs: ./logs/startup-20250728_133204.log
+[2025-07-28 13:32:04] [INFO] Errors: ./logs/errors-20250728_133204.log
+[2025-07-28 13:32:04] [INFO] Health: ./logs/health-20250728_133204.log
+[2025-07-28 13:32:04] [INFO] Phase 1: Pre-flight System Checks
+[2025-07-28 13:32:04] [SUCCESS] Node.js detected: v22.17.1
+[2025-07-28 13:32:04] [SUCCESS] NPM detected: 11.5.1
+[2025-07-28 13:32:04] [SUCCESS] Port 3000 is available
+[2025-07-28 13:32:04] [SUCCESS] Environment configuration found
+[2025-07-28 13:32:04] [SUCCESS] Pre-flight checks completed
+[2025-07-28 13:32:04] [INFO] Phase 2: Dependencies and Build Environment
+[2025-07-28 13:32:04] [INFO] Cleaning previous build artifacts...
+[2025-07-28 13:32:05] [SUCCESS] Build artifacts cleaned
+[2025-07-28 13:32:05] [SUCCESS] Dependencies are up to date
+[2025-07-28 13:32:05] [INFO] Generating Prisma client...
+[2025-07-28 13:32:06] [SUCCESS] Prisma client generated
+[2025-07-28 13:32:06] [SUCCESS] Dependencies phase completed
+[2025-07-28 13:32:06] [INFO] Phase 3: Local Services Setup
+[2025-07-28 13:32:06] [INFO] Ensuring local database configuration...
+[2025-07-28 13:32:06] [SUCCESS] Local database configuration set
+[2025-07-28 13:32:10] [INFO] Starting local Docker services...
+[2025-07-28 13:32:10] [INFO] Starting PostgreSQL, Redis, and Adminer...
+[2025-07-28 13:32:10] [ERROR] Failed to start Docker services
+[2025-07-28 13:32:10] [ERROR] Failed to start local services

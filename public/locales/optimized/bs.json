@@ -1,0 +1,158 @@
+{
+  "common": {
+    "actions": {
+      "save": "Sačuvaj",
+      "cancel": "Otkaži",
+      "delete": "Obriši",
+      "edit": "Uredi",
+      "create": "Stvori",
+      "view": "Prikaži",
+      "loading": "Učitavanje...",
+      "search": "Pretraži"
+    },
+    "labels": {
+      "email": "Email",
+      "password": "Lozinka",
+      "name": "Ime",
+      "role": "Uloga",
+      "status": "Status",
+      "date": "Datum",
+      "time": "Vrijeme"
+    },
+    "status": {
+      "active": "Aktivan",
+      "inactive": "Neaktivan",
+      "pending": "Na čekanju",
+      "approved": "Odobreno",
+      "rejected": "Odbačeno",
+      "new": "Novo"
+    }
+  },
+  "navigation": {
+    "main": {
+      "dashboard": "Kontrolna ploča",
+      "inquiries": "Upiti",
+      "customers": "Kupci", 
+      "users": "Korisnici",
+      "items": "Stavke",
+      "assignments": "Dodjela",
+      "quotes": "Ponude",
+      "production": "Proizvodnja",
+      "approvals": "Odobrenja",
+      "costs": "Troškovi",
+      "automation": "Automatizacija",
+      "settings": "Postavke",
+      "analytics": "Analitika",
+      "reports": "Izvještaji",
+      "search": "Pretraživanje"
+    }
+  },
+  "auth": {
+    "signIn": {
+      "title": "Prijava"
+    }
+  },
+  "dashboard": {
+    "title": "Kontrolna ploča",
+    "welcome": "Dobrodošli",
+    "overview": "Pregled",
+    "stats": {
+      "totalInquiries": "Ukupno upita",
+      "activeInquiries": "Aktivni upiti", 
+      "pendingApprovals": "Odobrenja na čekanju",
+      "activeQuotes": "Aktivne ponude",
+      "productionOrders": "Proizvodni nalozi",
+      "revenue": "Prihod"
+    },
+    "recentActivity": "Nedavne aktivnosti",
+    "quickActions": "Brze akcije"
+  },
+  "users": {
+    "title": "Upravljanje korisnicima",
+    "create": "Stvori korisnika",
+    "edit": "Uredi korisnika",
+    "list": "Popis korisnika"
+  },
+  "customers": {
+    "title": "Upravljanje kupcima",
+    "create": "Stvori kupca",
+    "edit": "Uredi kupca",
+    "list": "Popis kupaca"
+  },
+  "inquiries": {
+    "title": "Upiti",
+    "new": "Novi upit",
+    "create": "Stvori upit",
+    "edit": "Uredi upit",
+    "list": "Popis upita",
+    "view": "Prikaži upit"
+  },
+  "quotes": {
+    "title": "Ponude",
+    "create": "Stvori ponudu",
+    "edit": "Uredi ponudu",
+    "list": "Popis ponuda"
+  },
+  "production": {
+    "title": "Proizvodnja",
+    "orders": "Proizvodni nalozi",
+    "schedule": "Raspored"
+  },
+  "approvals": {
+    "title": "Odobrenja",
+    "pending": "Na čekanju",
+    "approved": "Odobreno",
+    "rejected": "Odbačeno"
+  },
+  "costs": {
+    "title": "Troškovi",
+    "calculation": "Izračun troškova",
+    "breakdown": "Razgradnja troškova"
+  },
+  "automation": {
+    "title": "Automatizacija",
+    "rules": "Pravila",
+    "workflows": "Tijekovi rada"
+  },
+  "assignments": {
+    "title": "Dodjela",
+    "items": "Dodjela stavaka",
+    "workload": "Radno opterećenje"
+  },
+  "header": {
+    "search": "Pretraži...",
+    "language": "Jezik",
+    "profile": "Profil",
+    "logout": "Odjava",
+    "notifications": "Obavještenja"
+  },
+  "buttons": {
+    "signIn": "Prijavi se",
+    "signOut": "Odjavi se",
+    "submit": "Pošalji",
+    "reset": "Resetiraj",
+    "close": "Zatvori",
+    "back": "Nazad",
+    "next": "Sljedeće",
+    "previous": "Prethodno"
+  },
+  "messages": {
+    "success": "Uspjeh",
+    "error": "Greška",
+    "warning": "Upozorenje",
+    "info": "Informacija",
+    "loading": "Učitavanje...",
+    "noData": "Nema podataka",
+    "unauthorized": "Nemate dozvolu",
+    "notFound": "Nije pronađeno"
+  },
+  "roles": {
+    "SUPERUSER": "Superkorisnik",
+    "ADMIN": "Administrator", 
+    "MANAGER": "Menadžer",
+    "SALES": "Prodaja",
+    "VPP": "VPP",
+    "VP": "VP",
+    "TECH": "Tehničar"
+  }
+}

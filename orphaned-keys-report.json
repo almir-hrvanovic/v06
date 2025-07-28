@@ -1,0 +1,4688 @@
+{
+  "orphanedKeys": [
+    {
+      "key": "common.name",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "Name",
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.email",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "Email",
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "Status",
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.all",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "All",
+      "context": "Part of common section"
+    },
+    {
+      "key": "navigation.users",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "Users",
+      "context": "Part of navigation section"
+    },
+    {
+      "key": "users.actions.createUser",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "Create User",
+      "context": "Part of users section"
+    },
+    {
+      "key": "users.actions.editUser",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "Edit User",
+      "context": "Part of users section"
+    },
+    {
+      "key": "customers.customerStats.total",
+      "presentIn": [
+        "en"
+      ],
+      "missingFrom": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "value": "Total Customers",
+      "context": "Part of customers section"
+    },
+    {
+      "key": "customers.customerStats.active",
+      "presentIn": [
+        "en"
+      ],
+      "missingFrom": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "value": "Active Customers",
+      "context": "Part of customers section"
+    },
+    {
+      "key": "customers.customerStats.inactive",
+      "presentIn": [
+        "en"
+      ],
+      "missingFrom": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "value": "Inactive Customers",
+      "context": "Part of customers section"
+    },
+    {
+      "key": "customers.customerStats.newThisMonth",
+      "presentIn": [
+        "en"
+      ],
+      "missingFrom": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "value": "New This Month",
+      "context": "Part of customers section"
+    },
+    {
+      "key": "customers.customerStats.withInquiries",
+      "presentIn": [
+        "en"
+      ],
+      "missingFrom": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "value": "With Inquiries",
+      "context": "Part of customers section"
+    },
+    {
+      "key": "customers.customerStats.topCustomers",
+      "presentIn": [
+        "en"
+      ],
+      "missingFrom": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "value": "Top Customers",
+      "context": "Part of customers section"
+    },
+    {
+      "key": "customers.customerStats.recentlyActive",
+      "presentIn": [
+        "en"
+      ],
+      "missingFrom": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "value": "Recently Active",
+      "context": "Part of customers section"
+    },
+    {
+      "key": "customers.customerStats.growth",
+      "presentIn": [
+        "en"
+      ],
+      "missingFrom": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "value": "Customer Growth",
+      "context": "Part of customers section"
+    },
+    {
+      "key": "customers.customerStats.retention",
+      "presentIn": [
+        "en"
+      ],
+      "missingFrom": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "value": "Retention Rate",
+      "context": "Part of customers section"
+    },
+    {
+      "key": "inquiries.inquiryStats.totalInquiries",
+      "presentIn": [
+        "en"
+      ],
+      "missingFrom": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "value": "Total Inquiries",
+      "context": "Part of inquiries section"
+    },
+    {
+      "key": "inquiries.inquiryStats.activeInquiries",
+      "presentIn": [
+        "en"
+      ],
+      "missingFrom": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "value": "Active Inquiries",
+      "context": "Part of inquiries section"
+    },
+    {
+      "key": "inquiries.inquiryStats.unassignedItems",
+      "presentIn": [
+        "en"
+      ],
+      "missingFrom": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "value": "Unassigned Items",
+      "context": "Part of inquiries section"
+    },
+    {
+      "key": "inquiries.inquiryStats.highPriority",
+      "presentIn": [
+        "en"
+      ],
+      "missingFrom": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "value": "High Priority",
+      "context": "Part of inquiries section"
+    },
+    {
+      "key": "inquiries.inquiryStats.thisMonth",
+      "presentIn": [
+        "en"
+      ],
+      "missingFrom": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "value": "This Month",
+      "context": "Part of inquiries section"
+    },
+    {
+      "key": "inquiries.inquiryStats.pendingApproval",
+      "presentIn": [
+        "en"
+      ],
+      "missingFrom": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "value": "Pending Approval",
+      "context": "Part of inquiries section"
+    },
+    {
+      "key": "inquiries.inquiryStats.completed",
+      "presentIn": [
+        "en"
+      ],
+      "missingFrom": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "value": "Completed",
+      "context": "Part of inquiries section"
+    },
+    {
+      "key": "inquiries.inquiryStats.overdue",
+      "presentIn": [
+        "en"
+      ],
+      "missingFrom": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "value": "Overdue",
+      "context": "Part of inquiries section"
+    },
+    {
+      "key": "forms.validation.required",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "This field is required",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.invalid",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Invalid format",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.tooShort",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Too short (minimum {min} characters)",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.tooLong",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Too long (maximum {max} characters)",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.mustMatch",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Fields must match",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.emailInvalid",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Please enter a valid email address",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.emailTaken",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Email address is already in use",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.phoneInvalid",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Please enter a valid phone number",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.urlInvalid",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Please enter a valid URL",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.numberInvalid",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Please enter a valid number",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.dateInvalid",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Please enter a valid date",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.timeInvalid",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Please enter a valid time",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.passwordWeak",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Password is too weak",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.passwordMismatch",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Passwords do not match",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.fileTypeInvalid",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Invalid file type",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.fileTooLarge",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "File is too large",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.nameRequired",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Name is required",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.emailRequired",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Email address is required",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.phoneRequired",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Phone number is required",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.roleRequired",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Role must be selected",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.statusRequired",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Status must be selected",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.priorityRequired",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Priority must be selected",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.minValue",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Minimum value is {min}",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.maxValue",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Maximum value is {max}",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.uniqueValue",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "This value must be unique",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.forbiddenValue",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "This value is not allowed",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.validation.patternMismatch",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Invalid format or pattern",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.actions.save",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Save",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.actions.saveAndContinue",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Save and Continue",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.actions.saveAndClose",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Save and Close",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.actions.saveDraft",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Save as Draft",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.actions.cancel",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Cancel",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.actions.reset",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Reset Form",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.actions.clear",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Clear All",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.actions.submit",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Submit",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.actions.preview",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Preview",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.actions.validate",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Validate",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.actions.addRow",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Add Row",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.actions.removeRow",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Remove Row",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.actions.addField",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Add Field",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.actions.removeField",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Remove Field",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.messages.saved",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Form saved successfully",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.messages.submitted",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Form submitted successfully",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.messages.validated",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Form validation passed",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.messages.validationFailed",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Please correct the errors below",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.messages.saveFailed",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Failed to save form",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.messages.submitFailed",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Failed to submit form",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.messages.hasUnsavedChanges",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "You have unsaved changes",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.messages.confirmDiscard",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Are you sure you want to discard your changes?",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.messages.autoSaved",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Auto-saved at {time}",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.messages.lastSaved",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Last saved: {time}",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.messages.saving",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Saving...",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.messages.submitting",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Submitting...",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.messages.validating",
+      "presentIn": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "hr"
+      ],
+      "value": "Validating...",
+      "context": "Part of forms section"
+    },
+    {
+      "key": "messages.info.creating",
+      "presentIn": [
+        "en"
+      ],
+      "missingFrom": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "value": "Creating...",
+      "context": "Part of messages section"
+    },
+    {
+      "key": "pages.users.title",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "Users",
+      "context": "Part of pages section"
+    },
+    {
+      "key": "pages.users.subtitle",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "Manage user accounts and permissions",
+      "context": "Part of pages section"
+    },
+    {
+      "key": "pages.users.userDetails",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "User Details",
+      "context": "Part of pages section"
+    },
+    {
+      "key": "pages.users.editUser",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "Edit User",
+      "context": "Part of pages section"
+    },
+    {
+      "key": "pages.users.createUser",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "Create User",
+      "context": "Part of pages section"
+    },
+    {
+      "key": "status.active",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "Active",
+      "context": "Part of status section"
+    },
+    {
+      "key": "status.inactive",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "Inactive",
+      "context": "Part of status section"
+    },
+    {
+      "key": "status.pending",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "Pending",
+      "context": "Part of status section"
+    },
+    {
+      "key": "status.completed",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "Completed",
+      "context": "Part of status section"
+    },
+    {
+      "key": "status.cancelled",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "Cancelled",
+      "context": "Part of status section"
+    },
+    {
+      "key": "status.error",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "Error",
+      "context": "Part of status section"
+    },
+    {
+      "key": "status.success",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "Success",
+      "context": "Part of status section"
+    },
+    {
+      "key": "status.warning",
+      "presentIn": [
+        "en",
+        "hr"
+      ],
+      "missingFrom": [
+        "bs",
+        "de"
+      ],
+      "value": "Warning",
+      "context": "Part of status section"
+    },
+    {
+      "key": "users.actions.passwordResetFor",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of users section"
+    },
+    {
+      "key": "customers.stats.inactive",
+      "presentIn": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en"
+      ],
+      "context": "Part of customers section"
+    },
+    {
+      "key": "customers.stats.newThisMonth",
+      "presentIn": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en"
+      ],
+      "context": "Part of customers section"
+    },
+    {
+      "key": "customers.stats.topCustomers",
+      "presentIn": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en"
+      ],
+      "context": "Part of customers section"
+    },
+    {
+      "key": "customers.stats.recentlyActive",
+      "presentIn": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en"
+      ],
+      "context": "Part of customers section"
+    },
+    {
+      "key": "customers.stats.growth",
+      "presentIn": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en"
+      ],
+      "context": "Part of customers section"
+    },
+    {
+      "key": "customers.stats.retention",
+      "presentIn": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en"
+      ],
+      "context": "Part of customers section"
+    },
+    {
+      "key": "inquiries.stats.totalInquiries",
+      "presentIn": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en"
+      ],
+      "context": "Part of inquiries section"
+    },
+    {
+      "key": "inquiries.stats.activeInquiries",
+      "presentIn": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en"
+      ],
+      "context": "Part of inquiries section"
+    },
+    {
+      "key": "inquiries.stats.unassignedItems",
+      "presentIn": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en"
+      ],
+      "context": "Part of inquiries section"
+    },
+    {
+      "key": "inquiries.stats.highPriority",
+      "presentIn": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en"
+      ],
+      "context": "Part of inquiries section"
+    },
+    {
+      "key": "inquiries.stats.thisMonth",
+      "presentIn": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en"
+      ],
+      "context": "Part of inquiries section"
+    },
+    {
+      "key": "inquiries.stats.pendingApproval",
+      "presentIn": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en"
+      ],
+      "context": "Part of inquiries section"
+    },
+    {
+      "key": "inquiries.stats.completed",
+      "presentIn": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en"
+      ],
+      "context": "Part of inquiries section"
+    },
+    {
+      "key": "inquiries.stats.overdue",
+      "presentIn": [
+        "hr",
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en"
+      ],
+      "context": "Part of inquiries section"
+    },
+    {
+      "key": "forms.labels.required",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.labels.optional",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.labels.role",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.labels.status",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.labels.priority",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.labels.category",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.labels.type",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.labels.tags",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.labels.notes",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.labels.comments",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.labels.password",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.searchUsers",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.searchCustomers",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.selectRole",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.selectStatus",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.selectPriority",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.selectCategory",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.selectType",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.enterName",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.enterEmail",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.enterPhone",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.enterWebsite",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.enterDescription",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.enterNotes",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.enterComments",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.addTags",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.chooseFile",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.dragDropFile",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.zeroAmount",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.costNotes",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.searchItems",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.searchOrders",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.searchQuotes",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.unitExample",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.placeholders.calculationNotes",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.activeVPs",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.activeTechs",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.avgVPWorkload",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.overloadedUsers",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.totalQuoteValue",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.averageQuoteValue",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.totalProductionCosts",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.averageMargin",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.overallCompletionRate",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.avgProcessingTime",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.topPerformers",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.bottlenecks",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.totalInquiries",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.activeInquiries",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.completedQuotes",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.pendingApprovals",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.monthlyRevenue",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.customer",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.items",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.totalValue",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.created",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.description",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.deadline",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.priority",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.status",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.assignedTo",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.createdBy",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.approved",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.rejected",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.totalSearchesToday",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.mostSearched",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.avgResponseTime",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.resultsFound",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.totalCalculations",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.pendingApproval",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.pendingItems",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.availableVPs",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.selectedItems",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.totalItems",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.totalOrders",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.pending",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.inProduction",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.completed",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.totalQuotes",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.draft",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.sent",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.accepted",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.inquiry",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.quantity",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.cost",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.name",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.notes",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.lastUpdated",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.materialCost",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.laborCost",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.overheadCost",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.calculationNotes",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.calculatedBy",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.approvedAt",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.reportsGenerated",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.mostPopular",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.avgGenerationTime",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "forms.headers.totalDataSize",
+      "presentIn": [
+        "hr"
+      ],
+      "missingFrom": [
+        "en",
+        "bs",
+        "de"
+      ],
+      "context": "Part of forms section"
+    },
+    {
+      "key": "plurals.items.few",
+      "presentIn": [
+        "hr",
+        "bs"
+      ],
+      "missingFrom": [
+        "en",
+        "de"
+      ],
+      "context": "Part of plurals section"
+    },
+    {
+      "key": "plurals.inquiries.few",
+      "presentIn": [
+        "hr",
+        "bs"
+      ],
+      "missingFrom": [
+        "en",
+        "de"
+      ],
+      "context": "Part of plurals section"
+    },
+    {
+      "key": "plurals.users.few",
+      "presentIn": [
+        "hr",
+        "bs"
+      ],
+      "missingFrom": [
+        "en",
+        "de"
+      ],
+      "context": "Part of plurals section"
+    },
+    {
+      "key": "plurals.assignments.few",
+      "presentIn": [
+        "hr",
+        "bs"
+      ],
+      "missingFrom": [
+        "en",
+        "de"
+      ],
+      "context": "Part of plurals section"
+    },
+    {
+      "key": "plurals.customers.few",
+      "presentIn": [
+        "hr",
+        "bs"
+      ],
+      "missingFrom": [
+        "en",
+        "de"
+      ],
+      "context": "Part of plurals section"
+    },
+    {
+      "key": "plurals.notifications.few",
+      "presentIn": [
+        "hr",
+        "bs"
+      ],
+      "missingFrom": [
+        "en",
+        "de"
+      ],
+      "context": "Part of plurals section"
+    },
+    {
+      "key": "plurals.files.few",
+      "presentIn": [
+        "hr",
+        "bs"
+      ],
+      "missingFrom": [
+        "en",
+        "de"
+      ],
+      "context": "Part of plurals section"
+    },
+    {
+      "key": "plurals.results.few",
+      "presentIn": [
+        "hr",
+        "bs"
+      ],
+      "missingFrom": [
+        "en",
+        "de"
+      ],
+      "context": "Part of plurals section"
+    },
+    {
+      "key": "common.status.active",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.inactive",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.enabled",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.disabled",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.pending",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.approved",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.rejected",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.completed",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.inProgress",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.cancelled",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.paused",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.resumed",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.scheduled",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.draft",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.published",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.archived",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.deleted",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.available",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.unavailable",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.online",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.offline",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.connected",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.disconnected",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.loading",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.saving",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.error",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.success",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.warning",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.info",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.assigned",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.costed",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.submitted",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.inReview",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.costing",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.quoted",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    },
+    {
+      "key": "common.status.converted",
+      "presentIn": [
+        "bs",
+        "de"
+      ],
+      "missingFrom": [
+        "en",
+        "hr"
+      ],
+      "context": "Part of common section"
+    }
+  ],
+  "inconsistencies": [
+    {
+      "key": "customers.stats.inactive",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "customers.stats.inactive",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "customers.stats.inactive",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "customers.stats.newThisMonth",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "customers.stats.newThisMonth",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "customers.stats.newThisMonth",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "customers.stats.topCustomers",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "customers.stats.topCustomers",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "customers.stats.topCustomers",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "customers.stats.recentlyActive",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "customers.stats.recentlyActive",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "customers.stats.recentlyActive",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "customers.stats.growth",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "customers.stats.growth",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "customers.stats.growth",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "customers.stats.retention",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "customers.stats.retention",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "customers.stats.retention",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.totalInquiries",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.totalInquiries",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.totalInquiries",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.activeInquiries",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.activeInquiries",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.activeInquiries",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.unassignedItems",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.unassignedItems",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.unassignedItems",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.highPriority",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.highPriority",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.highPriority",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.thisMonth",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.thisMonth",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.thisMonth",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.pendingApproval",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.pendingApproval",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.pendingApproval",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.completed",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.completed",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.completed",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.overdue",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.overdue",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "inquiries.stats.overdue",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "plurals.items.few",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "plurals.items.few",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "plurals.inquiries.few",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "plurals.inquiries.few",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "plurals.users.few",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "plurals.users.few",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "plurals.assignments.few",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "plurals.assignments.few",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "plurals.customers.few",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "plurals.customers.few",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "plurals.notifications.few",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "plurals.notifications.few",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "plurals.files.few",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "plurals.files.few",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "plurals.results.few",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "hr": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "plurals.results.few",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.active",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.active",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.inactive",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.inactive",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.enabled",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.enabled",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.disabled",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.disabled",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.pending",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.pending",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.approved",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.approved",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.rejected",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.rejected",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.completed",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.completed",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.inProgress",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.inProgress",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.cancelled",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.cancelled",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.paused",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.paused",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.resumed",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.resumed",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.scheduled",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.scheduled",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.draft",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.draft",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.published",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.published",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.archived",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.archived",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.deleted",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.deleted",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.available",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.available",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.unavailable",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.unavailable",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.online",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.online",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.offline",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.offline",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.connected",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.connected",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.disconnected",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.disconnected",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.loading",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.loading",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.saving",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.saving",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.error",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.error",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.success",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.success",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.warning",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.warning",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.info",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.info",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.assigned",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.assigned",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.costed",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.costed",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.submitted",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.submitted",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.inReview",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.inReview",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.costing",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.costing",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.quoted",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.quoted",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.converted",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "bs": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    },
+    {
+      "key": "common.status.converted",
+      "type": "structure",
+      "details": {
+        "en": null,
+        "de": {
+          "type": "string",
+          "isObject": false,
+          "hasNestedKeys": 0
+        }
+      }
+    }
+  ],
+  "summary": {
+    "totalOrphaned": 249,
+    "totalInconsistencies": 130,
+    "affectedLanguages": [
+      "bs",
+      "de",
+      "hr",
+      "en"
+    ],
+    "recommendedActions": [
+      "Add 249 missing translation keys",
+      "Focus on en - most missing keys",
+      "Fix 130 structural inconsistencies"
+    ]
+  },
+  "languageComparison": {
+    "en": {
+      "totalKeys": 1758,
+      "missingKeys": 0,
+      "extraKeys": 0,
+      "inconsistentKeys": 130
+    },
+    "hr": {
+      "totalKeys": 1807,
+      "missingKeys": 72,
+      "extraKeys": 121,
+      "inconsistentKeys": 22
+    },
+    "bs": {
+      "totalKeys": 1778,
+      "missingKeys": 38,
+      "extraKeys": 58,
+      "inconsistentKeys": 58
+    },
+    "de": {
+      "totalKeys": 1770,
+      "missingKeys": 38,
+      "extraKeys": 50,
+      "inconsistentKeys": 50
+    }
+  },
+  "generatedAt": "2025-07-28T10:34:05.049Z"
+}

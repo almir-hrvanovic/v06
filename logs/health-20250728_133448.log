@@ -1,0 +1,12 @@
+[2025-07-28 13:34:49] database-config: LOCAL - Using local Docker PostgreSQL
+[2025-07-28 13:34:50] PostgreSQL: READY - Connected to localhost:5432
+[2025-07-28 13:34:50] postgres: RUNNING - Local PostgreSQL ready on localhost:5432
+[2025-07-28 13:34:50] Redis: READY - Connected to localhost:6379
+[2025-07-28 13:34:50] redis: RUNNING - Local Redis ready on localhost:6379
+[2025-07-28 13:34:50] Adminer: READY - Connected to localhost:8080
+[2025-07-28 13:34:50] adminer: RUNNING - Database admin interface ready
+[2025-07-28 13:34:51] database: CONNECTED - Prisma connection to local PostgreSQL successful
+[2025-07-28 13:34:55] database-seed: COMPLETED - Test data loaded
+[2025-07-28 13:34:57] nextjs: READY - Accepting connections on localhost:3000
+[2025-07-28 13:34:58] health-check: PASSED - API health endpoint accessible
+[2025-07-28 13:35:01] auth-check: PASSED - Authentication endpoints accessible

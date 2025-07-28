@@ -1,0 +1,42 @@
+{
+  "enabled": true,
+  "devServerPort": 3000,
+  "browserPort": 3001,
+  "logFile": "./logs/autofix.log",
+  "fixThreshold": 3,
+  "fixCooldown": 10,
+  "mcpIntegration": {
+    "browserTools": {
+      "enabled": true,
+      "captureConsole": true,
+      "captureNetwork": true,
+      "captureErrors": true,
+      "screenshotOnError": true
+    }
+  },
+  "claudeCode": {
+    "autoApplyFixes": true,
+    "requireTestsPass": true,
+    "backupBeforeFix": true,
+    "maxFixAttempts": 3
+  },
+  "errorPatterns": {
+    "ignorePatterns": [
+      "Warning: ReactDOM.render is deprecated",
+      "Development mode warning"
+    ],
+    "criticalPatterns": [
+      "TypeError:",
+      "ReferenceError:",
+      "SyntaxError:",
+      "Cannot read property",
+      "is not a function"
+    ]
+  },
+  "notifications": {
+    "onFixAttempt": true,
+    "onFixSuccess": true,
+    "onFixFailure": true,
+    "showInDashboard": true
+  }
+}

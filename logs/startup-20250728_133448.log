@@ -1,0 +1,57 @@
+[2025-07-28 13:34:48] [INFO] Starting robust application startup process
+[2025-07-28 13:34:48] [INFO] Logs: ./logs/startup-20250728_133448.log
+[2025-07-28 13:34:48] [INFO] Errors: ./logs/errors-20250728_133448.log
+[2025-07-28 13:34:48] [INFO] Health: ./logs/health-20250728_133448.log
+[2025-07-28 13:34:48] [INFO] Phase 1: Pre-flight System Checks
+[2025-07-28 13:34:48] [SUCCESS] Node.js detected: v22.17.1
+[2025-07-28 13:34:48] [SUCCESS] NPM detected: 11.5.1
+[2025-07-28 13:34:48] [SUCCESS] Port 3000 is available
+[2025-07-28 13:34:48] [SUCCESS] Environment configuration found
+[2025-07-28 13:34:48] [SUCCESS] Pre-flight checks completed
+[2025-07-28 13:34:48] [INFO] Phase 2: Dependencies and Build Environment
+[2025-07-28 13:34:48] [INFO] Cleaning previous build artifacts...
+[2025-07-28 13:34:48] [SUCCESS] Build artifacts cleaned
+[2025-07-28 13:34:48] [SUCCESS] Dependencies are up to date
+[2025-07-28 13:34:48] [INFO] Generating Prisma client...
+[2025-07-28 13:34:49] [SUCCESS] Prisma client generated
+[2025-07-28 13:34:49] [SUCCESS] Dependencies phase completed
+[2025-07-28 13:34:49] [INFO] Phase 3: Local Services Setup
+[2025-07-28 13:34:49] [INFO] Ensuring local database configuration...
+[2025-07-28 13:34:49] [SUCCESS] Local database configuration set
+[2025-07-28 13:34:49] [INFO] Starting local Docker services...
+[2025-07-28 13:34:49] [INFO] Starting PostgreSQL, Redis, and Adminer...
+[2025-07-28 13:34:50] [SUCCESS] Docker services started
+[2025-07-28 13:34:50] [INFO] Waiting for PostgreSQL on localhost:5432 (timeout: 30s)
+[2025-07-28 13:34:50] [SUCCESS] PostgreSQL is ready on localhost:5432
+[2025-07-28 13:34:50] [INFO] Waiting for Redis on localhost:6379 (timeout: 15s)
+[2025-07-28 13:34:50] [SUCCESS] Redis is ready on localhost:6379
+[2025-07-28 13:34:50] [INFO] Waiting for Adminer on localhost:8080 (timeout: 15s)
+[2025-07-28 13:34:50] [SUCCESS] Adminer is ready on localhost:8080
+[2025-07-28 13:34:50] [INFO] Adminer (Database UI) available at: http://localhost:8080
+[2025-07-28 13:34:50] [INFO] Current Docker services status:
+[2025-07-28 13:34:50] [SUCCESS] Local services setup completed
+[2025-07-28 13:34:50] [INFO] Phase 4: Database Initialization
+[2025-07-28 13:34:50] [INFO] Initializing local database...
+[2025-07-28 13:34:50] [INFO] Testing database connection...
+[2025-07-28 13:34:51] [SUCCESS] Database connection successful
+[2025-07-28 13:34:51] [INFO] Applying database schema...
+[2025-07-28 13:34:53] [SUCCESS] Database schema synchronized
+[2025-07-28 13:34:53] [INFO] Checking if database needs seeding...
+[2025-07-28 13:34:54] [INFO] Database is empty, seeding with test data...
+[2025-07-28 13:34:55] [SUCCESS] Database seeded successfully
+[2025-07-28 13:34:55] [SUCCESS] Database initialization completed
+[2025-07-28 13:34:55] [INFO] Phase 5: Application Startup
+[2025-07-28 13:34:55] [INFO] Starting Next.js development server on PORT 3000...
+[2025-07-28 13:34:55] [INFO] Next.js started with PID: 650001
+[2025-07-28 13:34:57] [SUCCESS] Application is accepting connections on port 3000
+[2025-07-28 13:34:57] [SUCCESS] Application startup completed
+[2025-07-28 13:34:57] [INFO] Phase 6: Health Verification
+[2025-07-28 13:34:58] [SUCCESS] Health endpoint responding
+[2025-07-28 13:35:01] [SUCCESS] Authentication endpoints responding
+[2025-07-28 13:35:01] [SUCCESS] Health verification completed
+[2025-07-28 13:35:01] [SUCCESS] 🎉 Application Startup Complete!
+[2025-07-28 13:35:01] [INFO] 📋 Service Summary:
+[2025-07-28 13:35:01] [INFO] 📋 Available Commands:
+[2025-07-28 13:35:01] [INFO] 📋 Log Files:
+[2025-07-28 13:35:01] [INFO] 🔧 Troubleshooting:
+[2025-07-28 13:35:01] [INFO] Application running with PID: 650017

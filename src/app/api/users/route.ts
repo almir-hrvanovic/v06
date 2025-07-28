@@ -1,0 +1,165 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { getServerAuth } from '@/lib/auth-helpers'
+import { prisma } from '@/lib/db'
+import { UserRole } from '@prisma/client'
+import { hasPermission } from '@/lib/auth'
+import { z } from 'zod'
+import bcrypt from 'bcryptjs'
+
+export async function GET(request: NextRequest) {
+  try {
+    const session = await getServerAuth()
+    if (!session?.user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    // Check permissions
+    if (!hasPermission(session.user.role, 'users', 'read')) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
+    const { searchParams } = new URL(request.url)
+    const role = searchParams.get('role')
+    const active = searchParams.get('active')
+    const search = searchParams.get('search')
+
+    const where: any = {}
+
+    if (role) {
+      where.role = role
+    }
+
+    if (active !== null) {
+      where.isActive = active === 'true'
+    }
+
+    if (search) {
+      where.OR = [
+        { name: { contains: search, mode: 'insensitive' } },
+        { email: { contains: search, mode: 'insensitive' } }
+      ]
+    }
+
+    const users = await prisma.user.findMany({
+      where,
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        isActive: true,
+        createdAt: true,
+        _count: {
+          select: {
+            createdInquiries: true,
+            assignedInquiries: true,
+            inquiryItems: true,
+            costCalculations: true,
+          }
+        }
+      },
+      orderBy: { name: 'asc' }
+    })
+
+    return NextResponse.json(users)
+  } catch (error) {
+    console.error('Get users error:', error)
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
+  }
+}
+
+// Schema for creating users
+const createUserSchema = z.object({
+  name: z.string().min(1),
+  email: z.string().email(),
+  role: z.nativeEnum(UserRole)
+})
+
+export async function POST(request: NextRequest) {
+  try {
+    const session = await getServerAuth()
+    if (!session?.user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    // Check permissions
+    if (!hasPermission(session.user.role, 'users', 'write')) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
+    const body = await request.json()
+    const validatedData = createUserSchema.parse(body)
+
+    // Check if user with email already exists
+    const existingUser = await prisma.user.findUnique({
+      where: { email: validatedData.email }
+    })
+
+    if (existingUser) {
+      return NextResponse.json(
+        { error: 'User with this email already exists' },
+        { status: 400 }
+      )
+    }
+
+    // Generate a temporary password (in production, send this via email)
+    const tempPassword = Math.random().toString(36).slice(-8)
+    const hashedPassword = await bcrypt.hash(tempPassword, 12)
+
+    // Create user
+    const user = await prisma.user.create({
+      data: {
+        ...validatedData,
+        password: hashedPassword
+      }
+    })
+
+    // Create audit log (if session user exists in database)
+    const sessionUser = await prisma.user.findUnique({
+      where: { id: session.user.id! }
+    })
+    
+    if (sessionUser) {
+      await prisma.auditLog.create({
+        data: {
+          action: 'CREATE',
+          entity: 'USER',
+          entityId: user.id,
+          userId: session.user.id!,
+          newData: {
+            userName: user.name,
+            userEmail: user.email,
+            userRole: user.role
+          },
+          metadata: {
+            createdBy: session.user.email
+          }
+        }
+      })
+    }
+
+    // In production, send email with temporary password
+    console.log(`Created user ${user.email} with temporary password: ${tempPassword}`)
+
+    return NextResponse.json({
+      ...user,
+      tempPassword // In production, don't return this
+    })
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: 'Invalid input', details: error.errors },
+        { status: 400 }
+      )
+    }
+
+    console.error('Failed to create user:', error)
+    return NextResponse.json(
+      { error: 'Failed to create user' },
+      { status: 500 }
+    )
+  }
+}

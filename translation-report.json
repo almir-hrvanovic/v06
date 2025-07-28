@@ -1,0 +1,77 @@
+[
+  {
+    "language": "Croatian",
+    "locale": "hr-HR",
+    "totalKeys": 1914,
+    "missingKeys": [],
+    "extraKeys": [],
+    "emptyValues": [],
+    "completionPercentage": 100
+  },
+  {
+    "language": "Bosnian",
+    "locale": "bs-BA",
+    "totalKeys": 1914,
+    "missingKeys": [],
+    "extraKeys": [],
+    "emptyValues": [],
+    "completionPercentage": 100
+  },
+  {
+    "language": "English",
+    "locale": "en-US",
+    "totalKeys": 1914,
+    "missingKeys": [],
+    "extraKeys": [],
+    "emptyValues": [],
+    "completionPercentage": 100
+  },
+  {
+    "language": "German",
+    "locale": "de-DE",
+    "totalKeys": 1914,
+    "missingKeys": [
+      "common.status.active",
+      "common.status.inactive",
+      "common.status.enabled",
+      "common.status.disabled",
+      "common.status.pending",
+      "common.status.approved",
+      "common.status.rejected",
+      "common.status.completed",
+      "common.status.inProgress",
+      "common.status.cancelled",
+      "common.status.paused",
+      "common.status.resumed",
+      "common.status.scheduled",
+      "common.status.draft",
+      "common.status.published",
+      "common.status.archived",
+      "common.status.deleted",
+      "common.status.available",
+      "common.status.unavailable",
+      "common.status.online",
+      "common.status.offline",
+      "common.status.connected",
+      "common.status.disconnected",
+      "common.status.loading",
+      "common.status.saving",
+      "common.status.error",
+      "common.status.success",
+      "common.status.warning",
+      "common.status.info",
+      "common.status.assigned",
+      "common.status.costed",
+      "common.status.submitted",
+      "common.status.inReview",
+      "common.status.costing",
+      "common.status.quoted",
+      "common.status.converted"
+    ],
+    "extraKeys": [
+      "common.status"
+    ],
+    "emptyValues": [],
+    "completionPercentage": 98.11912225705329
+  }
+]

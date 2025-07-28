@@ -1,0 +1,29 @@
+{
+  "common": {
+    "actions": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    }
+  },
+  "navigation": {
+    "main": {
+      "dashboard": "Dashboard"
+    }
+  },
+  "auth": {
+    "signIn": {
+      "title": "Sign In"
+    }
+  },
+  "users": {
+    "title": "User Management"
+  },
+  "customers": {
+    "title": "Customer Management"
+  },
+  "header": {
+    "search": "Search...",
+    "language": "Language"
+  }
+}

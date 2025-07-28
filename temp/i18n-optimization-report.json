@@ -1,0 +1,64 @@
+{
+  "timestamp": "2025-07-26T21:37:17.651Z",
+  "configuration": {
+    "enableTreeShaking": true,
+    "enableCompression": true,
+    "enableLazyLoading": true,
+    "criticalKeyPatterns": [
+      "common.*",
+      "navigation.*",
+      "auth.signIn.*",
+      "forms.validation.*",
+      "messages.error.*",
+      "header.*"
+    ],
+    "excludePatterns": [
+      "_metadata.*",
+      "_context",
+      "*.description",
+      "help.*",
+      "documentation.*"
+    ],
+    "groupByFamily": true
+  },
+  "bundleStats": [
+    {
+      "language": "Croatian",
+      "originalSize": 60,
+      "optimizedSize": 0,
+      "compressionRatio": 100,
+      "keyCount": 9,
+      "criticalKeys": 409
+    },
+    {
+      "language": "Bosnian",
+      "originalSize": 60,
+      "optimizedSize": 0,
+      "compressionRatio": 100,
+      "keyCount": 9,
+      "criticalKeys": 409
+    },
+    {
+      "language": "English",
+      "originalSize": 58,
+      "optimizedSize": 0,
+      "compressionRatio": 100,
+      "keyCount": 9,
+      "criticalKeys": 409
+    },
+    {
+      "language": "German",
+      "originalSize": 65,
+      "optimizedSize": 0,
+      "compressionRatio": 100,
+      "keyCount": 9,
+      "criticalKeys": 409
+    }
+  ],
+  "summary": {
+    "totalOriginalSize": 243,
+    "totalOptimizedSize": 0,
+    "totalKeys": 36,
+    "averageCompression": 100
+  }
+}

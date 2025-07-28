@@ -1,0 +1,66 @@
+[
+  {
+    "language": "Croatian",
+    "locale": "hr-HR",
+    "totalKeys": 1698,
+    "missingKeys": [
+      "messages.info.creating"
+    ],
+    "extraKeys": [
+      "users.actions.userCreated",
+      "plurals.items.few",
+      "plurals.inquiries.few",
+      "plurals.users.few",
+      "plurals.assignments.few",
+      "plurals.customers.few",
+      "plurals.notifications.few",
+      "plurals.files.few",
+      "plurals.results.few"
+    ],
+    "emptyValues": [],
+    "completionPercentage": 99.94110718492344
+  },
+  {
+    "language": "Bosnian",
+    "locale": "bs-BA",
+    "totalKeys": 1698,
+    "missingKeys": [
+      "messages.info.creating"
+    ],
+    "extraKeys": [
+      "users.actions.userCreated",
+      "plurals.items.few",
+      "plurals.inquiries.few",
+      "plurals.users.few",
+      "plurals.assignments.few",
+      "plurals.customers.few",
+      "plurals.notifications.few",
+      "plurals.files.few",
+      "plurals.results.few"
+    ],
+    "emptyValues": [],
+    "completionPercentage": 99.94110718492344
+  },
+  {
+    "language": "English",
+    "locale": "en-US",
+    "totalKeys": 1698,
+    "missingKeys": [],
+    "extraKeys": [],
+    "emptyValues": [],
+    "completionPercentage": 100
+  },
+  {
+    "language": "German",
+    "locale": "de-DE",
+    "totalKeys": 1698,
+    "missingKeys": [
+      "messages.info.creating"
+    ],
+    "extraKeys": [
+      "users.actions.userCreated"
+    ],
+    "emptyValues": [],
+    "completionPercentage": 99.94110718492344
+  }
+]

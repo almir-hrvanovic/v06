@@ -1,0 +1,544 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User Management
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String?  // For development - in production use proper hashing
+  role      UserRole @default(SALES)
+  isActive  Boolean  @default(true)
+  preferredLanguage String @default("hr")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  createdInquiries    Inquiry[]     @relation("InquiryCreator")
+  assignedInquiries   Inquiry[]     @relation("InquiryAssignee")
+  inquiryItems        InquiryItem[] @relation("ItemAssignee")
+  costCalculations    CostCalculation[]
+  approvals           Approval[]
+  quotes              Quote[]
+  auditLogs           AuditLog[]
+  notifications       Notification[]
+  uploadedFiles       FileAttachment[]
+  automationRules     AutomationRule[]
+  automationLogs      AutomationLog[]
+
+  @@map("users")
+}
+
+enum UserRole {
+  SUPERUSER
+  ADMIN
+  MANAGER
+  SALES
+  VPP
+  VP
+  TECH
+}
+
+// Customer Management
+model Customer {
+  id        String   @id @default(cuid())
+  name      String
+  email     String?
+  phone     String?
+  address   String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  inquiries Inquiry[]
+
+  @@map("customers")
+}
+
+// Inquiry Management
+model Inquiry {
+  id          String        @id @default(cuid())
+  title       String
+  description String?
+  status      InquiryStatus @default(DRAFT)
+  priority    Priority      @default(MEDIUM)
+  deadline    DateTime?
+  totalValue  Decimal?      @db.Decimal(12, 2)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  // Foreign Keys
+  customerId String
+  createdById String
+  assignedToId String?
+
+  // Relations
+  customer    Customer      @relation(fields: [customerId], references: [id])
+  createdBy   User          @relation("InquiryCreator", fields: [createdById], references: [id])
+  assignedTo  User?         @relation("InquiryAssignee", fields: [assignedToId], references: [id])
+  items       InquiryItem[]
+  quotes      Quote[]
+  auditLogs   AuditLog[]
+  attachments InquiryAttachment[]
+
+  @@map("inquiries")
+}
+
+enum InquiryStatus {
+  DRAFT
+  SUBMITTED
+  IN_REVIEW
+  ASSIGNED
+  COSTING
+  QUOTED
+  APPROVED
+  REJECTED
+  CONVERTED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+// Inquiry Item Management
+model InquiryItem {
+  id                String     @id @default(cuid())
+  name              String
+  description       String?
+  quantity          Int        @default(1)
+  unit              String?
+  status            ItemStatus @default(PENDING)
+  notes             String?
+  requestedDelivery DateTime?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  // Foreign Keys
+  inquiryId    String
+  assignedToId String?
+
+  // Relations
+  inquiry         Inquiry           @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
+  assignedTo      User?             @relation("ItemAssignee", fields: [assignedToId], references: [id])
+  costCalculation CostCalculation?
+  productionItems ProductionItem[]
+  attachments     ItemAttachment[]
+
+  @@map("inquiry_items")
+}
+
+enum ItemStatus {
+  PENDING
+  ASSIGNED
+  IN_PROGRESS
+  COSTED
+  APPROVED
+  QUOTED
+}
+
+// Cost Calculation
+model CostCalculation {
+  id                String   @id @default(cuid())
+  materialCost      Decimal  @default(0) @db.Decimal(10, 2)
+  laborCost         Decimal  @default(0) @db.Decimal(10, 2)
+  overheadCost      Decimal  @default(0) @db.Decimal(10, 2)
+  totalCost         Decimal  @default(0) @db.Decimal(10, 2)
+  notes             String?
+  isApproved        Boolean  @default(false)
+  approvedAt        DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Foreign Keys
+  inquiryItemId String @unique
+  calculatedById String
+
+  // Relations
+  inquiryItem   InquiryItem @relation(fields: [inquiryItemId], references: [id], onDelete: Cascade)
+  calculatedBy  User        @relation(fields: [calculatedById], references: [id])
+  approvals     Approval[]
+
+  @@map("cost_calculations")
+}
+
+// Approval System
+model Approval {
+  id         String        @id @default(cuid())
+  type       ApprovalType
+  status     ApprovalStatus @default(PENDING)
+  comments   String?
+  approvedAt DateTime?
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  // Foreign Keys
+  approverId        String
+  costCalculationId String?
+
+  // Relations
+  approver        User            @relation(fields: [approverId], references: [id])
+  costCalculation CostCalculation? @relation(fields: [costCalculationId], references: [id])
+
+  @@map("approvals")
+}
+
+enum ApprovalType {
+  COST_CALCULATION
+  QUOTE
+  PRODUCTION_ORDER
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  REQUIRES_REVISION
+}
+
+// Quote Management
+model Quote {
+  id            String      @id @default(cuid())
+  quoteNumber   String      @unique
+  title         String
+  description   String?
+  subtotal      Decimal     @db.Decimal(12, 2)
+  margin        Decimal     @default(0.15) @db.Decimal(5, 4)
+  total         Decimal     @db.Decimal(12, 2)
+  validUntil    DateTime
+  status        QuoteStatus @default(DRAFT)
+  terms         String?
+  notes         String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  // Foreign Keys
+  inquiryId   String
+  createdById String
+
+  // Relations
+  inquiry        Inquiry          @relation(fields: [inquiryId], references: [id])
+  createdBy      User             @relation(fields: [createdById], references: [id])
+  productionOrder ProductionOrder?
+
+  @@map("quotes")
+}
+
+enum QuoteStatus {
+  DRAFT
+  SENT
+  ACCEPTED
+  REJECTED
+  EXPIRED
+  CONVERTED
+}
+
+// Production Order Management
+model ProductionOrder {
+  id             String                @id @default(cuid())
+  orderNumber    String                @unique
+  title          String
+  description    String?
+  status         ProductionOrderStatus @default(PENDING)
+  startDate      DateTime?
+  targetDate     DateTime?
+  completedDate  DateTime?
+  totalValue     Decimal               @db.Decimal(12, 2)
+  notes          String?
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
+
+  // Foreign Keys
+  quoteId String @unique
+
+  // Relations
+  quote Quote             @relation(fields: [quoteId], references: [id])
+  items ProductionItem[]
+
+  @@map("production_orders")
+}
+
+enum ProductionOrderStatus {
+  PENDING
+  IN_PROGRESS
+  ON_HOLD
+  COMPLETED
+  CANCELLED
+}
+
+// Production Item
+model ProductionItem {
+  id          String                @id @default(cuid())
+  name        String
+  description String?
+  quantity    Int
+  unit        String?
+  status      ProductionItemStatus  @default(PENDING)
+  startDate   DateTime?
+  targetDate  DateTime?
+  completedDate DateTime?
+  notes       String?
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+
+  // Foreign Keys
+  productionOrderId String
+  inquiryItemId     String
+
+  // Relations
+  productionOrder ProductionOrder @relation(fields: [productionOrderId], references: [id], onDelete: Cascade)
+  inquiryItem     InquiryItem     @relation(fields: [inquiryItemId], references: [id])
+
+  @@map("production_items")
+}
+
+enum ProductionItemStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  ON_HOLD
+  CANCELLED
+}
+
+// Notification System
+model Notification {
+  id        String             @id @default(cuid())
+  type      NotificationType
+  title     String
+  message   String
+  isRead    Boolean            @default(false)
+  data      Json?
+  createdAt DateTime           @default(now())
+  readAt    DateTime?
+
+  // Foreign Keys
+  userId String
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+enum NotificationType {
+  INQUIRY_ASSIGNED
+  COST_CALCULATION_REQUESTED
+  APPROVAL_REQUIRED
+  QUOTE_GENERATED
+  PRODUCTION_ORDER_CREATED
+  DEADLINE_REMINDER
+  STATUS_UPDATE
+}
+
+// Audit Log
+model AuditLog {
+  id        String     @id @default(cuid())
+  action    String
+  entity    String
+  entityId  String
+  oldData   Json?
+  newData   Json?
+  metadata  Json?
+  timestamp DateTime   @default(now())
+
+  // Foreign Keys
+  userId String?
+  inquiryId String?
+
+  // Relations
+  user    User?    @relation(fields: [userId], references: [id])
+  inquiry Inquiry? @relation(fields: [inquiryId], references: [id])
+
+  @@map("audit_logs")
+}
+
+// File Attachment System
+model FileAttachment {
+  id              String              @id @default(cuid())
+  fileName        String
+  originalName    String
+  fileSize        Int
+  mimeType        String
+  uploadThingKey  String              @unique
+  uploadThingUrl  String
+  uploadedById    String
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  // Relations
+  uploadedBy      User                @relation(fields: [uploadedById], references: [id])
+  inquiryAttachments InquiryAttachment[]
+  itemAttachments    ItemAttachment[]
+
+  @@map("file_attachments")
+}
+
+// Junction table for Inquiry-FileAttachment relationship
+model InquiryAttachment {
+  id           String         @id @default(cuid())
+  inquiryId    String
+  attachmentId String
+  createdAt    DateTime       @default(now())
+
+  // Relations
+  inquiry      Inquiry        @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
+  attachment   FileAttachment @relation(fields: [attachmentId], references: [id], onDelete: Cascade)
+
+  @@unique([inquiryId, attachmentId])
+  @@map("inquiry_attachments")
+}
+
+// Junction table for InquiryItem-FileAttachment relationship
+model ItemAttachment {
+  id           String         @id @default(cuid())
+  itemId       String
+  attachmentId String
+  createdAt    DateTime       @default(now())
+
+  // Relations
+  item         InquiryItem    @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  attachment   FileAttachment @relation(fields: [attachmentId], references: [id], onDelete: Cascade)
+
+  @@unique([itemId, attachmentId])
+  @@map("item_attachments")
+}
+
+// Workflow Automation Models
+model AutomationRule {
+  id          String           @id @default(cuid())
+  name        String
+  description String?
+  isActive    Boolean          @default(true)
+  trigger     AutomationTrigger
+  conditions  Json             // Array of conditions
+  actions     Json             // Array of actions to perform
+  priority    Int              @default(0) // Higher priority runs first
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  // Foreign Keys
+  createdById String
+
+  // Relations
+  createdBy User             @relation(fields: [createdById], references: [id])
+  logs      AutomationLog[]
+
+  @@index([trigger, isActive])
+  @@map("automation_rules")
+}
+
+enum AutomationTrigger {
+  INQUIRY_CREATED
+  INQUIRY_STATUS_CHANGED
+  ITEM_ASSIGNED
+  COST_CALCULATED
+  APPROVAL_REQUIRED
+  QUOTE_CREATED
+  DEADLINE_APPROACHING
+  WORKLOAD_THRESHOLD
+  PRODUCTION_ORDER_CREATED
+}
+
+model AutomationLog {
+  id          String              @id @default(cuid())
+  status      AutomationLogStatus
+  message     String?
+  errorDetails String?
+  executionTime Int               // milliseconds
+  triggeredData Json?             // Data that triggered the rule
+  executedActions Json?           // Actions that were executed
+  createdAt   DateTime            @default(now())
+
+  // Foreign Keys
+  ruleId      String
+  executedById String?
+
+  // Relations
+  rule        AutomationRule      @relation(fields: [ruleId], references: [id])
+  executedBy  User?               @relation(fields: [executedById], references: [id])
+
+  @@index([ruleId, createdAt])
+  @@map("automation_logs")
+}
+
+enum AutomationLogStatus {
+  SUCCESS
+  FAILED
+  PARTIAL
+  SKIPPED
+}
+
+// Email Template for Notifications
+model EmailTemplate {
+  id          String      @id @default(cuid())
+  name        String      @unique
+  subject     String
+  htmlContent String
+  textContent String?
+  variables   Json        // Array of required variables
+  isActive    Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("email_templates")
+}
+
+// Deadline Tracking
+model Deadline {
+  id            String          @id @default(cuid())
+  entityType    DeadlineEntity
+  entityId      String
+  dueDate       DateTime
+  warningDate   DateTime?       // When to send first reminder
+  escalationDate DateTime?      // When to escalate
+  status        DeadlineStatus  @default(ACTIVE)
+  remindersSent Int             @default(0)
+  completedAt   DateTime?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  @@unique([entityType, entityId])
+  @@index([status, dueDate])
+  @@map("deadlines")
+}
+
+enum DeadlineEntity {
+  INQUIRY
+  INQUIRY_ITEM
+  QUOTE
+  PRODUCTION_ORDER
+}
+
+enum DeadlineStatus {
+  ACTIVE
+  COMPLETED
+  OVERDUE
+  CANCELLED
+}
+
+// Business Partners Management
+model BusinessPartner {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations - can be extended later for partnerships, contracts, etc.
+  // partnerships Partnership[]
+  // contracts    Contract[]
+
+  @@map("business_partners")
+}

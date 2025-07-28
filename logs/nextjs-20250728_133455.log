@@ -1,0 +1,350 @@
+
+> gs-cms-v05@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.1.8
+   - Local:        http://localhost:3000
+   - Network:      http://10.10.40.87:3000
+   - Environments: .env
+   - Experiments (use with caution):
+     · turbo
+
+ ✓ Starting...
+ ✓ Ready in 1596ms
+ ○ Compiling /src/middleware ...
+ ✓ Compiled /src/middleware in 537ms (100 modules)
+Middleware check: { pathname: '/api/health', hasSessionToken: false }
+Middleware check: { pathname: '/api/auth/signin', hasSessionToken: false }
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 2.3s (500 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+ GET /api/auth/signin 302 in 3038ms
+Middleware check: { pathname: '/api/health', hasSessionToken: false }
+Middleware check: { pathname: '/api/health', hasSessionToken: false }
+Middleware check: { pathname: '/dashboard', hasSessionToken: false }
+Redirecting to signin - no session token
+Middleware check: { pathname: '/auth/signin', hasSessionToken: false }
+ ○ Compiling /auth/signin ...
+ ✓ Compiled /auth/signin in 6.3s (1527 modules)
+ GET /auth/signin 200 in 7051ms
+Middleware check: { pathname: '/api/health', hasSessionToken: false }
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: false }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: false }
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+ GET /api/auth/session 200 in 60ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: false }
+NextAuth redirect callback: { url: 'http://localhost:3000', baseUrl: 'http://localhost:3000' }
+Same origin redirect to: http://localhost:3000
+ GET /api/auth/session 200 in 14ms
+Middleware check: { pathname: '/api/auth/providers', hasSessionToken: false }
+NextAuth redirect callback: { url: 'http://localhost:3000', baseUrl: 'http://localhost:3000' }
+Same origin redirect to: http://localhost:3000
+ GET /api/auth/providers 200 in 25ms
+Middleware check: { pathname: '/api/auth/csrf', hasSessionToken: false }
+NextAuth redirect callback: { url: 'http://localhost:3000', baseUrl: 'http://localhost:3000' }
+Same origin redirect to: http://localhost:3000
+ GET /api/auth/csrf 200 in 11ms
+Middleware check: { pathname: '/api/auth/callback/credentials', hasSessionToken: false }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."name", "public"."users"."role"::text, "public"."users"."password", "public"."users"."isActive", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ POST /api/auth/callback/credentials? 200 in 513ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 40ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 2.3s (1792 modules)
+ GET /dashboard 200 in 2831ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ GET /dashboard 200 in 48ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+ ○ Compiling /api/notifications ...
+ ✓ Compiled /api/notifications in 1701ms (1794 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 1852ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 11ms
+Middleware check: { pathname: '/dashboard/customers', hasSessionToken: true }
+ ○ Compiling /dashboard/customers ...
+ ✓ Compiled /dashboard/customers in 1507ms (1811 modules)
+ GET /dashboard/customers 200 in 2056ms
+Middleware check: { pathname: '/api/customers', hasSessionToken: true }
+ ○ Compiling /api/customers ...
+ ✓ Compiled /api/customers in 628ms (1827 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT 1
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_inquiries", 0) AS "_aggr_count_inquiries" FROM "public"."customers" LEFT JOIN (SELECT "public"."inquiries"."customerId", COUNT(*) AS "_aggr_count_inquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."customerId") AS "aggr_selection_0_Inquiry" ON ("public"."customers"."id" = "aggr_selection_0_Inquiry"."customerId") WHERE 1=1 ORDER BY "public"."customers"."createdAt" DESC OFFSET $1
+ GET /api/customers? 200 in 753ms
+Middleware check: { pathname: '/api/customers', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_inquiries", 0) AS "_aggr_count_inquiries" FROM "public"."customers" LEFT JOIN (SELECT "public"."inquiries"."customerId", COUNT(*) AS "_aggr_count_inquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."customerId") AS "aggr_selection_0_Inquiry" ON ("public"."customers"."id" = "aggr_selection_0_Inquiry"."customerId") WHERE 1=1 ORDER BY "public"."customers"."createdAt" DESC OFFSET $1
+ GET /api/customers? 200 in 13ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ ○ Compiling /dashboard/settings ...
+ ✓ Compiled /dashboard/settings in 699ms (1840 modules)
+ GET /dashboard/settings 200 in 1115ms
+Middleware check: {
+  pathname: '/api/users/cmdn16pe50001i0hdf9rz9ilm/language',
+  hasSessionToken: true
+}
+ ○ Compiling /api/users/[id]/language ...
+ ✓ Compiled /api/users/[id]/language in 518ms (1842 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/users/cmdn16pe50001i0hdf9rz9ilm/language 200 in 1048ms
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+Middleware check: {
+  pathname: '/api/users/cmdn16pe50001i0hdf9rz9ilm/language',
+  hasSessionToken: true
+}
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/users/cmdn16pe50001i0hdf9rz9ilm/language 200 in 50ms
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+Middleware check: {
+  pathname: '/api/users/cmdn16pe50001i0hdf9rz9ilm/language',
+  hasSessionToken: true
+}
+🔧 Language API PUT started
+🔍 Getting server auth...
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+✅ Session retrieved: Valid
+📥 Parsing params...
+🎯 Target user ID: cmdn16pe50001i0hdf9rz9ilm Session user ID: cmdn16pe50001i0hdf9rz9ilm
+📦 Parsing request body...
+📝 Request body: { language: 'de' }
+✅ Validating language with schema...
+🎯 Validated language: de
+💾 Checking if user exists...
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+✅ User found: almir@al-star.im Current language: hr
+💾 Updating user language preference...
+prisma:query UPDATE "public"."users" SET "preferredLanguage" = $1, "updatedAt" = $2 WHERE ("public"."users"."id" = $3 AND 1=1) RETURNING "public"."users"."id", "public"."users"."preferredLanguage"
+✅ Database updated: { preferredLanguage: 'de' }
+🍪 Creating response with cookie...
+✅ Cookie set, returning response
+ PUT /api/users/cmdn16pe50001i0hdf9rz9ilm/language 200 in 56ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 200 in 549ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 2.3s (1847 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/console-monitor/status 200 in 2352ms
+ GET /api/auth/session 200 in 2351ms
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 10ms
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+Middleware check: {
+  pathname: '/api/users/cmdn16pe50001i0hdf9rz9ilm/language',
+  hasSessionToken: true
+}
+ ○ Compiling /api/notifications ...
+ ✓ Compiled /api/notifications in 880ms (1346 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 1680ms
+ GET /api/users/cmdn16pe50001i0hdf9rz9ilm/language 200 in 1713ms
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+Middleware check: {
+  pathname: '/api/users/cmdn16pe50001i0hdf9rz9ilm/language',
+  hasSessionToken: true
+}
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 29ms
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/users/cmdn16pe50001i0hdf9rz9ilm/language 200 in 223ms
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /dashboard 200 in 316ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ GET /dashboard/settings 200 in 21ms
+Middleware check: {
+  pathname: '/api/users/cmdn16pe50001i0hdf9rz9ilm/language',
+  hasSessionToken: true
+}
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/users/cmdn16pe50001i0hdf9rz9ilm/language 200 in 62ms
+Middleware check: {
+  pathname: '/api/users/cmdn16pe50001i0hdf9rz9ilm/language',
+  hasSessionToken: true
+}
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/users/cmdn16pe50001i0hdf9rz9ilm/language 200 in 17ms
+Middleware check: {
+  pathname: '/api/users/cmdn16pe50001i0hdf9rz9ilm/language',
+  hasSessionToken: true
+}
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 3s (1844 modules)
+ PUT /api/users/cmdn16pe50001i0hdf9rz9ilm/language 404 in 3930ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ ⨯ Error: Cannot find module './5994.js'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/server/webpack-runtime.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/server/app/_not-found/page.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/require.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/utils.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/swc/options.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/swc/index.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/config.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js
+    at __webpack_require__.f.require (.next/server/webpack-runtime.js:208:28)
+    at <unknown> (.next/server/webpack-runtime.js:116:40)
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (.next/server/webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (.next/server/webpack-runtime.js:167:22)
+    at <unknown> (.next/server/app/dashboard/settings/page.js:1:11554)
+    at Object.<anonymous> (.next/server/app/dashboard/settings/page.js:1:11645) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/dashboard/settings'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 3.3s (2086 modules)
+ GET /dashboard/settings 500 in 3865ms
+Middleware check: { pathname: '/dashboard/settings', hasSessionToken: true }
+ ⨯ TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.__webpack_require__ [as require] (.next/server/webpack-runtime.js:33:43)
+    at JSON.parse (<anonymous>)
+    at JSON.parse (<anonymous>) {
+  digest: '730551504'
+}
+TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.__webpack_require__ [as require] (.next/server/webpack-runtime.js:33:43)
+    at JSON.parse (<anonymous>)
+    at JSON.parse (<anonymous>)
+ ⨯ TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.__webpack_require__ [as require] (.next/server/webpack-runtime.js:33:43)
+    at JSON.parse (<anonymous>)
+    at JSON.parse (<anonymous>) {
+  page: '/dashboard/settings'
+}
+ ⨯ Error: Could not find the module "/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next-intl/dist/esm/development/shared/NextIntlClientProvider.js#default" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>) {
+  digest: '3717707266'
+}
+ GET /dashboard/settings 500 in 2413ms
+Middleware check: { pathname: '/dashboard', hasSessionToken: true }
+ ⨯ TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.__webpack_require__ [as require] (.next/server/webpack-runtime.js:33:43)
+    at JSON.parse (<anonymous>)
+    at JSON.parse (<anonymous>) {
+  digest: '730551504'
+}
+TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.__webpack_require__ [as require] (.next/server/webpack-runtime.js:33:43)
+    at JSON.parse (<anonymous>)
+    at JSON.parse (<anonymous>)
+ ⨯ TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.__webpack_require__ [as require] (.next/server/webpack-runtime.js:33:43)
+    at JSON.parse (<anonymous>)
+    at JSON.parse (<anonymous>) {
+  page: '/dashboard'
+}
+ ⨯ Error: Could not find the module "/home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next-intl/dist/esm/development/shared/NextIntlClientProvider.js#default" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>) {
+  digest: '3717707266'
+}
+ GET /dashboard 500 in 1926ms
+Middleware check: { pathname: '/api/auth/signin', hasSessionToken: false }
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 753ms (1372 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+ GET /api/auth/signin 302 in 1324ms
+ ⨯ Failed to generate static paths for /api/auth/[...nextauth]:
+[Error: Cannot find module './vendor-chunks/next.js'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/server/webpack-runtime.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/.next/server/app/api/auth/[...nextauth]/route.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/require.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/build/utils.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/static-paths-worker.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/compiled/jest-worker/processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[?25h

@@ -1,0 +1,184 @@
+# Claude Instructions for GS-CMS Enterprise Project
+
+## Project Overview
+Building a modern Customer Relationship & Quote Management System (CMS) using Next.js, React, TypeScript, and PostgreSQL. This system manages the complete workflow from customer inquiries through production orders, with a sophisticated role-based assignment system.
+
+## Core Business Context
+1. **Sales** creates inquiries with multiple items from customers
+2. **VPP (VP Production)** assigns inquiry items to VPs with workload balancing
+3. **VPs** calculate production costs and assign technical tasks to Tech Officers
+4. **Managers** approve production costs with oversight
+5. **Sales** applies margins and generates quotes
+6. **System** converts approved quotes to production orders
+
+## Technical Stack
+- **Frontend**: Next.js 14+ (App Router), TypeScript, TailwindCSS, shadcn/ui
+- **Backend**: Next.js API Routes, Prisma ORM
+- **Database**: PostgreSQL
+- **Auth**: NextAuth.js with role-based permissions
+- **State**: React Query (TanStack Query)
+- **Deployment**: Vercel
+
+## User Roles & Permissions Matrix
+```
+Superuser: Full system access
+Admin: User management, system configuration
+Manager: Approvals, reporting, oversight
+Sales: Inquiry creation, pricing, quotes
+VPP: Item assignment to VPs
+VP: Cost calculations, tech assignments
+Tech: Technical analysis, documentation
+```
+
+## Development Guidelines
+
+### 1. Code Organization
+- Use feature-based folder structure
+- Separate concerns: UI, business logic, data access
+- Implement proper error boundaries
+- Use React Server Components where possible
+
+### 2. Type Safety
+- Define strict TypeScript interfaces for all entities
+- Use Zod for runtime validation
+- Maintain type consistency across client-server boundaries
+- Never use `any` type without explicit justification
+
+### 3. Security First
+- Always check user permissions in API routes
+- Use parameterized queries (Prisma handles this)
+- Sanitize all user inputs
+- Implement proper CORS policies
+- Never expose sensitive data in client-side code
+
+### 4. Performance Optimization
+- Implement pagination for all list views
+- Use React.memo for expensive components
+- Optimize database queries with proper indexes
+- Implement caching strategies with React Query
+- Use dynamic imports for code splitting
+
+### 5. UI/UX Standards
+- Desktop-first responsive design
+- Loading states for all async operations
+- Proper error messages (user-friendly)
+- Consistent spacing and typography (via Tailwind)
+- Accessibility compliance (WCAG 2.1)
+
+### 6. Business Logic Rules
+- VPP can only assign to active VPs
+- Cost calculations require all fields completed
+- Managers must approve costs over threshold
+- Quotes expire after validity period
+- All actions create audit log entries
+
+### 7. Database Patterns
+- Use transactions for multi-table operations
+- Implement soft deletes (isActive flags)
+- Maintain referential integrity
+- Index frequently queried fields
+- Use JSON fields for flexible data
+
+### 8. Testing Requirements
+- Unit tests for business logic
+- Integration tests for API routes
+- E2E tests for critical workflows
+- Test all user role scenarios
+- Maintain >80% code coverage
+
+## Context7 Integration Points
+1. **Entity Relationships**: Track all Prisma model connections
+2. **Workflow States**: Monitor business process flows
+3. **Permission Checks**: Ensure consistent auth patterns
+4. **Component Dependencies**: Track UI component usage
+5. **API Contracts**: Maintain endpoint documentation
+
+## Common Patterns
+
+### API Route Pattern
+```typescript
+export async function GET(request: NextRequest) {
+  // 1. Auth check
+  const session = await getServerSession(authOptions)
+  if (!session) return unauthorized()
+  
+  // 2. Permission check
+  if (!hasPermission(session.user, 'resource:read')) {
+    return forbidden()
+  }
+  
+  // 3. Validate inputs
+  const { searchParams } = new URL(request.url)
+  const validated = schema.parse(Object.fromEntries(searchParams))
+  
+  // 4. Business logic
+  try {
+    const data = await prisma.resource.findMany({...})
+    return NextResponse.json(data)
+  } catch (error) {
+    return serverError(error)
+  }
+}
+```
+
+### Component Pattern
+```typescript
+interface Props {
+  data: EntityType
+  onAction: (id: string) => Promise<void>
+}
+
+export function Component({ data, onAction }: Props) {
+  const [isLoading, setIsLoading] = useState(false)
+  
+  const handleAction = async () => {
+    setIsLoading(true)
+    try {
+      await onAction(data.id)
+      toast.success('Action completed')
+    } catch (error) {
+      toast.error('Action failed')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+  
+  return (
+    <Card>
+      {/* Component UI */}
+    </Card>
+  )
+}
+```
+
+## MCP Serene Usage
+- Enable for TypeScript completions
+- Configure for Prisma schema awareness
+- Use for React component suggestions
+- Leverage for API route patterns
+- Activate for business logic helpers
+- Use MCP SELENE properly
+- Use MCP Serene properly
+
+## Sprint Methodology
+- 2-week sprints with clear deliverables
+- Daily progress updates in SPRINTS.md
+- Feature branches with PR reviews
+- Continuous deployment to preview
+- Production releases at sprint end
+
+## Error Handling Strategy
+1. Catch errors at appropriate levels
+2. Log technical details to server
+3. Show user-friendly messages
+4. Provide actionable next steps
+5. Track error patterns for fixes
+
+## Remember
+- Business value over technical perfection
+- User experience is paramount
+- Security cannot be compromised
+- Performance impacts user adoption
+- Documentation enables maintenance
+
+When uncertain, ask for clarification rather than making assumptions about business requirements.

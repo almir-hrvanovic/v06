@@ -1,0 +1,86 @@
+// Additional index definitions for schema.prisma
+// Add these to the appropriate models in schema.prisma
+
+// User model indexes
+@@index([email])
+@@index([role])
+@@index([isActive])
+
+// Customer model indexes
+@@index([name])
+@@index([email])
+@@index([isActive])
+
+// Inquiry model indexes
+@@index([status])
+@@index([priority])
+@@index([customerId])
+@@index([createdById])
+@@index([assignedToId])
+@@index([createdAt])
+@@index([deadline])
+@@index([status, priority])
+@@index([customerId, status])
+
+// InquiryItem model indexes
+@@index([inquiryId])
+@@index([assignedToId])
+@@index([status])
+@@index([assignedToId, status])
+
+// CostCalculation model indexes
+@@index([inquiryItemId])
+@@index([calculatedById])
+@@index([isApproved])
+@@index([createdAt])
+
+// Approval model indexes
+@@index([costCalculationId])
+@@index([approverId])
+@@index([status])
+@@index([type])
+@@index([createdAt])
+
+// Quote model indexes
+@@index([inquiryId])
+@@index([generatedById])
+@@index([approvedById])
+@@index([status])
+@@index([validUntil])
+
+// ProductionOrder model indexes
+@@index([quoteId])
+@@index([createdById])
+@@index([status])
+@@index([scheduledStart])
+
+// ProductionItem model indexes
+@@index([productionOrderId])
+@@index([inquiryItemId])
+@@index([status])
+
+// Notification model indexes
+@@index([userId])
+@@index([isRead])
+@@index([type])
+@@index([createdAt])
+@@index([userId, isRead])
+
+// AuditLog model indexes
+@@index([userId])
+@@index([entity])
+@@index([entityId])
+@@index([createdAt])
+@@index([entity, entityId])
+
+// FileAttachment model indexes
+@@index([uploadedById])
+@@index([createdAt])
+
+// InquiryAttachment model indexes
+@@index([inquiryId])
+@@index([attachmentId])
+
+// ItemAttachment model indexes
+@@index([itemId])
+@@index([attachmentId])

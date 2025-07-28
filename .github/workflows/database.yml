@@ -1,0 +1,65 @@
+name: Database Management
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to perform'
+        required: true
+        default: 'migrate'
+        type: choice
+        options:
+          - migrate
+          - seed
+          - reset
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+
+jobs:
+  database-action:
+    name: Database ${{ github.event.inputs.action }} on ${{ github.event.inputs.environment }}
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run database migration
+        if: github.event.inputs.action == 'migrate'
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          npx prisma generate
+          npx prisma migrate deploy
+      
+      - name: Seed database
+        if: github.event.inputs.action == 'seed'
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          npx prisma generate
+          npx prisma db seed
+      
+      - name: Reset database (DANGER)
+        if: github.event.inputs.action == 'reset' && github.event.inputs.environment != 'production'
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          npx prisma generate
+          npx prisma migrate reset --force
