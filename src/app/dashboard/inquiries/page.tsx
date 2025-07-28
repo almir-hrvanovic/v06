@@ -219,11 +219,22 @@ export default function InquiriesPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl lg:text-3xl font-bold tracking-tight">{t('pages.inquiries.title')}</h1>
-        <p className="text-muted-foreground text-sm lg:text-base">
-          {t('pages.inquiries.subtitle')}
-        </p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-2xl lg:text-3xl font-bold tracking-tight">{t('pages.inquiries.title')}</h1>
+          <p className="text-muted-foreground text-sm lg:text-base">
+            {t('pages.inquiries.subtitle')}
+          </p>
+        </div>
+        {(userRole === 'SALES' || userRole === 'ADMIN' || userRole === 'SUPERUSER') && (
+          <Button 
+            onClick={() => router.push('/dashboard/inquiries/new')}
+            className="ml-4"
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            {t('inquiries.actions.create')}
+          </Button>
+        )}
       </div>
 
       {/* Stats Cards */}
@@ -304,7 +315,7 @@ export default function InquiriesPage() {
             <select
               value={customerFilter}
               onChange={(e) => setCustomerFilter(e.target.value)}
-              className="px-3 py-2 border rounded-md text-sm w-full"
+              className="px-3 py-2 border rounded-md text-sm w-full bg-background text-foreground border-input"
             >
               <option value="">{t('inquiries.filters.allCustomers')}</option>
               {customers.map((customer) => (
@@ -318,7 +329,7 @@ export default function InquiriesPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as InquiryStatus | '')}
-              className="px-3 py-2 border rounded-md text-sm w-full"
+              className="px-3 py-2 border rounded-md text-sm w-full bg-background text-foreground border-input"
             >
               <option value="">{t('inquiries.filters.allStatuses')}</option>
               <option value="DRAFT">{t('inquiries.status.draft')}</option>
@@ -336,7 +347,7 @@ export default function InquiriesPage() {
             <select
               value={priorityFilter}
               onChange={(e) => setPriorityFilter(e.target.value as Priority | '')}
-              className="px-3 py-2 border rounded-md text-sm w-full"
+              className="px-3 py-2 border rounded-md text-sm w-full bg-background text-foreground border-input"
             >
               <option value="">{t('inquiries.filters.allPriorities')}</option>
               <option value="LOW">{t('inquiries.priority.low')}</option>
@@ -378,7 +389,7 @@ export default function InquiriesPage() {
                   return (
                     <React.Fragment key={inquiry.id}>
                       <TableRow 
-                        className="cursor-pointer hover:bg-gray-50"
+                        className="cursor-pointer hover:bg-muted/50 dark:hover:bg-muted/30"
                         onClick={() => toggleRowExpanded(inquiry.id)}
                       >
                         <TableCell>
@@ -462,7 +473,7 @@ export default function InquiriesPage() {
                       {isExpanded && (
                         <TableRow>
                           <TableCell colSpan={7} className="p-0">
-                            <div className="bg-gray-50 p-4">
+                            <div className="bg-muted/40 dark:bg-muted/20 p-4">
                               <Table>
                                 <TableHeader>
                                   <TableRow>
@@ -477,7 +488,7 @@ export default function InquiriesPage() {
                                 </TableHeader>
                                 <TableBody>
                                   {inquiry.items.map((item, index) => (
-                                    <TableRow key={item.id} className="hover:bg-gray-100">
+                                    <TableRow key={item.id} className="hover:bg-muted/50 dark:hover:bg-muted/20">
                                       <TableCell className="pl-8">
                                         <div className="flex items-center gap-2">
                                           <Package className="h-4 w-4 text-muted-foreground" />

@@ -119,14 +119,30 @@
       "by": "od"
     },
     "status": {
-      "0": "S",
-      "1": "t",
-      "2": "a",
-      "3": "t",
-      "4": "u",
-      "5": "s",
       "active": "Aktivan",
-      "inactive": "Neaktivan"
+      "inactive": "Neaktivan",
+      "enabled": "Omogućeno",
+      "disabled": "Onemogućeno",
+      "pending": "Na čekanju",
+      "approved": "Odobreno",
+      "rejected": "Odbačeno",
+      "completed": "Završeno",
+      "inProgress": "U tijeku",
+      "cancelled": "Otkazano",
+      "paused": "Pauzirano",
+      "resumed": "Nastavljeno",
+      "scheduled": "Zakazano",
+      "draft": "Nacrt",
+      "published": "Objavljeno",
+      "archived": "Arhivirano",
+      "assigned": "Dodijeljen",
+      "unassigned": "Nedodijeljen",
+      "submitted": "Poslan",
+      "inReview": "Na pregledu",
+      "costing": "Kalkulacija troškova",
+      "quoted": "Ponuda dana",
+      "converted": "Pretvoreno",
+      "onHold": "Na čekanju"
     },
     "priority": {
       "_context": "Razine prioriteta za zadatke, upite i dodjele",
@@ -843,7 +859,7 @@
       "create": {
         "title": "Novi upit",
         "subtitle": "Stvori novi upit kupca",
-        "button": "Stvori upit"
+        "button": "Snimi upit"
       },
       "edit": {
         "title": "Uredi upit",
@@ -875,7 +891,11 @@
         "budget": "Raspon proračuna",
         "budgetPlaceholder": "Procijenjeni raspon proračuna",
         "expectedVolume": "Očekivani volumen",
-        "volumePlaceholder": "Očekivani volumen narudžbe"
+        "volumePlaceholder": "Očekivani volumen narudžbe",
+        "itemDescription": "Opis stavke",
+        "itemDescriptionPlaceholder": "Unesite opis stavke",
+        "itemName": "Naziv stavke",
+        "itemNamePlaceholder": "Unesite naziv stavke"
       },
       "items": {
         "title": "Stavke upita",
@@ -972,6 +992,7 @@
       "sendQuote": "Pošalji ponudu",
       "followUp": "Praćenje",
       "markComplete": "Označi kao završeno",
+      "create": "Novi upit",
       "backToList": "Natrag na upite",
       "exportPDF": "Izvezi PDF",
       "exportExcel": "Izvezi Excel",

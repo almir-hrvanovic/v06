@@ -348,7 +348,7 @@ export default function UsersPage() {
                 <TableHead>{t('common.name')}</TableHead>
                 <TableHead>{t('common.email')}</TableHead>
                 <TableHead>{t('forms.labels.role')}</TableHead>
-                <TableHead>{t('common.status')}</TableHead>
+                <TableHead>{t('users.table.status')}</TableHead>
                 <TableHead>{t('tables.headers.joined')}</TableHead>
                 {canManageUsers && <TableHead className="text-right">{t('common.labels.actions')}</TableHead>}
               </TableRow>

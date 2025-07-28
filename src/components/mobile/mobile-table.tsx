@@ -63,15 +63,15 @@ export function MobileTable({
 
   const getStatusBadge = (status: string) => {
     const statusMap: { [key: string]: { variant: any, label: string } } = {
-      DRAFT: { variant: 'secondary', label: 'Draft' },
-      SUBMITTED: { variant: 'warning', label: 'Submitted' },
-      IN_REVIEW: { variant: 'info', label: 'In Review' },
+      DRAFT: { variant: 'secondary', label: t("common.status.draft") },
+      SUBMITTED: { variant: 'warning', label: t("common.status.submitted") },
+      IN_REVIEW: { variant: 'info', label: t("common.status.inReview") },
       ASSIGNED: { variant: 'info', label: t("common.status.assigned") },
-      COSTING: { variant: 'warning', label: 'Costing' },
-      QUOTED: { variant: 'success', label: 'Quoted' },
+      COSTING: { variant: 'warning', label: t("common.status.costing") },
+      QUOTED: { variant: 'success', label: t("common.status.quoted") },
       APPROVED: { variant: 'success', label: t("common.status.approved") },
-      REJECTED: { variant: 'destructive', label: 'Rejected' },
-      CONVERTED: { variant: 'success', label: 'Converted' },
+      REJECTED: { variant: 'destructive', label: t("common.status.rejected") },
+      CONVERTED: { variant: 'success', label: t("common.status.converted") },
     }
 
     const mappedStatus = statusMap[status] || { variant: 'secondary', label: status }
@@ -208,7 +208,7 @@ export function MobileTable({
                     Items ({inquiry.items.length})
                   </h4>
                   {inquiry.items.map((item: any, index: number) => (
-                    <div key={item.id} className="bg-gray-50 rounded-lg p-3 space-y-2">
+                    <div key={item.id} className="bg-muted/50 rounded-lg p-3 space-y-2">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <h5 className="font-medium text-sm">{item.name}</h5>
