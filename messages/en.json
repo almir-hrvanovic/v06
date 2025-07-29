@@ -1366,6 +1366,14 @@
       "uploadFailed": "Upload failed",
       "networkError": "Network error during upload",
       "serverError": "Server error during upload"
+    },
+    "bulk": {
+      "_context": "Bulk document uploading",
+      "title": "Bulk Document Upload",
+      "description": "Upload multiple documents at once. Files will be saved to the inquiry's 'customer-documents' folder.",
+      "addDocumentation": "Add Documentation",
+      "uploadedFiles": "Uploaded Files",
+      "uploadSuccess": "Successfully uploaded {count, plural, =1 {1 file} other {# files}}"
     }
   },
   "excel": {

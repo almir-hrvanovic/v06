@@ -26,7 +26,7 @@ import { apiClient } from '@/lib/api-client'
 import { createInquirySchema } from '@/lib/validations'
 import { Priority, Currency } from '@prisma/client'
 import { CurrencyInput } from '@/components/ui/currency-input'
-import { FileUpload } from '@/components/attachments/file-upload'
+import { AdaptiveFileUpload } from '@/components/attachments/adaptive-file-upload'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 
 type InquiryFormData = z.infer<typeof createInquirySchema>
@@ -335,18 +335,17 @@ export default function NewInquiryPage() {
                         {t('inquiries.form.documentation.uploadDescription')}
                       </DialogDescription>
                     </DialogHeader>
-                    <FileUpload
-                      endpoint="inquiryDocumentUploader"
+                    <AdaptiveFileUpload
                       onUploadComplete={(files) => {
                         setUploadedFiles(prev => [...prev, ...files])
                         setShowUploadDialog(false)
                         toast.success(t('inquiries.form.documentation.uploadSuccess'))
                       }}
                       onUploadError={(error) => {
+                        console.error('Upload error:', error)
                         toast.error(t('inquiries.form.documentation.uploadError'))
                       }}
                       maxFiles={10}
-                      showDropzone={true}
                     />
                   </DialogContent>
                 </Dialog>

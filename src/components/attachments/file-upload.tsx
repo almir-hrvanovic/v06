@@ -63,7 +63,7 @@ export function FileUpload({
     const uploadedFiles: UploadedFile[] = res.map(file => ({
       fileId: file.fileId || file.key || '',
       fileName: file.fileName || file.name || '',
-      fileUrl: file.fileUrl || file.url || '',
+      fileUrl: file.fileUrl || file.appUrl || file.url || '',
       uploadedBy: file.uploadedBy || ''
     }))
     
@@ -136,7 +136,7 @@ export function AttachmentDisplay({
   const formatFileSize = (bytes: number) => {
     if (bytes === 0) return '0 Bytes'
     const k = 1024
-    const sizes = [t('files.sizes.bytes'), t('files.sizes.kb'), t('files.sizes.mb'), t('files.sizes.gb')]
+    const sizes = [t('common.files.sizes.bytes'), t('common.files.sizes.kb'), t('common.files.sizes.mb'), t('common.files.sizes.gb')]
     const i = Math.floor(Math.log(bytes) / Math.log(k))
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
   }

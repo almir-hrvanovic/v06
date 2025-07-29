@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from 'react'
-import { FileUpload, AttachmentDisplay } from './file-upload'
+import { AttachmentDisplay } from './file-upload'
+import { AdaptiveFileUpload } from './adaptive-file-upload'
 import { useAttachments } from '@/hooks/use-attachments'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -40,17 +41,28 @@ export function AttachmentManager({
 
   const handleUploadComplete = async (uploadedFiles: UploadedFile[]) => {
     console.log('Upload complete, received files:', uploadedFiles)
-    // Link each uploaded file to the inquiry or item
+    // For local storage, files are already linked during upload
+    // For UploadThing, we need to link them manually
     try {
-      for (const file of uploadedFiles) {
-        console.log('Linking file:', file)
-        await linkAttachment(file.fileId)
+      // Get storage settings to check provider
+      const settingsResponse = await fetch('/api/system-settings', {
+        credentials: 'include'
+      })
+      const settings = await settingsResponse.json()
+      
+      if (settings.storageProvider === 'UPLOADTHING') {
+        // Only link files for UploadThing storage
+        for (const file of uploadedFiles) {
+          console.log('Linking file:', file)
+          await linkAttachment(file.fileId)
+        }
       }
+      
       setShowUploadForm(false)
       // Refresh the attachments list
       refetch()
     } catch (error) {
-      console.error('Failed to link uploaded files:', error)
+      console.error('Failed to process uploaded files:', error)
     }
   }
 
@@ -102,10 +114,12 @@ export function AttachmentManager({
               <div className="text-sm text-muted-foreground mb-2">
                 {t('attachments.upload.imageInstructions')}
               </div>
-              <FileUpload
-                endpoint="inquiryImageUploader"
+              <AdaptiveFileUpload
+                inquiryId={inquiryId}
                 onUploadComplete={handleUploadComplete}
-                showDropzone={true}
+                onUploadError={(error) => {
+                  console.error('Upload error:', error)
+                }}
                 maxFiles={5}
               />
             </TabsContent>
@@ -114,10 +128,12 @@ export function AttachmentManager({
               <div className="text-sm text-muted-foreground mb-2">
                 {t('attachments.upload.documentInstructions')}
               </div>
-              <FileUpload
-                endpoint="inquiryDocumentUploader"
+              <AdaptiveFileUpload
+                inquiryId={inquiryId}
                 onUploadComplete={handleUploadComplete}
-                showDropzone={true}
+                onUploadError={(error) => {
+                  console.error('Upload error:', error)
+                }}
                 maxFiles={10}
               />
             </TabsContent>
@@ -126,10 +142,12 @@ export function AttachmentManager({
               <div className="text-sm text-muted-foreground mb-2">
                 {t('attachments.upload.itemInstructions')}
               </div>
-              <FileUpload
-                endpoint="itemAttachmentUploader"
+              <AdaptiveFileUpload
+                inquiryId={inquiryId}
                 onUploadComplete={handleUploadComplete}
-                showDropzone={true}
+                onUploadError={(error) => {
+                  console.error('Upload error:', error)
+                }}
                 maxFiles={5}
               />
             </TabsContent>

@@ -37,7 +37,9 @@ export function useAttachments({ inquiryId, itemId }: UseAttachmentsProps) {
       if (inquiryId) params.append('inquiryId', inquiryId)
       if (itemId) params.append('itemId', itemId)
 
-      const response = await fetch(`/api/attachments?${params.toString()}`)
+      const response = await fetch(`/api/attachments?${params.toString()}`, {
+        credentials: 'include'
+      })
       const data = await response.json()
 
       if (!response.ok) {
@@ -62,6 +64,7 @@ export function useAttachments({ inquiryId, itemId }: UseAttachmentsProps) {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify({
           fileId,
           inquiryId,

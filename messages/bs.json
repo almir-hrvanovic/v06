@@ -1341,6 +1341,22 @@
       "uploadFailed": "Učitavanje neuspješno",
       "networkError": "Mrežna greška tijekom učitavanja",
       "serverError": "Greška servera tijekom učitavanja"
+    },
+    "bulk": {
+      "_context": "Grupno učitavanje dokumenata",
+      "title": "Grupno učitavanje dokumenata",
+      "description": "Učitajte više dokumenata odjednom. Datoteke će biti spremljene u mapu 'customer-documents' upita.",
+      "addDocumentation": "Dodaj dokumentaciju",
+      "uploadedFiles": "Učitane datoteke",
+      "uploadSuccess": "Uspješno učitano {count, plural, =1 {1 datoteku} few {# datoteke} other {# datoteka}}"
+    },
+    "folder": {
+      "_context": "Operacije sa mapama",
+      "open": "Otvori mapu",
+      "opened": "Mapa otvorena: {path} ({count} datoteka)",
+      "notFound": "Nema pronađene mape dokumenata za ovaj upit",
+      "openFailed": "Neuspješno otvaranje mape dokumenata",
+      "created": "Mapa dokumenata uspješno kreirana"
     }
   },
   "excel": {

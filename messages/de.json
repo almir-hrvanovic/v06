@@ -1303,6 +1303,22 @@
       "uploadFailed": "Upload fehlgeschlagen",
       "networkError": "Netzwerkfehler beim Upload",
       "serverError": "Serverfehler beim Upload"
+    },
+    "bulk": {
+      "_context": "Massenhaftes Hochladen von Dokumenten",
+      "title": "Massen-Dokumenten-Upload",
+      "description": "Laden Sie mehrere Dokumente gleichzeitig hoch. Die Dateien werden im 'customer-documents' Ordner der Anfrage gespeichert.",
+      "addDocumentation": "Dokumentation hinzufügen",
+      "uploadedFiles": "Hochgeladene Dateien",
+      "uploadSuccess": "Erfolgreich {count, plural, =1 {1 Datei} other {# Dateien}} hochgeladen"
+    },
+    "folder": {
+      "_context": "Ordneroperationen",
+      "open": "Ordner öffnen",
+      "opened": "Ordner geöffnet: {path} ({count} Dateien)",
+      "notFound": "Kein Dokumentenordner für diese Anfrage gefunden",
+      "openFailed": "Dokumentenordner konnte nicht geöffnet werden",
+      "created": "Dokumentenordner erfolgreich erstellt"
     }
   },
   "excel": {

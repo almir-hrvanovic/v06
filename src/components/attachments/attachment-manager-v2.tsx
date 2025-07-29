@@ -41,17 +41,28 @@ export function AttachmentManagerV2({
 
   const handleUploadComplete = async (uploadedFiles: UploadedFile[]) => {
     console.log('Upload complete, received files:', uploadedFiles)
-    // Link each uploaded file to the inquiry or item
+    // For local storage, files are already linked during upload
+    // For UploadThing, we need to link them manually
     try {
-      for (const file of uploadedFiles) {
-        console.log('Linking file:', file)
-        await linkAttachment(file.fileId)
+      // Get storage settings to check provider
+      const settingsResponse = await fetch('/api/system-settings', {
+        credentials: 'include'
+      })
+      const settings = await settingsResponse.json()
+      
+      if (settings.storageProvider === 'UPLOADTHING') {
+        // Only link files for UploadThing storage
+        for (const file of uploadedFiles) {
+          console.log('Linking file:', file)
+          await linkAttachment(file.fileId)
+        }
       }
+      
       setShowUploadForm(false)
       // Refresh the attachments list
       await refetch()
     } catch (error) {
-      console.error('Failed to link attachments:', error)
+      console.error('Failed to process uploaded files:', error)
     }
   }
 

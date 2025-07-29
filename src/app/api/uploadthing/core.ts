@@ -56,7 +56,7 @@ export const ourFileRouter = {
         size: file.size,
         type: file.type,
         key: file.key,
-        url: file.url
+        url: file.appUrl || file.url
       });
 
       // Store file information in database
@@ -68,7 +68,7 @@ export const ourFileRouter = {
             fileSize: file.size,
             mimeType: file.type || 'application/octet-stream',
             uploadThingKey: file.key,
-            uploadThingUrl: file.url,
+            uploadThingUrl: file.appUrl || file.url,
             uploadedById: metadata.userId,
           },
         });
@@ -79,7 +79,7 @@ export const ourFileRouter = {
           uploadedBy: metadata.userId, 
           fileId: fileAttachment.id,
           fileName: file.name,
-          fileUrl: file.url
+          fileUrl: file.appUrl || file.url
         };
       } catch (error) {
         console.error("Failed to save file attachment to database:", error);
@@ -147,7 +147,7 @@ export const ourFileRouter = {
     })
     .onUploadComplete(async ({ metadata, file }) => {
       console.log("Document upload complete for userId:", metadata.userId);
-      console.log("File URL:", file.url);
+      console.log("File URL:", file.appUrl || file.url);
 
       // Store file information in database
       try {
@@ -158,7 +158,7 @@ export const ourFileRouter = {
             fileSize: file.size,
             mimeType: file.type || 'application/octet-stream',
             uploadThingKey: file.key,
-            uploadThingUrl: file.url,
+            uploadThingUrl: file.appUrl || file.url,
             uploadedById: metadata.userId,
           },
         });
@@ -167,7 +167,7 @@ export const ourFileRouter = {
           uploadedBy: metadata.userId, 
           fileId: fileAttachment.id,
           fileName: file.name,
-          fileUrl: file.url
+          fileUrl: file.appUrl || file.url
         };
       } catch (error) {
         console.error("Failed to save file attachment to database:", error);
@@ -227,7 +227,7 @@ export const ourFileRouter = {
     })
     .onUploadComplete(async ({ metadata, file }) => {
       console.log("Item attachment upload complete for userId:", metadata.userId);
-      console.log("File URL:", file.url);
+      console.log("File URL:", file.appUrl || file.url);
 
       // Store file information in database
       try {
@@ -238,7 +238,7 @@ export const ourFileRouter = {
             fileSize: file.size,
             mimeType: file.type || 'application/octet-stream',
             uploadThingKey: file.key,
-            uploadThingUrl: file.url,
+            uploadThingUrl: file.appUrl || file.url,
             uploadedById: metadata.userId,
           },
         });
@@ -247,7 +247,7 @@ export const ourFileRouter = {
           uploadedBy: metadata.userId, 
           fileId: fileAttachment.id,
           fileName: file.name,
-          fileUrl: file.url
+          fileUrl: file.appUrl || file.url
         };
       } catch (error) {
         console.error("Failed to save file attachment to database:", error);
