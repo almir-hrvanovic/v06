@@ -895,7 +895,13 @@
         "itemDescription": "Opis stavke",
         "itemDescriptionPlaceholder": "Unesite opis stavke",
         "itemName": "Naziv stavke",
-        "itemNamePlaceholder": "Unesite naziv stavke"
+        "itemNamePlaceholder": "Unesite naziv stavke",
+        "quantity": "Količina",
+        "quantityPlaceholder": "Unesite količinu",
+        "unit": "Jedinica",
+        "unitPlaceholder": "npr., kom, kg, m",
+        "notes": "Napomene",
+        "notesPlaceholder": "Dodatne napomene za ovu stavku"
       },
       "items": {
         "title": "Stavke upita",
