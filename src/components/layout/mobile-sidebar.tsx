@@ -34,6 +34,8 @@ import {
   Menu,
   X,
   Workflow,
+  Database,
+  Wrench,
 } from 'lucide-react'
 
 interface NavItem {
@@ -78,7 +80,7 @@ const navItems: NavItem[] = [
   {
     titleKey: 'navigation.main.assignments',
     href: '/dashboard/assignments',
-    icon: Calculator,
+    icon: Database,
     roles: ['SUPERUSER', 'ADMIN', 'VPP'],
   },
   {

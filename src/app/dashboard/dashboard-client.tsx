@@ -78,9 +78,9 @@ function DashboardContent({
         )}
         
         {/* Main Content */}
-        <main className="flex-1 overflow-y-auto" role="main" aria-label="Main content">
+        <main className="flex-1 overflow-y-auto flex flex-col" role="main" aria-label="Main content">
           <div className={cn(
-            "h-full",
+            "flex-1",
             deviceType === 'tablet' ? "px-6 py-6" : "p-6 lg:p-8"
           )}>
             <div className={cn(
@@ -90,6 +90,15 @@ function DashboardContent({
               {children}
             </div>
           </div>
+          
+          {/* Footer */}
+          <footer className="flex-shrink-0 border-t border-border bg-card/50 backdrop-blur-sm">
+            <div className="px-4 py-2">
+              <p className="text-xs text-muted-foreground/70 text-center font-medium tracking-wide">
+                finding love in strange repos + hrvanovic
+              </p>
+            </div>
+          </footer>
         </main>
       </div>
     </div>

@@ -25,6 +25,8 @@ import {
   ChevronRight,
   Workflow,
   LogOut,
+  Database,
+  Wrench,
 } from 'lucide-react'
 
 interface NavItem {
@@ -69,7 +71,7 @@ const navItems: NavItem[] = [
   {
     titleKey: 'navigation.main.assignments',
     href: '/dashboard/assignments',
-    icon: Calculator,
+    icon: Database,
     roles: ['SUPERUSER', 'ADMIN', 'VPP'],
   },
   {
@@ -115,10 +117,10 @@ const navItems: NavItem[] = [
     roles: ['SUPERUSER', 'ADMIN'],
   },
   {
-    titleKey: 'navigation.main.settings',
-    href: '/dashboard/settings',
-    icon: Settings,
-    roles: ['SUPERUSER', 'ADMIN', 'MANAGER', 'SALES', 'VPP', 'VP', 'TECH'],
+    titleKey: 'navigation.main.systemSettings',
+    href: '/dashboard/system-settings',
+    icon: Wrench,
+    roles: ['SUPERUSER'],
   },
 ]
 

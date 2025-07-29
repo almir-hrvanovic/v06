@@ -170,7 +170,7 @@ export function AdaptiveFileUpload({
                     document.getElementById('file-upload-input')?.click()
                   }}
                 >
-                  {t('attachments.selectFiles')}
+                  {t('attachments.upload.selectFiles')}
                 </Button>
                 <input
                   id="file-upload-input"
@@ -190,7 +190,7 @@ export function AdaptiveFileUpload({
 
           {selectedFiles.length > 0 && (
             <div className="space-y-2">
-              <h4 className="text-sm font-medium">{t('attachments.selectedFiles')}</h4>
+              <h4 className="text-sm font-medium">{t('attachments.upload.selectedFiles')}</h4>
               <div className="space-y-1">
                 {selectedFiles.map((file, index) => (
                   <div key={index} className="flex items-center gap-2 text-sm">

@@ -20,7 +20,10 @@ import { prisma } from '@/lib/db'
 const inter = Inter({ 
   subsets: ["latin"],
   display: 'swap',
-  preload: true,
+  preload: false, // Disable aggressive preloading to prevent unused resource warnings
+  weight: ['400', '500', '600'], // Only load essential weights
+  variable: '--font-inter',
+  fallback: ['system-ui', 'arial'], // Provide fallback fonts
 })
 
 export const metadata: Metadata = {
@@ -96,6 +99,7 @@ export default async function RootLayout({
   return (
     <html lang={validatedLocale} suppressHydrationWarning>
       <head>
+        <meta name="font-display" content="swap" />
         <script
           dangerouslySetInnerHTML={{
             __html: `

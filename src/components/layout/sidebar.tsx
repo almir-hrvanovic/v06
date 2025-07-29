@@ -106,7 +106,7 @@ export function Sidebar() {
     {
       titleKey: 'navigation.main.assignments',
       href: '/dashboard/assignments',
-      icon: Calculator,
+      icon: Database,
       roles: ['SUPERUSER', 'ADMIN', 'VPP'],
     },
     {

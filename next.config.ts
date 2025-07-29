@@ -18,6 +18,7 @@ const nextConfig: NextConfig = {
   // Experimental features
   experimental: {
     optimizePackageImports: ['@radix-ui/react-icons', '@radix-ui/react-*', 'lucide-react'],
+    optimizeCss: true, // Enable CSS optimization to reduce font loading issues
     turbo: {
       rules: {
         '*.svg': {
@@ -109,7 +110,7 @@ const nextConfig: NextConfig = {
       };
     }
     
-    // Disable source maps for React DevTools in production
+    // Production optimizations
     if (isProduction) {
       config.optimization = {
         ...config.optimization,
@@ -125,7 +126,7 @@ const nextConfig: NextConfig = {
   compress: true,
   productionBrowserSourceMaps: false,
   
-  // Source map configuration
+  // Source map and dev indicators configuration
   devIndicators: {
     appIsrStatus: true,
     buildActivity: true,
