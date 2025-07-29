@@ -20,13 +20,13 @@ import {
   Calendar,
   User,
   Building2,
-  DollarSign,
   Package,
   ChevronDown,
   ChevronUp,
   UserPlus
 } from 'lucide-react'
-import { formatDate, formatCurrency } from '@/lib/utils'
+import { formatDate } from '@/lib/utils'
+import { formatWithSystemCurrency } from '@/lib/currency-helpers'
 import { InquiryWithRelations } from '@/types'
 import { AssignItemDialog } from '@/components/inquiries/assign-item-dialog'
 
@@ -193,9 +193,8 @@ export function MobileTable({
                   <span className="truncate">{inquiry.customer.name}</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <DollarSign className="h-4 w-4 text-green-500 flex-shrink-0" />
-                  <span className="font-medium">
-                    {formatCurrency(inquiry.totalValue?.toNumber() || 0)}
+                  <span className="font-medium text-green-600">
+                    {formatWithSystemCurrency(inquiry.totalValue?.toNumber() || 0)}
                   </span>
                 </div>
               </div>

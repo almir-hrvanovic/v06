@@ -1280,6 +1280,7 @@
   "attachments": {
     "_context": "File upload and attachment management system",
     "title": "Attachments",
+    "itemAttachments": "Item Attachments",
     "addFiles": "Add Files",
     "loading": "Loading attachments...",
     "noAttachments": "No attachments found",

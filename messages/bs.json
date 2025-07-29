@@ -1280,6 +1280,7 @@
   "attachments": {
     "_context": "Sustav učitavanja datoteka i upravljanja prilozima",
     "title": "Prilozi",
+    "itemAttachments": "Prilozi stavke",
     "addFiles": "Dodaj datoteke",
     "loading": "Učitavam priloge...",
     "noAttachments": "Nema pronađenih priloga",

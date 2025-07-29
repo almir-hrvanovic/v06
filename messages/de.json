@@ -1207,6 +1207,7 @@
   "attachments": {
     "_context": "Datei-Upload-System und Anhangverwaltung",
     "title": "Anhänge",
+    "itemAttachments": "Artikelanhänge",
     "addFiles": "Dateien hinzufügen",
     "loading": "Anhänge werden geladen...",
     "noAttachments": "Keine Anhänge gefunden",

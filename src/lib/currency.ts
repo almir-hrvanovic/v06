@@ -221,30 +221,28 @@ export function formatCurrency(
   const decimals = currencyDecimals[currency]
   const symbol = currencySymbols[currency]
   
-  // Special handling for certain currencies
-  if (currency === Currency.BAM || currency === Currency.RSD) {
-    const formatted = new Intl.NumberFormat(locale, {
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals,
-    }).format(numAmount)
-    return `${formatted} ${symbol}`
-  }
+  // Format number without currency symbol first
+  const formatted = new Intl.NumberFormat(locale, {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  }).format(numAmount)
   
-  // Use standard currency formatter for others
-  try {
-    return new Intl.NumberFormat(locale, {
-      style: 'currency',
-      currency: currencyISO[currency],
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals,
-    }).format(numAmount)
-  } catch (error) {
-    // Fallback for unsupported currencies
-    const formatted = new Intl.NumberFormat(locale, {
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals,
-    }).format(numAmount)
-    return `${symbol} ${formatted}`
+  // Add currency symbol based on currency type
+  switch (currency) {
+    case Currency.BAM:
+    case Currency.RSD:
+    case Currency.HRK:
+      // These currencies typically come after the number
+      return `${formatted} ${symbol}`
+    case Currency.EUR:
+    case Currency.USD:
+    case Currency.GBP:
+    case Currency.CHF:
+      // These currencies typically come before the number
+      return `${symbol} ${formatted}`
+    default:
+      // Default format
+      return `${symbol} ${formatted}`
   }
 }
 

@@ -118,7 +118,7 @@ export default function ItemEditPage() {
         status: data.status,
         notes: data.notes || '',
         requestedDelivery: data.requestedDelivery ? new Date(data.requestedDelivery).toISOString().split('T')[0] : '',
-        assignedToId: data.assignedTo?.id || ''
+        assignedToId: data.assignedTo?.id || 'unassigned'
       })
 
       // Initialize cost data if exists
@@ -173,7 +173,8 @@ export default function ItemEditPage() {
         body: JSON.stringify({
           ...formData,
           quantity: Number(formData.quantity),
-          requestedDelivery: formData.requestedDelivery || null
+          requestedDelivery: formData.requestedDelivery || null,
+          assignedToId: formData.assignedToId === 'unassigned' ? null : formData.assignedToId
         })
       })
 
@@ -350,14 +351,14 @@ export default function ItemEditPage() {
                 <div>
                   <Label htmlFor="assignedTo">Assign to VP</Label>
                   <Select
-                    value={formData.assignedToId}
+                    value={formData.assignedToId || undefined}
                     onValueChange={(value) => setFormData({ ...formData, assignedToId: value })}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder={t("placeholders.selectVP")} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">Unassigned</SelectItem>
+                      <SelectItem value="unassigned">Unassigned</SelectItem>
                       {vpUsers.map((user) => (
                         <SelectItem key={user.id} value={user.id}>
                           {user.name}
@@ -420,7 +421,7 @@ export default function ItemEditPage() {
             <CardContent>
               <form onSubmit={handleCostSubmit} className="space-y-4">
                 <div>
-                  <Label htmlFor="materialCost">Material Cost ($)</Label>
+                  <Label htmlFor="materialCost">Material Cost</Label>
                   <Input
                     id="materialCost"
                     type="number"
@@ -433,7 +434,7 @@ export default function ItemEditPage() {
                 </div>
 
                 <div>
-                  <Label htmlFor="laborCost">Labor Cost ($)</Label>
+                  <Label htmlFor="laborCost">Labor Cost</Label>
                   <Input
                     id="laborCost"
                     type="number"
@@ -446,7 +447,7 @@ export default function ItemEditPage() {
                 </div>
 
                 <div>
-                  <Label htmlFor="overheadCost">Overhead Cost ($)</Label>
+                  <Label htmlFor="overheadCost">Overhead Cost</Label>
                   <Input
                     id="overheadCost"
                     type="number"
@@ -461,7 +462,7 @@ export default function ItemEditPage() {
                 <div>
                   <Label>Total Cost</Label>
                   <div className="text-2xl font-bold text-green-600">
-                    ${(Number(costData.materialCost) + Number(costData.laborCost) + Number(costData.overheadCost)).toFixed(2)}
+                    {formatWithSystemCurrency(Number(costData.materialCost) + Number(costData.laborCost) + Number(costData.overheadCost))}
                   </div>
                 </div>
 
