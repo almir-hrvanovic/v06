@@ -95,16 +95,11 @@ export default function DragDropAssignmentPage() {
       // Fetch all required data in parallel
       const [usersData, itemsData, customersData, inquiriesData] = await Promise.all([
         // Fetch both VP and VPP users
-        Promise.all([
-          apiClient.getUsers({ role: 'VP', active: 'true' }),
-          apiClient.getUsers({ role: 'VPP', active: 'true' })
-        ]).then(([vpResponse, vppResponse]) => {
+        apiClient.getUsers({ roles: 'VP,VPP', active: 'true' }).then(response => {
           // Handle both direct array and wrapped response
-          const vpData = Array.isArray(vpResponse) ? vpResponse : (vpResponse as any)?.data || []
-          const vppData = Array.isArray(vppResponse) ? vppResponse : (vppResponse as any)?.data || []
-          const allUsers = [...vpData, ...vppData]
+          const userData = Array.isArray(response) ? response : (response as any)?.data || []
           // Sort VPPs first, then VPs by name
-          return allUsers.sort((a, b) => {
+          return userData.sort((a: any, b: any) => {
             if (a.role === 'VPP' && b.role !== 'VPP') return -1
             if (a.role !== 'VPP' && b.role === 'VPP') return 1
             return a.name.localeCompare(b.name)
@@ -125,7 +120,7 @@ export default function DragDropAssignmentPage() {
 
       // Calculate workload for each user
       const usersWithWorkload = await Promise.all(
-        usersData.map(async (user) => {
+        usersData.map(async (user: any) => {
           try {
             const workloadData = await apiClient.getWorkload(user.id)
             return {

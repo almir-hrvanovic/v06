@@ -20,12 +20,17 @@ export async function GET(request: NextRequest) {
 
     const { searchParams } = new URL(request.url)
     const role = searchParams.get('role')
+    const roles = searchParams.get('roles')
     const active = searchParams.get('active')
     const search = searchParams.get('search')
 
     const where: any = {}
 
-    if (role) {
+    if (roles) {
+      // Support comma-separated roles
+      const roleArray = roles.split(',').filter(Boolean)
+      where.role = { in: roleArray }
+    } else if (role) {
       where.role = role
     }
 

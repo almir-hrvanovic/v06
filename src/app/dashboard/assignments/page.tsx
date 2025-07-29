@@ -72,11 +72,11 @@ export default function AssignmentsPage() {
 
       const [itemsResponse, usersResponse] = await Promise.all([
         apiClient.getInquiryItems(Object.fromEntries(itemsParams)),
-        apiClient.getUsers({ role: 'VP', active: 'true' })
+        apiClient.getUsers({ roles: 'VP,VPP', active: 'true' })
       ]) as any
 
       setItems(itemsResponse.data)
-      setVpUsers(usersResponse.data)
+      setVpUsers(usersResponse)
     } catch (error) {
       console.error('Failed to fetch data:', error)
     } finally {
@@ -150,7 +150,7 @@ export default function AssignmentsPage() {
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Item Assignments</h1>
             <p className="text-muted-foreground">
-              Assign inquiry items to VPs for cost calculation
+              Assign inquiry items to VP/VPP users for cost calculation
             </p>
           </div>
         </div>
@@ -186,7 +186,7 @@ export default function AssignmentsPage() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Item Assignments</h1>
           <p className="text-muted-foreground">
-            Assign inquiry items to VPs for cost calculation
+            Assign inquiry items to VP/VPP users for cost calculation
           </p>
         </div>
         <Dialog open={assignDialogOpen} onOpenChange={setAssignDialogOpen}>
@@ -198,14 +198,14 @@ export default function AssignmentsPage() {
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Assign Items to VP</DialogTitle>
+              <DialogTitle>Assign Items to VP/VPP</DialogTitle>
               <DialogDescription>
-                Assign {selectedItems.length} selected items to a VP for cost calculation.
+                Assign {selectedItems.length} selected items to a VP/VPP user for cost calculation.
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="assignee">Select VP</Label>
+                <Label htmlFor="assignee">Select VP/VPP User</Label>
                 <select
                   id="assignee"
                   value={selectedAssignee}
@@ -213,7 +213,7 @@ export default function AssignmentsPage() {
                   className="w-full px-3 py-2 border rounded-md"
                   required
                 >
-                  <option value="">Choose a VP...</option>
+                  <option value="">Choose a VP/VPP user...</option>
                   {vpUsers?.map((vp) => (
                     <option key={vp.id} value={vp.id}>
                       {vp.name} ({vp.email})
@@ -270,7 +270,7 @@ export default function AssignmentsPage() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Available VPs</CardTitle>
+            <CardTitle className="text-sm font-medium">Available VP/VPP</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -324,9 +324,9 @@ export default function AssignmentsPage() {
       {/* VP Workload Overview */}
       <Card>
         <CardHeader>
-          <CardTitle>VP Workload Overview</CardTitle>
+          <CardTitle>VP/VPP Workload Overview</CardTitle>
           <CardDescription>
-            Current workload distribution among VPs
+            Current workload distribution among VP and VPP users
           </CardDescription>
         </CardHeader>
         <CardContent>
