@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:auto": "bash scripts/dev-with-auto-login.sh",
+    "auto-login": "node scripts/auto-login.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -118,6 +120,7 @@
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/typography": "^0.5.15",
     "@types/jest": "^30.0.0",
+    "@types/mime-types": "^3.0.1",
     "@types/node": "^22.16.5",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",

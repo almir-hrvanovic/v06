@@ -13,6 +13,7 @@ import { ThemeProvider } from '@/contexts/theme-context'
 import { NextIntlClientProvider } from 'next-intl'
 import { cookies } from 'next/headers'
 import { ErrorBoundary } from '@/components/error-boundary'
+import { AutoLoginProvider } from '@/components/auth/auto-login-provider'
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -84,11 +85,13 @@ export default async function RootLayout({
         >
           <ThemeProvider defaultTheme="system" storageKey="gs-cms-theme">
             <AuthProvider>
-              <LocaleProvider>
-                <ConsoleMonitorProvider>
-                  {children}
-                </ConsoleMonitorProvider>
-              </LocaleProvider>
+              <AutoLoginProvider>
+                <LocaleProvider>
+                  <ConsoleMonitorProvider>
+                    {children}
+                  </ConsoleMonitorProvider>
+                </LocaleProvider>
+              </AutoLoginProvider>
             </AuthProvider>
           </ThemeProvider>
         </NextIntlClientProvider>

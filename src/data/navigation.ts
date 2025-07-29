@@ -13,7 +13,8 @@ import {
   Workflow,
   Building2,
   TrendingUp,
-  Settings
+  Settings,
+  ClipboardList
 } from 'lucide-react'
 import { NavGroup } from '@/types/navigation'
 
@@ -76,7 +77,7 @@ export const navigationGroups: NavGroup[] = [
       {
         titleKey: 'navigation.main.assignments',
         href: '/dashboard/assignments',
-        icon: Calculator,
+        icon: ClipboardList,
         roles: ['SUPERUSER', 'ADMIN', 'VPP'],
       },
       {

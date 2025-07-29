@@ -1333,6 +1333,27 @@
       "documentInstructions": "Upload documents (PDF, Word, Excel, etc.) - Max 16MB each, up to 10 files",
       "itemInstructions": "Upload item-specific files - Max 8MB each, up to 5 files"
     },
+    "bulk": {
+      "_context": "Bulk document upload functionality",
+      "addDocumentation": "Add Documentation",
+      "title": "Upload Customer Documents",
+      "description": "Select multiple files to upload to the customer documents folder for this inquiry",
+      "uploadSuccess": "Successfully uploaded {count, plural, =1 {1 document} other {# documents}} to customer documents folder",
+      "uploadFailed": "Failed to save documents to folder",
+      "uploadedFiles": "Uploaded Files",
+      "dropzone": {
+        "label": "Drop files here or click to browse",
+        "allowedContent": "All document types accepted"
+      }
+    },
+    "folder": {
+      "_context": "Folder operations",
+      "open": "Open Folder",
+      "opened": "Folder opened: {path} ({count} files)",
+      "notFound": "No documents folder found for this inquiry",
+      "openFailed": "Failed to open documents folder",
+      "created": "Documents folder created successfully"
+    },
     "errors": {
       "_context": "File upload error messages",
       "fileTypeNotAllowed": "File type not allowed",
@@ -2312,6 +2333,15 @@
     "approvedAt": "Approved At",
     "assignedTo": "Assigned To"
   },
+  "toasts": {
+    "_context": "Toast notification messages",
+    "exports": {
+      "_context": "Export-related toast messages",
+      "inquiryIdRequired": "Inquiry ID is required for PDF generation",
+      "pdfSuccess": "PDF generated and downloaded successfully",
+      "pdfError": "Failed to generate PDF. Please try again."
+    }
+  },
   "titles": {
     "_context": "Page and section titles",
     "navigationMenu": "Navigation Menu",
@@ -2319,7 +2349,8 @@
     "inquiriesSummaryReport": "Inquiries Summary Report",
     "userActivityReport": "User Activity Report",
     "customerAnalysisReport": "Customer Analysis Report",
-    "analyticsDashboardReport": "Analytics Dashboard Report"
+    "analyticsDashboardReport": "Analytics Dashboard Report",
+    "quoteGenerationStatus": "Quote Generation Status"
   },
   "plurals": {
     "_context": "Pluralization rules for dynamic content",

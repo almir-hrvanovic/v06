@@ -389,9 +389,10 @@ model FileAttachment {
   originalName    String
   fileSize        Int
   mimeType        String
-  uploadThingKey  String              @unique
+  uploadThingKey  String              @default("")
   uploadThingUrl  String
   uploadedById    String
+  folderPath      String?             // Path to the folder where file is stored
   createdAt       DateTime            @default(now())
   updatedAt       DateTime            @updatedAt
 
@@ -556,6 +557,11 @@ enum Currency {
   RSD
 }
 
+enum StorageProvider {
+  UPLOADTHING
+  LOCAL
+}
+
 // Business Partners Management
 model BusinessPartner {
   id        String   @id @default(cuid())
@@ -579,6 +585,15 @@ model SystemSettings {
   additionalCurrency2 Currency?
   exchangeRate1       Decimal? @db.Decimal(10, 6)  // Exchange rate from additional1 to main
   exchangeRate2       Decimal? @db.Decimal(10, 6)  // Exchange rate from additional2 to main
+  
+  // File Storage Settings
+  storageProvider     StorageProvider @default(UPLOADTHING)
+  uploadThingToken    String?     @db.Text
+  uploadThingAppId    String?
+  localStoragePath    String?     @default("./uploads")
+  maxFileSize         Int         @default(16777216) // 16MB in bytes
+  allowedFileTypes    String[]    @default(["image/*", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"])
+  
   updatedAt           DateTime @updatedAt
   updatedById         String?
   

@@ -1,6 +1,6 @@
-[0;31m2025-07-29 13:04:53 ERROR:[0m ❌ Next.js Application failed to start within 60 seconds
-[0;31m2025-07-29 13:04:53 ERROR:[0m Application failed to start
-[0;31m2025-07-29 13:04:53 ERROR:[0m Recent application logs:
+[0;31m2025-07-29 14:06:42 ERROR:[0m ❌ Next.js Application failed to start within 60 seconds
+[0;31m2025-07-29 14:06:42 ERROR:[0m Application failed to start
+[0;31m2025-07-29 14:06:42 ERROR:[0m Recent application logs:
 
 > gs-star-v51@0.1.0 dev
 > next dev
@@ -13,4 +13,4 @@
      · turbo
 
  ✓ Starting...
- ✓ Ready in 1951ms
+ ✓ Ready in 1760ms

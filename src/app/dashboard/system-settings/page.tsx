@@ -10,6 +10,9 @@ import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Textarea } from '@/components/ui/textarea'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,8 +24,8 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import { toast } from 'sonner'
-import { Loader2, Save, AlertCircle, Settings, DollarSign, RefreshCw, X } from 'lucide-react'
-import { Currency } from '@prisma/client'
+import { Loader2, Save, AlertCircle, Settings, DollarSign, RefreshCw, X, HardDrive, Cloud } from 'lucide-react'
+import { Currency, StorageProvider } from '@prisma/client'
 import { formatDate } from '@/lib/utils'
 
 interface SystemSettings {
@@ -32,6 +35,13 @@ interface SystemSettings {
   additionalCurrency2: Currency | null
   exchangeRate1: number | null
   exchangeRate2: number | null
+  // File Storage Settings
+  storageProvider: StorageProvider
+  uploadThingToken: string | null
+  uploadThingAppId: string | null
+  localStoragePath: string | null
+  maxFileSize: number
+  allowedFileTypes: string[]
   updatedAt: string
   updatedBy: {
     name: string
@@ -71,10 +81,17 @@ export default function SystemSettingsPage() {
   
   const [formData, setFormData] = useState({
     mainCurrency: Currency.EUR as Currency,
-    additionalCurrency1: null as Currency | null,
-    additionalCurrency2: null as Currency | null,
+    additionalCurrency1: null as Currency | null | 'none',
+    additionalCurrency2: null as Currency | null | 'none',
     exchangeRate1: '',
-    exchangeRate2: ''
+    exchangeRate2: '',
+    // File Storage Settings
+    storageProvider: StorageProvider.UPLOADTHING as StorageProvider,
+    uploadThingToken: '',
+    uploadThingAppId: '',
+    localStoragePath: './uploads',
+    maxFileSize: 16777216, // 16MB
+    allowedFileTypes: ['image/*', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
   })
 
   useEffect(() => {
@@ -106,7 +123,14 @@ export default function SystemSettingsPage() {
         additionalCurrency1: data.additionalCurrency1 || 'none',
         additionalCurrency2: data.additionalCurrency2 || 'none',
         exchangeRate1: data.exchangeRate1?.toString() || '',
-        exchangeRate2: data.exchangeRate2?.toString() || ''
+        exchangeRate2: data.exchangeRate2?.toString() || '',
+        // File Storage Settings
+        storageProvider: data.storageProvider || StorageProvider.UPLOADTHING,
+        uploadThingToken: data.uploadThingToken || '',
+        uploadThingAppId: data.uploadThingAppId || '',
+        localStoragePath: data.localStoragePath || './uploads',
+        maxFileSize: data.maxFileSize || 16777216,
+        allowedFileTypes: data.allowedFileTypes || ['image/*', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
       })
     } catch (error) {
       console.error('Failed to fetch system settings:', error)
@@ -122,15 +146,24 @@ export default function SystemSettingsPage() {
       
       const payload = {
         mainCurrency: formData.mainCurrency,
-        additionalCurrency1: formData.additionalCurrency1,
-        additionalCurrency2: formData.additionalCurrency2,
-        exchangeRate1: formData.additionalCurrency1 && formData.exchangeRate1 
+        additionalCurrency1: formData.additionalCurrency1 === 'none' ? null : formData.additionalCurrency1,
+        additionalCurrency2: formData.additionalCurrency2 === 'none' ? null : formData.additionalCurrency2,
+        exchangeRate1: formData.additionalCurrency1 && formData.additionalCurrency1 !== 'none' && formData.exchangeRate1 
           ? parseFloat(formData.exchangeRate1) 
           : null,
-        exchangeRate2: formData.additionalCurrency2 && formData.exchangeRate2 
+        exchangeRate2: formData.additionalCurrency2 && formData.additionalCurrency2 !== 'none' && formData.exchangeRate2 
           ? parseFloat(formData.exchangeRate2) 
-          : null
+          : null,
+        // File Storage Settings
+        storageProvider: formData.storageProvider,
+        uploadThingToken: formData.uploadThingToken || null,
+        uploadThingAppId: formData.uploadThingAppId || null,
+        localStoragePath: formData.localStoragePath || './uploads',
+        maxFileSize: formData.maxFileSize,
+        allowedFileTypes: formData.allowedFileTypes
       }
+      
+      console.log('Sending payload:', payload)
       
       const response = await fetch('/api/system-settings', {
         method: 'PUT',
@@ -193,6 +226,48 @@ export default function SystemSettingsPage() {
     
     return true
   }
+  
+  const validateStorageSettings = () => {
+    // Validate UploadThing settings
+    if (formData.storageProvider === StorageProvider.UPLOADTHING) {
+      if (!formData.uploadThingToken || !formData.uploadThingToken.trim()) {
+        toast.error('UploadThing token is required for cloud storage')
+        return false
+      }
+      
+      if (!formData.uploadThingAppId || !formData.uploadThingAppId.trim()) {
+        toast.error('UploadThing App ID is required for cloud storage')
+        return false
+      }
+    }
+    
+    // Validate local storage settings
+    if (formData.storageProvider === StorageProvider.LOCAL) {
+      if (!formData.localStoragePath || !formData.localStoragePath.trim()) {
+        toast.error('Local storage path is required')
+        return false
+      }
+    }
+    
+    // Validate file size
+    if (formData.maxFileSize < 1048576) { // 1MB minimum
+      toast.error('Maximum file size must be at least 1MB')
+      return false
+    }
+    
+    if (formData.maxFileSize > 104857600) { // 100MB maximum
+      toast.error('Maximum file size cannot exceed 100MB')
+      return false
+    }
+    
+    // Validate file types
+    if (formData.allowedFileTypes.length === 0) {
+      toast.error('At least one file type must be allowed')
+      return false
+    }
+    
+    return true
+  }
 
   const handleSaveClick = () => {
     if (validateForm()) {
@@ -232,25 +307,38 @@ export default function SystemSettingsPage() {
         </Button>
       </div>
 
-      <Alert>
-        <AlertCircle className="h-4 w-4" />
-        <AlertDescription>
-          Changing currency settings will affect all calculations and displays throughout the system. 
-          Make sure exchange rates are accurate before saving.
-        </AlertDescription>
-      </Alert>
+      <Tabs defaultValue="currency" className="space-y-4">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="currency" className="flex items-center gap-2">
+            <DollarSign className="h-4 w-4" />
+            Currency Settings
+          </TabsTrigger>
+          <TabsTrigger value="storage" className="flex items-center gap-2">
+            <HardDrive className="h-4 w-4" />
+            File Storage
+          </TabsTrigger>
+        </TabsList>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <DollarSign className="h-5 w-5" />
-            Currency Configuration
-          </CardTitle>
-          <CardDescription>
-            Set the main currency and optional additional currencies with exchange rates
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
+        <TabsContent value="currency" className="space-y-4">
+          <Alert>
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>
+              Changing currency settings will affect all calculations and displays throughout the system. 
+              Make sure exchange rates are accurate before saving.
+            </AlertDescription>
+          </Alert>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <DollarSign className="h-5 w-5" />
+                Currency Configuration
+              </CardTitle>
+              <CardDescription>
+                Set the main currency and optional additional currencies with exchange rates
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
           {/* Main Currency */}
           <div className="space-y-2">
             <Label htmlFor="mainCurrency">Main Currency (Required)</Label>
@@ -422,6 +510,191 @@ export default function SystemSettingsPage() {
           </div>
         </CardContent>
       </Card>
+        </TabsContent>
+
+        <TabsContent value="storage" className="space-y-4">
+          <Alert>
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>
+              Configure how files are stored in your application. Choose between cloud storage (UploadThing) or local file system storage.
+            </AlertDescription>
+          </Alert>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <HardDrive className="h-5 w-5" />
+                File Storage Configuration
+              </CardTitle>
+              <CardDescription>
+                Choose your preferred file storage method and configure the settings
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* Storage Provider Selection */}
+              <div className="space-y-2">
+                <Label htmlFor="storageProvider">Storage Provider</Label>
+                <Select
+                  value={formData.storageProvider}
+                  onValueChange={(value) => setFormData({ ...formData, storageProvider: value as StorageProvider })}
+                >
+                  <SelectTrigger id="storageProvider">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={StorageProvider.UPLOADTHING}>
+                      <div className="flex items-center gap-2">
+                        <Cloud className="h-4 w-4" />
+                        UploadThing (Cloud Storage)
+                      </div>
+                    </SelectItem>
+                    <SelectItem value={StorageProvider.LOCAL}>
+                      <div className="flex items-center gap-2">
+                        <HardDrive className="h-4 w-4" />
+                        Local File System
+                      </div>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* UploadThing Settings */}
+              {formData.storageProvider === StorageProvider.UPLOADTHING && (
+                <div className="space-y-4 p-4 border rounded-lg">
+                  <h3 className="font-medium">UploadThing Configuration</h3>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="uploadThingToken">UploadThing Token</Label>
+                      <Textarea
+                        id="uploadThingToken"
+                        value={formData.uploadThingToken}
+                        onChange={(e) => setFormData({ ...formData, uploadThingToken: e.target.value })}
+                        placeholder="Paste your UploadThing token here..."
+                        className="font-mono text-sm"
+                        rows={3}
+                      />
+                      <p className="text-sm text-muted-foreground">
+                        Get your token from the UploadThing dashboard
+                      </p>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="uploadThingAppId">App ID</Label>
+                      <Input
+                        id="uploadThingAppId"
+                        value={formData.uploadThingAppId}
+                        onChange={(e) => setFormData({ ...formData, uploadThingAppId: e.target.value })}
+                        placeholder="e.g., r7x7odob52"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Local Storage Settings */}
+              {formData.storageProvider === StorageProvider.LOCAL && (
+                <div className="space-y-4 p-4 border rounded-lg">
+                  <h3 className="font-medium">Local Storage Configuration</h3>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="localStoragePath">Storage Path</Label>
+                      <Input
+                        id="localStoragePath"
+                        value={formData.localStoragePath}
+                        onChange={(e) => setFormData({ ...formData, localStoragePath: e.target.value })}
+                        placeholder="./uploads"
+                      />
+                      <p className="text-sm text-muted-foreground">
+                        Relative or absolute path where files will be stored
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Common Settings */}
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="maxFileSize">Maximum File Size (MB)</Label>
+                  <Input
+                    id="maxFileSize"
+                    type="number"
+                    value={formData.maxFileSize / 1048576} // Convert bytes to MB
+                    onChange={(e) => setFormData({ ...formData, maxFileSize: parseInt(e.target.value) * 1048576 })}
+                    min="1"
+                    max="100"
+                  />
+                  <p className="text-sm text-muted-foreground">
+                    Maximum file size allowed for uploads (in megabytes)
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Allowed File Types</Label>
+                  <div className="space-y-2">
+                    {['image/*', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'].map((type) => (
+                      <div key={type} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={type}
+                          checked={formData.allowedFileTypes.includes(type)}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              setFormData({ ...formData, allowedFileTypes: [...formData.allowedFileTypes, type] })
+                            } else {
+                              setFormData({ ...formData, allowedFileTypes: formData.allowedFileTypes.filter(t => t !== type) })
+                            }
+                          }}
+                        />
+                        <Label htmlFor={type} className="text-sm font-normal cursor-pointer">
+                          {type === 'image/*' ? 'Images (JPG, PNG, etc.)' :
+                           type === 'application/pdf' ? 'PDF Documents' :
+                           type === 'application/msword' ? 'Word Documents (.doc)' :
+                           type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ? 'Word Documents (.docx)' :
+                           type === 'application/vnd.ms-excel' ? 'Excel Spreadsheets (.xls)' :
+                           'Excel Spreadsheets (.xlsx)'}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Save Button for Storage Tab */}
+              <div className="flex items-center justify-between pt-6">
+                <div className="text-sm text-muted-foreground">
+                  {settings?.updatedAt && (
+                    <>
+                      Last updated: {formatDate(new Date(settings.updatedAt))}
+                      {settings.updatedBy && (
+                        <> by {settings.updatedBy.name || settings.updatedBy.email}</>
+                      )}
+                    </>
+                  )}
+                </div>
+                <Button 
+                  onClick={() => {
+                    if (validateStorageSettings()) {
+                      setShowConfirmDialog(true)
+                    }
+                  }}
+                  disabled={saving}
+                >
+                  {saving ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Saving...
+                    </>
+                  ) : (
+                    <>
+                      <Save className="mr-2 h-4 w-4" />
+                      Save Settings
+                    </>
+                  )}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
 
       {/* Confirmation Dialog */}
       <AlertDialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
@@ -435,15 +708,15 @@ export default function SystemSettingsPage() {
           <div className="space-y-4 py-4">
             <ul className="list-disc list-inside space-y-1">
               <li>Main Currency: {currencySymbols[formData.mainCurrency]} ({formData.mainCurrency})</li>
-              {formData.additionalCurrency1 && (
+              {formData.additionalCurrency1 && formData.additionalCurrency1 !== 'none' && (
                 <li>
-                  Additional Currency 1: {currencySymbols[formData.additionalCurrency1]} ({formData.additionalCurrency1})
+                  Additional Currency 1: {currencySymbols[formData.additionalCurrency1 as Currency]} ({formData.additionalCurrency1})
                   - Rate: {formData.exchangeRate1}
                 </li>
               )}
-              {formData.additionalCurrency2 && (
+              {formData.additionalCurrency2 && formData.additionalCurrency2 !== 'none' && (
                 <li>
-                  Additional Currency 2: {currencySymbols[formData.additionalCurrency2]} ({formData.additionalCurrency2})
+                  Additional Currency 2: {currencySymbols[formData.additionalCurrency2 as Currency]} ({formData.additionalCurrency2})
                   - Rate: {formData.exchangeRate2}
                 </li>
               )}

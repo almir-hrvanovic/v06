@@ -52,10 +52,14 @@ export async function middleware(request: NextRequest) {
                       request.cookies.get('next-auth.session-token')?.value || 
                       request.cookies.get('__Secure-next-auth.session-token')?.value
 
-  console.log('Middleware check:', { pathname, hasSessionToken: !!sessionToken })
+  console.log('Middleware check:', { 
+    pathname, 
+    hasSessionToken: !!sessionToken,
+    cookies: request.cookies.getAll().map(c => c.name)
+  })
 
   // Allow access to public routes
-  if (pathname.startsWith('/auth') || pathname === '/' || pathname.startsWith('/api/auth')) {
+  if (pathname.startsWith('/auth') || pathname === '/' || pathname.startsWith('/api/auth') || pathname.startsWith('/api/uploadthing')) {
     const response = NextResponse.next()
     return securityHeaders(corsHeaders(request, response))
   }

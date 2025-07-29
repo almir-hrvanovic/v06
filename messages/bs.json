@@ -2310,13 +2310,23 @@
     "approvedAt": "Odobreno u",
     "assignedTo": "Dodijeljeno"
   },
+  "toasts": {
+    "_context": "Toast notification messages",
+    "exports": {
+      "_context": "Export-related toast messages",
+      "inquiryIdRequired": "ID upita je potreban za generiranje PDF-a",
+      "pdfSuccess": "PDF je uspješno generiran i preuzet",
+      "pdfError": "Neuspjeh generiranja PDF-a. Molim pokušajte ponovno."
+    }
+  },
   "titles": {
     "navigationMenu": "Navigacijski meni",
     "mainNavigation": "Glavni navigacijski meni aplikacije",
     "inquiriesSummaryReport": "Izvještaj sažetka upita",
     "userActivityReport": "Izvještaj aktivnosti korisnika",
     "customerAnalysisReport": "Izvještaj analize kupaca",
-    "analyticsDashboardReport": "Izvještaj analitičke ploče"
+    "analyticsDashboardReport": "Izvještaj analitičke ploče",
+    "quoteGenerationStatus": "Status generiranja ponude"
   },
   "pages": {
     "_context": "Naslovi i opisi specifični za stranice",

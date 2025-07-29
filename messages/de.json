@@ -2272,13 +2272,23 @@
     "approvedAt": "Genehmigt am",
     "assignedTo": "Zugewiesen an"
   },
+  "toasts": {
+    "_context": "Toast notification messages",
+    "exports": {
+      "_context": "Export-related toast messages",
+      "inquiryIdRequired": "Anfragen-ID ist für die PDF-Generierung erforderlich",
+      "pdfSuccess": "PDF erfolgreich generiert und heruntergeladen",
+      "pdfError": "PDF-Generierung fehlgeschlagen. Bitte versuchen Sie es erneut."
+    }
+  },
   "titles": {
     "navigationMenu": "Navigationsmenü",
     "mainNavigation": "Hauptnavigationsmenü der Anwendung",
     "inquiriesSummaryReport": "Anfragen-Zusammenfassungsbericht",
     "userActivityReport": "Benutzeraktivitätsbericht",
     "customerAnalysisReport": "Kundenanalysebericht",
-    "analyticsDashboardReport": "Analytics-Dashboard-Bericht"
+    "analyticsDashboardReport": "Analytics-Dashboard-Bericht",
+    "quoteGenerationStatus": "Angebotsgenerierungsstatus"
   },
   "pages": {
     "_context": "Seitenspezifische Titel und Beschreibungen",

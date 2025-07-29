@@ -44,6 +44,7 @@ import {
   Users2,
   Building,
   Factory,
+  ClipboardList,
 } from 'lucide-react'
 import { NavItem, NavGroup } from './types'
 
@@ -82,7 +83,7 @@ export const defaultNavItems: NavItem[] = [
   {
     titleKey: 'navigation.main.assignments',
     href: '/dashboard/assignments',
-    icon: Calculator,
+    icon: ClipboardList,
     roles: ['SUPERUSER', 'ADMIN', 'VPP'],
   },
   {
@@ -238,7 +239,7 @@ export const extendedNavItems: NavItem[] = [
   {
     titleKey: 'navigation.main.assignments',
     href: '/dashboard/assignments',
-    icon: Calculator,
+    icon: ClipboardList,
     roles: ['SUPERUSER', 'ADMIN', 'VPP'],
   },
   {
@@ -393,7 +394,7 @@ export const navGroups: NavGroup[] = [
       {
         titleKey: 'navigation.main.assignments',
         href: '/dashboard/assignments',
-        icon: Calculator,
+        icon: ClipboardList,
         roles: ['SUPERUSER', 'ADMIN', 'VPP'],
       },
       {

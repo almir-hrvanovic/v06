@@ -58,12 +58,16 @@ export function FileUpload({
 
   const handleUploadComplete = (res: any[]) => {
     setIsUploading(false)
+    console.log('FileUpload: Upload complete response:', res)
+    
     const uploadedFiles: UploadedFile[] = res.map(file => ({
-      fileId: file.fileId,
-      fileName: file.fileName,
-      fileUrl: file.fileUrl,
-      uploadedBy: file.uploadedBy
+      fileId: file.fileId || file.key || '',
+      fileName: file.fileName || file.name || '',
+      fileUrl: file.fileUrl || file.url || '',
+      uploadedBy: file.uploadedBy || ''
     }))
+    
+    console.log('FileUpload: Mapped uploaded files:', uploadedFiles)
     
     toast.success(t('attachments.upload.success', { count: res.length }))
     onUploadComplete?.(uploadedFiles)
@@ -71,7 +75,14 @@ export function FileUpload({
 
   const handleUploadError = (error: Error) => {
     setIsUploading(false)
-    toast.error(t('attachments.upload.failed', { error: error.message }))
+    
+    // Handle specific UploadThing configuration error
+    if (error.message.includes('UploadThing not configured') || error.message.includes('503')) {
+      toast.error('File upload service is not configured. Please contact the administrator.')
+    } else {
+      toast.error(t('attachments.upload.failed', { error: error.message }))
+    }
+    
     onUploadError?.(error)
   }
 

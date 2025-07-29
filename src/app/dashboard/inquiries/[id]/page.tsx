@@ -12,6 +12,7 @@ import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { AttachmentManager } from '@/components/attachments/attachment-manager'
 import { PDFExportButton } from '@/components/pdf/pdf-export-button'
+import { OpenFolderButton } from '@/components/attachments/open-folder-button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -217,12 +218,13 @@ export default function InquiryDetailPage() {
           </div>
         </div>
         <div className="flex items-center space-x-2">
+          <OpenFolderButton inquiryId={inquiry.id} />
           {inquiry.attachments && inquiry.attachments.length > 0 && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline">
                   <FolderOpen className="mr-2 h-4 w-4" />
-                  {t('inquiries.form.documentation.openFolder')}
+                  {t('inquiries.form.documentation.viewFiles')}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-64">

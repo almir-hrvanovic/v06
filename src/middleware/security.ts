@@ -151,7 +151,7 @@ export function sanitizeRequest(request: NextRequest): boolean {
     /\.\.\//,           // Directory traversal
     /<script/i,         // XSS attempts
     /javascript:/i,     // JavaScript protocol
-    /on\w+\s*=/i,      // Event handlers
+    /\son\w+\s*=/i,     // Event handlers (with space before to avoid matching query params)
     /union.*select/i,   // SQL injection
     /exec\s*\(/i,      // Command injection
     /eval\s*\(/i,      // Eval injection

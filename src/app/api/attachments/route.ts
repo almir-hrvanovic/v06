@@ -20,6 +20,8 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
+    console.log('[Attachments API] POST body:', JSON.stringify(body, null, 2))
+    
     const validatedData = linkAttachmentSchema.parse(body)
 
     // Verify the file exists and belongs to the user or they have permission
@@ -127,6 +129,7 @@ export async function POST(request: NextRequest) {
     console.error('Link attachment error:', error)
     
     if (error instanceof z.ZodError) {
+      console.error('[Attachments API] Validation errors:', error.errors)
       return NextResponse.json(
         { error: 'Validation error', details: error.errors },
         { status: 400 }

@@ -39,12 +39,16 @@ export function AttachmentManager({
   })
 
   const handleUploadComplete = async (uploadedFiles: UploadedFile[]) => {
+    console.log('Upload complete, received files:', uploadedFiles)
     // Link each uploaded file to the inquiry or item
     try {
       for (const file of uploadedFiles) {
+        console.log('Linking file:', file)
         await linkAttachment(file.fileId)
       }
       setShowUploadForm(false)
+      // Refresh the attachments list
+      refetch()
     } catch (error) {
       console.error('Failed to link uploaded files:', error)
     }
