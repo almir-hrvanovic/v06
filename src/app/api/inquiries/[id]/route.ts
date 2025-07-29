@@ -44,6 +44,15 @@ export async function GET(
           },
           orderBy: { createdAt: 'desc' },
           take: 1
+        },
+        attachments: {
+          include: {
+            attachment: {
+              include: {
+                uploadedBy: { select: { id: true, name: true, email: true } }
+              }
+            }
+          }
         }
       }
     })

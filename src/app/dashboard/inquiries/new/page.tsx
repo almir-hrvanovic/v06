@@ -20,12 +20,14 @@ import { Calendar } from '@/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { toast } from 'sonner'
 import { format } from 'date-fns'
-import { ArrowLeft, Plus, Trash2, CalendarIcon, Loader2 } from 'lucide-react'
+import { ArrowLeft, Plus, Trash2, CalendarIcon, Loader2, FileText, Upload } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { apiClient } from '@/lib/api-client'
 import { createInquirySchema } from '@/lib/validations'
 import { Priority, Currency } from '@prisma/client'
 import { CurrencyInput } from '@/components/ui/currency-input'
+import { FileUpload } from '@/components/attachments/file-upload'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 
 type InquiryFormData = z.infer<typeof createInquirySchema>
 
@@ -36,6 +38,8 @@ export default function NewInquiryPage() {
   const [customers, setCustomers] = useState<Array<{ id: string; name: string; email: string }>>([])
   const [loading, setLoading] = useState(false)
   const [loadingCustomers, setLoadingCustomers] = useState(true)
+  const [uploadedFiles, setUploadedFiles] = useState<Array<{ fileId: string; fileName: string; fileUrl: string; uploadedBy: string }>>([])
+  const [showUploadDialog, setShowUploadDialog] = useState(false)
 
   const form = useForm<InquiryFormData>({
     resolver: zodResolver(createInquirySchema),
@@ -79,7 +83,10 @@ export default function NewInquiryPage() {
       setLoading(true)
       
       // Transform the data to match API expectations
-      payload = data
+      payload = {
+        ...data,
+        attachmentIds: uploadedFiles.map(file => file.fileId)
+      }
       
       console.log('Submitting payload:', payload)
       
@@ -279,6 +286,71 @@ export default function NewInquiryPage() {
                   </FormItem>
                 )}
               />
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>{t('inquiries.form.documentation.title')}</CardTitle>
+              <CardDescription>
+                {t('inquiries.form.documentation.description')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {uploadedFiles.length > 0 && (
+                  <div className="rounded-lg border p-4">
+                    <h4 className="text-sm font-medium mb-2">{t('inquiries.form.documentation.uploadedFiles')}</h4>
+                    <ul className="space-y-2">
+                      {uploadedFiles.map((file) => (
+                        <li key={file.fileId} className="flex items-center justify-between text-sm">
+                          <div className="flex items-center space-x-2">
+                            <FileText className="h-4 w-4 text-muted-foreground" />
+                            <span>{file.fileName}</span>
+                          </div>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setUploadedFiles(files => files.filter(f => f.fileId !== file.fileId))}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                <Dialog open={showUploadDialog} onOpenChange={setShowUploadDialog}>
+                  <DialogTrigger asChild>
+                    <Button type="button" variant="outline" className="w-full">
+                      <Upload className="mr-2 h-4 w-4" />
+                      {t('inquiries.form.documentation.addDocumentation')}
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[525px]">
+                    <DialogHeader>
+                      <DialogTitle>{t('inquiries.form.documentation.uploadTitle')}</DialogTitle>
+                      <DialogDescription>
+                        {t('inquiries.form.documentation.uploadDescription')}
+                      </DialogDescription>
+                    </DialogHeader>
+                    <FileUpload
+                      endpoint="inquiryDocumentUploader"
+                      onUploadComplete={(files) => {
+                        setUploadedFiles(prev => [...prev, ...files])
+                        setShowUploadDialog(false)
+                        toast.success(t('inquiries.form.documentation.uploadSuccess'))
+                      }}
+                      onUploadError={(error) => {
+                        toast.error(t('inquiries.form.documentation.uploadError'))
+                      }}
+                      maxFiles={10}
+                      showDropzone={true}
+                    />
+                  </DialogContent>
+                </Dialog>
+              </div>
             </CardContent>
           </Card>
 

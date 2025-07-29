@@ -234,7 +234,7 @@ export function MobileTable({
                           <span className="text-muted-foreground">Cost:</span>
                           <p className="font-medium">
                             {item.costCalculation 
-                              ? formatCurrency(item.costCalculation.totalCost)
+                              ? formatWithSystemCurrency(item.costCalculation.totalCost)
                               : 'Not calculated'
                             }
                           </p>

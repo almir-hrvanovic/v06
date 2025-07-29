@@ -62,7 +62,7 @@ export function AttachmentManager({
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-medium">{title || t('attachments.title')}</h3>
         </div>
-        <div className="text-center text-gray-500">
+        <div className="text-center text-muted-foreground">
           {t('attachments.loading')}
         </div>
       </Card>
@@ -95,7 +95,7 @@ export function AttachmentManager({
             </TabsList>
             
             <TabsContent value="images" className="space-y-4">
-              <div className="text-sm text-gray-600 mb-2">
+              <div className="text-sm text-muted-foreground mb-2">
                 {t('attachments.upload.imageInstructions')}
               </div>
               <FileUpload
@@ -107,7 +107,7 @@ export function AttachmentManager({
             </TabsContent>
             
             <TabsContent value="documents" className="space-y-4">
-              <div className="text-sm text-gray-600 mb-2">
+              <div className="text-sm text-muted-foreground mb-2">
                 {t('attachments.upload.documentInstructions')}
               </div>
               <FileUpload
@@ -119,7 +119,7 @@ export function AttachmentManager({
             </TabsContent>
             
             <TabsContent value="items" className="space-y-4">
-              <div className="text-sm text-gray-600 mb-2">
+              <div className="text-sm text-muted-foreground mb-2">
                 {t('attachments.upload.itemInstructions')}
               </div>
               <FileUpload
@@ -151,7 +151,7 @@ export function AttachmentManager({
           />
         ) : (
           !showUploadForm && (
-            <div className="text-center text-gray-500 py-8">
+            <div className="text-center text-muted-foreground py-8">
               <div className="text-lg mb-2">{t('attachments.noAttachmentsYet')}</div>
               <div className="text-sm">
                 {showUpload ? t('attachments.clickToUpload') : t('attachments.noFilesAttached')}

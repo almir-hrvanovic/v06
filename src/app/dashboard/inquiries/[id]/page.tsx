@@ -12,6 +12,14 @@ import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { AttachmentManager } from '@/components/attachments/attachment-manager'
 import { PDFExportButton } from '@/components/pdf/pdf-export-button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { 
   ArrowLeft, 
   Edit, 
@@ -23,7 +31,8 @@ import {
   FileText,
   Package,
   Eye,
-  UserPlus
+  UserPlus,
+  FolderOpen
 } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 import { formatWithSystemCurrency } from '@/lib/currency-helpers'
@@ -208,6 +217,33 @@ export default function InquiryDetailPage() {
           </div>
         </div>
         <div className="flex items-center space-x-2">
+          {inquiry.attachments && inquiry.attachments.length > 0 && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline">
+                  <FolderOpen className="mr-2 h-4 w-4" />
+                  {t('inquiries.form.documentation.openFolder')}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-64">
+                <DropdownMenuLabel>{t('inquiries.form.documentation.uploadedFiles')}</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {inquiry.attachments.map((item) => (
+                  <DropdownMenuItem
+                    key={item.id}
+                    onClick={() => {
+                      if (item.attachment?.uploadThingUrl) {
+                        window.open(item.attachment.uploadThingUrl, '_blank')
+                      }
+                    }}
+                  >
+                    <FileText className="mr-2 h-4 w-4" />
+                    <span className="truncate">{item.attachment?.originalName || item.attachment?.fileName}</span>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
           <PDFExportButton 
             type="quote" 
             inquiryId={inquiry.id}
@@ -366,7 +402,7 @@ export default function InquiryDetailPage() {
             <CardContent>
               <div className="space-y-4">
                 {inquiry.items.map((item) => (
-                  <Card key={item.id} className="border-l-4 border-l-blue-500">
+                  <Card key={item.id} className="border-l-4 border-l-primary">
                     <CardContent className="pt-4">
                       <div className="flex items-start justify-between">
                         <div className="space-y-2">
@@ -435,7 +471,7 @@ export default function InquiryDetailPage() {
                           itemId={item.id}
                           title={`Attachments for ${item.name}`}
                           showUpload={true}
-                          className="bg-gray-50 border-0"
+                          className="bg-muted/50 border-0"
                         />
                       </div>
                     </CardContent>

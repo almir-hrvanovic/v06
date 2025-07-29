@@ -1,13 +1,13 @@
-[0;32m2025-07-29 12:16:15[0m ✅ Environment setup completed
-[0;34m2025-07-29 12:16:15 PHASE:[0m 3/6 - Dependency Check
-[0;32m2025-07-29 12:16:15[0m Dependencies already installed
-[0;32m2025-07-29 12:16:15[0m ✅ Dependency check completed
-[0;34m2025-07-29 12:16:15 PHASE:[0m 4/6 - Database Setup
-[0;32m2025-07-29 12:16:15[0m Setting up database...
+[0;32m2025-07-29 13:03:37[0m ✅ Environment setup completed
+[0;34m2025-07-29 13:03:37 PHASE:[0m 3/6 - Dependency Check
+[0;32m2025-07-29 13:03:37[0m Dependencies already installed
+[0;32m2025-07-29 13:03:37[0m ✅ Dependency check completed
+[0;34m2025-07-29 13:03:37 PHASE:[0m 4/6 - Database Setup
+[0;32m2025-07-29 13:03:37[0m Setting up database...
 Environment variables loaded from .env
 Prisma schema loaded from prisma/schema.prisma
 
-✔ Generated Prisma Client (v6.12.0) to ./node_modules/@prisma/client in 169ms
+✔ Generated Prisma Client (v6.12.0) to ./node_modules/@prisma/client in 179ms
 
 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
 
@@ -21,22 +21,22 @@ The database is already in sync with the Prisma schema.
 
 Running generate... (Use --skip-generate to skip the generators)
 [2K[1A[2K[GRunning generate... - Prisma Client
-[2K[1A[2K[G✔ Generated Prisma Client (v6.12.0) to ./node_modules/@prisma/client in 156ms
+[2K[1A[2K[G✔ Generated Prisma Client (v6.12.0) to ./node_modules/@prisma/client in 164ms
 
-[0;32m2025-07-29 12:16:18[0m ✅ Database setup completed
-[0;34m2025-07-29 12:16:18 PHASE:[0m 5/6 - Application Startup
-[0;32m2025-07-29 12:16:20[0m Starting Next.js development server...
-[0;32m2025-07-29 12:16:20[0m Application started with PID: 1411946
-[0;32m2025-07-29 12:16:20[0m Waiting for Next.js Application on port 3000...
-[0;32m2025-07-29 12:16:32[0m Still waiting for Next.js Application... (10/60 seconds)
-[0;32m2025-07-29 12:16:43[0m Still waiting for Next.js Application... (20/60 seconds)
-[0;32m2025-07-29 12:16:55[0m Still waiting for Next.js Application... (30/60 seconds)
-[0;32m2025-07-29 12:17:07[0m Still waiting for Next.js Application... (40/60 seconds)
-[0;32m2025-07-29 12:17:19[0m Still waiting for Next.js Application... (50/60 seconds)
-[0;32m2025-07-29 12:17:30[0m Still waiting for Next.js Application... (60/60 seconds)
-[0;34m2025-07-29 12:17:30 PHASE:[0m 6/6 - Health Verification
-[0;32m2025-07-29 12:17:35[0m Testing basic connectivity...
-[0;32m2025-07-29 12:17:44[0m ✅ Application is responding
-[1;33m2025-07-29 12:17:45 WARNING:[0m Health endpoint not available or not implemented
-[1;33m2025-07-29 12:17:46 WARNING:[0m API routes may not be available
-[0;32m2025-07-29 12:17:46[0m ✅ Health verification completed
+[0;32m2025-07-29 13:03:40[0m ✅ Database setup completed
+[0;34m2025-07-29 13:03:40 PHASE:[0m 5/6 - Application Startup
+[0;32m2025-07-29 13:03:42[0m Starting Next.js development server...
+[0;32m2025-07-29 13:03:42[0m Application started with PID: 1442411
+[0;32m2025-07-29 13:03:42[0m Waiting for Next.js Application on port 3000...
+[0;32m2025-07-29 13:03:54[0m Still waiting for Next.js Application... (10/60 seconds)
+[0;32m2025-07-29 13:04:06[0m Still waiting for Next.js Application... (20/60 seconds)
+[0;32m2025-07-29 13:04:17[0m Still waiting for Next.js Application... (30/60 seconds)
+[0;32m2025-07-29 13:04:29[0m Still waiting for Next.js Application... (40/60 seconds)
+[0;32m2025-07-29 13:04:41[0m Still waiting for Next.js Application... (50/60 seconds)
+[0;32m2025-07-29 13:04:53[0m Still waiting for Next.js Application... (60/60 seconds)
+[0;34m2025-07-29 13:04:53 PHASE:[0m 6/6 - Health Verification
+[0;32m2025-07-29 13:04:58[0m Testing basic connectivity...
+[0;32m2025-07-29 13:05:07[0m ✅ Application is responding
+[1;33m2025-07-29 13:05:08 WARNING:[0m Health endpoint not available or not implemented
+[1;33m2025-07-29 13:05:08 WARNING:[0m API routes may not be available
+[0;32m2025-07-29 13:05:08[0m ✅ Health verification completed

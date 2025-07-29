@@ -122,12 +122,12 @@ export default function SystemSettingsPage() {
       
       const payload = {
         mainCurrency: formData.mainCurrency,
-        additionalCurrency1: formData.additionalCurrency1 === 'none' ? null : formData.additionalCurrency1,
-        additionalCurrency2: formData.additionalCurrency2 === 'none' ? null : formData.additionalCurrency2,
-        exchangeRate1: formData.additionalCurrency1 && formData.additionalCurrency1 !== 'none' && formData.exchangeRate1 
+        additionalCurrency1: formData.additionalCurrency1,
+        additionalCurrency2: formData.additionalCurrency2,
+        exchangeRate1: formData.additionalCurrency1 && formData.exchangeRate1 
           ? parseFloat(formData.exchangeRate1) 
           : null,
-        exchangeRate2: formData.additionalCurrency2 && formData.additionalCurrency2 !== 'none' && formData.exchangeRate2 
+        exchangeRate2: formData.additionalCurrency2 && formData.exchangeRate2 
           ? parseFloat(formData.exchangeRate2) 
           : null
       }
@@ -164,28 +164,28 @@ export default function SystemSettingsPage() {
 
   const validateForm = () => {
     // Check if additional currency has exchange rate
-    if (formData.additionalCurrency1 && formData.additionalCurrency1 !== 'none' && !formData.exchangeRate1) {
+    if (formData.additionalCurrency1 && !formData.exchangeRate1) {
       toast.error('Exchange rate is required for additional currency 1')
       return false
     }
     
-    if (formData.additionalCurrency2 && formData.additionalCurrency2 !== 'none' && !formData.exchangeRate2) {
+    if (formData.additionalCurrency2 && !formData.exchangeRate2) {
       toast.error('Exchange rate is required for additional currency 2')
       return false
     }
     
     // Check if currencies are unique
-    if (formData.additionalCurrency1 !== 'none' && formData.additionalCurrency1 === formData.mainCurrency) {
+    if (formData.additionalCurrency1 && formData.additionalCurrency1 === formData.mainCurrency) {
       toast.error('Additional currency 1 cannot be the same as main currency')
       return false
     }
     
-    if (formData.additionalCurrency2 !== 'none' && formData.additionalCurrency2 === formData.mainCurrency) {
+    if (formData.additionalCurrency2 && formData.additionalCurrency2 === formData.mainCurrency) {
       toast.error('Additional currency 2 cannot be the same as main currency')
       return false
     }
     
-    if (formData.additionalCurrency1 !== 'none' && formData.additionalCurrency2 !== 'none' && 
+    if (formData.additionalCurrency1 && formData.additionalCurrency2 && 
         formData.additionalCurrency1 === formData.additionalCurrency2) {
       toast.error('Additional currencies must be different')
       return false
@@ -316,9 +316,9 @@ export default function SystemSettingsPage() {
                     placeholder="e.g. 1.95583"
                     value={formData.exchangeRate1}
                     onChange={(e) => setFormData({ ...formData, exchangeRate1: e.target.value })}
-                    disabled={!formData.additionalCurrency1 || formData.additionalCurrency1 === 'none'}
+                    disabled={!formData.additionalCurrency1}
                   />
-                  {formData.additionalCurrency1 && formData.additionalCurrency1 !== 'none' && formData.exchangeRate1 && (
+                  {formData.additionalCurrency1 && formData.exchangeRate1 && (
                     <p className="text-xs text-muted-foreground mt-1">
                       1 {formData.additionalCurrency1} = {formData.exchangeRate1} {formData.mainCurrency}
                     </p>
@@ -370,9 +370,9 @@ export default function SystemSettingsPage() {
                     placeholder="e.g. 0.85"
                     value={formData.exchangeRate2}
                     onChange={(e) => setFormData({ ...formData, exchangeRate2: e.target.value })}
-                    disabled={!formData.additionalCurrency2 || formData.additionalCurrency2 === 'none'}
+                    disabled={!formData.additionalCurrency2}
                   />
-                  {formData.additionalCurrency2 && formData.additionalCurrency2 !== 'none' && formData.exchangeRate2 && (
+                  {formData.additionalCurrency2 && formData.exchangeRate2 && (
                     <p className="text-xs text-muted-foreground mt-1">
                       1 {formData.additionalCurrency2} = {formData.exchangeRate2} {formData.mainCurrency}
                     </p>
@@ -435,13 +435,13 @@ export default function SystemSettingsPage() {
           <div className="space-y-4 py-4">
             <ul className="list-disc list-inside space-y-1">
               <li>Main Currency: {currencySymbols[formData.mainCurrency]} ({formData.mainCurrency})</li>
-              {formData.additionalCurrency1 && formData.additionalCurrency1 !== 'none' && (
+              {formData.additionalCurrency1 && (
                 <li>
                   Additional Currency 1: {currencySymbols[formData.additionalCurrency1]} ({formData.additionalCurrency1})
                   - Rate: {formData.exchangeRate1}
                 </li>
               )}
-              {formData.additionalCurrency2 && formData.additionalCurrency2 !== 'none' && (
+              {formData.additionalCurrency2 && (
                 <li>
                   Additional Currency 2: {currencySymbols[formData.additionalCurrency2]} ({formData.additionalCurrency2})
                   - Rate: {formData.exchangeRate2}

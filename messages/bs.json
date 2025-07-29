@@ -149,6 +149,7 @@
       "published": "Objavljeno",
       "archived": "Arhivirano",
       "assigned": "Dodijeljen",
+      "costed": "Kalkuliran",
       "unassigned": "Nedodijeljen",
       "submitted": "Poslan",
       "inReview": "Na pregledu",
@@ -910,6 +911,10 @@
         "subtitle": "Ažuriraj informacije upita",
         "button": "Ažuriraj upit"
       },
+      "update": {
+        "button": "Ažuriraj upit"
+      },
+      "updating": "Ažuriranje...",
       "details": {
         "title": "Detalji upita",
         "description": "Unesite osnovne informacije za upit"
@@ -923,6 +928,8 @@
         "selectCustomer": "Odaberite kupca",
         "priority": "Prioritet",
         "selectPriority": "Odaberite razinu prioriteta",
+        "status": "Status",
+        "selectStatus": "Odaberite status",
         "deadline": "Rok",
         "pickDate": "Odaberite datum",
         "deadlineDescription": "Neobavezni rok za upit",
@@ -982,7 +989,18 @@
         "categoryPlaceholder": "Kategorija stavke"
       },
       "creating": "Stvaram upit...",
-      "updating": "Ažuriram upit..."
+      "updating": "Ažuriram upit...",
+      "documentation": {
+        "title": "Dokumentacija",
+        "description": "Dodajte prateće dokumente za upit",
+        "uploadedFiles": "Učitane datoteke",
+        "addDocumentation": "Dodaj dokumentaciju",
+        "uploadTitle": "Učitaj dokumente",
+        "uploadDescription": "Odaberite više datoteka za učitavanje. One će biti organizovane u folder sa ID-om upita.",
+        "uploadSuccess": "Dokumenti su uspješno učitani",
+        "uploadError": "Učitavanje dokumenata nije uspjelo",
+        "openFolder": "Otvori folder sa dokumentacijom"
+      }
     },
     "list": {
       "_context": "Prikaz popisa upita i filtriranje",
@@ -1052,6 +1070,7 @@
       "followUp": "Praćenje",
       "markComplete": "Označi kao završeno",
       "backToList": "Natrag na upite",
+      "backToDetails": "Natrag na detalje",
       "exportPDF": "Izvezi PDF",
       "exportExcel": "Izvezi Excel",
       "printInquiry": "Ispiši upit"
@@ -1281,6 +1300,7 @@
     "_context": "Sustav učitavanja datoteka i upravljanja prilozima",
     "title": "Prilozi",
     "itemAttachments": "Prilozi stavke",
+    "inquiryAttachments": "Prilozi upita",
     "addFiles": "Dodaj datoteke",
     "loading": "Učitavam priloge...",
     "noAttachments": "Nema pronađenih priloga",

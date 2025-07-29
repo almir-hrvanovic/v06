@@ -922,6 +922,10 @@
         "subtitle": "Update inquiry information",
         "button": "Update Inquiry"
       },
+      "update": {
+        "button": "Update Inquiry"
+      },
+      "updating": "Updating...",
       "details": {
         "title": "Inquiry Details",
         "description": "Enter the basic information for the inquiry"
@@ -935,6 +939,8 @@
         "selectCustomer": "Select a customer",
         "priority": "Priority",
         "selectPriority": "Select priority level",
+        "status": "Status",
+        "selectStatus": "Select status",
         "deadline": "Deadline",
         "pickDate": "Pick a date",
         "deadlineDescription": "Optional deadline for the inquiry",
@@ -992,7 +998,18 @@
         "categoryPlaceholder": "Item category"
       },
       "creating": "Creating inquiry...",
-      "updating": "Updating inquiry..."
+      "updating": "Updating inquiry...",
+      "documentation": {
+        "title": "Documentation",
+        "description": "Add supporting documents for the inquiry",
+        "uploadedFiles": "Uploaded Files",
+        "addDocumentation": "Add Documentation",
+        "uploadTitle": "Upload Documents",
+        "uploadDescription": "Select multiple files to upload. These will be organized in a folder with the inquiry ID.",
+        "uploadSuccess": "Documents uploaded successfully",
+        "uploadError": "Failed to upload documents",
+        "openFolder": "Open Documentation Folder"
+      }
     },
     "list": {
       "_context": "Inquiry list view and filtering",
@@ -1062,6 +1079,7 @@
       "followUp": "Follow Up",
       "markComplete": "Mark Complete",
       "backToList": "Back to Inquiries",
+      "backToDetails": "Back to Details",
       "exportPDF": "Export PDF",
       "exportExcel": "Export Excel",
       "printInquiry": "Print Inquiry"
@@ -1070,6 +1088,7 @@
       "_context": "Inquiry management messages",
       "created": "Inquiry created successfully",
       "updated": "Inquiry updated successfully",
+      "updateFailed": "Failed to update inquiry",
       "deleted": "Inquiry deleted successfully",
       "assigned": "Inquiry assigned successfully",
       "approved": "Inquiry approved successfully",
@@ -1281,6 +1300,7 @@
     "_context": "File upload and attachment management system",
     "title": "Attachments",
     "itemAttachments": "Item Attachments",
+    "inquiryAttachments": "Inquiry Attachments",
     "addFiles": "Add Files",
     "loading": "Loading attachments...",
     "noAttachments": "No attachments found",

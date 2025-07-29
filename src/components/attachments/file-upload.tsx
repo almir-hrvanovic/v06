@@ -105,10 +105,10 @@ export function FileUpload({
         onClientUploadComplete={handleUploadComplete}
         onUploadError={handleUploadError}
         onUploadBegin={handleUploadBegin}
-        className="ut-button:bg-blue-600 ut-button:hover:bg-blue-700"
+        className="ut-button:bg-primary ut-button:hover:bg-primary/90"
       />
       {isUploading && (
-        <div className="text-center text-sm text-gray-500">
+        <div className="text-center text-sm text-muted-foreground">
           {t('attachments.upload.uploading')}
         </div>
       )}
@@ -132,9 +132,9 @@ export function AttachmentDisplay({
 
   const getFileIcon = (mimeType: string) => {
     if (mimeType.startsWith('image/')) {
-      return <ImageIcon className="h-5 w-5 text-blue-500" />
+      return <ImageIcon className="h-5 w-5 text-primary" />
     }
-    return <FileIcon className="h-5 w-5 text-gray-500" />
+    return <FileIcon className="h-5 w-5 text-muted-foreground" />
   }
 
   const handleDownload = (url: string, fileName: string) => {
@@ -149,7 +149,7 @@ export function AttachmentDisplay({
 
   if (attachments.length === 0) {
     return (
-      <div className="text-center text-gray-500 py-8">
+      <div className="text-center text-muted-foreground py-8">
         {t('attachments.noAttachments')}
       </div>
     )
@@ -163,10 +163,10 @@ export function AttachmentDisplay({
             <div className="flex items-center space-x-3">
               {getFileIcon(item.attachment.mimeType)}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">
+                <p className="text-sm font-medium text-foreground truncate">
                   {item.attachment.originalName}
                 </p>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-muted-foreground">
                   {formatFileSize(item.attachment.fileSize)} • 
                   {t('attachments.uploadedBy', { name: item.attachment.uploadedBy.name })} • 
                   {new Date(item.attachment.createdAt).toLocaleDateString()}
@@ -186,7 +186,7 @@ export function AttachmentDisplay({
                   variant="outline"
                   size="sm"
                   onClick={() => onRemove(item.attachment.id)}
-                  className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                  className="text-destructive hover:text-destructive/90 hover:bg-destructive/10"
                 >
                   <TrashIcon className="h-4 w-4" />
                 </Button>

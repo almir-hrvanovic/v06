@@ -66,6 +66,15 @@ export type InquiryWithRelations = Prisma.InquiryGetPayload<{
       }
     }
     quotes: true
+    attachments: {
+      include: {
+        attachment: {
+          include: {
+            uploadedBy: true
+          }
+        }
+      }
+    }
   }
 }>
 

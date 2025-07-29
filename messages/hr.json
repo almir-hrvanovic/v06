@@ -878,6 +878,10 @@
         "subtitle": "Ažuriraj informacije upita",
         "button": "Ažuriraj upit"
       },
+      "update": {
+        "button": "Ažuriraj upit"
+      },
+      "updating": "Ažuriranje...",
       "details": {
         "title": "Detalji upita",
         "description": "Unesite osnovne informacije za upit"
@@ -891,6 +895,8 @@
         "selectCustomer": "Odaberite kupca",
         "priority": "Prioritet",
         "selectPriority": "Odaberite razinu prioriteta",
+        "status": "Status",
+        "selectStatus": "Odaberite status",
         "deadline": "Rok",
         "pickDate": "Odaberite datum",
         "deadlineDescription": "Neobavezni rok za upit",
@@ -948,7 +954,18 @@
         "categoryPlaceholder": "Kategorija stavke"
       },
       "creating": "Stvaram upit...",
-      "updating": "Ažuriram upit..."
+      "updating": "Ažuriram upit...",
+      "documentation": {
+        "title": "Dokumentacija",
+        "description": "Dodajte popratne dokumente za upit",
+        "uploadedFiles": "Učitane datoteke",
+        "addDocumentation": "Dodaj dokumentaciju",
+        "uploadTitle": "Učitaj dokumente",
+        "uploadDescription": "Odaberite više datoteka za učitavanje. One će biti organizirane u mapu s ID-om upita.",
+        "uploadSuccess": "Dokumenti su uspješno učitani",
+        "uploadError": "Učitavanje dokumenata nije uspjelo",
+        "openFolder": "Otvori mapu s dokumentacijom"
+      }
     },
     "list": {
       "_context": "Prikaz popisa upita i filtriranje",
@@ -1018,6 +1035,7 @@
       "followUp": "Praćenje",
       "markComplete": "Označi kao završeno",
       "backToList": "Natrag na upite",
+      "backToDetails": "Natrag na detalje",
       "exportPDF": "Izvezi PDF",
       "exportExcel": "Izvezi Excel",
       "printInquiry": "Ispiši upit"
@@ -1026,6 +1044,7 @@
       "_context": "Poruke upravljanja upitima",
       "created": "Upit uspješno stvoren",
       "updated": "Upit uspješno ažuriran",
+      "updateFailed": "Ažuriranje upita nije uspjelo",
       "deleted": "Upit uspješno obrisan",
       "assigned": "Upit uspješno dodijeljen",
       "approved": "Upit uspješno odobren",
@@ -1241,6 +1260,7 @@
     "_context": "Sustav učitavanja datoteka i upravljanja prilozima",
     "title": "Prilozi",
     "itemAttachments": "Prilozi stavke",
+    "inquiryAttachments": "Prilozi upita",
     "addFiles": "Dodaj datoteke",
     "loading": "Učitavam priloge...",
     "noAttachments": "Nema pronađenih priloga",

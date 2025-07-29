@@ -134,7 +134,10 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     console.log('POST /api/inquiries - Request body:', JSON.stringify(body, null, 2))
     
-    const validatedData = createInquirySchema.parse(body)
+    // Extract attachmentIds before validation (not part of schema)
+    const { attachmentIds, ...inquiryData } = body
+    
+    const validatedData = createInquirySchema.parse(inquiryData)
     console.log('POST /api/inquiries - Validated data:', JSON.stringify(validatedData, null, 2))
 
     const inquiry = await prisma.inquiry.create({
@@ -155,12 +158,25 @@ export async function POST(request: NextRequest) {
             priceEstimation: item.priceEstimation,
             requestedDelivery: item.requestedDelivery,
           }))
-        }
+        },
+        // Create attachments if provided
+        ...(attachmentIds && attachmentIds.length > 0 && {
+          attachments: {
+            create: attachmentIds.map((fileId: string) => ({
+              attachmentId: fileId
+            }))
+          }
+        })
       },
       include: {
         customer: true,
         createdBy: { select: { id: true, name: true, email: true } },
         items: true,
+        attachments: {
+          include: {
+            attachment: true
+          }
+        }
       }
     })
 
