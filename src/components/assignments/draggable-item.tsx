@@ -30,10 +30,10 @@ export function DraggableItem({ item, isDragging }: DraggableItemProps) {
 
   const getPriorityBadge = (priority: Priority) => {
     const priorityMap = {
-      LOW: { variant: 'secondary' as const, className: 'bg-gray-100 text-gray-700' },
-      MEDIUM: { variant: 'default' as const, className: 'bg-yellow-100 text-yellow-700' },
-      HIGH: { variant: 'destructive' as const, className: 'bg-red-100 text-red-700' },
-      URGENT: { variant: 'destructive' as const, className: 'bg-red-600 text-white' },
+      LOW: { variant: 'secondary' as const, className: 'text-gray-700' },
+      MEDIUM: { variant: 'default' as const, className: 'text-yellow-700' },
+      HIGH: { variant: 'destructive' as const, className: 'text-orange-700' },
+      URGENT: { variant: 'destructive' as const, className: 'text-red-700 font-bold' },
     }
     const { variant, className } = priorityMap[priority]
     return <Badge variant={variant} className={className}>{priority}</Badge>
@@ -43,13 +43,13 @@ export function DraggableItem({ item, isDragging }: DraggableItemProps) {
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
       <Card 
         className={cn(
-          "cursor-move transition-all duration-200 hover:shadow-md",
+          "cursor-move transition-shadow duration-200 hover:shadow-md",
           "border-l-4",
           item.inquiry.priority === 'URGENT' && "border-l-red-500",
           item.inquiry.priority === 'HIGH' && "border-l-orange-500",
           item.inquiry.priority === 'MEDIUM' && "border-l-yellow-500",
           item.inquiry.priority === 'LOW' && "border-l-gray-400",
-          (isDragging || isSortableDragging) && "opacity-50 shadow-lg scale-105 rotate-1"
+          (isDragging || isSortableDragging) && "opacity-50 shadow-lg scale-105"
         )}
       >
         <div className="p-3 space-y-2">

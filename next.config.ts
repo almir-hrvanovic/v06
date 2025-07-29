@@ -19,15 +19,17 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['@radix-ui/react-icons', '@radix-ui/react-*', 'lucide-react'],
     optimizeCss: true, // Enable CSS optimization to reduce font loading issues
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
+    // serverComponentsExternalPackages: ['@prisma/client', 'bcryptjs'],
+  },
+  
+  // Turbopack configuration (now stable)
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
       },
     },
-    // serverComponentsExternalPackages: ['@prisma/client', 'bcryptjs'],
   },
   
   // Image optimization
@@ -126,11 +128,9 @@ const nextConfig: NextConfig = {
   compress: true,
   productionBrowserSourceMaps: false,
   
-  // Source map and dev indicators configuration
+  // Dev indicators configuration
   devIndicators: {
-    appIsrStatus: true,
-    buildActivity: true,
-    buildActivityPosition: 'bottom-right',
+    position: 'bottom-right',
   },
   
   // React strict mode

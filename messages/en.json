@@ -272,6 +272,18 @@
       "forbidden": "This value is not allowed"
     }
   },
+  "errors": {
+    "_context": "General error messages used throughout the application",
+    "failedToLoadData": "Failed to load data",
+    "failedToAssignItem": "Failed to assign item",
+    "failedToAssignItems": "Failed to assign items. Please try again.",
+    "failedToUnassignItem": "Failed to unassign item. Please try again.",
+    "noPermission": "You don't have permission to access this page",
+    "generic": "An error occurred. Please try again.",
+    "networkError": "Network error. Please check your connection.",
+    "serverError": "Server error. Please try again later.",
+    "validationError": "Please check your input and try again."
+  },
   "navigation": {
     "_context": "Main navigation menu items and page routing",
     "users": "Users",
@@ -1168,7 +1180,28 @@
       "reject": "Reject",
       "complete": "Mark Complete",
       "viewDetails": "View Details"
-    }
+    },
+    "assignItemsTitle": "Assign Items to VP/VPP",
+    "assignItemsDescription": "Assign {count, plural, =1 {1 selected item} other {# selected items}} to a VP/VPP user for cost calculation.",
+    "selectVPUser": "Select VP/VPP User",
+    "chooseVPUser": "Choose a VP/VPP user...",
+    "selectedItems": "Selected items",
+    "itemsAssignedSuccess": "Items assigned successfully!",
+    "itemAssignedTo": "Item assigned to {name}",
+    "itemUnassigned": "Item unassigned successfully",
+    "dropToUnassign": "Drop here to unassign",
+    "unassignedItems": "Unassigned Items",
+    "dragDropTitle": "Drag & Drop Assignments",
+    "dragDropDescription": "Drag items to assign them to VPs or VPPs",
+    "showAssignedItems": "Show assigned items",
+    "assignableItems": "{count, plural, =0 {No assignable items} =1 {1 assignable item} other {# assignable items}}",
+    "users": "{count, plural, =0 {No users} =1 {1 user} other {# users}}",
+    "noUnassignedItems": "No unassigned items",
+    "filterItems": "Filter Items",
+    "allCustomers": "All Customers",
+    "allStatuses": "All Statuses",
+    "noItemsMatchFilter": "No items match your filter criteria.",
+    "noItemsAvailable": "All items have been assigned or there are no pending items."
   },
   "automation": {
     "_context": "Workflow automation system for rules and triggers",

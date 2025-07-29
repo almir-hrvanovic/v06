@@ -37,6 +37,7 @@
       "submit": "Absenden",
       "reset": "Zurücksetzen",
       "clear": "Löschen",
+      "clearFilters": "Alle Filter löschen",
       "copy": "Kopieren",
       "paste": "Einfügen",
       "duplicate": "Duplizieren",
@@ -266,6 +267,18 @@
     "name": "Name",
     "email": "E-Mail",
     "all": "Alle"
+  },
+  "errors": {
+    "_context": "Allgemeine Fehlermeldungen, die in der gesamten Anwendung verwendet werden",
+    "failedToLoadData": "Daten konnten nicht geladen werden",
+    "failedToAssignItem": "Artikel konnte nicht zugewiesen werden",
+    "failedToAssignItems": "Artikel konnten nicht zugewiesen werden. Bitte versuchen Sie es erneut.",
+    "failedToUnassignItem": "Artikelzuweisung konnte nicht entfernt werden. Bitte versuchen Sie es erneut.",
+    "noPermission": "Sie haben keine Berechtigung, auf diese Seite zuzugreifen",
+    "generic": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+    "networkError": "Netzwerkfehler. Bitte überprüfen Sie Ihre Verbindung.",
+    "serverError": "Serverfehler. Bitte versuchen Sie es später erneut.",
+    "validationError": "Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut."
   },
   "navigation": {
     "_context": "Hauptnavigationsmenüelemente und Seitenrouting",
@@ -1131,7 +1144,28 @@
       "reject": "Ablehnen",
       "complete": "Als abgeschlossen markieren",
       "viewDetails": "Details anzeigen"
-    }
+    },
+    "assignItemsTitle": "Artikel VP/VPP zuweisen",
+    "assignItemsDescription": "{count, plural, =1 {1 ausgewählten Artikel} other {# ausgewählte Artikel}} einem VP/VPP-Benutzer für die Kostenberechnung zuweisen.",
+    "selectVPUser": "VP/VPP-Benutzer auswählen",
+    "chooseVPUser": "Wählen Sie einen VP/VPP-Benutzer...",
+    "selectedItems": "Ausgewählte Artikel",
+    "itemsAssignedSuccess": "Artikel erfolgreich zugewiesen!",
+    "itemAssignedTo": "Artikel zugewiesen an {name}",
+    "itemUnassigned": "Artikelzuweisung erfolgreich entfernt",
+    "dropToUnassign": "Hier ablegen, um Zuweisung zu entfernen",
+    "unassignedItems": "Nicht zugewiesene Artikel",
+    "dragDropTitle": "Drag & Drop-Zuweisungen",
+    "dragDropDescription": "Ziehen Sie Artikel, um sie VPs oder VPPs zuzuweisen",
+    "showAssignedItems": "Zugewiesene Artikel anzeigen",
+    "assignableItems": "{count, plural, =0 {Keine zuweisbaren Artikel} =1 {1 zuweisbarer Artikel} other {# zuweisbare Artikel}}",
+    "users": "{count, plural, =0 {Keine Benutzer} =1 {1 Benutzer} other {# Benutzer}}",
+    "noUnassignedItems": "Keine nicht zugewiesenen Artikel",
+    "filterItems": "Artikel filtern",
+    "allCustomers": "Alle Kunden",
+    "allStatuses": "Alle Status",
+    "noItemsMatchFilter": "Keine Artikel entsprechen Ihren Filterkriterien.",
+    "noItemsAvailable": "Alle Artikel wurden zugewiesen oder es gibt keine ausstehenden Artikel."
   },
   "automation": {
     "_context": "Workflow-Automatisierungssystem für Regeln und Trigger",

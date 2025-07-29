@@ -1,0 +1,1225 @@
+
+> gs-star-v51@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.1.8
+   - Local:        http://localhost:3000
+   - Network:      http://10.10.40.87:3000
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · turbo
+     · optimizeCss
+
+ ✓ Starting...
+ ✓ Ready in 1951ms
+ ✓ Compiled /src/middleware in 197ms (100 modules)
+Middleware check: { pathname: '/', hasSessionToken: false, cookies: [] }
+ ○ Compiling / ...
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Setting up new context...
+Finding changed files: 11.619ms
+Reading changed files: 1.045s
+Sorting candidates: 8.086ms
+Generate rules: 236.302ms
+Build stylesheet: 4.1ms
+Potential classes:  10458
+Active contexts:  1
+JIT TOTAL: 1.516s
+
+
+ ✓ Compiled / in 5s (1484 modules)
+UploadThing core.ts loaded, token exists: true
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+ HEAD / 200 in 5978ms
+
+
+Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
+Finding changed files: 7.222ms
+Reading changed files: 0.018ms
+Sorting candidates: 0.005ms
+Generate rules: 0.182ms
+Build stylesheet: 0.005ms
+Potential classes:  1
+Active contexts:  1
+JIT TOTAL: 99.647ms
+
+
+ ✓ Compiled in 492ms (337 modules)
+Middleware check: { pathname: '/', hasSessionToken: false, cookies: [] }
+ GET / 200 in 53ms
+Middleware check: {
+  pathname: '/dashboard/assignments/dnd',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+ ○ Compiling /dashboard/assignments/dnd ...
+ ✓ Compiled /dashboard/assignments/dnd in 3.1s (1890 modules)
+UploadThing core.ts loaded, token exists: true
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."users"."id", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /dashboard/assignments/dnd 200 in 4042ms
+Middleware check: {
+  pathname: '/api/auth/session',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+Middleware check: {
+  pathname: '/api/console-monitor/status',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 1618ms (1900 modules)
+ GET /api/console-monitor/status 200 in 1789ms
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 2273ms
+Middleware check: {
+  pathname: '/api/auth/session',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/auth/session 200 in 45ms
+Middleware check: {
+  pathname: '/api/users',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+Middleware check: {
+  pathname: '/api/items',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+Middleware check: {
+  pathname: '/api/customers',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+Middleware check: {
+  pathname: '/api/inquiries',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+Middleware check: {
+  pathname: '/api/notifications',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+Middleware check: {
+  pathname: '/api/system-settings',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+ ○ Compiling /api/system-settings ...
+ ✓ Compiled /api/system-settings in 2.1s (1975 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 2227ms
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiry_items"."id" FROM "public"."inquiry_items" WHERE 1=1 OFFSET $1) AS "sub"
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiries"."id" FROM "public"."inquiries" WHERE 1=1 OFFSET $1) AS "sub"
+prisma:query SELECT "public"."system_settings"."id", "public"."system_settings"."mainCurrency"::text, "public"."system_settings"."additionalCurrency1"::text, "public"."system_settings"."additionalCurrency2"::text, "public"."system_settings"."exchangeRate1", "public"."system_settings"."exchangeRate2", "public"."system_settings"."storageProvider"::text, "public"."system_settings"."uploadThingToken", "public"."system_settings"."uploadThingAppId", "public"."system_settings"."localStoragePath", "public"."system_settings"."maxFileSize", "public"."system_settings"."allowedFileTypes", "public"."system_settings"."updatedAt", "public"."system_settings"."updatedById" FROM "public"."system_settings" WHERE 1=1 LIMIT $1 OFFSET $2
+ GET /api/system-settings 200 in 2205ms
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query SELECT "public"."inquiry_items"."id", "public"."inquiry_items"."name", "public"."inquiry_items"."description", "public"."inquiry_items"."quantity", "public"."inquiry_items"."unit", "public"."inquiry_items"."status"::text, "public"."inquiry_items"."notes", "public"."inquiry_items"."requestedDelivery", "public"."inquiry_items"."priceEstimation", "public"."inquiry_items"."createdAt", "public"."inquiry_items"."updatedAt", "public"."inquiry_items"."inquiryId", "public"."inquiry_items"."assignedToId" FROM "public"."inquiry_items" WHERE 1=1 ORDER BY "public"."inquiry_items"."createdAt" DESC LIMIT $1 OFFSET $2
+prisma:query SELECT "public"."inquiries"."id", "public"."inquiries"."title", "public"."inquiries"."description", "public"."inquiries"."status"::text, "public"."inquiries"."priority"::text, "public"."inquiries"."deadline", "public"."inquiries"."totalValue", "public"."inquiries"."createdAt", "public"."inquiries"."updatedAt", "public"."inquiries"."customerId", "public"."inquiries"."createdById", "public"."inquiries"."assignedToId", COALESCE("aggr_selection_0_InquiryItem"."_aggr_count_items", 0) AS "_aggr_count_items" FROM "public"."inquiries" LEFT JOIN (SELECT "public"."inquiry_items"."inquiryId", COUNT(*) AS "_aggr_count_items" FROM "public"."inquiry_items" WHERE 1=1 GROUP BY "public"."inquiry_items"."inquiryId") AS "aggr_selection_0_InquiryItem" ON ("public"."inquiries"."id" = "aggr_selection_0_InquiryItem"."inquiryId") WHERE 1=1 ORDER BY "public"."inquiries"."createdAt" DESC LIMIT $1 OFFSET $2
+prisma:query SELECT "public"."inquiries"."id", "public"."inquiries"."title", "public"."inquiries"."description", "public"."inquiries"."status"::text, "public"."inquiries"."priority"::text, "public"."inquiries"."deadline", "public"."inquiries"."totalValue", "public"."inquiries"."createdAt", "public"."inquiries"."updatedAt", "public"."inquiries"."customerId", "public"."inquiries"."createdById", "public"."inquiries"."assignedToId" FROM "public"."inquiries" WHERE "public"."inquiries"."id" IN ($1,$2,$3,$4,$5) OFFSET $6
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name" FROM "public"."customers" WHERE "public"."customers"."id" IN ($1,$2,$3,$4,$5) OFFSET $6
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_inquiries", 0) AS "_aggr_count_inquiries" FROM "public"."customers" LEFT JOIN (SELECT "public"."inquiries"."customerId", COUNT(*) AS "_aggr_count_inquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."customerId") AS "aggr_selection_0_Inquiry" ON ("public"."customers"."id" = "aggr_selection_0_Inquiry"."customerId") WHERE 1=1 ORDER BY "public"."customers"."createdAt" DESC OFFSET $1
+ GET /api/customers?limit=100 200 in 2248ms
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt" FROM "public"."customers" WHERE "public"."customers"."id" IN ($1,$2,$3,$4,$5) OFFSET $6
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1,$2) OFFSET $3
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1,$2) OFFSET $3
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email", "public"."users"."role"::text FROM "public"."users" WHERE "public"."users"."id" IN ($1,$2) OFFSET $3
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
+ GET /api/items?limit=100 200 in 2254ms
+prisma:query SELECT "public"."inquiry_items"."id", "public"."inquiry_items"."name", "public"."inquiry_items"."description", "public"."inquiry_items"."quantity", "public"."inquiry_items"."unit", "public"."inquiry_items"."status"::text, "public"."inquiry_items"."notes", "public"."inquiry_items"."requestedDelivery", "public"."inquiry_items"."priceEstimation", "public"."inquiry_items"."createdAt", "public"."inquiry_items"."updatedAt", "public"."inquiry_items"."inquiryId", "public"."inquiry_items"."assignedToId" FROM "public"."inquiry_items" WHERE "public"."inquiry_items"."inquiryId" IN ($1,$2,$3,$4,$5) OFFSET $6
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1,$2) OFFSET $3
+prisma:query SELECT "public"."cost_calculations"."id", "public"."cost_calculations"."materialCost", "public"."cost_calculations"."laborCost", "public"."cost_calculations"."overheadCost", "public"."cost_calculations"."totalCost", "public"."cost_calculations"."materialCostCurrency"::text, "public"."cost_calculations"."laborCostCurrency"::text, "public"."cost_calculations"."overheadCostCurrency"::text, "public"."cost_calculations"."materialCostOriginal", "public"."cost_calculations"."laborCostOriginal", "public"."cost_calculations"."overheadCostOriginal", "public"."cost_calculations"."materialCostRate", "public"."cost_calculations"."laborCostRate", "public"."cost_calculations"."overheadCostRate", "public"."cost_calculations"."notes", "public"."cost_calculations"."isApproved", "public"."cost_calculations"."approvedAt", "public"."cost_calculations"."createdAt", "public"."cost_calculations"."updatedAt", "public"."cost_calculations"."inquiryItemId", "public"."cost_calculations"."calculatedById" FROM "public"."cost_calculations" WHERE "public"."cost_calculations"."inquiryItemId" IN ($1,$2,$3,$4,$5,$6,$7,$8,$9) OFFSET $10
+prisma:query SELECT "public"."cost_calculations"."id", "public"."cost_calculations"."materialCost", "public"."cost_calculations"."laborCost", "public"."cost_calculations"."overheadCost", "public"."cost_calculations"."totalCost", "public"."cost_calculations"."materialCostCurrency"::text, "public"."cost_calculations"."laborCostCurrency"::text, "public"."cost_calculations"."overheadCostCurrency"::text, "public"."cost_calculations"."materialCostOriginal", "public"."cost_calculations"."laborCostOriginal", "public"."cost_calculations"."overheadCostOriginal", "public"."cost_calculations"."materialCostRate", "public"."cost_calculations"."laborCostRate", "public"."cost_calculations"."overheadCostRate", "public"."cost_calculations"."notes", "public"."cost_calculations"."isApproved", "public"."cost_calculations"."approvedAt", "public"."cost_calculations"."createdAt", "public"."cost_calculations"."updatedAt", "public"."cost_calculations"."inquiryItemId", "public"."cost_calculations"."calculatedById" FROM "public"."cost_calculations" WHERE "public"."cost_calculations"."inquiryItemId" IN ($1,$2,$3,$4,$5,$6,$7,$8,$9) OFFSET $10
+ GET /api/inquiries?limit=100 200 in 2257ms
+ GET /api/users?roles=VP%2CVPP&active=true 200 in 2260ms
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."name", "public"."users"."role"::text, "public"."users"."isActive", "public"."users"."createdAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_createdInquiries", 0) AS "_aggr_count_createdInquiries", COALESCE("aggr_selection_1_Inquiry"."_aggr_count_assignedInquiries", 0) AS "_aggr_count_assignedInquiries", COALESCE("aggr_selection_2_InquiryItem"."_aggr_count_inquiryItems", 0) AS "_aggr_count_inquiryItems", COALESCE("aggr_selection_3_CostCalculation"."_aggr_count_costCalculations", 0) AS "_aggr_count_costCalculations" FROM "public"."users" LEFT JOIN (SELECT "public"."inquiries"."createdById", COUNT(*) AS "_aggr_count_createdInquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."createdById") AS "aggr_selection_0_Inquiry" ON ("public"."users"."id" = "aggr_selection_0_Inquiry"."createdById") LEFT JOIN (SELECT "public"."inquiries"."assignedToId", COUNT(*) AS "_aggr_count_assignedInquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."assignedToId") AS "aggr_selection_1_Inquiry" ON ("public"."users"."id" = "aggr_selection_1_Inquiry"."assignedToId") LEFT JOIN (SELECT "public"."inquiry_items"."assignedToId", COUNT(*) AS "_aggr_count_inquiryItems" FROM "public"."inquiry_items" WHERE 1=1 GROUP BY "public"."inquiry_items"."assignedToId") AS "aggr_selection_2_InquiryItem" ON ("public"."users"."id" = "aggr_selection_2_InquiryItem"."assignedToId") LEFT JOIN (SELECT "public"."cost_calculations"."calculatedById", COUNT(*) AS "_aggr_count_costCalculations" FROM "public"."cost_calculations" WHERE 1=1 GROUP BY "public"."cost_calculations"."calculatedById") AS "aggr_selection_3_CostCalculation" ON ("public"."users"."id" = "aggr_selection_3_CostCalculation"."calculatedById") WHERE ("public"."users"."role" IN (CAST($1::text AS "public"."UserRole"),CAST($2::text AS "public"."UserRole")) AND "public"."users"."isActive" = $3) ORDER BY "public"."users"."name" ASC OFFSET $4
+Middleware check: {
+  pathname: '/api/notifications',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+Middleware check: {
+  pathname: '/api/system-settings',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+Middleware check: {
+  pathname: '/api/customers',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+Middleware check: {
+  pathname: '/api/items',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+Middleware check: {
+  pathname: '/api/inquiries',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+Middleware check: {
+  pathname: '/api/users',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/notifications 200 in 43ms
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."system_settings"."id", "public"."system_settings"."mainCurrency"::text, "public"."system_settings"."additionalCurrency1"::text, "public"."system_settings"."additionalCurrency2"::text, "public"."system_settings"."exchangeRate1", "public"."system_settings"."exchangeRate2", "public"."system_settings"."storageProvider"::text, "public"."system_settings"."uploadThingToken", "public"."system_settings"."uploadThingAppId", "public"."system_settings"."localStoragePath", "public"."system_settings"."maxFileSize", "public"."system_settings"."allowedFileTypes", "public"."system_settings"."updatedAt", "public"."system_settings"."updatedById" FROM "public"."system_settings" WHERE 1=1 LIMIT $1 OFFSET $2
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/system-settings 200 in 51ms
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiry_items"."id" FROM "public"."inquiry_items" WHERE 1=1 OFFSET $1) AS "sub"
+prisma:query SELECT "public"."inquiry_items"."id", "public"."inquiry_items"."name", "public"."inquiry_items"."description", "public"."inquiry_items"."quantity", "public"."inquiry_items"."unit", "public"."inquiry_items"."status"::text, "public"."inquiry_items"."notes", "public"."inquiry_items"."requestedDelivery", "public"."inquiry_items"."priceEstimation", "public"."inquiry_items"."createdAt", "public"."inquiry_items"."updatedAt", "public"."inquiry_items"."inquiryId", "public"."inquiry_items"."assignedToId" FROM "public"."inquiry_items" WHERE 1=1 ORDER BY "public"."inquiry_items"."createdAt" DESC LIMIT $1 OFFSET $2
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_inquiries", 0) AS "_aggr_count_inquiries" FROM "public"."customers" LEFT JOIN (SELECT "public"."inquiries"."customerId", COUNT(*) AS "_aggr_count_inquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."customerId") AS "aggr_selection_0_Inquiry" ON ("public"."customers"."id" = "aggr_selection_0_Inquiry"."customerId") WHERE 1=1 ORDER BY "public"."customers"."createdAt" DESC OFFSET $1
+ GET /api/customers?limit=100 200 in 59ms
+prisma:query SELECT "public"."inquiries"."id", "public"."inquiries"."title", "public"."inquiries"."description", "public"."inquiries"."status"::text, "public"."inquiries"."priority"::text, "public"."inquiries"."deadline", "public"."inquiries"."totalValue", "public"."inquiries"."createdAt", "public"."inquiries"."updatedAt", "public"."inquiries"."customerId", "public"."inquiries"."createdById", "public"."inquiries"."assignedToId" FROM "public"."inquiries" WHERE "public"."inquiries"."id" IN ($1,$2,$3,$4,$5) OFFSET $6
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiries"."id" FROM "public"."inquiries" WHERE 1=1 OFFSET $1) AS "sub"
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name" FROM "public"."customers" WHERE "public"."customers"."id" IN ($1,$2,$3,$4,$5) OFFSET $6
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1,$2) OFFSET $3
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email", "public"."users"."role"::text FROM "public"."users" WHERE "public"."users"."id" IN ($1,$2) OFFSET $3
+prisma:query SELECT "public"."cost_calculations"."id", "public"."cost_calculations"."materialCost", "public"."cost_calculations"."laborCost", "public"."cost_calculations"."overheadCost", "public"."cost_calculations"."totalCost", "public"."cost_calculations"."materialCostCurrency"::text, "public"."cost_calculations"."laborCostCurrency"::text, "public"."cost_calculations"."overheadCostCurrency"::text, "public"."cost_calculations"."materialCostOriginal", "public"."cost_calculations"."laborCostOriginal", "public"."cost_calculations"."overheadCostOriginal", "public"."cost_calculations"."materialCostRate", "public"."cost_calculations"."laborCostRate", "public"."cost_calculations"."overheadCostRate", "public"."cost_calculations"."notes", "public"."cost_calculations"."isApproved", "public"."cost_calculations"."approvedAt", "public"."cost_calculations"."createdAt", "public"."cost_calculations"."updatedAt", "public"."cost_calculations"."inquiryItemId", "public"."cost_calculations"."calculatedById" FROM "public"."cost_calculations" WHERE "public"."cost_calculations"."inquiryItemId" IN ($1,$2,$3,$4,$5,$6,$7,$8,$9) OFFSET $10
+ GET /api/items?limit=100 200 in 63ms
+prisma:query SELECT "public"."inquiries"."id", "public"."inquiries"."title", "public"."inquiries"."description", "public"."inquiries"."status"::text, "public"."inquiries"."priority"::text, "public"."inquiries"."deadline", "public"."inquiries"."totalValue", "public"."inquiries"."createdAt", "public"."inquiries"."updatedAt", "public"."inquiries"."customerId", "public"."inquiries"."createdById", "public"."inquiries"."assignedToId", COALESCE("aggr_selection_0_InquiryItem"."_aggr_count_items", 0) AS "_aggr_count_items" FROM "public"."inquiries" LEFT JOIN (SELECT "public"."inquiry_items"."inquiryId", COUNT(*) AS "_aggr_count_items" FROM "public"."inquiry_items" WHERE 1=1 GROUP BY "public"."inquiry_items"."inquiryId") AS "aggr_selection_0_InquiryItem" ON ("public"."inquiries"."id" = "aggr_selection_0_InquiryItem"."inquiryId") WHERE 1=1 ORDER BY "public"."inquiries"."createdAt" DESC LIMIT $1 OFFSET $2
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt" FROM "public"."customers" WHERE "public"."customers"."id" IN ($1,$2,$3,$4,$5) OFFSET $6
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1,$2) OFFSET $3
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."inquiry_items"."id", "public"."inquiry_items"."name", "public"."inquiry_items"."description", "public"."inquiry_items"."quantity", "public"."inquiry_items"."unit", "public"."inquiry_items"."status"::text, "public"."inquiry_items"."notes", "public"."inquiry_items"."requestedDelivery", "public"."inquiry_items"."priceEstimation", "public"."inquiry_items"."createdAt", "public"."inquiry_items"."updatedAt", "public"."inquiry_items"."inquiryId", "public"."inquiry_items"."assignedToId" FROM "public"."inquiry_items" WHERE "public"."inquiry_items"."inquiryId" IN ($1,$2,$3,$4,$5) OFFSET $6
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1,$2) OFFSET $3
+prisma:query SELECT "public"."cost_calculations"."id", "public"."cost_calculations"."materialCost", "public"."cost_calculations"."laborCost", "public"."cost_calculations"."overheadCost", "public"."cost_calculations"."totalCost", "public"."cost_calculations"."materialCostCurrency"::text, "public"."cost_calculations"."laborCostCurrency"::text, "public"."cost_calculations"."overheadCostCurrency"::text, "public"."cost_calculations"."materialCostOriginal", "public"."cost_calculations"."laborCostOriginal", "public"."cost_calculations"."overheadCostOriginal", "public"."cost_calculations"."materialCostRate", "public"."cost_calculations"."laborCostRate", "public"."cost_calculations"."overheadCostRate", "public"."cost_calculations"."notes", "public"."cost_calculations"."isApproved", "public"."cost_calculations"."approvedAt", "public"."cost_calculations"."createdAt", "public"."cost_calculations"."updatedAt", "public"."cost_calculations"."inquiryItemId", "public"."cost_calculations"."calculatedById" FROM "public"."cost_calculations" WHERE "public"."cost_calculations"."inquiryItemId" IN ($1,$2,$3,$4,$5,$6,$7,$8,$9) OFFSET $10
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/inquiries?limit=100 200 in 67ms
+Middleware check: {
+  pathname: '/api/workload/cmdo8lbha0005i0pmqo9jic1d',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+Middleware check: {
+  pathname: '/api/system-settings',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+Middleware check: {
+  pathname: '/api/workload/cmdo8lbgy0003i0pmo2o24vnm',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+ GET /api/users?roles=VP%2CVPP&active=true 200 in 66ms
+prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."name", "public"."users"."role"::text, "public"."users"."isActive", "public"."users"."createdAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_createdInquiries", 0) AS "_aggr_count_createdInquiries", COALESCE("aggr_selection_1_Inquiry"."_aggr_count_assignedInquiries", 0) AS "_aggr_count_assignedInquiries", COALESCE("aggr_selection_2_InquiryItem"."_aggr_count_inquiryItems", 0) AS "_aggr_count_inquiryItems", COALESCE("aggr_selection_3_CostCalculation"."_aggr_count_costCalculations", 0) AS "_aggr_count_costCalculations" FROM "public"."users" LEFT JOIN (SELECT "public"."inquiries"."createdById", COUNT(*) AS "_aggr_count_createdInquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."createdById") AS "aggr_selection_0_Inquiry" ON ("public"."users"."id" = "aggr_selection_0_Inquiry"."createdById") LEFT JOIN (SELECT "public"."inquiries"."assignedToId", COUNT(*) AS "_aggr_count_assignedInquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."assignedToId") AS "aggr_selection_1_Inquiry" ON ("public"."users"."id" = "aggr_selection_1_Inquiry"."assignedToId") LEFT JOIN (SELECT "public"."inquiry_items"."assignedToId", COUNT(*) AS "_aggr_count_inquiryItems" FROM "public"."inquiry_items" WHERE 1=1 GROUP BY "public"."inquiry_items"."assignedToId") AS "aggr_selection_2_InquiryItem" ON ("public"."users"."id" = "aggr_selection_2_InquiryItem"."assignedToId") LEFT JOIN (SELECT "public"."cost_calculations"."calculatedById", COUNT(*) AS "_aggr_count_costCalculations" FROM "public"."cost_calculations" WHERE 1=1 GROUP BY "public"."cost_calculations"."calculatedById") AS "aggr_selection_3_CostCalculation" ON ("public"."users"."id" = "aggr_selection_3_CostCalculation"."calculatedById") WHERE ("public"."users"."role" IN (CAST($1::text AS "public"."UserRole"),CAST($2::text AS "public"."UserRole")) AND "public"."users"."isActive" = $3) ORDER BY "public"."users"."name" ASC OFFSET $4
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT "public"."system_settings"."id", "public"."system_settings"."mainCurrency"::text, "public"."system_settings"."additionalCurrency1"::text, "public"."system_settings"."additionalCurrency2"::text, "public"."system_settings"."exchangeRate1", "public"."system_settings"."exchangeRate2", "public"."system_settings"."storageProvider"::text, "public"."system_settings"."uploadThingToken", "public"."system_settings"."uploadThingAppId", "public"."system_settings"."localStoragePath", "public"."system_settings"."maxFileSize", "public"."system_settings"."allowedFileTypes", "public"."system_settings"."updatedAt", "public"."system_settings"."updatedById" FROM "public"."system_settings" WHERE 1=1 LIMIT $1 OFFSET $2
+ GET /api/system-settings 200 in 29ms
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ ○ Compiling /api/workload/[userId] ...
+ ✓ Compiled /api/workload/[userId] in 790ms (1977 modules)
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiry_items"."id" FROM "public"."inquiry_items" WHERE ("public"."inquiry_items"."assignedToId" = $1 AND "public"."inquiry_items"."status" IN (CAST($2::text AS "public"."ItemStatus"),CAST($3::text AS "public"."ItemStatus"),CAST($4::text AS "public"."ItemStatus"))) OFFSET $5) AS "sub"
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiry_items"."id" FROM "public"."inquiry_items" WHERE ("public"."inquiry_items"."assignedToId" = $1 AND "public"."inquiry_items"."status" IN (CAST($2::text AS "public"."ItemStatus"),CAST($3::text AS "public"."ItemStatus"),CAST($4::text AS "public"."ItemStatus"))) OFFSET $5) AS "sub"
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiry_items"."id" FROM "public"."inquiry_items" WHERE ("public"."inquiry_items"."assignedToId" = $1 AND "public"."inquiry_items"."status" IN (CAST($2::text AS "public"."ItemStatus"),CAST($3::text AS "public"."ItemStatus"),CAST($4::text AS "public"."ItemStatus"))) OFFSET $5) AS "sub"
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiry_items"."id" FROM "public"."inquiry_items" WHERE "public"."inquiry_items"."assignedToId" = $1 OFFSET $2) AS "sub"
+ GET /api/workload/cmdo8lbgy0003i0pmo2o24vnm 200 in 1398ms
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiry_items"."id" FROM "public"."inquiry_items" WHERE ("public"."inquiry_items"."assignedToId" = $1 AND "public"."inquiry_items"."status" IN (CAST($2::text AS "public"."ItemStatus"),CAST($3::text AS "public"."ItemStatus"),CAST($4::text AS "public"."ItemStatus"))) OFFSET $5) AS "sub"
+ GET /api/workload/cmdo8lbha0005i0pmqo9jic1d 200 in 1405ms
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiry_items"."id" FROM "public"."inquiry_items" WHERE "public"."inquiry_items"."assignedToId" = $1 OFFSET $2) AS "sub"
+Middleware check: {
+  pathname: '/api/workload/cmdo8lbgy0003i0pmo2o24vnm',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+Middleware check: {
+  pathname: '/api/workload/cmdo8lbha0005i0pmqo9jic1d',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiry_items"."id" FROM "public"."inquiry_items" WHERE ("public"."inquiry_items"."assignedToId" = $1 AND "public"."inquiry_items"."status" IN (CAST($2::text AS "public"."ItemStatus"),CAST($3::text AS "public"."ItemStatus"),CAST($4::text AS "public"."ItemStatus"))) OFFSET $5) AS "sub"
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiry_items"."id" FROM "public"."inquiry_items" WHERE ("public"."inquiry_items"."assignedToId" = $1 AND "public"."inquiry_items"."status" IN (CAST($2::text AS "public"."ItemStatus"),CAST($3::text AS "public"."ItemStatus"),CAST($4::text AS "public"."ItemStatus"))) OFFSET $5) AS "sub"
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin
+ GET /api/workload/cmdo8lbgy0003i0pmo2o24vnm 200 in 67ms
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiry_items"."id" FROM "public"."inquiry_items" WHERE "public"."inquiry_items"."assignedToId" = $1 OFFSET $2) AS "sub"
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiry_items"."id" FROM "public"."inquiry_items" WHERE ("public"."inquiry_items"."assignedToId" = $1 AND "public"."inquiry_items"."status" IN (CAST($2::text AS "public"."ItemStatus"),CAST($3::text AS "public"."ItemStatus"),CAST($4::text AS "public"."ItemStatus"))) OFFSET $5) AS "sub"
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiry_items"."id" FROM "public"."inquiry_items" WHERE ("public"."inquiry_items"."assignedToId" = $1 AND "public"."inquiry_items"."status" IN (CAST($2::text AS "public"."ItemStatus"),CAST($3::text AS "public"."ItemStatus"),CAST($4::text AS "public"."ItemStatus"))) OFFSET $5) AS "sub"
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiry_items"."id" FROM "public"."inquiry_items" WHERE "public"."inquiry_items"."assignedToId" = $1 OFFSET $2) AS "sub"
+ GET /api/workload/cmdo8lbha0005i0pmqo9jic1d 200 in 68ms
+Middleware check: {
+  pathname: '/api/items/unassign',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+ ○ Compiling /api/items/unassign ...
+ ⨯ ./src/app/api/items/unassign/route.ts:3:1
+Module not found: Can't resolve '@/app/api/auth/[...nextauth]/auth-options'
+  1 | import { NextRequest, NextResponse } from 'next/server'
+  2 | import { getServerSession } from 'next-auth'
+> 3 | import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options'
+    | ^
+  4 | import { db } from '@/lib/db'
+  5 | import { UserRole } from '@prisma/client'
+  6 |
+
+https://nextjs.org/docs/messages/module-not-found
+ ⨯ ./src/app/api/items/unassign/route.ts:3:1
+Module not found: Can't resolve '@/app/api/auth/[...nextauth]/auth-options'
+  1 | import { NextRequest, NextResponse } from 'next/server'
+  2 | import { getServerSession } from 'next-auth'
+> 3 | import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options'
+    | ^
+  4 | import { db } from '@/lib/db'
+  5 | import { UserRole } from '@prisma/client'
+  6 |
+
+https://nextjs.org/docs/messages/module-not-found
+ ⨯ ./src/app/api/items/unassign/route.ts:3:1
+Module not found: Can't resolve '@/app/api/auth/[...nextauth]/auth-options'
+  1 | import { NextRequest, NextResponse } from 'next/server'
+  2 | import { getServerSession } from 'next-auth'
+> 3 | import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options'
+    | ^
+  4 | import { db } from '@/lib/db'
+  5 | import { UserRole } from '@prisma/client'
+  6 |
+
+https://nextjs.org/docs/messages/module-not-found
+Middleware check: {
+  pathname: '/dashboard/assignments/dnd',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+ ⨯ ./src/app/api/items/unassign/route.ts:3:1
+Module not found: Can't resolve '@/app/api/auth/[...nextauth]/auth-options'
+  1 | import { NextRequest, NextResponse } from 'next/server'
+  2 | import { getServerSession } from 'next-auth'
+> 3 | import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options'
+    | ^
+  4 | import { db } from '@/lib/db'
+  5 | import { UserRole } from '@prisma/client'
+  6 |
+
+https://nextjs.org/docs/messages/module-not-found
+ ⨯ ./src/app/api/items/unassign/route.ts:3:1
+Module not found: Can't resolve '@/app/api/auth/[...nextauth]/auth-options'
+  1 | import { NextRequest, NextResponse } from 'next/server'
+  2 | import { getServerSession } from 'next-auth'
+> 3 | import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options'
+    | ^
+  4 | import { db } from '@/lib/db'
+  5 | import { UserRole } from '@prisma/client'
+  6 |
+
+https://nextjs.org/docs/messages/module-not-found
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ POST /api/items/unassign 500 in 8208ms
+ POST /api/items/unassign 500 in 350ms
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+Middleware check: {
+  pathname: '/api/users',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+Middleware check: {
+  pathname: '/api/items',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+Middleware check: {
+  pathname: '/api/customers',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+Middleware check: {
+  pathname: '/api/inquiries',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /dashboard/assignments/dnd 500 in 2779ms
+ GET /dashboard/assignments/dnd 500 in 98ms
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+Middleware check: {
+  pathname: '/dashboard/assignments/dnd',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /api/users?roles=VP%2CVPP&active=true 500 in 1359ms
+ GET /api/users?roles=VP%2CVPP&active=true 500 in 820ms
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /api/items?limit=100 500 in 1679ms
+ GET /api/items?limit=100 500 in 324ms
+ GET /api/customers?limit=100 500 in 1679ms
+ GET /api/customers?limit=100 500 in 324ms
+ GET /api/inquiries?limit=100 500 in 1678ms
+ GET /api/inquiries?limit=100 500 in 324ms
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /dashboard/assignments/dnd 500 in 1961ms
+ GET /dashboard/assignments/dnd 500 in 159ms
+Middleware check: {
+  pathname: '/dashboard/assignments/dnd',
+  hasSessionToken: true,
+  cookies: [
+  'authjs.csrf-token',
+  'authjs.callback-url',
+  'locale',
+  'authjs.session-token'
+]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: Cannot find module 'critters'
+Require stack:
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/post-process.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/render.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/module.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/route-modules/pages/builtin/_error.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/load-default-error-components.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/dev/next-dev-server.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/next.js
+- /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/next/dist/server/lib/start-server.js] {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /dashboard/assignments/dnd 500 in 180ms
+ GET /dashboard/assignments/dnd 500 in 48ms
+[?25h

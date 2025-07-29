@@ -4,7 +4,7 @@ import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { User as UserIcon, Package, CheckCircle2 } from 'lucide-react'
+import { User as UserIcon, Package, CheckCircle2, Sparkles, TrendingUp } from 'lucide-react'
 import { User, InquiryItemWithRelations } from '@/types'
 import { DraggableItem } from './draggable-item'
 import { cn } from '@/lib/utils'
@@ -20,7 +20,7 @@ interface UserDropZoneProps {
 
 export function UserDropZone({ user, items, isOver }: UserDropZoneProps) {
   const { setNodeRef } = useDroppable({
-    id: user.id,
+    id: `user-${user.id}`,
   })
 
   const isVPP = user.role === 'VPP'
@@ -29,9 +29,10 @@ export function UserDropZone({ user, items, isOver }: UserDropZoneProps) {
     <Card 
       ref={setNodeRef}
       className={cn(
-        "h-full transition-all duration-200",
+        "h-full transition-shadow duration-200",
+        "hover:shadow-md",
         isOver && "ring-2 ring-primary ring-offset-2 bg-primary/5",
-        "hover:shadow-md"
+        isVPP && "border-t-2 border-t-primary/50"
       )}
     >
       <CardHeader className="pb-3">

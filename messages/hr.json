@@ -78,6 +78,7 @@
       "submit": "Pošalji",
       "reset": "Resetiraj",
       "clear": "Očisti",
+      "clearFilters": "Očisti sve filtre",
       "copy": "Kopiraj",
       "paste": "Zalijepi",
       "duplicate": "Dupliciraj",
@@ -258,6 +259,18 @@
       "uniqueValue": "Ova vrijednost mora biti jedinstvena",
       "forbidden": "Ova vrijednost nije dopuštena"
     }
+  },
+  "errors": {
+    "_context": "Opće poruke o greškama koje se koriste u cijeloj aplikaciji",
+    "failedToLoadData": "Učitavanje podataka nije uspjelo",
+    "failedToAssignItem": "Dodjela stavke nije uspjela",
+    "failedToAssignItems": "Dodjela stavki nije uspjela. Molimo pokušajte ponovo.",
+    "failedToUnassignItem": "Uklanjanje dodjele stavke nije uspjelo. Molimo pokušajte ponovo.",
+    "noPermission": "Nemate dozvolu za pristup ovoj stranici",
+    "generic": "Dogodila se greška. Molimo pokušajte ponovo.",
+    "networkError": "Greška mreže. Molimo provjerite vašu vezu.",
+    "serverError": "Greška poslužitelja. Molimo pokušajte kasnije.",
+    "validationError": "Molimo provjerite vaš unos i pokušajte ponovo."
   },
   "navigation": {
     "_context": "Stavke glavnog navigacijskog izbornika i usmjeravanje stranica",
@@ -1128,7 +1141,28 @@
       "reject": "Odbaci",
       "complete": "Označi kao završeno",
       "viewDetails": "Prikaži detalje"
-    }
+    },
+    "assignItemsTitle": "Dodijeli stavke VP/VPP-u",
+    "assignItemsDescription": "Dodijeli {count, plural, =1 {1 odabranu stavku} other {# odabranih stavki}} VP/VPP korisniku za izračun troškova.",
+    "selectVPUser": "Odaberi VP/VPP korisnika",
+    "chooseVPUser": "Odaberi VP/VPP korisnika...",
+    "selectedItems": "Odabrane stavke",
+    "itemsAssignedSuccess": "Stavke uspješno dodijeljene!",
+    "itemAssignedTo": "Stavka dodijeljena {name}",
+    "itemUnassigned": "Stavka uspješno uklonjena iz dodjele",
+    "dropToUnassign": "Ispustite ovdje da uklonite dodjelu",
+    "unassignedItems": "Nedodijeljene stavke",
+    "dragDropTitle": "Povuci i ispusti dodjele",
+    "dragDropDescription": "Povucite stavke da ih dodijelite VP-ovima ili VPP-ovima",
+    "showAssignedItems": "Prikaži dodijeljene stavke",
+    "assignableItems": "{count, plural, =0 {Nema stavki za dodjelu} =1 {1 stavka za dodjelu} other {# stavki za dodjelu}}",
+    "users": "{count, plural, =0 {Nema korisnika} =1 {1 korisnik} other {# korisnika}}",
+    "noUnassignedItems": "Nema nedodijeljenih stavki",
+    "filterItems": "Filtriraj stavke",
+    "allCustomers": "Svi kupci",
+    "allStatuses": "Svi statusi",
+    "noItemsMatchFilter": "Nema stavki koje odgovaraju vašim kriterijima filtriranja.",
+    "noItemsAvailable": "Sve stavke su dodijeljene ili nema stavki na čekanju."
   },
   "automation": {
     "_context": "Sustav automatizacije tijeka rada za pravila i okidače",

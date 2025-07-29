@@ -140,6 +140,13 @@ export class ApiClient {
     })
   }
 
+  async unassignItems(data: { itemIds: string[] }) {
+    return this.request('/items/unassign', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    })
+  }
+
   // Cost Calculations
   async getCostCalculations(params?: Record<string, any>) {
     const searchParams = this.cleanParams(params)
