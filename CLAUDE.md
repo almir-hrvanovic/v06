@@ -263,6 +263,48 @@ const formatted = formatCurrency(100, Currency.EUR, 'hr-HR')
 - Full documentation: [`/docs/currency-system.md`](./docs/currency-system.md)
 - Quick reference: [`/docs/currency-quick-reference.md`](./docs/currency-quick-reference.md)
 
+## 🎨 Theme & Language Persistence System
+
+### Overview
+The application uses a bulletproof persistence system for user preferences that ensures settings are never lost during page refreshes, browser restarts, or server restarts. The system combines database storage, cookie synchronization, and client-side initialization scripts.
+
+### Key Features
+- **Theme Persistence**: Light/Dark/System theme with localStorage + script initialization
+- **Language Persistence**: Multi-language support with database + cookie synchronization  
+- **Hydration Safety**: Prevents client/server mismatches and UI flashing
+- **API Integration**: RESTful endpoints for preference management
+
+### Quick Usage
+```typescript
+// Theme
+import { useTheme } from '@/contexts/theme-context'
+const { theme, setTheme, actualTheme } = useTheme()
+
+// Language  
+import { useLocale } from 'next-intl'
+import { QuickLanguageSwitcher } from '@/components/language/language-switcher'
+const locale = useLocale()
+```
+
+### Storage Architecture
+```
+Database (source of truth) → Cookie (server access) → localStorage (client) → UI
+```
+
+### Supported Languages
+- **Croatian** (hr-HR) - Hrvatski 🇭🇷
+- **Bosnian** (bs-BA) - Bosanski 🇧🇦  
+- **English** (en-US) - English 🇺🇸
+- **German** (de-DE) - Deutsch 🇩🇪
+
+### API Endpoints
+- `PUT /api/user/language` - Update user language preference
+- `GET /api/user/language` - Get current language preference
+
+**Documentation**:
+- Full documentation: [`/docs/persistence-system.md`](./docs/persistence-system.md)
+- Quick reference: [`/docs/persistence-quick-reference.md`](./docs/persistence-quick-reference.md)
+
 ## 🚨 Development Warnings
 
 - Never restart dev server. Ask me to do it, or to let you to do it!

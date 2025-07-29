@@ -19,6 +19,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { MobileBottomMenu } from './mobile-bottom-menu'
 import { NotificationDropdown } from '@/components/notifications/notification-dropdown'
+import { QuickLanguageSwitcher } from '@/components/language/language-switcher'
 import { useSession, signOut } from 'next-auth/react'
 import {
   Search,
@@ -161,6 +162,9 @@ export function MobileHeader({ className }: MobileHeaderProps) {
             <span className="sr-only">{t('toggleSearch')}</span>
           </Button>
 
+          {/* Language Switcher */}
+          <QuickLanguageSwitcher className="h-8 w-8" />
+          
           {/* Notifications */}
           <NotificationDropdown />
 

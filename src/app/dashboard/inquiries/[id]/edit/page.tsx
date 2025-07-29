@@ -283,10 +283,7 @@ export default function EditInquiryPage() {
 
           {/* Attachments */}
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-medium">{t('inquiries.form.documentation.title')}</h3>
-              <BulkDocumentUploadV2 inquiryId={params.id as string} />
-            </div>
+            <h3 className="text-lg font-medium">{t('inquiries.form.documentation.title')}</h3>
             <AttachmentManager
               inquiryId={params.id as string}
               showUpload={true}
@@ -294,7 +291,7 @@ export default function EditInquiryPage() {
           </div>
 
           {/* Form Actions */}
-          <div className="flex justify-end space-x-4">
+          <div className="flex justify-center space-x-4">
             <Button
               type="button"
               variant="outline"

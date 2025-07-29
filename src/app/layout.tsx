@@ -14,6 +14,8 @@ import { NextIntlClientProvider } from 'next-intl'
 import { cookies } from 'next/headers'
 import { ErrorBoundary } from '@/components/error-boundary'
 import { AutoLoginProvider } from '@/components/auth/auto-login-provider'
+import { getServerAuth } from '@/lib/auth-helpers'
+import { prisma } from '@/lib/db'
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -39,9 +41,27 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Get locale from cookie
+  // Get locale from multiple sources (cookie, user preference, fallback)
   const cookieStore = await cookies();
-  const locale = cookieStore.get('locale')?.value || 'hr-HR';
+  const cookieLocale = cookieStore.get('locale')?.value;
+  
+  // Try to get user's preferred language from database
+  let userPreferredLanguage: string | null = null;
+  try {
+    const session = await getServerAuth();
+    if (session?.user?.id) {
+      const user = await prisma.user.findUnique({
+        where: { id: session.user.id },
+        select: { preferredLanguage: true }
+      });
+      userPreferredLanguage = user?.preferredLanguage || null;
+    }
+  } catch (error) {
+    console.warn('Failed to fetch user language preference:', error);
+  }
+  
+  // Priority: cookie > user preference > system default
+  const locale = cookieLocale || userPreferredLanguage || 'hr-HR';
   const validLocales = ['hr', 'bs', 'en', 'de', 'hr-HR', 'bs-BA', 'en-US', 'de-DE'];
   const validatedLocale = validLocales.includes(locale) ? locale : 'hr-HR';
   
@@ -74,8 +94,37 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang={validatedLocale}>
-      <body className={inter.className}>
+    <html lang={validatedLocale} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                // Theme initialization
+                var theme = localStorage.getItem('gs-cms-theme') || 'system';
+                var actualTheme = theme;
+                
+                if (theme === 'system') {
+                  actualTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+                
+                document.documentElement.classList.remove('light', 'dark');
+                document.documentElement.classList.add(actualTheme);
+                
+                // Locale initialization - ensure cookie matches expected locale
+                var expectedLocale = '${validatedLocale}';
+                var currentCookie = document.cookie.split('; ').find(row => row.startsWith('locale='));
+                var cookieValue = currentCookie ? currentCookie.split('=')[1] : null;
+                
+                if (!cookieValue || cookieValue !== expectedLocale) {
+                  document.cookie = 'locale=' + expectedLocale + '; path=/; max-age=' + (365 * 24 * 60 * 60) + '; samesite=lax';
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
+      <body className={inter.className} suppressHydrationWarning>
         <NextSSRPlugin
           routerConfig={extractRouterConfig(ourFileRouter)}
         />

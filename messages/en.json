@@ -1008,7 +1008,8 @@
         "uploadDescription": "Select multiple files to upload. These will be organized in a folder with the inquiry ID.",
         "uploadSuccess": "Documents uploaded successfully",
         "uploadError": "Failed to upload documents",
-        "openFolder": "Open Documentation Folder"
+        "openFolder": "Open Documentation Folder",
+        "viewFiles": "View Files"
       }
     },
     "list": {

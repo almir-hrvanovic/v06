@@ -109,6 +109,14 @@ const nextConfig: NextConfig = {
       };
     }
     
+    // Disable source maps for React DevTools in production
+    if (isProduction) {
+      config.optimization = {
+        ...config.optimization,
+        minimize: true,
+      };
+    }
+    
     return config;
   },
   
@@ -116,6 +124,13 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   productionBrowserSourceMaps: false,
+  
+  // Source map configuration
+  devIndicators: {
+    appIsrStatus: true,
+    buildActivity: true,
+    buildActivityPosition: 'bottom-right',
+  },
   
   // React strict mode
   reactStrictMode: true,

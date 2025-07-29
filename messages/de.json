@@ -285,6 +285,7 @@
       "reports": "Berichte",
       "analytics": "Analytik",
       "settings": "Einstellungen",
+      "systemSettings": "Systemeinstellungen",
       "help": "Hilfe",
       "documentation": "Dokumentation"
     },
@@ -971,7 +972,8 @@
         "uploadDescription": "Wählen Sie mehrere Dateien zum Hochladen aus. Diese werden in einem Ordner mit der Anfrage-ID organisiert.",
         "uploadSuccess": "Dokumente erfolgreich hochgeladen",
         "uploadError": "Dokumente konnten nicht hochgeladen werden",
-        "openFolder": "Dokumentationsordner öffnen"
+        "openFolder": "Dokumentationsordner öffnen",
+        "viewFiles": "Dateien anzeigen"
       }
     },
     "list": {

@@ -999,7 +999,8 @@
         "uploadDescription": "Odaberite više datoteka za učitavanje. One će biti organizovane u folder sa ID-om upita.",
         "uploadSuccess": "Dokumenti su uspješno učitani",
         "uploadError": "Učitavanje dokumenata nije uspjelo",
-        "openFolder": "Otvori folder sa dokumentacijom"
+        "openFolder": "Otvori folder sa dokumentacijom",
+        "viewFiles": "Pregledaj datoteke"
       }
     },
     "list": {

@@ -1,6 +1,6 @@
 'use client'
 
-import { Bell, Search, User, LogOut, Settings, Languages, Palette } from 'lucide-react'
+import { Bell, Search, User, LogOut, Settings, Languages, Palette, Globe } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { NotificationDropdown } from '@/components/notifications/notification-dropdown'
 import { ThemeToggleItems } from '@/components/ui/theme-toggle'
+import { QuickLanguageSwitcher } from '@/components/language/language-switcher'
 import { useSession, signOut } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
@@ -178,6 +179,11 @@ export function Header() {
         
         {/* Right side - Actions */}
         <div className="flex-1 flex items-center justify-end space-x-3">
+          {/* Language Switcher */}
+          <div className="relative">
+            <QuickLanguageSwitcher className="h-9 w-9" />
+          </div>
+          
           {/* Notifications with modern styling */}
           <div className="relative">
             <NotificationDropdown />

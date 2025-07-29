@@ -159,15 +159,30 @@ export function AdaptiveFileUpload({
         <div className="space-y-4">
           <div className="flex flex-col items-center justify-center">
             <UploadIcon className="h-12 w-12 text-muted-foreground mb-4" />
-            <Input
-              id="file-upload"
-              type="file"
-              multiple={maxFiles > 1}
-              accept={acceptedFileTypes?.join(',') || settings.allowedFileTypes.join(',')}
-              onChange={handleFileSelect}
-              disabled={isUploading}
-              className="max-w-xs"
-            />
+            <label htmlFor="file-upload-input" className="cursor-pointer">
+              <div className="flex flex-col items-center gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  disabled={isUploading}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    document.getElementById('file-upload-input')?.click()
+                  }}
+                >
+                  {t('attachments.selectFiles')}
+                </Button>
+                <input
+                  id="file-upload-input"
+                  type="file"
+                  multiple={maxFiles > 1}
+                  accept={acceptedFileTypes?.join(',') || settings.allowedFileTypes.join(',')}
+                  onChange={handleFileSelect}
+                  disabled={isUploading}
+                  className="sr-only"
+                />
+              </div>
+            </label>
             <p className="text-sm text-muted-foreground mt-2">
               Max file size: {Math.round(settings.maxFileSize / 1048576)}MB
             </p>

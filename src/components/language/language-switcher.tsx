@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
+import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { 
   DropdownMenu, 
@@ -67,6 +68,7 @@ export function LanguageSwitcher({
 }: LanguageSwitcherProps) {
   const currentLocale = useLocale();
   const t = useTranslations();
+  const { update } = useSession();
   const [isChanging, setIsChanging] = useState(false);
 
   const currentLanguage = LANGUAGES.find(lang => 
@@ -79,14 +81,34 @@ export function LanguageSwitcher({
     setIsChanging(true);
     
     try {
-      // Set the locale cookie
+      // First, update the user's preferred language in the database
+      const response = await fetch('/api/user/language', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          language: language.fullLocale
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update user language preference');
+      }
+
+      // Update the session to reflect the new language preference
+      await update({
+        preferredLanguage: language.fullLocale
+      });
+
+      // Then set the locale cookie for immediate effect
       await setLocaleCookie(language.fullLocale);
       
       // Show success message
       toast.success(
         `Language changed to ${language.nativeName}`,
         {
-          description: 'The page will reload to apply the new language',
+          description: 'Language preference saved. The page will reload to apply the new language.',
           duration: 2000
         }
       );
@@ -98,7 +120,7 @@ export function LanguageSwitcher({
       
     } catch (error) {
       console.error('Failed to change language:', error);
-      toast.error('Failed to change language');
+      toast.error('Failed to save language preference. Please try again.');
       setIsChanging(false);
     }
   };

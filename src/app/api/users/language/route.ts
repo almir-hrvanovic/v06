@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
 
     const { language } = await request.json()
 
-    if (!language || !['hr-HR', 'en-US', 'de-DE'].includes(language)) {
+    if (!language || !['hr-HR', 'en-US', 'de-DE', 'bs-BA'].includes(language)) {
       return NextResponse.json(
         { error: 'Invalid language' },
         { status: 400 }

@@ -964,7 +964,8 @@
         "uploadDescription": "Odaberite više datoteka za učitavanje. One će biti organizirane u mapu s ID-om upita.",
         "uploadSuccess": "Dokumenti su uspješno učitani",
         "uploadError": "Učitavanje dokumenata nije uspjelo",
-        "openFolder": "Otvori mapu s dokumentacijom"
+        "openFolder": "Otvori mapu s dokumentacijom",
+        "viewFiles": "Pregledaj datoteke"
       }
     },
     "list": {

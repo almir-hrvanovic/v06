@@ -27,12 +27,18 @@ export function BulkDocumentUploadV2({ inquiryId, onUploadComplete }: BulkDocume
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
 
   const handleUploadComplete = async (files: UploadedFile[]) => {
+    // Only process if files were actually uploaded
+    if (!files || files.length === 0) {
+      return
+    }
+    
     setUploadedFiles(prev => [...prev, ...files])
     
     // Create folder structure if needed (for UploadThing uploads)
     try {
       const response = await fetch(`/api/inquiries/${inquiryId}/documents`, {
         method: 'GET',
+        credentials: 'include'
       })
 
       if (response.ok) {
@@ -44,6 +50,7 @@ export function BulkDocumentUploadV2({ inquiryId, onUploadComplete }: BulkDocume
             headers: {
               'Content-Type': 'application/json',
             },
+            credentials: 'include',
             body: JSON.stringify({ files: [] })
           })
         }
@@ -51,11 +58,13 @@ export function BulkDocumentUploadV2({ inquiryId, onUploadComplete }: BulkDocume
       
       toast.success(t('attachments.bulk.uploadSuccess', { count: files.length }))
       
-      if (uploadedFiles.length + files.length > 0) {
-        onUploadComplete?.()
-      }
+      // Close dialog after successful upload
+      setTimeout(() => {
+        handleClose()
+      }, 1000)
     } catch (error) {
       console.error('Failed to create folder structure:', error)
+      toast.error(t('attachments.upload.failed'))
     }
   }
 
@@ -70,9 +79,9 @@ export function BulkDocumentUploadV2({ inquiryId, onUploadComplete }: BulkDocume
   const handleClose = () => {
     if (uploadedFiles.length > 0) {
       onUploadComplete?.()
+      setUploadedFiles([])
     }
     setIsOpen(false)
-    setUploadedFiles([])
   }
 
   return (

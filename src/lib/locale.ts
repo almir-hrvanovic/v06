@@ -1,17 +1,16 @@
-import { cookies } from 'next/headers';
 import { formatDate, formatDateTime, formatCurrency, formatRelativeTime } from './utils';
 
-export async function setLocaleCookie(locale: string) {
-  const cookieStore = await cookies();
-  cookieStore.set('locale', locale, {
-    maxAge: 365 * 24 * 60 * 60, // 1 year
-    httpOnly: false, // Allow client-side access
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax'
+// Client-side cookie functions
+export function setLocaleCookie(locale: string): Promise<void> {
+  return new Promise((resolve) => {
+    document.cookie = `locale=${locale}; path=/; max-age=${365 * 24 * 60 * 60}; samesite=lax${process.env.NODE_ENV === 'production' ? '; secure' : ''}`;
+    resolve();
   });
 }
 
-export async function getLocaleCookie(): Promise<string> {
+// Server-side cookie functions (for server components)
+export async function getLocaleCookieServer(): Promise<string> {
+  const { cookies } = await import('next/headers');
   const cookieStore = await cookies();
   return cookieStore.get('locale')?.value || 'hr-HR';
 }
