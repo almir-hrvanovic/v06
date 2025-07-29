@@ -1299,6 +1299,7 @@
   "attachments": {
     "_context": "File upload and attachment management system",
     "title": "Attachments",
+    "add": "Add Attachment",
     "itemAttachments": "Item Attachments",
     "inquiryAttachments": "Inquiry Attachments",
     "addFiles": "Add Files",
@@ -1327,6 +1328,9 @@
       "uploading": "Uploading files...",
       "dragDrop": "Drag and drop files here or click to browse",
       "selectFiles": "Select Files",
+      "uploadFiles": "Upload Files",
+      "tooManyFiles": "Too many files selected. Maximum {max} files allowed",
+      "selectedFiles": "Selected Files",
       "maxFileSize": "Maximum file size: {size}",
       "allowedTypes": "Allowed types: {types}",
       "imageInstructions": "Upload images (JPG, PNG, etc.) - Max 4MB each, up to 5 files",

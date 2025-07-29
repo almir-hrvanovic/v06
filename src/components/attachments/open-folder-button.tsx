@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { FolderOpenIcon } from 'lucide-react'
 import { toast } from 'sonner'
@@ -11,9 +11,34 @@ interface OpenFolderButtonProps {
   className?: string
 }
 
+interface SystemSettings {
+  storageProvider: 'UPLOADTHING' | 'LOCAL'
+  localStoragePath?: string
+}
+
 export function OpenFolderButton({ inquiryId, className = "" }: OpenFolderButtonProps) {
   const t = useTranslations()
   const [isLoading, setIsLoading] = useState(false)
+  const [settings, setSettings] = useState<SystemSettings | null>(null)
+  
+  useEffect(() => {
+    // Fetch storage settings
+    const fetchSettings = async () => {
+      try {
+        const response = await fetch('/api/system-settings')
+        if (response.ok) {
+          const data = await response.json()
+          setSettings({
+            storageProvider: data.storageProvider,
+            localStoragePath: data.localStoragePath
+          })
+        }
+      } catch (error) {
+        console.error('Failed to fetch storage settings:', error)
+      }
+    }
+    fetchSettings()
+  }, [])
 
   const handleOpenFolder = async () => {
     setIsLoading(true)
@@ -48,17 +73,24 @@ export function OpenFolderButton({ inquiryId, className = "" }: OpenFolderButton
         return
       }
 
-      // In a real implementation, this would open the folder in the OS file explorer
-      // For now, we'll show the path and file count
-      toast.success(t('attachments.folder.opened', { 
-        path: data.data.folderPath,
-        count: data.data.fileCount 
-      }))
+      // Show folder information
+      if (settings?.storageProvider === 'LOCAL') {
+        toast.info(
+          `Folder location: ${data.data.folderPath}\n` +
+          `Files: ${data.data.fileCount}\n\n` +
+          `Note: In a desktop application, this would open the folder in your file explorer.`
+        )
+      } else {
+        toast.success(t('attachments.folder.opened', { 
+          path: data.data.folderPath,
+          count: data.data.fileCount 
+        }))
+      }
 
-      // If running in Electron or with special OS integration, you could do:
+      // In a real desktop app with Electron:
       // window.electronAPI.openFolder(data.data.folderPath)
       
-      // For web-based systems, you might redirect to a file browser view:
+      // For now, we could open a file browser view:
       // router.push(`/dashboard/inquiries/${inquiryId}/files`)
       
     } catch (error) {

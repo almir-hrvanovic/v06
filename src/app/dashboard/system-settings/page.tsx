@@ -78,6 +78,7 @@ export default function SystemSettingsPage() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
+  const [activeTab, setActiveTab] = useState<'currency' | 'storage'>('currency')
   
   const [formData, setFormData] = useState({
     mainCurrency: Currency.EUR as Currency,
@@ -132,6 +133,9 @@ export default function SystemSettingsPage() {
         maxFileSize: data.maxFileSize || 16777216,
         allowedFileTypes: data.allowedFileTypes || ['image/*', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
       })
+      
+      // Preserve the active tab if it was set (e.g., from URL or previous state)
+      // This helps when returning to the page
     } catch (error) {
       console.error('Failed to fetch system settings:', error)
       toast.error('Failed to load system settings')
@@ -144,26 +148,33 @@ export default function SystemSettingsPage() {
     try {
       setSaving(true)
       
-      const payload = {
-        mainCurrency: formData.mainCurrency,
-        additionalCurrency1: formData.additionalCurrency1 === 'none' ? null : formData.additionalCurrency1,
-        additionalCurrency2: formData.additionalCurrency2 === 'none' ? null : formData.additionalCurrency2,
-        exchangeRate1: formData.additionalCurrency1 && formData.additionalCurrency1 !== 'none' && formData.exchangeRate1 
-          ? parseFloat(formData.exchangeRate1) 
-          : null,
-        exchangeRate2: formData.additionalCurrency2 && formData.additionalCurrency2 !== 'none' && formData.exchangeRate2 
-          ? parseFloat(formData.exchangeRate2) 
-          : null,
-        // File Storage Settings
-        storageProvider: formData.storageProvider,
-        uploadThingToken: formData.uploadThingToken || null,
-        uploadThingAppId: formData.uploadThingAppId || null,
-        localStoragePath: formData.localStoragePath || './uploads',
-        maxFileSize: formData.maxFileSize,
-        allowedFileTypes: formData.allowedFileTypes
+      let payload: any = {}
+      
+      // Only include data from the active tab
+      if (activeTab === 'currency') {
+        payload = {
+          mainCurrency: formData.mainCurrency,
+          additionalCurrency1: formData.additionalCurrency1 === 'none' ? null : formData.additionalCurrency1,
+          additionalCurrency2: formData.additionalCurrency2 === 'none' ? null : formData.additionalCurrency2,
+          exchangeRate1: formData.additionalCurrency1 && formData.additionalCurrency1 !== 'none' && formData.exchangeRate1 
+            ? parseFloat(formData.exchangeRate1) 
+            : null,
+          exchangeRate2: formData.additionalCurrency2 && formData.additionalCurrency2 !== 'none' && formData.exchangeRate2 
+            ? parseFloat(formData.exchangeRate2) 
+            : null,
+        }
+      } else if (activeTab === 'storage') {
+        payload = {
+          storageProvider: formData.storageProvider,
+          uploadThingToken: formData.uploadThingToken || null,
+          uploadThingAppId: formData.uploadThingAppId || null,
+          localStoragePath: formData.localStoragePath || './uploads',
+          maxFileSize: formData.maxFileSize,
+          allowedFileTypes: formData.allowedFileTypes
+        }
       }
       
-      console.log('Sending payload:', payload)
+      console.log('Sending payload for tab:', activeTab, payload)
       
       const response = await fetch('/api/system-settings', {
         method: 'PUT',
@@ -175,18 +186,34 @@ export default function SystemSettingsPage() {
       
       if (!response.ok) {
         const error = await response.json()
+        console.error('API Error Response:', error)
+        if (error.details) {
+          console.error('Validation errors:', error.details)
+        }
         throw new Error(error.error || 'Failed to update settings')
       }
       
       const updatedSettings = await response.json()
       setSettings(updatedSettings)
-      setShowConfirmDialog(false)
-      toast.success('System settings updated successfully')
       
-      // Reload the page to apply new settings
-      setTimeout(() => {
-        window.location.reload()
-      }, 1000)
+      // Update form data with the returned values to ensure consistency
+      setFormData(prev => ({
+        ...prev,
+        mainCurrency: updatedSettings.mainCurrency,
+        additionalCurrency1: updatedSettings.additionalCurrency1 || 'none',
+        additionalCurrency2: updatedSettings.additionalCurrency2 || 'none',
+        exchangeRate1: updatedSettings.exchangeRate1?.toString() || '',
+        exchangeRate2: updatedSettings.exchangeRate2?.toString() || '',
+        storageProvider: updatedSettings.storageProvider || StorageProvider.UPLOADTHING,
+        uploadThingToken: updatedSettings.uploadThingToken || '',
+        uploadThingAppId: updatedSettings.uploadThingAppId || '',
+        localStoragePath: updatedSettings.localStoragePath || './uploads',
+        maxFileSize: updatedSettings.maxFileSize || 16777216,
+        allowedFileTypes: updatedSettings.allowedFileTypes || ['image/*', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
+      }))
+      
+      setShowConfirmDialog(false)
+      toast.success(`${activeTab === 'currency' ? 'Currency' : 'Storage'} settings updated successfully`)
     } catch (error: any) {
       console.error('Failed to update system settings:', error)
       toast.error(error.message || 'Failed to update system settings')
@@ -196,29 +223,30 @@ export default function SystemSettingsPage() {
   }
 
   const validateForm = () => {
-    // Check if additional currency has exchange rate
-    if (formData.additionalCurrency1 && !formData.exchangeRate1) {
+    // Check if additional currency has exchange rate (only if currency is not 'none')
+    if (formData.additionalCurrency1 && formData.additionalCurrency1 !== 'none' && !formData.exchangeRate1) {
       toast.error('Exchange rate is required for additional currency 1')
       return false
     }
     
-    if (formData.additionalCurrency2 && !formData.exchangeRate2) {
+    if (formData.additionalCurrency2 && formData.additionalCurrency2 !== 'none' && !formData.exchangeRate2) {
       toast.error('Exchange rate is required for additional currency 2')
       return false
     }
     
-    // Check if currencies are unique
-    if (formData.additionalCurrency1 && formData.additionalCurrency1 === formData.mainCurrency) {
+    // Check if currencies are unique (only if not 'none')
+    if (formData.additionalCurrency1 && formData.additionalCurrency1 !== 'none' && formData.additionalCurrency1 === formData.mainCurrency) {
       toast.error('Additional currency 1 cannot be the same as main currency')
       return false
     }
     
-    if (formData.additionalCurrency2 && formData.additionalCurrency2 === formData.mainCurrency) {
+    if (formData.additionalCurrency2 && formData.additionalCurrency2 !== 'none' && formData.additionalCurrency2 === formData.mainCurrency) {
       toast.error('Additional currency 2 cannot be the same as main currency')
       return false
     }
     
-    if (formData.additionalCurrency1 && formData.additionalCurrency2 && 
+    if (formData.additionalCurrency1 && formData.additionalCurrency1 !== 'none' && 
+        formData.additionalCurrency2 && formData.additionalCurrency2 !== 'none' && 
         formData.additionalCurrency1 === formData.additionalCurrency2) {
       toast.error('Additional currencies must be different')
       return false
@@ -270,7 +298,9 @@ export default function SystemSettingsPage() {
   }
 
   const handleSaveClick = () => {
-    if (validateForm()) {
+    if (activeTab === 'currency' && validateForm()) {
+      setShowConfirmDialog(true)
+    } else if (activeTab === 'storage' && validateStorageSettings()) {
       setShowConfirmDialog(true)
     }
   }
@@ -307,7 +337,7 @@ export default function SystemSettingsPage() {
         </Button>
       </div>
 
-      <Tabs defaultValue="currency" className="space-y-4">
+      <Tabs value={activeTab} className="space-y-4" onValueChange={(value) => setActiveTab(value as 'currency' | 'storage')}>
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="currency" className="flex items-center gap-2">
             <DollarSign className="h-4 w-4" />
@@ -372,7 +402,9 @@ export default function SystemSettingsPage() {
                   value={formData.additionalCurrency1 || 'none'}
                   onValueChange={(value) => setFormData({ 
                     ...formData, 
-                    additionalCurrency1: value === 'none' ? null : value as Currency 
+                    additionalCurrency1: value === 'none' ? null : value as Currency,
+                    // Clear exchange rate when currency is set to none
+                    exchangeRate1: value === 'none' ? '' : formData.exchangeRate1
                   })}
                 >
                   <SelectTrigger id="additionalCurrency1">
@@ -426,7 +458,9 @@ export default function SystemSettingsPage() {
                   value={formData.additionalCurrency2 || 'none'}
                   onValueChange={(value) => setFormData({ 
                     ...formData, 
-                    additionalCurrency2: value === 'none' ? null : value as Currency 
+                    additionalCurrency2: value === 'none' ? null : value as Currency,
+                    // Clear exchange rate when currency is set to none
+                    exchangeRate2: value === 'none' ? '' : formData.exchangeRate2
                   })}
                 >
                   <SelectTrigger id="additionalCurrency2">
@@ -658,24 +692,29 @@ export default function SystemSettingsPage() {
                 </div>
               </div>
 
-              {/* Save Button for Storage Tab */}
-              <div className="flex items-center justify-between pt-6">
-                <div className="text-sm text-muted-foreground">
-                  {settings?.updatedAt && (
-                    <>
-                      Last updated: {formatDate(new Date(settings.updatedAt))}
-                      {settings.updatedBy && (
-                        <> by {settings.updatedBy.name || settings.updatedBy.email}</>
-                      )}
-                    </>
-                  )}
+              {/* Last Updated Info */}
+              {settings?.updatedBy && (
+                <div className="flex items-center justify-between text-sm text-muted-foreground pt-4 border-t">
+                  <span className="flex items-center gap-2">
+                    <RefreshCw className="h-4 w-4" />
+                    Last updated: {formatDate(settings.updatedAt)}
+                  </span>
+                  <span>
+                    By: {settings.updatedBy.name} ({settings.updatedBy.email})
+                  </span>
                 </div>
+              )}
+
+              {/* Actions */}
+              <div className="flex justify-end gap-4 pt-4">
+                <Button
+                  variant="outline"
+                  onClick={() => router.push('/dashboard')}
+                >
+                  Cancel
+                </Button>
                 <Button 
-                  onClick={() => {
-                    if (validateStorageSettings()) {
-                      setShowConfirmDialog(true)
-                    }
-                  }}
+                  onClick={handleSaveClick}
                   disabled={saving}
                 >
                   {saving ? (
@@ -700,31 +739,60 @@ export default function SystemSettingsPage() {
       <AlertDialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Confirm Currency Changes</AlertDialogTitle>
+            <AlertDialogTitle>
+              Confirm {activeTab === 'currency' ? 'Currency' : 'Storage'} Settings Changes
+            </AlertDialogTitle>
             <AlertDialogDescription>
-              You are about to change the system currency settings:
+              {activeTab === 'currency' 
+                ? 'You are about to change the system currency settings:'
+                : 'You are about to change the file storage settings:'}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <div className="space-y-4 py-4">
-            <ul className="list-disc list-inside space-y-1">
-              <li>Main Currency: {currencySymbols[formData.mainCurrency]} ({formData.mainCurrency})</li>
-              {formData.additionalCurrency1 && formData.additionalCurrency1 !== 'none' && (
-                <li>
-                  Additional Currency 1: {currencySymbols[formData.additionalCurrency1 as Currency]} ({formData.additionalCurrency1})
-                  - Rate: {formData.exchangeRate1}
-                </li>
-              )}
-              {formData.additionalCurrency2 && formData.additionalCurrency2 !== 'none' && (
-                <li>
-                  Additional Currency 2: {currencySymbols[formData.additionalCurrency2 as Currency]} ({formData.additionalCurrency2})
-                  - Rate: {formData.exchangeRate2}
-                </li>
-              )}
-            </ul>
-            <p className="font-medium text-sm">
-              This will affect all currency displays and calculations throughout the system. 
-              Are you sure you want to continue?
-            </p>
+            {activeTab === 'currency' ? (
+              <>
+                <ul className="list-disc list-inside space-y-1">
+                  <li>Main Currency: {currencySymbols[formData.mainCurrency]} ({formData.mainCurrency})</li>
+                  {formData.additionalCurrency1 && formData.additionalCurrency1 !== 'none' && (
+                    <li>
+                      Additional Currency 1: {currencySymbols[formData.additionalCurrency1 as Currency]} ({formData.additionalCurrency1})
+                      - Rate: {formData.exchangeRate1}
+                    </li>
+                  )}
+                  {formData.additionalCurrency2 && formData.additionalCurrency2 !== 'none' && (
+                    <li>
+                      Additional Currency 2: {currencySymbols[formData.additionalCurrency2 as Currency]} ({formData.additionalCurrency2})
+                      - Rate: {formData.exchangeRate2}
+                    </li>
+                  )}
+                </ul>
+                <p className="font-medium text-sm">
+                  This will affect all currency displays and calculations throughout the system. 
+                  Are you sure you want to continue?
+                </p>
+              </>
+            ) : (
+              <>
+                <ul className="list-disc list-inside space-y-1">
+                  <li>Storage Provider: {formData.storageProvider === StorageProvider.UPLOADTHING ? 'UploadThing (Cloud)' : 'Local File System'}</li>
+                  {formData.storageProvider === StorageProvider.UPLOADTHING && (
+                    <>
+                      <li>App ID: {formData.uploadThingAppId || 'Not set'}</li>
+                      <li>Token: {formData.uploadThingToken ? '••••••••' : 'Not set'}</li>
+                    </>
+                  )}
+                  {formData.storageProvider === StorageProvider.LOCAL && (
+                    <li>Storage Path: {formData.localStoragePath}</li>
+                  )}
+                  <li>Max File Size: {formData.maxFileSize / 1048576}MB</li>
+                  <li>File Types: {formData.allowedFileTypes.length} types allowed</li>
+                </ul>
+                <p className="font-medium text-sm">
+                  This will affect how files are stored and accessed in the system. 
+                  Are you sure you want to continue?
+                </p>
+              </>
+            )}
           </div>
           <AlertDialogFooter>
             <AlertDialogCancel disabled={saving}>Cancel</AlertDialogCancel>

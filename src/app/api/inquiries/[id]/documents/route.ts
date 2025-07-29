@@ -5,9 +5,6 @@ import path from 'path'
 import fs from 'fs/promises'
 import { z } from 'zod'
 
-// Base directory for storing inquiry documents
-const DOCUMENTS_BASE_DIR = process.env.DOCUMENTS_DIR || path.join(process.cwd(), 'inquiry-documents')
-
 // Schema for document upload
 const uploadDocumentsSchema = z.object({
   files: z.array(z.object({
@@ -28,8 +25,8 @@ async function ensureDirectory(dirPath: string) {
 }
 
 // Create inquiry folder structure
-async function createInquiryFolders(inquiryId: string) {
-  const inquiryDir = path.join(DOCUMENTS_BASE_DIR, inquiryId)
+async function createInquiryFolders(inquiryId: string, basePath: string) {
+  const inquiryDir = path.join(basePath, inquiryId)
   const customerDocsDir = path.join(inquiryDir, 'customer-documents')
   
   await ensureDirectory(inquiryDir)
@@ -76,8 +73,14 @@ export async function POST(
       return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 })
     }
 
+    // Get storage settings
+    const settings = await prisma.systemSettings.findFirst()
+    const basePath = settings?.storageProvider === 'LOCAL' 
+      ? (settings.localStoragePath || './uploads')
+      : path.join(process.cwd(), 'inquiry-documents')
+
     // Create folder structure
-    const { inquiryDir, customerDocsDir } = await createInquiryFolders(inquiryId)
+    const { inquiryDir, customerDocsDir } = await createInquiryFolders(inquiryId, basePath)
 
     // Parse request body
     const body = await request.json()
@@ -191,7 +194,13 @@ export async function GET(
       return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 })
     }
 
-    const customerDocsDir = path.join(DOCUMENTS_BASE_DIR, inquiryId, 'customer-documents')
+    // Get storage settings
+    const settings = await prisma.systemSettings.findFirst()
+    const basePath = settings?.storageProvider === 'LOCAL' 
+      ? (settings.localStoragePath || './uploads')
+      : path.join(process.cwd(), 'inquiry-documents')
+      
+    const customerDocsDir = path.join(basePath, inquiryId, 'customer-documents')
     
     // Check if folder exists
     try {

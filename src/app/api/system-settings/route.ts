@@ -6,7 +6,7 @@ import { Currency, StorageProvider } from '@prisma/client'
 
 // Validation schema for system settings
 const systemSettingsSchema = z.object({
-  mainCurrency: z.nativeEnum(Currency),
+  mainCurrency: z.nativeEnum(Currency).optional(),
   additionalCurrency1: z.nativeEnum(Currency).optional().nullable(),
   additionalCurrency2: z.nativeEnum(Currency).optional().nullable(),
   exchangeRate1: z.number().positive().optional().nullable(),
@@ -19,27 +19,31 @@ const systemSettingsSchema = z.object({
   maxFileSize: z.number().min(1048576).max(104857600).optional(), // 1MB to 100MB
   allowedFileTypes: z.array(z.string()).min(1).optional(),
 }).refine((data) => {
-  // If additional currency is set, exchange rate must be provided
-  if (data.additionalCurrency1 && !data.exchangeRate1) {
-    return false
+  // Only validate currency relationships if mainCurrency is being updated
+  if (data.mainCurrency !== undefined) {
+    // If additional currency is set, exchange rate must be provided
+    if (data.additionalCurrency1 && !data.exchangeRate1) {
+      return false
+    }
+    if (data.additionalCurrency2 && !data.exchangeRate2) {
+      return false
+    }
+    // Additional currencies must be different from main currency
+    if (data.additionalCurrency1 && data.additionalCurrency1 === data.mainCurrency) {
+      return false
+    }
+    if (data.additionalCurrency2 && data.additionalCurrency2 === data.mainCurrency) {
+      return false
+    }
+    // Additional currencies must be different from each other
+    if (data.additionalCurrency1 && data.additionalCurrency2 && 
+        data.additionalCurrency1 === data.additionalCurrency2) {
+      return false
+    }
   }
-  if (data.additionalCurrency2 && !data.exchangeRate2) {
-    return false
-  }
-  // Additional currencies must be different from main currency
-  if (data.additionalCurrency1 && data.additionalCurrency1 === data.mainCurrency) {
-    return false
-  }
-  if (data.additionalCurrency2 && data.additionalCurrency2 === data.mainCurrency) {
-    return false
-  }
-  // Additional currencies must be different from each other
-  if (data.additionalCurrency1 && data.additionalCurrency2 && 
-      data.additionalCurrency1 === data.additionalCurrency2) {
-    return false
-  }
+  
   // Storage provider validation - only validate if storage settings are being updated
-  if (data.storageProvider) {
+  if (data.storageProvider !== undefined) {
     if (data.storageProvider === StorageProvider.UPLOADTHING) {
       if (!data.uploadThingToken || !data.uploadThingAppId) {
         return false
@@ -158,7 +162,7 @@ export async function PUT(request: NextRequest) {
       // Create if doesn't exist
       settings = await prisma.systemSettings.create({
         data: {
-          mainCurrency: data.mainCurrency,
+          mainCurrency: data.mainCurrency || Currency.EUR,
           additionalCurrency1: data.additionalCurrency1,
           additionalCurrency2: data.additionalCurrency2,
           exchangeRate1: data.exchangeRate1,
@@ -178,11 +182,12 @@ export async function PUT(request: NextRequest) {
       console.log('[SystemSettings] Updating existing settings...')
       try {
         const updateData = {
-          mainCurrency: data.mainCurrency,
-          additionalCurrency1: data.additionalCurrency1,
-          additionalCurrency2: data.additionalCurrency2,
-          exchangeRate1: data.exchangeRate1,
-          exchangeRate2: data.exchangeRate2,
+          // Currency settings - only update if provided
+          mainCurrency: data.mainCurrency !== undefined ? data.mainCurrency : settings.mainCurrency,
+          additionalCurrency1: data.additionalCurrency1 !== undefined ? data.additionalCurrency1 : settings.additionalCurrency1,
+          additionalCurrency2: data.additionalCurrency2 !== undefined ? data.additionalCurrency2 : settings.additionalCurrency2,
+          exchangeRate1: data.exchangeRate1 !== undefined ? data.exchangeRate1 : settings.exchangeRate1,
+          exchangeRate2: data.exchangeRate2 !== undefined ? data.exchangeRate2 : settings.exchangeRate2,
           // Storage settings - only update if provided
           storageProvider: data.storageProvider !== undefined ? data.storageProvider : settings.storageProvider,
           uploadThingToken: data.uploadThingToken !== undefined ? data.uploadThingToken : settings.uploadThingToken,
@@ -219,7 +224,7 @@ export async function PUT(request: NextRequest) {
       }
     })
 
-    return NextResponse.json({
+    const responseData = {
       id: settings.id,
       mainCurrency: settings.mainCurrency,
       additionalCurrency1: settings.additionalCurrency1,
@@ -235,10 +240,14 @@ export async function PUT(request: NextRequest) {
       allowedFileTypes: settings.allowedFileTypes,
       updatedAt: settings.updatedAt,
       updatedBy: {
-        name: session.user.name,
-        email: session.user.email
+        name: session.user.name || '',
+        email: session.user.email || ''
       }
-    })
+    }
+    
+    console.log('[SystemSettings] Response data:', JSON.stringify(responseData, null, 2))
+    
+    return NextResponse.json(responseData)
   } catch (error: any) {
     console.error('[SystemSettings] Failed to update system settings:', error)
     console.error('[SystemSettings] Error stack:', error.stack)

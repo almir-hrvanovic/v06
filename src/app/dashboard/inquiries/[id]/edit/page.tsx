@@ -27,7 +27,7 @@ import { updateInquirySchema } from '@/lib/validations'
 import { Priority, InquiryStatus } from '@prisma/client'
 import { CurrencyInput } from '@/components/ui/currency-input'
 import { AttachmentManager } from '@/components/attachments/attachment-manager'
-import { BulkDocumentUpload } from '@/components/attachments/bulk-document-upload'
+import { BulkDocumentUploadV2 } from '@/components/attachments/bulk-document-upload-v2'
 
 type InquiryFormData = z.infer<typeof updateInquirySchema>
 
@@ -285,7 +285,7 @@ export default function EditInquiryPage() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-medium">{t('inquiries.form.documentation.title')}</h3>
-              <BulkDocumentUpload inquiryId={params.id as string} />
+              <BulkDocumentUploadV2 inquiryId={params.id as string} />
             </div>
             <AttachmentManager
               inquiryId={params.id as string}
