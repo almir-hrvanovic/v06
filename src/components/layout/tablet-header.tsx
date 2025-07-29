@@ -119,8 +119,8 @@ export function TabletHeader({ className }: TabletHeaderProps) {
         {/* Left side - Title only (no logo) */}
         <div className="flex items-center flex-1">
           <div>
-            <span className="font-semibold text-foreground text-lg">GS-CMS</span>
-            <div className="text-xs text-muted-foreground">v5.0</div>
+            <span className="font-semibold text-foreground text-lg">GS-Star</span>
+            <div className="text-xs text-muted-foreground">v5.1</div>
           </div>
         </div>
 

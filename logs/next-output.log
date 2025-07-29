@@ -1,5 +1,5 @@
 
-> gs-cms-v05@0.1.0 dev
+> gs-star-v51@0.1.0 dev
 > next dev
 
    ▲ Next.js 15.1.8
@@ -10,313 +10,257 @@
      · turbo
 
  ✓ Starting...
- ✓ Ready in 1718ms
- ✓ Compiled /src/middleware in 493ms (100 modules)
+ ✓ Ready in 1634ms
+ ○ Compiling /src/middleware ...
+ ✓ Compiled /src/middleware in 505ms (100 modules)
 Middleware check: { pathname: '/', hasSessionToken: false }
  ○ Compiling / ...
 
 
 Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
 Setting up new context...
-Finding changed files: 9.506ms
+Finding changed files: 9.781ms
 
 
 Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/styles/i18n.css
 
 
 Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/node_modules/@uploadthing/react/dist/index.css
-JIT TOTAL: 156.034ms
+JIT TOTAL: 156.051ms
 
 
 
 
-(node:1263798) Warning: Label 'JIT TOTAL' already exists for console.time()
+(node:1411985) Warning: Label 'JIT TOTAL' already exists for console.time()
 (Use `node --trace-warnings ...` to show where the warning was created)
-(node:1263798) Warning: Label 'JIT TOTAL' already exists for console.time()
-(node:1263798) Warning: No such label 'JIT TOTAL' for console.timeEnd()
-Reading changed files: 404.511ms
-Sorting candidates: 8.46ms
-Generate rules: 220.369ms
-Build stylesheet: 3.6ms
-Potential classes:  9359
+(node:1411985) Warning: Label 'JIT TOTAL' already exists for console.time()
+(node:1411985) Warning: No such label 'JIT TOTAL' for console.timeEnd()
+Reading changed files: 392.549ms
+Sorting candidates: 8.4ms
+Generate rules: 204.065ms
+Build stylesheet: 6.929ms
+Potential classes:  9676
 Active contexts:  1
 
 
-(node:1263798) Warning: No such label 'JIT TOTAL' for console.timeEnd()
- ✓ Compiled / in 8.2s (1514 modules)
- GET / 200 in 9112ms
+(node:1411985) Warning: No such label 'JIT TOTAL' for console.timeEnd()
+ ✓ Compiled / in 7.6s (1514 modules)
+ GET / 200 in 8591ms
 
 
 Source path: /home/hrvanovic_5510/Projects/GS_projects/GS-v05_1/FLOW2_test/src/app/globals.css
-Finding changed files: 9.669ms
-Reading changed files: 0.006ms
-Sorting candidates: 0.004ms
-Generate rules: 0.107ms
+Finding changed files: 7.38ms
+Reading changed files: 0.007ms
+Sorting candidates: 0.005ms
+Generate rules: 0.112ms
 Build stylesheet: 0.003ms
 Potential classes:  1
 Active contexts:  1
-JIT TOTAL: 84.708ms
+JIT TOTAL: 85.322ms
 
 
 Middleware check: { pathname: '/api/health', hasSessionToken: false }
- ✓ Compiled in 1348ms (335 modules)
+ ✓ Compiled in 1297ms (335 modules)
 Middleware check: { pathname: '/api', hasSessionToken: false }
 Middleware check: { pathname: '/', hasSessionToken: false }
- GET / 200 in 42ms
+ GET / 200 in 43ms
 Middleware check: { pathname: '/api/health', hasSessionToken: false }
 Middleware check: { pathname: '/', hasSessionToken: false }
- GET / 200 in 60ms
-Middleware check: { pathname: '/', hasSessionToken: true }
- GET / 200 in 92ms
-Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
-Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
- ○ Compiling /api/auth/[...nextauth] ...
-Middleware check: { pathname: '/auth/signin', hasSessionToken: true }
- ✓ Compiled /auth/signin in 2s (1514 modules)
- GET /api/console-monitor/status 200 in 2179ms
- GET /auth/signin 200 in 1459ms
-[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
-NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
-  baseUrl: 'http://localhost:3000'
-}
-Same origin redirect to: http://localhost:3000/auth/signin
- GET /api/auth/session 200 in 2660ms
-Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
-NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
-  baseUrl: 'http://localhost:3000'
-}
-Same origin redirect to: http://localhost:3000/auth/signin
- GET /api/auth/session 200 in 34ms
-Middleware check: { pathname: '/api/auth/providers', hasSessionToken: true }
-NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
-  baseUrl: 'http://localhost:3000'
-}
-Same origin redirect to: http://localhost:3000/auth/signin
- GET /api/auth/providers 200 in 37ms
-Middleware check: { pathname: '/api/auth/csrf', hasSessionToken: true }
-NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
-  baseUrl: 'http://localhost:3000'
-}
-Same origin redirect to: http://localhost:3000/auth/signin
- GET /api/auth/csrf 200 in 10ms
-Middleware check: { pathname: '/api/auth/callback/credentials', hasSessionToken: true }
-NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
-  baseUrl: 'http://localhost:3000'
-}
-Same origin redirect to: http://localhost:3000/auth/signin
-prisma:query SELECT "public"."users"."id", "public"."users"."email", "public"."users"."name", "public"."users"."role"::text, "public"."users"."password", "public"."users"."isActive", "public"."users"."preferredLanguage" FROM "public"."users" WHERE ("public"."users"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
- POST /api/auth/callback/credentials? 200 in 508ms
-Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
-NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
-  baseUrl: 'http://localhost:3000'
-}
-Same origin redirect to: http://localhost:3000/auth/signin
- GET /api/auth/session 200 in 25ms
-Middleware check: { pathname: '/dashboard', hasSessionToken: true }
- ○ Compiling /dashboard ...
- ✓ Compiled /dashboard in 2.3s (1831 modules)
- GET /dashboard 200 in 2633ms
-Middleware check: { pathname: '/dashboard', hasSessionToken: true }
- GET /dashboard 200 in 123ms
-Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
- ○ Compiling /api/notifications ...
- ✓ Compiled /api/notifications in 788ms (1833 modules)
-[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
-NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
-  baseUrl: 'http://localhost:3000'
-}
-Same origin redirect to: http://localhost:3000/auth/signin
- GET /api/notifications 200 in 875ms
-Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
-NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
-  baseUrl: 'http://localhost:3000'
-}
-Same origin redirect to: http://localhost:3000/auth/signin
- GET /api/notifications 200 in 8ms
-Middleware check: { pathname: '/dashboard/inquiries', hasSessionToken: true }
- ○ Compiling /dashboard/inquiries ...
- ✓ Compiled /dashboard/inquiries in 1090ms (1866 modules)
- GET /dashboard/inquiries 200 in 1319ms
-Middleware check: { pathname: '/api/customers', hasSessionToken: true }
-Middleware check: { pathname: '/api/inquiries', hasSessionToken: true }
- ○ Compiling /api/inquiries ...
- ✓ Compiled /api/inquiries in 2.7s (1933 modules)
-[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
-NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
-  baseUrl: 'http://localhost:3000'
-}
-Same origin redirect to: http://localhost:3000/auth/signin
-NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
-  baseUrl: 'http://localhost:3000'
-}
-Same origin redirect to: http://localhost:3000/auth/signin
-prisma:query SELECT 1
-prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiries"."id" FROM "public"."inquiries" WHERE 1=1 OFFSET $1) AS "sub"
-prisma:query SELECT "public"."inquiries"."id", "public"."inquiries"."title", "public"."inquiries"."description", "public"."inquiries"."status"::text, "public"."inquiries"."priority"::text, "public"."inquiries"."deadline", "public"."inquiries"."totalValue", "public"."inquiries"."createdAt", "public"."inquiries"."updatedAt", "public"."inquiries"."customerId", "public"."inquiries"."createdById", "public"."inquiries"."assignedToId", COALESCE("aggr_selection_0_InquiryItem"."_aggr_count_items", 0) AS "_aggr_count_items" FROM "public"."inquiries" LEFT JOIN (SELECT "public"."inquiry_items"."inquiryId", COUNT(*) AS "_aggr_count_items" FROM "public"."inquiry_items" WHERE 1=1 GROUP BY "public"."inquiry_items"."inquiryId") AS "aggr_selection_0_InquiryItem" ON ("public"."inquiries"."id" = "aggr_selection_0_InquiryItem"."inquiryId") WHERE 1=1 ORDER BY "public"."inquiries"."createdAt" DESC LIMIT $1 OFFSET $2
-prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt" FROM "public"."customers" WHERE "public"."customers"."id" IN ($1,$2,$3) OFFSET $4
-prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
-prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
-prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_inquiries", 0) AS "_aggr_count_inquiries" FROM "public"."customers" LEFT JOIN (SELECT "public"."inquiries"."customerId", COUNT(*) AS "_aggr_count_inquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."customerId") AS "aggr_selection_0_Inquiry" ON ("public"."customers"."id" = "aggr_selection_0_Inquiry"."customerId") WHERE 1=1 ORDER BY "public"."customers"."createdAt" DESC OFFSET $1
- GET /api/customers? 200 in 2815ms
-prisma:query SELECT "public"."inquiry_items"."id", "public"."inquiry_items"."name", "public"."inquiry_items"."description", "public"."inquiry_items"."quantity", "public"."inquiry_items"."unit", "public"."inquiry_items"."status"::text, "public"."inquiry_items"."notes", "public"."inquiry_items"."requestedDelivery", "public"."inquiry_items"."createdAt", "public"."inquiry_items"."updatedAt", "public"."inquiry_items"."inquiryId", "public"."inquiry_items"."assignedToId" FROM "public"."inquiry_items" WHERE "public"."inquiry_items"."inquiryId" IN ($1,$2,$3) OFFSET $4
-prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
-prisma:query SELECT "public"."cost_calculations"."id", "public"."cost_calculations"."materialCost", "public"."cost_calculations"."laborCost", "public"."cost_calculations"."overheadCost", "public"."cost_calculations"."totalCost", "public"."cost_calculations"."notes", "public"."cost_calculations"."isApproved", "public"."cost_calculations"."approvedAt", "public"."cost_calculations"."createdAt", "public"."cost_calculations"."updatedAt", "public"."cost_calculations"."inquiryItemId", "public"."cost_calculations"."calculatedById" FROM "public"."cost_calculations" WHERE "public"."cost_calculations"."inquiryItemId" IN ($1,$2,$3,$4,$5,$6,$7) OFFSET $8
- GET /api/inquiries?limit=20 200 in 2817ms
-Middleware check: { pathname: '/api/customers', hasSessionToken: true }
-Middleware check: { pathname: '/api/inquiries', hasSessionToken: true }
-NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
-  baseUrl: 'http://localhost:3000'
-}
-Same origin redirect to: http://localhost:3000/auth/signin
-NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
-  baseUrl: 'http://localhost:3000'
-}
-Same origin redirect to: http://localhost:3000/auth/signin
- GET /api/customers? 200 in 18ms
-prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_inquiries", 0) AS "_aggr_count_inquiries" FROM "public"."customers" LEFT JOIN (SELECT "public"."inquiries"."customerId", COUNT(*) AS "_aggr_count_inquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."customerId") AS "aggr_selection_0_Inquiry" ON ("public"."customers"."id" = "aggr_selection_0_Inquiry"."customerId") WHERE 1=1 ORDER BY "public"."customers"."createdAt" DESC OFFSET $1
-prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiries"."id" FROM "public"."inquiries" WHERE 1=1 OFFSET $1) AS "sub"
-prisma:query SELECT "public"."inquiries"."id", "public"."inquiries"."title", "public"."inquiries"."description", "public"."inquiries"."status"::text, "public"."inquiries"."priority"::text, "public"."inquiries"."deadline", "public"."inquiries"."totalValue", "public"."inquiries"."createdAt", "public"."inquiries"."updatedAt", "public"."inquiries"."customerId", "public"."inquiries"."createdById", "public"."inquiries"."assignedToId", COALESCE("aggr_selection_0_InquiryItem"."_aggr_count_items", 0) AS "_aggr_count_items" FROM "public"."inquiries" LEFT JOIN (SELECT "public"."inquiry_items"."inquiryId", COUNT(*) AS "_aggr_count_items" FROM "public"."inquiry_items" WHERE 1=1 GROUP BY "public"."inquiry_items"."inquiryId") AS "aggr_selection_0_InquiryItem" ON ("public"."inquiries"."id" = "aggr_selection_0_InquiryItem"."inquiryId") WHERE 1=1 ORDER BY "public"."inquiries"."createdAt" DESC LIMIT $1 OFFSET $2
-prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt" FROM "public"."customers" WHERE "public"."customers"."id" IN ($1,$2,$3) OFFSET $4
-prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
-prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
-prisma:query SELECT "public"."inquiry_items"."id", "public"."inquiry_items"."name", "public"."inquiry_items"."description", "public"."inquiry_items"."quantity", "public"."inquiry_items"."unit", "public"."inquiry_items"."status"::text, "public"."inquiry_items"."notes", "public"."inquiry_items"."requestedDelivery", "public"."inquiry_items"."createdAt", "public"."inquiry_items"."updatedAt", "public"."inquiry_items"."inquiryId", "public"."inquiry_items"."assignedToId" FROM "public"."inquiry_items" WHERE "public"."inquiry_items"."inquiryId" IN ($1,$2,$3) OFFSET $4
-prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
-prisma:query SELECT "public"."cost_calculations"."id", "public"."cost_calculations"."materialCost", "public"."cost_calculations"."laborCost", "public"."cost_calculations"."overheadCost", "public"."cost_calculations"."totalCost", "public"."cost_calculations"."notes", "public"."cost_calculations"."isApproved", "public"."cost_calculations"."approvedAt", "public"."cost_calculations"."createdAt", "public"."cost_calculations"."updatedAt", "public"."cost_calculations"."inquiryItemId", "public"."cost_calculations"."calculatedById" FROM "public"."cost_calculations" WHERE "public"."cost_calculations"."inquiryItemId" IN ($1,$2,$3,$4,$5,$6,$7) OFFSET $8
- GET /api/inquiries?limit=20 200 in 22ms
+ GET / 200 in 38ms
 Middleware check: { pathname: '/dashboard/inquiries/new', hasSessionToken: true }
  ○ Compiling /dashboard/inquiries/new ...
- ✓ Compiled /dashboard/inquiries/new in 3.5s (2063 modules)
- GET /dashboard/inquiries/new 200 in 4091ms
-Middleware check: { pathname: '/installHook.js.map', hasSessionToken: true }
-Middleware check: { pathname: '/api/customers', hasSessionToken: true }
-[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
-NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
-  baseUrl: 'http://localhost:3000'
-}
-Same origin redirect to: http://localhost:3000/auth/signin
-prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_inquiries", 0) AS "_aggr_count_inquiries" FROM "public"."customers" LEFT JOIN (SELECT "public"."inquiries"."customerId", COUNT(*) AS "_aggr_count_inquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."customerId") AS "aggr_selection_0_Inquiry" ON ("public"."customers"."id" = "aggr_selection_0_Inquiry"."customerId") WHERE 1=1 ORDER BY "public"."customers"."createdAt" DESC OFFSET $1
- GET /api/customers 200 in 174ms
- ○ Compiling /_not-found ...
-Middleware check: { pathname: '/api/customers', hasSessionToken: true }
-NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
-  baseUrl: 'http://localhost:3000'
-}
-Same origin redirect to: http://localhost:3000/auth/signin
-prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_inquiries", 0) AS "_aggr_count_inquiries" FROM "public"."customers" LEFT JOIN (SELECT "public"."inquiries"."customerId", COUNT(*) AS "_aggr_count_inquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."customerId") AS "aggr_selection_0_Inquiry" ON ("public"."customers"."id" = "aggr_selection_0_Inquiry"."customerId") WHERE 1=1 ORDER BY "public"."customers"."createdAt" DESC OFFSET $1
- GET /api/customers 200 in 656ms
- ✓ Compiled /_not-found in 6.5s (2067 modules)
- GET /installHook.js.map 404 in 7062ms
- ✓ Compiled in 2.3s (1406 modules)
-Middleware check: { pathname: '/dashboard/inquiries/new', hasSessionToken: true }
- GET /dashboard/inquiries/new 200 in 294ms
-Middleware check: { pathname: '/dashboard/inquiries/new', hasSessionToken: true }
- GET /dashboard/inquiries/new 200 in 582ms
-Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
+ ✓ Compiled /dashboard/inquiries/new in 3.7s (1935 modules)
+ GET /dashboard/inquiries/new 200 in 4611ms
 Middleware check: { pathname: '/api/console-monitor/status', hasSessionToken: true }
+Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
  ○ Compiling /api/auth/[...nextauth] ...
- ✓ Compiled /api/auth/[...nextauth] in 1084ms (1413 modules)
- ✓ Compiled (1415 modules)
+ ✓ Compiled /api/auth/[...nextauth] in 1392ms (1945 modules)
+ GET /api/console-monitor/status 200 in 1631ms
 [33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
 NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
   baseUrl: 'http://localhost:3000'
 }
-Same origin redirect to: http://localhost:3000/auth/signin
- GET /api/console-monitor/status 200 in 1663ms
- GET /api/auth/session 200 in 1662ms
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/auth/session 200 in 2074ms
 Middleware check: { pathname: '/api/auth/session', hasSessionToken: true }
 NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
   baseUrl: 'http://localhost:3000'
 }
-Same origin redirect to: http://localhost:3000/auth/signin
- GET /api/auth/session 200 in 11ms
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/auth/session 200 in 39ms
 Middleware check: { pathname: '/api/customers', hasSessionToken: true }
 Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
- ○ Compiling /api/notifications ...
- ✓ Compiled /api/notifications in 1036ms (1427 modules)
- ✓ Compiled (1429 modules)
+Middleware check: { pathname: '/api/system-settings', hasSessionToken: true }
+ ○ Compiling /api/system-settings ...
+ ✓ Compiled /api/system-settings in 2.9s (1961 modules)
 [33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
 NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
   baseUrl: 'http://localhost:3000'
 }
-Same origin redirect to: http://localhost:3000/auth/signin
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
 NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
   baseUrl: 'http://localhost:3000'
 }
-Same origin redirect to: http://localhost:3000/auth/signin
- GET /api/notifications 200 in 1683ms
- GET /api/customers 200 in 1690ms
-prisma:query SELECT 1
-prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_inquiries", 0) AS "_aggr_count_inquiries" FROM "public"."customers" LEFT JOIN (SELECT "public"."inquiries"."customerId", COUNT(*) AS "_aggr_count_inquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."customerId") AS "aggr_selection_0_Inquiry" ON ("public"."customers"."id" = "aggr_selection_0_Inquiry"."customerId") WHERE 1=1 ORDER BY "public"."customers"."createdAt" DESC OFFSET $1
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/notifications 200 in 3039ms
 Middleware check: { pathname: '/api/notifications', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/notifications 200 in 9ms
+prisma:query SELECT "public"."system_settings"."id", "public"."system_settings"."mainCurrency"::text, "public"."system_settings"."additionalCurrency1"::text, "public"."system_settings"."additionalCurrency2"::text, "public"."system_settings"."exchangeRate1", "public"."system_settings"."exchangeRate2", "public"."system_settings"."updatedAt", "public"."system_settings"."updatedById" FROM "public"."system_settings" WHERE 1=1 LIMIT $1 OFFSET $2
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/system-settings 200 in 3101ms
+ GET /api/customers 200 in 3143ms
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_inquiries", 0) AS "_aggr_count_inquiries" FROM "public"."customers" LEFT JOIN (SELECT "public"."inquiries"."customerId", COUNT(*) AS "_aggr_count_inquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."customerId") AS "aggr_selection_0_Inquiry" ON ("public"."customers"."id" = "aggr_selection_0_Inquiry"."customerId") WHERE 1=1 ORDER BY "public"."customers"."createdAt" DESC OFFSET $1
+Middleware check: { pathname: '/api/system-settings', hasSessionToken: true }
 Middleware check: { pathname: '/api/customers', hasSessionToken: true }
 NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
   baseUrl: 'http://localhost:3000'
 }
-Same origin redirect to: http://localhost:3000/auth/signin
- GET /api/notifications 200 in 15ms
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+prisma:query SELECT "public"."system_settings"."id", "public"."system_settings"."mainCurrency"::text, "public"."system_settings"."additionalCurrency1"::text, "public"."system_settings"."additionalCurrency2"::text, "public"."system_settings"."exchangeRate1", "public"."system_settings"."exchangeRate2", "public"."system_settings"."updatedAt", "public"."system_settings"."updatedById" FROM "public"."system_settings" WHERE 1=1 LIMIT $1 OFFSET $2
+ GET /api/system-settings 200 in 31ms
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
 NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
   baseUrl: 'http://localhost:3000'
 }
-Same origin redirect to: http://localhost:3000/auth/signin
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
 prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_inquiries", 0) AS "_aggr_count_inquiries" FROM "public"."customers" LEFT JOIN (SELECT "public"."inquiries"."customerId", COUNT(*) AS "_aggr_count_inquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."customerId") AS "aggr_selection_0_Inquiry" ON ("public"."customers"."id" = "aggr_selection_0_Inquiry"."customerId") WHERE 1=1 ORDER BY "public"."customers"."createdAt" DESC OFFSET $1
- GET /api/customers 200 in 19ms
+ GET /api/customers 200 in 31ms
+Middleware check: { pathname: '/api/system-settings', hasSessionToken: true }
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+prisma:query SELECT "public"."system_settings"."id", "public"."system_settings"."mainCurrency"::text, "public"."system_settings"."additionalCurrency1"::text, "public"."system_settings"."additionalCurrency2"::text, "public"."system_settings"."exchangeRate1", "public"."system_settings"."exchangeRate2", "public"."system_settings"."updatedAt", "public"."system_settings"."updatedById" FROM "public"."system_settings" WHERE 1=1 LIMIT $1 OFFSET $2
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE ("public"."users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+ GET /api/system-settings 200 in 13ms
 Middleware check: { pathname: '/api/inquiries', hasSessionToken: true }
  ○ Compiling /api/inquiries ...
- ✓ Compiled /api/inquiries in 1445ms (1475 modules)
+ ✓ Compiled /api/inquiries in 774ms (2003 modules)
 [33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
 NextAuth redirect callback: {
-  url: 'http://localhost:3000/auth/signin',
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
   baseUrl: 'http://localhost:3000'
 }
-Same origin redirect to: http://localhost:3000/auth/signin
-Create inquiry error: Error [ZodError]: [
-  {
-    "code": "invalid_type",
-    "expected": "date",
-    "received": "string",
-    "path": [
-      "deadline"
-    ],
-    "message": "Expected date, received string"
-  }
-]
-    at parse (src/app/api/inquiries/route.ts:135:46)
-  133 |
-  134 |     const body = await request.json()
-> 135 |     const validatedData = createInquirySchema.parse(body)
-      |                                              ^
-  136 |
-  137 |     const inquiry = await prisma.inquiry.create({
-  138 |       data: { {
-  issues: [Array],
-  addIssue: [Function (anonymous)],
-  addIssues: [Function (anonymous)]
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+POST /api/inquiries - Request body: {
+  "title": "artatart",
+  "description": "asgfartaret",
+  "customerId": "cmdo8lbil000di0pmskgietd1",
+  "priority": "MEDIUM",
+  "deadline": "2025-07-30T22:00:00.000Z",
+  "items": [
+    {
+      "name": "qwreeqr",
+      "description": "wqeqwetqrt",
+      "quantity": 11,
+      "unit": "pcs",
+      "notes": "ewraweawt",
+      "priceEstimation": "1234",
+      "requestedDelivery": "2025-08-27T22:00:00.000Z"
+    }
+  ]
 }
- POST /api/inquiries 500 in 1757ms
-Middleware check: {
-  pathname: '/dashboard/inquiries/installHook.js.map',
-  hasSessionToken: true
+POST /api/inquiries - Validated data: {
+  "title": "artatart",
+  "description": "asgfartaret",
+  "customerId": "cmdo8lbil000di0pmskgietd1",
+  "priority": "MEDIUM",
+  "deadline": "2025-07-30T22:00:00.000Z",
+  "items": [
+    {
+      "name": "qwreeqr",
+      "description": "wqeqwetqrt",
+      "quantity": 11,
+      "unit": "pcs",
+      "notes": "ewraweawt",
+      "priceEstimation": "1234",
+      "requestedDelivery": "2025-08-27T22:00:00.000Z"
+    }
+  ]
 }
- ○ Compiling /dashboard/inquiries/[id] ...
- ✓ Compiled /dashboard/inquiries/[id] in 4.1s (2197 modules)
- GET /dashboard/inquiries/installHook.js.map 200 in 6314ms
+prisma:query SELECT 1
+prisma:query BEGIN
+prisma:query INSERT INTO "public"."inquiries" ("id","title","description","status","priority","deadline","createdAt","updatedAt","customerId","createdById") VALUES ($1,$2,$3,CAST($4::text AS "public"."InquiryStatus"),CAST($5::text AS "public"."Priority"),$6,$7,$8,$9,$10) RETURNING "public"."inquiries"."id"
+prisma:query INSERT INTO "public"."inquiry_items" ("id","name","description","quantity","unit","status","notes","requestedDelivery","priceEstimation","createdAt","updatedAt","inquiryId") VALUES ($1,$2,$3,$4,$5,CAST($6::text AS "public"."ItemStatus"),$7,$8,$9,$10,$11,$12) RETURNING "public"."inquiry_items"."id"
+prisma:query SELECT "public"."inquiries"."id", "public"."inquiries"."title", "public"."inquiries"."description", "public"."inquiries"."status"::text, "public"."inquiries"."priority"::text, "public"."inquiries"."deadline", "public"."inquiries"."totalValue", "public"."inquiries"."createdAt", "public"."inquiries"."updatedAt", "public"."inquiries"."customerId", "public"."inquiries"."createdById", "public"."inquiries"."assignedToId" FROM "public"."inquiries" WHERE "public"."inquiries"."id" = $1 LIMIT $2 OFFSET $3
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt" FROM "public"."customers" WHERE "public"."customers"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."inquiry_items"."id", "public"."inquiry_items"."name", "public"."inquiry_items"."description", "public"."inquiry_items"."quantity", "public"."inquiry_items"."unit", "public"."inquiry_items"."status"::text, "public"."inquiry_items"."notes", "public"."inquiry_items"."requestedDelivery", "public"."inquiry_items"."priceEstimation", "public"."inquiry_items"."createdAt", "public"."inquiry_items"."updatedAt", "public"."inquiry_items"."inquiryId", "public"."inquiry_items"."assignedToId" FROM "public"."inquiry_items" WHERE "public"."inquiry_items"."inquiryId" IN ($1) OFFSET $2
+prisma:query COMMIT
+prisma:query INSERT INTO "public"."audit_logs" ("id","action","entity","entityId","newData","timestamp","userId","inquiryId") VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING "public"."audit_logs"."id", "public"."audit_logs"."action", "public"."audit_logs"."entity", "public"."audit_logs"."entityId", "public"."audit_logs"."oldData", "public"."audit_logs"."newData", "public"."audit_logs"."metadata", "public"."audit_logs"."timestamp", "public"."audit_logs"."userId", "public"."audit_logs"."inquiryId"
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+prisma:query SELECT "public"."automation_rules"."id", "public"."automation_rules"."name", "public"."automation_rules"."description", "public"."automation_rules"."isActive", "public"."automation_rules"."trigger"::text, "public"."automation_rules"."conditions", "public"."automation_rules"."actions", "public"."automation_rules"."priority", "public"."automation_rules"."createdAt", "public"."automation_rules"."updatedAt", "public"."automation_rules"."createdById" FROM "public"."automation_rules" WHERE ("public"."automation_rules"."trigger" = CAST($1::text AS "public"."AutomationTrigger") AND "public"."automation_rules"."isActive" = $2) ORDER BY "public"."automation_rules"."priority" DESC OFFSET $3
+ POST /api/inquiries 200 in 1121ms
+Middleware check: { pathname: '/dashboard/inquiries', hasSessionToken: true }
+ ○ Compiling /dashboard/inquiries ...
+ ✓ Compiled /dashboard/inquiries in 1364ms (2036 modules)
+ GET /dashboard/inquiries 200 in 1892ms
+Middleware check: { pathname: '/api/customers', hasSessionToken: true }
+Middleware check: { pathname: '/api/inquiries', hasSessionToken: true }
+[33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev#debug-enabled
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+ GET /api/customers? 200 in 80ms
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_inquiries", 0) AS "_aggr_count_inquiries" FROM "public"."customers" LEFT JOIN (SELECT "public"."inquiries"."customerId", COUNT(*) AS "_aggr_count_inquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."customerId") AS "aggr_selection_0_Inquiry" ON ("public"."customers"."id" = "aggr_selection_0_Inquiry"."customerId") WHERE 1=1 ORDER BY "public"."customers"."createdAt" DESC OFFSET $1
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+prisma:query SELECT 1
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiries"."id" FROM "public"."inquiries" WHERE 1=1 OFFSET $1) AS "sub"
+Middleware check: { pathname: '/api/customers', hasSessionToken: true }
+prisma:query SELECT "public"."inquiries"."id", "public"."inquiries"."title", "public"."inquiries"."description", "public"."inquiries"."status"::text, "public"."inquiries"."priority"::text, "public"."inquiries"."deadline", "public"."inquiries"."totalValue", "public"."inquiries"."createdAt", "public"."inquiries"."updatedAt", "public"."inquiries"."customerId", "public"."inquiries"."createdById", "public"."inquiries"."assignedToId", COALESCE("aggr_selection_0_InquiryItem"."_aggr_count_items", 0) AS "_aggr_count_items" FROM "public"."inquiries" LEFT JOIN (SELECT "public"."inquiry_items"."inquiryId", COUNT(*) AS "_aggr_count_items" FROM "public"."inquiry_items" WHERE 1=1 GROUP BY "public"."inquiry_items"."inquiryId") AS "aggr_selection_0_InquiryItem" ON ("public"."inquiries"."id" = "aggr_selection_0_InquiryItem"."inquiryId") WHERE 1=1 ORDER BY "public"."inquiries"."createdAt" DESC LIMIT $1 OFFSET $2
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt" FROM "public"."customers" WHERE "public"."customers"."id" IN ($1,$2,$3,$4) OFFSET $5
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1,$2) OFFSET $3
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."inquiry_items"."id", "public"."inquiry_items"."name", "public"."inquiry_items"."description", "public"."inquiry_items"."quantity", "public"."inquiry_items"."unit", "public"."inquiry_items"."status"::text, "public"."inquiry_items"."notes", "public"."inquiry_items"."requestedDelivery", "public"."inquiry_items"."priceEstimation", "public"."inquiry_items"."createdAt", "public"."inquiry_items"."updatedAt", "public"."inquiry_items"."inquiryId", "public"."inquiry_items"."assignedToId" FROM "public"."inquiry_items" WHERE "public"."inquiry_items"."inquiryId" IN ($1,$2,$3,$4) OFFSET $5
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
+ GET /api/inquiries?limit=20 200 in 92ms
+prisma:query SELECT "public"."cost_calculations"."id", "public"."cost_calculations"."materialCost", "public"."cost_calculations"."laborCost", "public"."cost_calculations"."overheadCost", "public"."cost_calculations"."totalCost", "public"."cost_calculations"."materialCostCurrency"::text, "public"."cost_calculations"."laborCostCurrency"::text, "public"."cost_calculations"."overheadCostCurrency"::text, "public"."cost_calculations"."materialCostOriginal", "public"."cost_calculations"."laborCostOriginal", "public"."cost_calculations"."overheadCostOriginal", "public"."cost_calculations"."materialCostRate", "public"."cost_calculations"."laborCostRate", "public"."cost_calculations"."overheadCostRate", "public"."cost_calculations"."notes", "public"."cost_calculations"."isApproved", "public"."cost_calculations"."approvedAt", "public"."cost_calculations"."createdAt", "public"."cost_calculations"."updatedAt", "public"."cost_calculations"."inquiryItemId", "public"."cost_calculations"."calculatedById" FROM "public"."cost_calculations" WHERE "public"."cost_calculations"."inquiryItemId" IN ($1,$2,$3,$4,$5,$6,$7,$8) OFFSET $9
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+Middleware check: { pathname: '/api/inquiries', hasSessionToken: true }
+ GET /api/customers? 200 in 20ms
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt", COALESCE("aggr_selection_0_Inquiry"."_aggr_count_inquiries", 0) AS "_aggr_count_inquiries" FROM "public"."customers" LEFT JOIN (SELECT "public"."inquiries"."customerId", COUNT(*) AS "_aggr_count_inquiries" FROM "public"."inquiries" WHERE 1=1 GROUP BY "public"."inquiries"."customerId") AS "aggr_selection_0_Inquiry" ON ("public"."customers"."id" = "aggr_selection_0_Inquiry"."customerId") WHERE 1=1 ORDER BY "public"."customers"."createdAt" DESC OFFSET $1
+NextAuth redirect callback: {
+  url: 'http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123',
+  baseUrl: 'http://localhost:3000'
+}
+Same origin redirect to: http://localhost:3000/auth/signin?email=almir%40al-star.im&password=password123
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."inquiries"."id" FROM "public"."inquiries" WHERE 1=1 OFFSET $1) AS "sub"
+prisma:query SELECT "public"."inquiries"."id", "public"."inquiries"."title", "public"."inquiries"."description", "public"."inquiries"."status"::text, "public"."inquiries"."priority"::text, "public"."inquiries"."deadline", "public"."inquiries"."totalValue", "public"."inquiries"."createdAt", "public"."inquiries"."updatedAt", "public"."inquiries"."customerId", "public"."inquiries"."createdById", "public"."inquiries"."assignedToId", COALESCE("aggr_selection_0_InquiryItem"."_aggr_count_items", 0) AS "_aggr_count_items" FROM "public"."inquiries" LEFT JOIN (SELECT "public"."inquiry_items"."inquiryId", COUNT(*) AS "_aggr_count_items" FROM "public"."inquiry_items" WHERE 1=1 GROUP BY "public"."inquiry_items"."inquiryId") AS "aggr_selection_0_InquiryItem" ON ("public"."inquiries"."id" = "aggr_selection_0_InquiryItem"."inquiryId") WHERE 1=1 ORDER BY "public"."inquiries"."createdAt" DESC LIMIT $1 OFFSET $2
+prisma:query SELECT "public"."customers"."id", "public"."customers"."name", "public"."customers"."email", "public"."customers"."phone", "public"."customers"."address", "public"."customers"."isActive", "public"."customers"."createdAt", "public"."customers"."updatedAt" FROM "public"."customers" WHERE "public"."customers"."id" IN ($1,$2,$3,$4) OFFSET $5
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1,$2) OFFSET $3
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."inquiry_items"."id", "public"."inquiry_items"."name", "public"."inquiry_items"."description", "public"."inquiry_items"."quantity", "public"."inquiry_items"."unit", "public"."inquiry_items"."status"::text, "public"."inquiry_items"."notes", "public"."inquiry_items"."requestedDelivery", "public"."inquiry_items"."priceEstimation", "public"."inquiry_items"."createdAt", "public"."inquiry_items"."updatedAt", "public"."inquiry_items"."inquiryId", "public"."inquiry_items"."assignedToId" FROM "public"."inquiry_items" WHERE "public"."inquiry_items"."inquiryId" IN ($1,$2,$3,$4) OFFSET $5
+prisma:query SELECT "public"."users"."id", "public"."users"."name", "public"."users"."email" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."cost_calculations"."id", "public"."cost_calculations"."materialCost", "public"."cost_calculations"."laborCost", "public"."cost_calculations"."overheadCost", "public"."cost_calculations"."totalCost", "public"."cost_calculations"."materialCostCurrency"::text, "public"."cost_calculations"."laborCostCurrency"::text, "public"."cost_calculations"."overheadCostCurrency"::text, "public"."cost_calculations"."materialCostOriginal", "public"."cost_calculations"."laborCostOriginal", "public"."cost_calculations"."overheadCostOriginal", "public"."cost_calculations"."materialCostRate", "public"."cost_calculations"."laborCostRate", "public"."cost_calculations"."overheadCostRate", "public"."cost_calculations"."notes", "public"."cost_calculations"."isApproved", "public"."cost_calculations"."approvedAt", "public"."cost_calculations"."createdAt", "public"."cost_calculations"."updatedAt", "public"."cost_calculations"."inquiryItemId", "public"."cost_calculations"."calculatedById" FROM "public"."cost_calculations" WHERE "public"."cost_calculations"."inquiryItemId" IN ($1,$2,$3,$4,$5,$6,$7,$8) OFFSET $9
+ GET /api/inquiries?limit=20 200 in 16ms

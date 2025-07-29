@@ -3,6 +3,7 @@
 import { NotificationProvider } from '@/contexts/notification-context'
 import { SidebarProvider, useSidebar } from '@/contexts/sidebar-context'
 import { TabletSidebarProvider, useTabletSidebar } from '@/contexts/tablet-sidebar-context'
+import { CurrencyProvider } from '@/contexts/currency-context'
 import { Sidebar } from '@/components/layout/sidebar'
 import { Header } from '@/components/layout/header'
 import { MobileHeader } from '@/components/layout/mobile-header'
@@ -102,21 +103,23 @@ export function DashboardClient({
 }) {
   return (
     <SessionGuard>
-      <SidebarProvider>
-        <NotificationProvider>
-          <DashboardContent>{children}</DashboardContent>
-          <Toaster 
-            position="top-right" 
-            toastOptions={{
-              style: {
-                background: 'hsl(var(--card))',
-                color: 'hsl(var(--card-foreground))',
-                border: '1px solid hsl(var(--border))',
-              }
-            }}
-          />
-        </NotificationProvider>
-      </SidebarProvider>
+      <CurrencyProvider>
+        <SidebarProvider>
+          <NotificationProvider>
+            <DashboardContent>{children}</DashboardContent>
+            <Toaster 
+              position="top-right" 
+              toastOptions={{
+                style: {
+                  background: 'hsl(var(--card))',
+                  color: 'hsl(var(--card-foreground))',
+                  border: '1px solid hsl(var(--border))',
+                }
+              }}
+            />
+          </NotificationProvider>
+        </SidebarProvider>
+      </CurrencyProvider>
     </SessionGuard>
   )
 }

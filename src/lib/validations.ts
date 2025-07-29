@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { UserRole, Priority, InquiryStatus, ItemStatus, ApprovalStatus, QuoteStatus } from '@prisma/client'
+import { UserRole, Priority, InquiryStatus, ItemStatus, ApprovalStatus, QuoteStatus, Currency } from '@prisma/client'
 
 // User Validation Schemas
 export const createUserSchema = z.object({
@@ -38,6 +38,16 @@ export const inquiryItemSchema = z.object({
   quantity: z.number().int().min(1, 'Quantity must be at least 1'),
   unit: z.string().optional(),
   notes: z.string().optional(),
+  priceEstimation: z.string().optional().transform((val) => {
+    if (!val || val === '') return undefined
+    // Keep as string for Prisma Decimal type
+    return val
+  }),
+  requestedDelivery: z.union([z.string(), z.date()]).optional().transform((val) => {
+    if (!val) return undefined
+    if (val instanceof Date) return val
+    return new Date(val)
+  }),
 })
 
 // Inquiry Validation Schemas
@@ -46,7 +56,11 @@ export const createInquirySchema = z.object({
   description: z.string().optional(),
   customerId: z.string().cuid('Invalid customer ID'),
   priority: z.nativeEnum(Priority),
-  deadline: z.date().optional(),
+  deadline: z.union([z.string(), z.date()]).optional().transform((val) => {
+    if (!val) return undefined
+    if (val instanceof Date) return val
+    return new Date(val)
+  }),
   items: z.array(inquiryItemSchema).min(1, 'At least one item is required'),
 })
 
@@ -54,7 +68,11 @@ export const updateInquirySchema = z.object({
   title: z.string().min(5, 'Title must be at least 5 characters').optional(),
   description: z.string().optional(),
   priority: z.nativeEnum(Priority).optional(),
-  deadline: z.date().optional(),
+  deadline: z.union([z.string(), z.date()]).optional().transform((val) => {
+    if (!val) return undefined
+    if (val instanceof Date) return val
+    return new Date(val)
+  }),
   status: z.nativeEnum(InquiryStatus).optional(),
   assignedToId: z.string().cuid('Invalid user ID').optional(),
 })
@@ -68,6 +86,16 @@ export const updateInquiryItemSchema = z.object({
   notes: z.string().optional(),
   status: z.nativeEnum(ItemStatus).optional(),
   assignedToId: z.string().cuid('Invalid user ID').optional(),
+  priceEstimation: z.string().optional().transform((val) => {
+    if (!val || val === '') return undefined
+    // Keep as string for Prisma Decimal type
+    return val
+  }),
+  requestedDelivery: z.union([z.string(), z.date()]).optional().transform((val) => {
+    if (!val) return undefined
+    if (val instanceof Date) return val
+    return new Date(val)
+  }),
 })
 
 // Cost Calculation Validation Schema
@@ -76,6 +104,14 @@ export const costCalculationSchema = z.object({
   laborCost: z.number().min(0, 'Labor cost must be non-negative'),
   overheadCost: z.number().min(0, 'Overhead cost must be non-negative'),
   notes: z.string().optional(),
+  // Currency fields
+  materialCostCurrency: z.nativeEnum(Currency).optional(),
+  laborCostCurrency: z.nativeEnum(Currency).optional(),
+  overheadCostCurrency: z.nativeEnum(Currency).optional(),
+  // Original amounts
+  materialCostOriginal: z.number().optional(),
+  laborCostOriginal: z.number().optional(),
+  overheadCostOriginal: z.number().optional(),
 }).refine(
   (data) => data.materialCost + data.laborCost + data.overheadCost > 0,
   {
@@ -97,7 +133,9 @@ export const createQuoteSchema = z.object({
   description: z.string().optional(),
   inquiryId: z.string().cuid('Invalid inquiry ID'),
   margin: z.number().min(0, 'Margin must be non-negative').max(1, 'Margin cannot exceed 100%'),
-  validUntil: z.date().min(new Date(), 'Valid until date must be in the future'),
+  validUntil: z.string().transform((val) => new Date(val)).refine((date) => date > new Date(), {
+    message: 'Valid until date must be in the future'
+  }),
   terms: z.string().optional(),
   notes: z.string().optional(),
 })
@@ -106,7 +144,12 @@ export const updateQuoteSchema = z.object({
   title: z.string().min(5, 'Title must be at least 5 characters').optional(),
   description: z.string().optional(),
   margin: z.number().min(0, 'Margin must be non-negative').max(1, 'Margin cannot exceed 100%').optional(),
-  validUntil: z.date().min(new Date(), 'Valid until date must be in the future').optional(),
+  validUntil: z.string().optional().transform((val) => {
+    if (!val) return undefined
+    return new Date(val)
+  }).refine((date) => !date || date > new Date(), {
+    message: 'Valid until date must be in the future'
+  }),
   terms: z.string().optional(),
   notes: z.string().optional(),
   status: z.nativeEnum(QuoteStatus).optional(),
@@ -129,8 +172,14 @@ export const inquiryFiltersSchema = z.object({
   priority: z.array(z.nativeEnum(Priority)).optional(),
   assignedToId: z.string().cuid('Invalid user ID').optional(),
   customerId: z.string().cuid('Invalid customer ID').optional(),
-  dateFrom: z.date().optional(),
-  dateTo: z.date().optional(),
+  dateFrom: z.string().optional().transform((val) => {
+    if (!val) return undefined
+    return new Date(val)
+  }),
+  dateTo: z.string().optional().transform((val) => {
+    if (!val) return undefined
+    return new Date(val)
+  }),
   search: z.string().optional(),
   page: z.number().int().min(1).default(1),
   limit: z.number().int().min(1).max(100).default(10),
@@ -214,8 +263,8 @@ export const exportSchema = z.object({
 // Report Schema
 export const reportSchema = z.object({
   type: z.enum(['dashboard', 'workload', 'revenue', 'performance']),
-  dateFrom: z.date(),
-  dateTo: z.date(),
+  dateFrom: z.string().transform((val) => new Date(val)),
+  dateTo: z.string().transform((val) => new Date(val)),
   filters: z.record(z.any()).optional(),
 })
 

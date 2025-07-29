@@ -32,7 +32,11 @@ export class ApiClient {
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}))
-      throw new Error(errorData.error || errorData.message || `HTTP error! status: ${response.status}`)
+      console.error('API Error Response:', errorData)
+      const errorMessage = errorData.details 
+        ? `${errorData.error}: ${errorData.details}`
+        : errorData.error || errorData.message || `HTTP error! status: ${response.status}`
+      throw new Error(errorMessage)
     }
 
     return response.json()

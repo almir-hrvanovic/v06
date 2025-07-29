@@ -277,7 +277,7 @@
     "signIn": {
       "_context": "Anmeldeseite und Anmeldeformular",
       "title": "Anmelden",
-      "subtitle": "Willkommen zurück bei GS-CMS",
+      "subtitle": "Willkommen zurück bei GS-Star",
       "welcomeMessage": "Willkommen zurück! Bitte melden Sie sich bei Ihrem Konto an.",
       "email": "E-Mail-Adresse",
       "emailPlaceholder": "Geben Sie Ihre E-Mail-Adresse ein",
@@ -307,8 +307,8 @@
     "signUp": {
       "_context": "Benutzerregistrierung und Kontoerstellung",
       "title": "Konto erstellen",
-      "subtitle": "Heute bei GS-CMS beitreten",
-      "welcomeMessage": "Erstellen Sie Ihr Konto, um mit GS-CMS zu beginnen.",
+      "subtitle": "Heute bei GS-Star beitreten",
+      "welcomeMessage": "Erstellen Sie Ihr Konto, um mit GS-Star zu beginnen.",
       "firstName": "Vorname",
       "lastName": "Nachname",
       "email": "E-Mail-Adresse",
@@ -874,7 +874,23 @@
         "budget": "Budgetbereich",
         "budgetPlaceholder": "Geschätzter Budgetbereich",
         "expectedVolume": "Erwartetes Volumen",
-        "volumePlaceholder": "Erwartetes Bestellvolumen"
+        "volumePlaceholder": "Erwartetes Bestellvolumen",
+        "itemName": "Artikelname",
+        "itemNamePlaceholder": "Artikelname eingeben",
+        "itemDescription": "Artikelbeschreibung",
+        "itemDescriptionPlaceholder": "Artikelbeschreibung eingeben",
+        "quantity": "Menge",
+        "quantityPlaceholder": "Menge eingeben",
+        "unit": "Einheit",
+        "unitPlaceholder": "z.B., Stück, kg, m",
+        "priceEstimation": "Preisschätzung",
+        "priceEstimationPlaceholder": "Geschätzten Preis eingeben",
+        "priceEstimationDescription": "Verkaufspreisschätzung zur Prognose des Verkaufspotenzials",
+        "requestedDelivery": "Gewünschte Lieferung",
+        "requestedDeliveryPlaceholder": "Lieferdatum auswählen",
+        "requestedDeliveryDescription": "Vom Kunden gewünschtes Lieferdatum",
+        "specifications": "Spezifikationen",
+        "specificationsPlaceholder": "Technische Spezifikationen"
       },
       "items": {
         "title": "Anfrageartikel",
@@ -954,6 +970,7 @@
     },
     "actions": {
       "_context": "Anfragenverwaltungsaktionen",
+      "create": "Anfrage erstellen",
       "view": "Anfrage anzeigen",
       "edit": "Anfrage bearbeiten",
       "delete": "Anfrage löschen",

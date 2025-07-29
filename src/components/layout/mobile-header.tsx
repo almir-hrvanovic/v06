@@ -143,8 +143,8 @@ export function MobileHeader({ className }: MobileHeaderProps) {
             </svg>
           </div>
           <div>
-            <span className="font-semibold text-foreground text-lg">GS-CMS</span>
-            <div className="text-xs text-muted-foreground">v5.0</div>
+            <span className="font-semibold text-foreground text-lg">GS-Star</span>
+            <div className="text-xs text-muted-foreground">v5.1</div>
           </div>
         </div>
 

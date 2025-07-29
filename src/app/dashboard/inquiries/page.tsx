@@ -33,7 +33,8 @@ import {
   Package,
   UserPlus
 } from 'lucide-react'
-import { formatDate, formatCurrency } from '@/lib/utils'
+import { formatDate } from '@/lib/utils'
+import { formatWithSystemCurrency } from '@/lib/currency-helpers'
 import { apiClient } from '@/lib/api-client'
 import { InquiryWithRelations, InquiryStatus, Priority } from '@/types'
 // import { ExcelExportButton } from '@/components/excel/excel-export-button'
@@ -518,7 +519,7 @@ export default function InquiriesPage() {
                                       <TableCell>
                                         <div className="text-sm">
                                           {item.costCalculation ? 
-                                            formatCurrency(Number(item.costCalculation.totalCost)) : 
+                                            formatWithSystemCurrency(Number(item.costCalculation.totalCost)) : 
                                             <span className="text-muted-foreground">-</span>
                                           }
                                         </div>

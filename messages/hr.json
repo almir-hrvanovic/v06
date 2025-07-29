@@ -278,6 +278,7 @@
       "reports": "Izvještaji",
       "analytics": "Analitika",
       "settings": "Postavke",
+      "systemSettings": "Postavke sustava",
       "help": "Pomoć",
       "documentation": "Dokumentacija"
     },
@@ -305,7 +306,7 @@
     "signIn": {
       "_context": "Stranica prijave i obrazac za prijavu",
       "title": "Prijava",
-      "subtitle": "Dobrodošli natrag u GS-CMS",
+      "subtitle": "Dobrodošli natrag u GS-Star",
       "welcomeMessage": "Dobrodošli natrag! Molimo prijavite se na svoj račun.",
       "email": "Email adresa",
       "emailPlaceholder": "Unesite svoju email adresu",
@@ -335,8 +336,8 @@
     "signUp": {
       "_context": "Registracija korisnika i stvaranje računa",
       "title": "Stvori račun",
-      "subtitle": "Pridružite se GS-CMS-u danas",
-      "welcomeMessage": "Stvorite svoj račun za početak rada s GS-CMS-om.",
+      "subtitle": "Pridružite se GS-Star-u danas",
+      "welcomeMessage": "Stvorite svoj račun za početak rada s GS-Star-om.",
       "firstName": "Ime",
       "lastName": "Prezime",
       "email": "Email adresa",
@@ -902,7 +903,23 @@
         "budget": "Raspon proračuna",
         "budgetPlaceholder": "Procijenjeni raspon proračuna",
         "expectedVolume": "Očekivani volumen",
-        "volumePlaceholder": "Očekivani volumen narudžbe"
+        "volumePlaceholder": "Očekivani volumen narudžbe",
+        "itemName": "Naziv stavke",
+        "itemNamePlaceholder": "Unesite naziv stavke",
+        "itemDescription": "Opis stavke",
+        "itemDescriptionPlaceholder": "Unesite opis stavke",
+        "quantity": "Količina",
+        "quantityPlaceholder": "Unesite količinu",
+        "unit": "Jedinica",
+        "unitPlaceholder": "npr., kom, kg, m",
+        "priceEstimation": "Procjena cijene",
+        "priceEstimationPlaceholder": "Unesite procijenjenu cijenu",
+        "priceEstimationDescription": "Procjena prodajne cijene za prognoziranje prodajnog potencijala",
+        "requestedDelivery": "Zahtijevana dostava",
+        "requestedDeliveryPlaceholder": "Odaberite datum dostave",
+        "requestedDeliveryDescription": "Datum dostave koji zahtijeva kupac",
+        "specifications": "Specifikacije",
+        "specificationsPlaceholder": "Tehničke specifikacije"
       },
       "items": {
         "title": "Stavke upita",
@@ -982,6 +999,7 @@
     },
     "actions": {
       "_context": "Akcije upravljanja upitima",
+      "create": "Stvori upit",
       "view": "Prikaži upit",
       "edit": "Uredi upit",
       "delete": "Obriši upit",

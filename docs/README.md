@@ -42,6 +42,7 @@ cat PROJECT_SUMMARY.md | grep -A 10 "Pending Features"
 - **Database**: PostgreSQL with Prisma ORM for type-safe database operations
 - **Authentication**: NextAuth.js v5 with role-based permissions (7 user roles)
 - **UI Components**: shadcn/ui with Radix UI primitives
+- **Currency System**: Multi-currency support with automatic conversion and SUPERUSER management
 - **Real-time Updates**: WebSocket-based notifications
 - **File Management**: Secure uploads with UploadThing
 - **Reporting**: Excel and PDF export capabilities
@@ -72,6 +73,7 @@ cat PROJECT_SUMMARY.md | grep -A 10 "Pending Features"
 - **ProductionOrders**: Converted quotes for production
 - **Notifications**: Real-time system notifications
 - **AuditLogs**: Complete audit trail of all system actions
+- **SystemSettings**: System-wide configuration including currency settings
 
 ## 🛠️ Technology Stack
 
@@ -273,6 +275,12 @@ npm run db:reset     # Reset database (careful!)
 
 ## 🎯 Usage Guide
 
+### For SUPERUSER
+1. **System Settings**: Configure system-wide currency settings and exchange rates
+2. **User Management**: Full control over all user accounts and roles
+3. **System Configuration**: Access to all administrative functions
+4. **Audit Oversight**: Complete visibility into system operations
+
 ### For Sales Users
 1. **Create Inquiries**: Add new customer inquiries with multiple items
 2. **Manage Customers**: Add and update customer information
@@ -324,6 +332,8 @@ For comprehensive documentation, visit the [Documentation Hub](docs/README.md).
 - [Automation Features](docs/features/AUTOMATION_FEATURE.md) - Workflow automation
 - [User Management](docs/USER_MANAGEMENT.md) - User system documentation
 - [Business Partners](docs/BUSINESS_PARTNERS.md) - Business partner management
+- [Currency System](docs/currency-system.md) - System-wide currency configuration and conversion
+- [Currency Quick Reference](docs/currency-quick-reference.md) - Quick guide for currency operations
 - [Testing Guide](docs/testing/) - Testing documentation
 - [i18n Guide](docs/i18n/) - Internationalization documentation
 

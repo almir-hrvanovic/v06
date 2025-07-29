@@ -222,6 +222,51 @@ npm run format         # Auto-format code
 - Review code before merging
 - Share knowledge with the team
 
+## 💰 Currency System
+
+### Overview
+The application uses a system-wide currency configuration managed by SUPERUSER role. See full documentation: [`/docs/currency-system.md`](./docs/currency-system.md)
+
+### Quick Reference
+- **Main Components**:
+  - Currency Utilities: `/src/lib/currency.ts`
+  - Context Provider: `/src/contexts/currency-context.tsx`
+  - System Settings: `/src/app/dashboard/system-settings/page.tsx`
+  - API Endpoints: `/src/app/api/system-settings/route.ts`
+
+### Key Features
+- System-wide currency settings (not user-specific)
+- SUPERUSER-only management
+- Main currency + 2 additional currencies
+- Automatic currency conversion
+- Exchange rate configuration
+- Real-time conversion preview
+
+### Usage Example
+```typescript
+// In components
+import { useMainCurrency } from '@/contexts/currency-context'
+import { formatCurrency, convertCurrency } from '@/lib/currency'
+
+const mainCurrency = useMainCurrency()
+const converted = await convertCurrency(100, Currency.BAM, mainCurrency)
+const formatted = formatCurrency(100, Currency.EUR, 'hr-HR')
+```
+
+### Important Notes
+- Always convert to main currency for calculations
+- Currency conversion is async (returns Promise)
+- Settings are cached for 5 minutes
+- Only SUPERUSER can modify settings
+
+**Documentation**:
+- Full documentation: [`/docs/currency-system.md`](./docs/currency-system.md)
+- Quick reference: [`/docs/currency-quick-reference.md`](./docs/currency-quick-reference.md)
+
+## 🚨 Development Warnings
+
+- Never restart dev server. Ask me to do it, or to let you to do it!
+
 ---
 
 **Remember**: This configuration prioritizes practical development workflows, concurrent execution, and maintaining high code quality through systematic approaches.

@@ -34,6 +34,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Database,
+  Wrench,
 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
@@ -149,6 +150,12 @@ export function Sidebar() {
       href: '/dashboard/automation',
       icon: Workflow,
       roles: ['SUPERUSER', 'ADMIN'],
+    },
+    {
+      titleKey: 'navigation.main.systemSettings',
+      href: '/dashboard/system-settings',
+      icon: Wrench,
+      roles: ['SUPERUSER'],
     },
   ]
 
@@ -279,19 +286,19 @@ export function Sidebar() {
                   id={logoId}
                   className="font-semibold text-[hsl(var(--sidebar-foreground))] text-lg transition-colors duration-300"
                 >
-                  GS-CMS
+                  GS-Star
                 </span>
                 <div 
                   className="text-xs text-[hsl(var(--sidebar-text-secondary))] transition-colors duration-300"
                   aria-label="Version 5.0"
                 >
-                  v5.0
+                  v5.1
                 </div>
               </div>
             </div>
           )}
           {isCollapsed && (
-            <div className="mx-auto" role="banner" aria-label="GS-CMS">
+            <div className="mx-auto" role="banner" aria-label="GS-Star">
               <div 
                 className="h-8 w-8 rounded-lg bg-[hsl(var(--sidebar-logo-bg))] flex items-center justify-center shadow-sm transition-colors duration-300"
                 aria-hidden="true"

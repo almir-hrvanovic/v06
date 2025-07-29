@@ -23,7 +23,8 @@ import {
   FileText,
   ClipboardList
 } from 'lucide-react'
-import { formatDate, formatCurrency } from '@/lib/utils'
+import { formatDate } from '@/lib/utils'
+import { formatWithSystemCurrency } from '@/lib/currency-helpers'
 import { apiClient } from '@/lib/api-client'
 
 interface InquiryItem {
@@ -35,6 +36,7 @@ interface InquiryItem {
   status: string
   notes?: string | null
   requestedDelivery?: string | null
+  priceEstimation?: number | null
   createdAt: string
   updatedAt: string
   inquiry: {
@@ -260,7 +262,7 @@ export default function ItemDetailPage() {
           <CardContent>
             <div className="text-xl font-bold">
               {item.costCalculation 
-                ? formatCurrency(item.costCalculation.totalCost)
+                ? formatWithSystemCurrency(item.costCalculation.totalCost)
                 : 'TBD'
               }
             </div>
@@ -312,6 +314,12 @@ export default function ItemDetailPage() {
                 <label className="text-sm font-medium text-muted-foreground">Notes</label>
                 <p className="mt-1">{item.notes || 'No notes provided'}</p>
               </div>
+              <div>
+                <label className="text-sm font-medium text-muted-foreground">Price Estimation</label>
+                <p className="mt-1 text-lg font-semibold">
+                  {item.priceEstimation ? formatWithSystemCurrency(item.priceEstimation) : 'Not estimated'}
+                </p>
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-medium text-muted-foreground">Created</label>
@@ -340,20 +348,20 @@ export default function ItemDetailPage() {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-medium text-muted-foreground">Material Cost</label>
-                      <p className="mt-1 text-lg font-semibold">{formatCurrency(item.costCalculation.materialCost)}</p>
+                      <p className="mt-1 text-lg font-semibold">{formatWithSystemCurrency(item.costCalculation.materialCost)}</p>
                     </div>
                     <div>
                       <label className="text-sm font-medium text-muted-foreground">Labor Cost</label>
-                      <p className="mt-1 text-lg font-semibold">{formatCurrency(item.costCalculation.laborCost)}</p>
+                      <p className="mt-1 text-lg font-semibold">{formatWithSystemCurrency(item.costCalculation.laborCost)}</p>
                     </div>
                     <div>
                       <label className="text-sm font-medium text-muted-foreground">Overhead Cost</label>
-                      <p className="mt-1 text-lg font-semibold">{formatCurrency(item.costCalculation.overheadCost)}</p>
+                      <p className="mt-1 text-lg font-semibold">{formatWithSystemCurrency(item.costCalculation.overheadCost)}</p>
                     </div>
                     <div>
                       <label className="text-sm font-medium text-muted-foreground">Total Cost</label>
                       <p className="mt-1 text-lg font-semibold text-green-600">
-                        {formatCurrency(item.costCalculation.totalCost)}
+                        {formatWithSystemCurrency(item.costCalculation.totalCost)}
                       </p>
                     </div>
                   </div>

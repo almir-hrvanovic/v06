@@ -41,8 +41,13 @@ import {
 import { formatDate, formatCurrency } from '@/lib/utils'
 import { apiClient } from '@/lib/api-client'
 import { CostCalculationWithRelations, InquiryItemWithRelations, ItemStatus } from '@/types'
+import { Currency } from '@prisma/client'
+import { CurrencyInput } from '@/components/currency-input'
+import { convertCurrency, formatCurrency as formatCurrencyWithSymbol } from '@/lib/currency'
+import { useMainCurrency } from '@/contexts/currency-context'
 
 export default function CostsPage() {
+  const mainCurrency = useMainCurrency()
   const t = useTranslations()
   const { data: session } = useSession()
   const [costCalculations, setCostCalculations] = useState<CostCalculationWithRelations[]>([])
@@ -57,6 +62,12 @@ export default function CostsPage() {
   const [laborCost, setLaborCost] = useState('')
   const [overheadCost, setOverheadCost] = useState('')
   const [notes, setNotes] = useState('')
+  
+  // Currency state
+  const [materialCostCurrency, setMaterialCostCurrency] = useState<Currency>(mainCurrency)
+  const [laborCostCurrency, setLaborCostCurrency] = useState<Currency>(mainCurrency)
+  const [overheadCostCurrency, setOverheadCostCurrency] = useState<Currency>(mainCurrency)
+  const [totalCost, setTotalCost] = useState(0)
 
   const userRole = session?.user?.role
 
@@ -93,12 +104,37 @@ export default function CostsPage() {
     try {
       setCreateLoading(true)
       
+      // Convert all costs to primary currency
+      const materialCostMain = await convertCurrency(
+        parseFloat(materialCost) || 0,
+        materialCostCurrency,
+        mainCurrency
+      )
+      const laborCostMain = await convertCurrency(
+        parseFloat(laborCost) || 0,
+        laborCostCurrency,
+        mainCurrency
+      )
+      const overheadCostMain = await convertCurrency(
+        parseFloat(overheadCost) || 0,
+        overheadCostCurrency,
+        mainCurrency
+      )
+      
       await apiClient.createCostCalculation({
         inquiryItemId: selectedItem.id,
-        materialCost: parseFloat(materialCost),
-        laborCost: parseFloat(laborCost),
-        overheadCost: parseFloat(overheadCost),
-        notes: notes || undefined
+        materialCost: materialCostMain,
+        laborCost: laborCostMain,
+        overheadCost: overheadCostMain,
+        notes: notes || undefined,
+        // Store currency information
+        materialCostCurrency,
+        laborCostCurrency,
+        overheadCostCurrency,
+        // Store original amounts if not in main currency
+        materialCostOriginal: materialCostCurrency !== mainCurrency ? parseFloat(materialCost) : undefined,
+        laborCostOriginal: laborCostCurrency !== mainCurrency ? parseFloat(laborCost) : undefined,
+        overheadCostOriginal: overheadCostCurrency !== mainCurrency ? parseFloat(overheadCost) : undefined,
       })
 
       // Reset form
@@ -106,6 +142,9 @@ export default function CostsPage() {
       setLaborCost('')
       setOverheadCost('')
       setNotes('')
+      setMaterialCostCurrency(mainCurrency)
+      setLaborCostCurrency(mainCurrency)
+      setOverheadCostCurrency(mainCurrency)
       setSelectedItem(null)
       setCreateDialogOpen(false)
       
@@ -121,12 +160,28 @@ export default function CostsPage() {
     }
   }
 
-  const calculateTotal = () => {
-    const material = parseFloat(materialCost) || 0
-    const labor = parseFloat(laborCost) || 0
-    const overhead = parseFloat(overheadCost) || 0
-    return material + labor + overhead
-  }
+  useEffect(() => {
+    const calculateTotal = async () => {
+      // Convert all to main currency for total calculation
+      const materialMain = await convertCurrency(
+        parseFloat(materialCost) || 0,
+        materialCostCurrency,
+        mainCurrency
+      )
+      const laborMain = await convertCurrency(
+        parseFloat(laborCost) || 0,
+        laborCostCurrency,
+        mainCurrency
+      )
+      const overheadMain = await convertCurrency(
+        parseFloat(overheadCost) || 0,
+        overheadCostCurrency,
+        mainCurrency
+      )
+      setTotalCost(materialMain + laborMain + overheadMain)
+    }
+    calculateTotal()
+  }, [materialCost, laborCost, overheadCost, materialCostCurrency, laborCostCurrency, overheadCostCurrency, mainCurrency])
 
   const getApprovalStatus = (costCalc: CostCalculationWithRelations) => {
     if (costCalc.isApproved) {
@@ -221,40 +276,43 @@ export default function CostsPage() {
                   </div>
                 )}
 
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="materialCost">Material Cost ($)</Label>
-                    <Input
+                    <Label htmlFor="materialCost">{t("costs.fields.materialCost")}</Label>
+                    <CurrencyInput
                       id="materialCost"
-                      type="number"
-                      step="0.01"
-                      min="0"
-                      value={materialCost}
-                      onChange={(e) => setMaterialCost(e.target.value)}
+                      value={parseFloat(materialCost) || 0}
+                      onChange={(value, currency) => {
+                        setMaterialCost(value.toString())
+                        setMaterialCostCurrency(currency)
+                      }}
+                      currency={materialCostCurrency}
                       placeholder={t("forms.placeholders.zeroAmount")}
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="laborCost">Labor Cost ($)</Label>
-                    <Input
+                    <Label htmlFor="laborCost">{t("costs.fields.laborCost")}</Label>
+                    <CurrencyInput
                       id="laborCost"
-                      type="number"
-                      step="0.01"
-                      min="0"
-                      value={laborCost}
-                      onChange={(e) => setLaborCost(e.target.value)}
+                      value={parseFloat(laborCost) || 0}
+                      onChange={(value, currency) => {
+                        setLaborCost(value.toString())
+                        setLaborCostCurrency(currency)
+                      }}
+                      currency={laborCostCurrency}
                       placeholder={t("forms.placeholders.zeroAmount")}
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="overheadCost">Overhead Cost ($)</Label>
-                    <Input
+                    <Label htmlFor="overheadCost">{t("costs.fields.overheadCost")}</Label>
+                    <CurrencyInput
                       id="overheadCost"
-                      type="number"
-                      step="0.01"
-                      min="0"
-                      value={overheadCost}
-                      onChange={(e) => setOverheadCost(e.target.value)}
+                      value={parseFloat(overheadCost) || 0}
+                      onChange={(value, currency) => {
+                        setOverheadCost(value.toString())
+                        setOverheadCostCurrency(currency)
+                      }}
+                      currency={overheadCostCurrency}
                       placeholder={t("forms.placeholders.zeroAmount")}
                     />
                   </div>
@@ -262,10 +320,13 @@ export default function CostsPage() {
 
                 <div className="p-4 bg-primary/10 rounded-lg">
                   <div className="flex justify-between items-center">
-                    <span className="font-medium">Total Cost:</span>
+                    <span className="font-medium">{t("costs.totalCost")}:</span>
                     <span className="text-2xl font-bold">
-                      {formatCurrency(calculateTotal())}
+                      {formatCurrencyWithSymbol(totalCost, mainCurrency)}
                     </span>
+                  </div>
+                  <div className="text-sm text-muted-foreground mt-1">
+                    {t("common.currency.primaryCurrency")}: {mainCurrency}
                   </div>
                 </div>
 
@@ -290,7 +351,7 @@ export default function CostsPage() {
                 </Button>
                 <Button
                   onClick={handleCreateCostCalculation}
-                  disabled={!selectedItem || calculateTotal() === 0 || createLoading}
+                  disabled={!selectedItem || totalCost === 0 || createLoading}
                 >
                   {createLoading ? t("common.actions.creating") : t("actions.createCostCalculation")}
                 </Button>

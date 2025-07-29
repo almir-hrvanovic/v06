@@ -156,7 +156,20 @@
       "rank": "Rank",
       "score": "Score",
       "rating": "Rating",
-      "by": "by"
+      "by": "by",
+      "currency": "Currency"
+    },
+    "currency": {
+      "_context": "Currency-related terms and labels",
+      "eur": "Euro",
+      "bam": "Convertible Mark",
+      "primaryCurrency": "Primary Currency",
+      "secondaryCurrency": "Secondary Currency",
+      "conversionRate": "Conversion Rate",
+      "convertedAmount": "Converted Amount",
+      "originalAmount": "Original Amount",
+      "selectCurrency": "Select Currency",
+      "currencySettings": "Currency Settings"
     },
     "priority": {
       "_context": "Priority levels for tasks, inquiries, and assignments",
@@ -278,6 +291,7 @@
       "reports": "Reports",
       "analytics": "Analytics",
       "settings": "Settings",
+      "systemSettings": "System Settings",
       "help": "Help",
       "documentation": "Documentation"
     },
@@ -305,7 +319,7 @@
     "signIn": {
       "_context": "Sign in page and login form",
       "title": "Sign In",
-      "subtitle": "Welcome back to GS-CMS",
+      "subtitle": "Welcome back to GS-Star",
       "welcomeMessage": "Welcome back! Please sign in to your account.",
       "email": "Email Address",
       "emailPlaceholder": "Enter your email address",
@@ -335,8 +349,8 @@
     "signUp": {
       "_context": "User registration and account creation",
       "title": "Create Account",
-      "subtitle": "Join GS-CMS today",
-      "welcomeMessage": "Create your account to get started with GS-CMS.",
+      "subtitle": "Join GS-Star today",
+      "welcomeMessage": "Create your account to get started with GS-Star.",
       "firstName": "First Name",
       "lastName": "Last Name",
       "email": "Email Address",
@@ -829,6 +843,36 @@
       "importData": "Or import existing customer data."
     }
   },
+  "costs": {
+    "_context": "Cost calculation and management",
+    "title": "Cost Calculations",
+    "subtitle": "Manage and review cost calculations for inquiry items",
+    "totalCost": "Total Cost",
+    "fields": {
+      "materialCost": "Material Cost",
+      "laborCost": "Labor Cost",
+      "overheadCost": "Overhead Cost",
+      "totalCost": "Total Cost",
+      "notes": "Notes"
+    },
+    "currency": {
+      "primary": "Primary Currency (EUR)",
+      "secondary": "Secondary Currency (BAM)",
+      "converted": "Converted to EUR"
+    },
+    "actions": {
+      "calculate": "Calculate Costs",
+      "createCalculation": "Create Cost Calculation",
+      "approve": "Approve",
+      "reject": "Reject"
+    },
+    "stats": {
+      "totalCalculations": "Total Calculations",
+      "approved": "Approved",
+      "pendingApproval": "Pending Approval",
+      "totalValue": "Total Value"
+    }
+  },
   "inquiries": {
     "_context": "Customer inquiry management and workflow tracking",
     "title": "Inquiries",
@@ -903,7 +947,23 @@
         "budget": "Budget Range",
         "budgetPlaceholder": "Estimated budget range",
         "expectedVolume": "Expected Volume",
-        "volumePlaceholder": "Expected order volume"
+        "volumePlaceholder": "Expected order volume",
+        "itemName": "Item Name",
+        "itemNamePlaceholder": "Enter item name",
+        "itemDescription": "Item Description",
+        "itemDescriptionPlaceholder": "Enter item description",
+        "quantity": "Quantity",
+        "quantityPlaceholder": "Enter quantity",
+        "unit": "Unit",
+        "unitPlaceholder": "e.g., pcs, kg, m",
+        "priceEstimation": "Price Estimation",
+        "priceEstimationPlaceholder": "Enter estimated price",
+        "priceEstimationDescription": "Sales price estimation for forecasting sales potential",
+        "requestedDelivery": "Requested Delivery",
+        "requestedDeliveryPlaceholder": "Select delivery date",
+        "requestedDeliveryDescription": "Customer requested delivery date",
+        "specifications": "Specifications",
+        "specificationsPlaceholder": "Technical specifications"
       },
       "items": {
         "title": "Inquiry Items",
@@ -983,6 +1043,7 @@
     },
     "actions": {
       "_context": "Inquiry management actions",
+      "create": "Create Inquiry",
       "view": "View Inquiry",
       "edit": "Edit Inquiry",
       "delete": "Delete Inquiry",

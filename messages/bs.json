@@ -116,7 +116,20 @@
       "rank": "Rang",
       "score": "Rezultat",
       "rating": "Ocjena",
-      "by": "od"
+      "by": "od",
+      "currency": "Valuta"
+    },
+    "currency": {
+      "_context": "Pojmovi i oznake vezane uz valutu",
+      "eur": "Euro",
+      "bam": "Konvertibilna marka",
+      "primaryCurrency": "Primarna valuta",
+      "secondaryCurrency": "Sekundarna valuta",
+      "conversionRate": "Kurs konverzije",
+      "convertedAmount": "Konvertirani iznos",
+      "originalAmount": "Originalni iznos",
+      "selectCurrency": "Odaberite valutu",
+      "currencySettings": "Postavke valute"
     },
     "status": {
       "active": "Aktivan",
@@ -266,6 +279,7 @@
       "reports": "Izvještaji",
       "analytics": "Analitika",
       "settings": "Postavke",
+      "systemSettings": "Postavke sistema",
       "help": "Pomoć",
       "documentation": "Dokumentacija"
     },
@@ -294,7 +308,7 @@
     "signIn": {
       "_context": "Stranica prijave i obrazac za prijavu",
       "title": "Prijava",
-      "subtitle": "Dobrodošli natrag u GS-CMS",
+      "subtitle": "Dobrodošli natrag u GS-Star",
       "welcomeMessage": "Dobrodošli natrag! Molimo prijavite se na svoj račun.",
       "email": "Email adresa",
       "emailPlaceholder": "Unesite svoju email adresu",
@@ -324,8 +338,8 @@
     "signUp": {
       "_context": "Registracija korisnika i stvaranje računa",
       "title": "Stvori račun",
-      "subtitle": "Pridružite se GS-CMS-u danas",
-      "welcomeMessage": "Stvorite svoj račun za početak rada s GS-CMS-om.",
+      "subtitle": "Pridružite se GS-Star-u danas",
+      "welcomeMessage": "Stvorite svoj račun za početak rada s GS-Star-om.",
       "firstName": "Ime",
       "lastName": "Prezime",
       "email": "Email adresa",
@@ -817,6 +831,36 @@
       "retention": "Zadržavanje"
     }
   },
+  "costs": {
+    "_context": "Kalkulacija i upravljanje troškovima",
+    "title": "Kalkulacije troškova",
+    "subtitle": "Upravljanje i pregled kalkulacija troškova za stavke upita",
+    "totalCost": "Ukupni trošak",
+    "fields": {
+      "materialCost": "Trošak materijala",
+      "laborCost": "Trošak rada",
+      "overheadCost": "Režijski troškovi",
+      "totalCost": "Ukupni trošak",
+      "notes": "Napomene"
+    },
+    "currency": {
+      "primary": "Primarna valuta (EUR)",
+      "secondary": "Sekundarna valuta (BAM)",
+      "converted": "Konvertirano u EUR"
+    },
+    "actions": {
+      "calculate": "Kalkuliši troškove",
+      "createCalculation": "Kreiraj kalkulaciju troškova",
+      "approve": "Odobri",
+      "reject": "Odbaci"
+    },
+    "stats": {
+      "totalCalculations": "Ukupno kalkulacija",
+      "approved": "Odobreno",
+      "pendingApproval": "Čeka odobrenje",
+      "totalValue": "Ukupna vrijednost"
+    }
+  },
   "inquiries": {
     "_context": "Upravljanje upitima kupaca i praćenje tijeka rada",
     "title": "Upiti",
@@ -901,7 +945,15 @@
         "unit": "Jedinica",
         "unitPlaceholder": "npr., kom, kg, m",
         "notes": "Napomene",
-        "notesPlaceholder": "Dodatne napomene za ovu stavku"
+        "notesPlaceholder": "Dodatne napomene za ovu stavku",
+        "priceEstimation": "Procjena cijene",
+        "priceEstimationPlaceholder": "Unesite procijenjenu cijenu",
+        "priceEstimationDescription": "Procjena prodajne cijene za prognoziranje prodajnog potencijala",
+        "requestedDelivery": "Zahtijevana dostava",
+        "requestedDeliveryPlaceholder": "Odaberite datum dostave",
+        "requestedDeliveryDescription": "Datum dostave koji zahtijeva kupac",
+        "specifications": "Specifikacije",
+        "specificationsPlaceholder": "Tehničke specifikacije"
       },
       "items": {
         "title": "Stavke upita",
@@ -981,6 +1033,7 @@
     },
     "actions": {
       "_context": "Akcije upravljanja upitima",
+      "create": "Novi upit",
       "view": "Prikaži upit",
       "edit": "Uredi upit",
       "delete": "Obriši upit",
@@ -998,7 +1051,6 @@
       "sendQuote": "Pošalji ponudu",
       "followUp": "Praćenje",
       "markComplete": "Označi kao završeno",
-      "create": "Novi upit",
       "backToList": "Natrag na upite",
       "exportPDF": "Izvezi PDF",
       "exportExcel": "Izvezi Excel",

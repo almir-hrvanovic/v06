@@ -24,7 +24,8 @@ import { ArrowLeft, Plus, Trash2, CalendarIcon, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { apiClient } from '@/lib/api-client'
 import { createInquirySchema } from '@/lib/validations'
-import { Priority } from '@prisma/client'
+import { Priority, Currency } from '@prisma/client'
+import { CurrencyInput } from '@/components/ui/currency-input'
 
 type InquiryFormData = z.infer<typeof createInquirySchema>
 
@@ -44,7 +45,7 @@ export default function NewInquiryPage() {
       customerId: '',
       priority: Priority.MEDIUM,
       deadline: undefined,
-      items: [{ name: '', description: '', quantity: 1, unit: 'pcs', notes: '' }]
+      items: [{ name: '', description: '', quantity: 1, unit: 'pcs', notes: '', priceEstimation: undefined, requestedDelivery: undefined }]
     }
   })
 
@@ -73,14 +74,14 @@ export default function NewInquiryPage() {
   }
 
   const onSubmit = async (data: InquiryFormData) => {
+    let payload: any
     try {
       setLoading(true)
       
       // Transform the data to match API expectations
-      const payload = {
-        ...data,
-        deadline: data.deadline ? data.deadline.toISOString() : undefined,
-      }
+      payload = data
+      
+      console.log('Submitting payload:', payload)
       
       const response = await apiClient.createInquiry(payload)
       
@@ -88,6 +89,9 @@ export default function NewInquiryPage() {
       router.push('/dashboard/inquiries')
     } catch (error) {
       console.error('Failed to create inquiry:', error)
+      if (payload) {
+        console.error('Payload sent:', payload)
+      }
       toast.error(error instanceof Error ? error.message : t('inquiries.messages.createFailed'))
     } finally {
       setLoading(false)
@@ -95,7 +99,7 @@ export default function NewInquiryPage() {
   }
 
   const addItem = () => {
-    append({ name: '', description: '', quantity: 1, unit: 'pcs', notes: '' })
+    append({ name: '', description: '', quantity: 1, unit: 'pcs', notes: '', priceEstimation: undefined, requestedDelivery: undefined })
   }
 
   const canCreateInquiry = session?.user?.role && ['SALES', 'ADMIN', 'SUPERUSER'].includes(session.user.role)
@@ -399,6 +403,72 @@ export default function NewInquiryPage() {
                           </FormItem>
                         )}
                       />
+
+                      <div className="grid gap-4 md:grid-cols-2">
+                        <FormField
+                          control={form.control}
+                          name={`items.${index}.priceEstimation`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>{t('inquiries.form.fields.priceEstimation')}</FormLabel>
+                              <FormControl>
+                                <CurrencyInput
+                                  placeholder={t('inquiries.form.fields.priceEstimationPlaceholder')}
+                                  value={field.value}
+                                  onChange={(value) => field.onChange(value?.toString() || '')}
+                                  showSymbol={true}
+                                />
+                              </FormControl>
+                              <FormDescription>
+                                {t('inquiries.form.fields.priceEstimationDescription')}
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        <FormField
+                          control={form.control}
+                          name={`items.${index}.requestedDelivery`}
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col">
+                              <FormLabel>{t('inquiries.form.fields.requestedDelivery')}</FormLabel>
+                              <Popover>
+                                <PopoverTrigger asChild>
+                                  <FormControl>
+                                    <Button
+                                      variant="outline"
+                                      className={cn(
+                                        "w-full pl-3 text-left font-normal",
+                                        !field.value && "text-muted-foreground"
+                                      )}
+                                    >
+                                      {field.value ? (
+                                        format(field.value, "PPP")
+                                      ) : (
+                                        <span>{t('inquiries.form.fields.requestedDeliveryPlaceholder')}</span>
+                                      )}
+                                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto p-0" align="start">
+                                  <Calendar
+                                    mode="single"
+                                    selected={field.value}
+                                    onSelect={field.onChange}
+                                    initialFocus
+                                  />
+                                </PopoverContent>
+                              </Popover>
+                              <FormDescription>
+                                {t('inquiries.form.fields.requestedDeliveryDescription')}
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
                     </div>
                   </CardContent>
                 </Card>

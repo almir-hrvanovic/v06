@@ -13,6 +13,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ArrowLeft, Save } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
+import { formatWithSystemCurrency } from '@/lib/currency-helpers'
 import { toast } from 'sonner'
 import { useTranslations } from 'next-intl'
 
@@ -25,6 +26,7 @@ interface InquiryItem {
   status: string
   notes?: string | null
   requestedDelivery?: string | null
+  priceEstimation?: number | null
   inquiry: {
     id: string
     title: string
@@ -385,6 +387,18 @@ export default function ItemEditPage() {
                   rows={3}
                 />
               </div>
+
+              {item.priceEstimation && (
+                <div>
+                  <Label>Price Estimation</Label>
+                  <div className="text-lg font-semibold">
+                    {formatWithSystemCurrency(item.priceEstimation)}
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Sales price estimation for forecasting
+                  </p>
+                </div>
+              )}
 
               <Button type="submit" disabled={saving} className="w-full">
                 <Save className="h-4 w-4 mr-2" />

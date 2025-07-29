@@ -132,7 +132,10 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
+    console.log('POST /api/inquiries - Request body:', JSON.stringify(body, null, 2))
+    
     const validatedData = createInquirySchema.parse(body)
+    console.log('POST /api/inquiries - Validated data:', JSON.stringify(validatedData, null, 2))
 
     const inquiry = await prisma.inquiry.create({
       data: {
@@ -149,6 +152,8 @@ export async function POST(request: NextRequest) {
             quantity: item.quantity,
             unit: item.unit,
             notes: item.notes,
+            priceEstimation: item.priceEstimation,
+            requestedDelivery: item.requestedDelivery,
           }))
         }
       },
@@ -185,6 +190,11 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('Create inquiry error:', error)
+    console.error('Error details:', {
+      name: error instanceof Error ? error.name : 'Unknown',
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined
+    })
     
     if (error instanceof Error && error.message.includes('validation')) {
       return NextResponse.json(
@@ -194,7 +204,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }

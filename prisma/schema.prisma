@@ -34,6 +34,7 @@ model User {
   uploadedFiles       FileAttachment[]
   automationRules     AutomationRule[]
   automationLogs      AutomationLog[]
+  systemSettingsUpdates SystemSettings[]
 
   @@map("users")
 }
@@ -157,6 +158,22 @@ model CostCalculation {
   laborCost         Decimal  @default(0) @db.Decimal(10, 2)
   overheadCost      Decimal  @default(0) @db.Decimal(10, 2)
   totalCost         Decimal  @default(0) @db.Decimal(10, 2)
+  
+  // Currency fields
+  materialCostCurrency  Currency @default(EUR)
+  laborCostCurrency     Currency @default(EUR)
+  overheadCostCurrency  Currency @default(EUR)
+  
+  // Original amounts in selected currency (before conversion)
+  materialCostOriginal  Decimal? @db.Decimal(10, 2)
+  laborCostOriginal     Decimal? @db.Decimal(10, 2)
+  overheadCostOriginal  Decimal? @db.Decimal(10, 2)
+  
+  // Conversion rates used at the time of calculation
+  materialCostRate      Decimal? @db.Decimal(8, 6)
+  laborCostRate         Decimal? @db.Decimal(8, 6)
+  overheadCostRate      Decimal? @db.Decimal(8, 6)
+  
   notes             String?
   isApproved        Boolean  @default(false)
   approvedAt        DateTime?
@@ -529,6 +546,16 @@ enum DeadlineStatus {
   CANCELLED
 }
 
+enum Currency {
+  EUR
+  BAM
+  USD
+  GBP
+  CHF
+  HRK
+  RSD
+}
+
 // Business Partners Management
 model BusinessPartner {
   id        String   @id @default(cuid())
@@ -542,4 +569,21 @@ model BusinessPartner {
   // contracts    Contract[]
 
   @@map("business_partners")
+}
+
+// System Settings
+model SystemSettings {
+  id                  String   @id @default(cuid())
+  mainCurrency        Currency @default(EUR)
+  additionalCurrency1 Currency?
+  additionalCurrency2 Currency?
+  exchangeRate1       Decimal? @db.Decimal(10, 6)  // Exchange rate from additional1 to main
+  exchangeRate2       Decimal? @db.Decimal(10, 6)  // Exchange rate from additional2 to main
+  updatedAt           DateTime @updatedAt
+  updatedById         String?
+  
+  // Relations
+  updatedBy           User?    @relation(fields: [updatedById], references: [id])
+  
+  @@map("system_settings")
 }

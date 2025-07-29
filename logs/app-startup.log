@@ -1,52 +1,42 @@
-[0;32m2025-07-29 07:47:55[0m ✅ Environment setup completed
-[0;34m2025-07-29 07:47:55 PHASE:[0m 3/6 - Dependency Check
-[0;32m2025-07-29 07:47:55[0m Dependencies already installed
-[0;32m2025-07-29 07:47:55[0m package-lock.json is newer, updating dependencies...
+[0;32m2025-07-29 12:16:15[0m ✅ Environment setup completed
+[0;34m2025-07-29 12:16:15 PHASE:[0m 3/6 - Dependency Check
+[0;32m2025-07-29 12:16:15[0m Dependencies already installed
+[0;32m2025-07-29 12:16:15[0m ✅ Dependency check completed
+[0;34m2025-07-29 12:16:15 PHASE:[0m 4/6 - Database Setup
+[0;32m2025-07-29 12:16:15[0m Setting up database...
 Environment variables loaded from .env
 Prisma schema loaded from prisma/schema.prisma
 
-✔ Generated Prisma Client (v6.12.0) to ./node_modules/@prisma/client in 163ms
+✔ Generated Prisma Client (v6.12.0) to ./node_modules/@prisma/client in 169ms
 
 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
 
 Tip: Interested in query caching in just a few lines of code? Try Accelerate today! https://pris.ly/tip-3-accelerate
 
-[0;32m2025-07-29 07:47:58[0m ✅ Dependency check completed
-[0;34m2025-07-29 07:47:58 PHASE:[0m 4/6 - Database Setup
-[0;32m2025-07-29 07:47:58[0m Setting up database...
-Environment variables loaded from .env
-Prisma schema loaded from prisma/schema.prisma
-
-✔ Generated Prisma Client (v6.12.0) to ./node_modules/@prisma/client in 183ms
-
-Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
-
-Tip: Need your database queries to be 1000x faster? Accelerate offers you that and more: https://pris.ly/tip-2-accelerate
-
 Environment variables loaded from .env
 Prisma schema loaded from prisma/schema.prisma
 Datasource "db": PostgreSQL database "gs_cms_v05", schema "public" at "localhost:5432"
 
-🚀  Your database is now in sync with your Prisma schema. Done in 178ms
+The database is already in sync with the Prisma schema.
 
 Running generate... (Use --skip-generate to skip the generators)
 [2K[1A[2K[GRunning generate... - Prisma Client
-[2K[1A[2K[G✔ Generated Prisma Client (v6.12.0) to ./node_modules/@prisma/client in 169ms
+[2K[1A[2K[G✔ Generated Prisma Client (v6.12.0) to ./node_modules/@prisma/client in 156ms
 
-[0;32m2025-07-29 07:48:01[0m ✅ Database setup completed
-[0;34m2025-07-29 07:48:01 PHASE:[0m 5/6 - Application Startup
-[0;32m2025-07-29 07:48:03[0m Starting Next.js development server...
-[0;32m2025-07-29 07:48:03[0m Application started with PID: 1263759
-[0;32m2025-07-29 07:48:03[0m Waiting for Next.js Application on port 3000...
-[0;32m2025-07-29 07:48:15[0m Still waiting for Next.js Application... (10/60 seconds)
-[0;32m2025-07-29 07:48:27[0m Still waiting for Next.js Application... (20/60 seconds)
-[0;32m2025-07-29 07:48:39[0m Still waiting for Next.js Application... (30/60 seconds)
-[0;32m2025-07-29 07:48:50[0m Still waiting for Next.js Application... (40/60 seconds)
-[0;32m2025-07-29 07:49:02[0m Still waiting for Next.js Application... (50/60 seconds)
-[0;32m2025-07-29 07:49:14[0m Still waiting for Next.js Application... (60/60 seconds)
-[0;34m2025-07-29 07:49:14 PHASE:[0m 6/6 - Health Verification
-[0;32m2025-07-29 07:49:19[0m Testing basic connectivity...
-[0;32m2025-07-29 07:49:29[0m ✅ Application is responding
-[1;33m2025-07-29 07:49:29 WARNING:[0m Health endpoint not available or not implemented
-[1;33m2025-07-29 07:49:30 WARNING:[0m API routes may not be available
-[0;32m2025-07-29 07:49:30[0m ✅ Health verification completed
+[0;32m2025-07-29 12:16:18[0m ✅ Database setup completed
+[0;34m2025-07-29 12:16:18 PHASE:[0m 5/6 - Application Startup
+[0;32m2025-07-29 12:16:20[0m Starting Next.js development server...
+[0;32m2025-07-29 12:16:20[0m Application started with PID: 1411946
+[0;32m2025-07-29 12:16:20[0m Waiting for Next.js Application on port 3000...
+[0;32m2025-07-29 12:16:32[0m Still waiting for Next.js Application... (10/60 seconds)
+[0;32m2025-07-29 12:16:43[0m Still waiting for Next.js Application... (20/60 seconds)
+[0;32m2025-07-29 12:16:55[0m Still waiting for Next.js Application... (30/60 seconds)
+[0;32m2025-07-29 12:17:07[0m Still waiting for Next.js Application... (40/60 seconds)
+[0;32m2025-07-29 12:17:19[0m Still waiting for Next.js Application... (50/60 seconds)
+[0;32m2025-07-29 12:17:30[0m Still waiting for Next.js Application... (60/60 seconds)
+[0;34m2025-07-29 12:17:30 PHASE:[0m 6/6 - Health Verification
+[0;32m2025-07-29 12:17:35[0m Testing basic connectivity...
+[0;32m2025-07-29 12:17:44[0m ✅ Application is responding
+[1;33m2025-07-29 12:17:45 WARNING:[0m Health endpoint not available or not implemented
+[1;33m2025-07-29 12:17:46 WARNING:[0m API routes may not be available
+[0;32m2025-07-29 12:17:46[0m ✅ Health verification completed

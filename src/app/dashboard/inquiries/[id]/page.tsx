@@ -25,7 +25,8 @@ import {
   Eye,
   UserPlus
 } from 'lucide-react'
-import { formatDate, formatCurrency } from '@/lib/utils'
+import { formatDate } from '@/lib/utils'
+import { formatWithSystemCurrency } from '@/lib/currency-helpers'
 import { apiClient } from '@/lib/api-client'
 import { InquiryWithRelations, InquiryStatus, Priority } from '@/types'
 import { AssignItemDialog } from '@/components/inquiries/assign-item-dialog'
@@ -262,7 +263,7 @@ export default function InquiryDetailPage() {
               {inquiry.items.reduce((sum, item) => 
                 sum + (item.costCalculation?.totalCost ? Number(item.costCalculation.totalCost) : 0), 0
               ) > 0 
-                ? formatCurrency(inquiry.items.reduce((sum, item) => 
+                ? formatWithSystemCurrency(inquiry.items.reduce((sum, item) => 
                     sum + (item.costCalculation?.totalCost ? Number(item.costCalculation.totalCost) : 0), 0
                   ))
                 : 'TBD'

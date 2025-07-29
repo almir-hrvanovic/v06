@@ -21,7 +21,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "GS-CMS v05 - Customer Relationship & Quote Management System",
+  title: "GS-Star v5.1 - Customer Relationship & Quote Management System",
   description: "Modern CMS for managing customer inquiries, quotes, and production orders with role-based workflows",
   icons: {
     icon: '/favicon.svg',
