@@ -1,20 +1,20 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 
 export function LocaleProvider({ children }: { children: React.ReactNode }) {
-  const { data: session, status } = useSession()
+  const { user, loading } = useAuth()
   const lastSyncedLocale = useRef<string | null>(null)
 
   // Sync session locale with cookie only when necessary
   useEffect(() => {
-    // Only proceed if session is loaded and user has a language preference
-    if (status !== 'authenticated' || !session?.user?.preferredLanguage) {
+    // Only proceed if user is loaded and has a language preference
+    if (loading || !user?.preferredLanguage) {
       return
     }
 
-    const preferredLanguage = session.user.preferredLanguage
+    const preferredLanguage = user.preferredLanguage
     
     // Normalize language codes to ensure consistency
     const normalizeLocale = (locale: string) => {
@@ -56,7 +56,7 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
       // Mark as synced even if no update was needed
       lastSyncedLocale.current = normalizedPreference
     }
-  }, [session?.user?.preferredLanguage, status])
+  }, [user?.preferredLanguage, loading])
 
   return <>{children}</>
 }

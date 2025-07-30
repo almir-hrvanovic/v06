@@ -3,7 +3,7 @@
 export const dynamic = 'force-dynamic'
 
 import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -49,7 +49,7 @@ import { useMainCurrency } from '@/contexts/currency-context'
 export default function CostsPage() {
   const mainCurrency = useMainCurrency()
   const t = useTranslations()
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const [costCalculations, setCostCalculations] = useState<CostCalculationWithRelations[]>([])
   const [assignedItems, setAssignedItems] = useState<InquiryItemWithRelations[]>([])
   const [loading, setLoading] = useState(true)
@@ -69,7 +69,7 @@ export default function CostsPage() {
   const [overheadCostCurrency, setOverheadCostCurrency] = useState<Currency>(mainCurrency)
   const [totalCost, setTotalCost] = useState(0)
 
-  const userRole = session?.user?.role
+  const userRole = user?.role
 
   useEffect(() => {
     fetchData()
@@ -82,7 +82,7 @@ export default function CostsPage() {
       const [costsResponse, itemsResponse] = await Promise.all([
         apiClient.getCostCalculations(),
         userRole === 'VP' ? apiClient.getInquiryItems({ 
-          assignedToId: session?.user?.id,
+          assignedToId: user?.id,
           status: 'ASSIGNED,IN_PROGRESS' 
         }) : Promise.resolve({ data: [] })
       ]) as any

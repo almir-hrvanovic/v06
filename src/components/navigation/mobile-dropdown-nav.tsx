@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -43,9 +43,9 @@ export function MobileDropdownNav({ className }: MobileDropdownNavProps) {
   
   const pathname = usePathname()
   const router = useRouter()
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const t = useTranslations()
-  const userRole = session?.user?.role
+  const userRole = user?.role
 
   // Filter navigation groups based on user role
   const filteredGroups = navigationGroups.filter(group => 
@@ -299,7 +299,7 @@ export function MobileDropdownNav({ className }: MobileDropdownNavProps) {
           <div className="sticky bottom-0 bg-popover pt-2 mt-2 border-t">
             <div className="flex items-center justify-between px-2 py-1">
               <div className="text-xs text-muted-foreground">
-                {session?.user?.name || 'User'}
+                {user?.name || 'User'}
               </div>
               <div className="text-xs text-muted-foreground">
                 GS-CMS v5.0

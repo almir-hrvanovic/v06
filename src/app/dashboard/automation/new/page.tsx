@@ -1,6 +1,6 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { useRouter } from 'next/navigation'
 import { UserRole } from '@prisma/client'
 import { RuleForm } from '@/components/automation/rule-form'
@@ -10,12 +10,12 @@ import Link from 'next/link'
 export const dynamic = 'force-dynamic'
 
 export default function NewAutomationRulePage() {
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const router = useRouter()
 
   // Check permissions
-  const canManageRules = session?.user?.role && 
-    (session.user.role === UserRole.ADMIN || session.user.role === UserRole.SUPERUSER)
+  const canManageRules = user?.role && 
+    (user.role === UserRole.ADMIN || user.role === UserRole.SUPERUSER)
 
   if (!canManageRules) {
     router.push('/dashboard')

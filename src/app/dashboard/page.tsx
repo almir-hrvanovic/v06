@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -21,8 +21,8 @@ import {
 } from 'lucide-react'
 
 export default function DashboardPage() {
-  const { data: session } = useSession()
-  const userRole = session?.user?.role
+  const { user } = useAuth()
+  const userRole = user?.role
   const t = useTranslations()
 
   // Mock data - in real app, this would come from API calls
@@ -100,7 +100,7 @@ export default function DashboardPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
         <div className="space-y-1">
           <h1 className="text-2xl font-bold tracking-tight text-foreground">
-            {t('dashboard.welcome')}, {session?.user?.name}
+            {t('dashboard.welcome')}, {user?.name}
           </h1>
           <p className="text-muted-foreground">
             {t('dashboard.overview')}

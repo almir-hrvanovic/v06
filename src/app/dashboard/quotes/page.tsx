@@ -3,7 +3,7 @@
 export const dynamic = 'force-dynamic'
 
 import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -73,14 +73,14 @@ interface Quote {
 
 export default function QuotesPage() {
   const t = useTranslations()
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const [quotes, setQuotes] = useState<Quote[]>([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedQuote, setSelectedQuote] = useState<Quote | null>(null)
   const [sendDialogOpen, setSendDialogOpen] = useState(false)
 
-  const userRole = session?.user?.role
+  const userRole = user?.role
 
   useEffect(() => {
     fetchQuotes()

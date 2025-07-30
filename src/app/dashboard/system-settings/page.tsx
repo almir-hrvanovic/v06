@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -70,7 +70,7 @@ const currencyNames: Record<Currency, string> = {
 }
 
 export default function SystemSettingsPage() {
-  const { data: session, status } = useSession()
+  const { user, isLoading } = useAuth()
   const router = useRouter()
   const t = useTranslations()
   
@@ -96,15 +96,15 @@ export default function SystemSettingsPage() {
   })
 
   useEffect(() => {
-    if (status === 'loading') return
+    if (isLoading) return
     
-    if (!session?.user || session.user.role !== 'SUPERUSER') {
+    if (!user || user.role !== 'SUPERUSER') {
       router.push('/dashboard')
       return
     }
     
     fetchSettings()
-  }, [session, status, router])
+  }, [user, isLoading, router])
 
   const fetchSettings = async () => {
     try {
@@ -313,7 +313,7 @@ export default function SystemSettingsPage() {
     )
   }
 
-  if (session?.user?.role !== 'SUPERUSER') {
+  if (user?.role !== 'SUPERUSER') {
     return null
   }
 

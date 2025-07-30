@@ -1,7 +1,7 @@
 'use client'
 
 import { use, useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { useRouter } from 'next/navigation'
 import { UserRole } from '@prisma/client'
 import { RuleForm } from '@/components/automation/rule-form'
@@ -21,14 +21,14 @@ interface PageProps {
 
 export default function EditAutomationRulePage({ params }: PageProps) {
   const { ruleId } = use(params)
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const router = useRouter()
   const [rule, setRule] = useState<any>(null)
   const [loading, setLoading] = useState(true)
 
   // Check permissions
-  const canManageRules = session?.user?.role && 
-    (session.user.role === UserRole.ADMIN || session.user.role === UserRole.SUPERUSER)
+  const canManageRules = user?.role && 
+    (user.role === UserRole.ADMIN || user.role === UserRole.SUPERUSER)
 
   useEffect(() => {
     if (!canManageRules) {

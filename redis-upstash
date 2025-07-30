@@ -1,0 +1,37 @@
+REDIS 
+
+
+
+
+redis-cli --tls -u redis://default:ARPSAAIjcDFhNDZmZWZkNzY2ZDI0NDRkYWQ5OWUzMzQ5YTRiZWQwOXAxMA@bursting-mongrel-5074.upstash.io:6379
+
+token
+ARPSAAIjcDFhNDZmZWZkNzY2ZDI0NDRkYWQ5OWUzMzQ5YTRiZWQwOXAxMA
+
+readonly token
+AhPSAAIgcDE3JnlbsIAzFYea0N6PO4Ge_IKKTbe0eJ43lrI7gdt0fQ
+
+port
+6379
+
+REST
+UPSTASH_REDIS_REST_URL="https://bursting-mongrel-5074.upstash.io"
+UPSTASH_REDIS_REST_TOKEN="ARPSAAIjcDFhNDZmZWZkNzY2ZDI0NDRkYWQ5OWUzMzQ5YTRiZWQwOXAxMA"
+
+TCP
+REDIS_URL="rediss://default:ARPSAAIjcDFhNDZmZWZkNzY2ZDI0NDRkYWQ5OWUzMzQ5YTRiZWQwOXAxMA@bursting-mongrel-5074.upstash.io:6379"
+
+
+example 
+import { Redis } from '@upstash/redis'
+const redis = new Redis({
+  url: 'https://bursting-mongrel-5074.upstash.io',
+  token: 'ARPSAAIjcDFhNDZmZWZkNzY2ZDI0NDRkYWQ5OWUzMzQ5YTRiZWQwOXAxMA',
+})
+
+await redis.set("foo", "bar");
+await redis.get("foo");
+
+
+
+

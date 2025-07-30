@@ -3,7 +3,7 @@
 export const dynamic = 'force-dynamic'
 
 import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -76,14 +76,14 @@ interface ProductionOrder {
 
 export default function ProductionOrdersPage() {
   const t = useTranslations()
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const [orders, setOrders] = useState<ProductionOrder[]>([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedOrder, setSelectedOrder] = useState<ProductionOrder | null>(null)
   const [statusUpdateOpen, setStatusUpdateOpen] = useState(false)
 
-  const userRole = session?.user?.role
+  const userRole = user?.role
 
   useEffect(() => {
     fetchOrders()

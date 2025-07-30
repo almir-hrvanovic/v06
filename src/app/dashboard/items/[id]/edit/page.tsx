@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic'
 
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -61,7 +61,7 @@ export default function ItemEditPage() {
   const t = useTranslations()
   const params = useParams()
   const router = useRouter()
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const [item, setItem] = useState<InquiryItem | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
@@ -88,7 +88,7 @@ export default function ItemEditPage() {
   })
 
   const itemId = params.id as string
-  const userRole = session?.user?.role
+  const userRole = user?.role
 
   useEffect(() => {
     if (itemId) {

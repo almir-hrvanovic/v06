@@ -18,7 +18,7 @@ import {
 import { NotificationDropdown } from '@/components/notifications/notification-dropdown'
 import { ThemeToggleItems } from '@/components/ui/theme-toggle'
 import { QuickLanguageSwitcher } from '@/components/language/language-switcher'
-import { useSession, signOut } from 'next-auth/react'
+import { useAuth } from '@/components/providers/auth-provider'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useState, useRef } from 'react'
@@ -28,7 +28,7 @@ import { useA11yKeyboardNav, useA11yId } from '@/hooks/use-accessibility'
 import { KEYBOARD_KEYS, ariaProps } from '@/lib/accessibility'
 
 export function Header() {
-  const { data: session } = useSession()
+  const { user, signOut: authSignOut } = useAuth()
   const t = useTranslations('header')
   const tRoles = useTranslations('roles')
   const router = useRouter()
@@ -49,8 +49,8 @@ export function Header() {
   const searchInputRef = useRef<HTMLInputElement>(null)
   const userMenuButtonRef = useRef<HTMLButtonElement>(null)
 
-  const handleSignOut = () => {
-    signOut({ callbackUrl: '/auth/signin' })
+  const handleSignOut = async () => {
+    await authSignOut()
   }
 
   const handleLanguageChange = async (locale: string) => {
@@ -61,14 +61,14 @@ export function Header() {
       announceStateChange('Language', `changing to ${locale}`)
     }
     
-    if (!session?.user?.id) {
-      console.error('No user session found')
+    if (!user?.id) {
+      console.error('No user user found')
       return
     }
     
     try {
       // Update user preference in the database
-      const response = await fetch(`/api/users/${session.user.id}/language`, {
+      const response = await fetch(`/api/users/${user.id}/language`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ language: locale })
@@ -200,20 +200,20 @@ export function Header() {
                 aria-expanded={false}
                 aria-controls={userMenuId}
                 aria-labelledby={userMenuLabelId}
-                aria-label={`User menu for ${session?.user?.name || 'User'}`}
+                aria-label={`User menu for ${user?.name || 'User'}`}
               >
                 <div 
                   className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-semibold"
                   aria-hidden="true"
                 >
-                  {session?.user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                  {user?.name?.charAt(0)?.toUpperCase() || 'U'}
                 </div>
                 <div className="hidden lg:block text-left">
                   <div className="text-sm font-medium text-foreground">
-                    {session?.user?.name || 'User'}
+                    {user?.name || 'User'}
                   </div>
                   <div className="text-xs text-muted-foreground">
-                    {session?.user?.role ? tRoles(session.user.role.toLowerCase()) : ''}
+                    {user?.role ? tRoles(user.role.toLowerCase()) : ''}
                   </div>
                 </div>
               </Button>
@@ -229,14 +229,14 @@ export function Header() {
               <div className="px-4 py-3 border-b">
                 <div className="flex items-center space-x-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-semibold">
-                    {session?.user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                    {user?.name?.charAt(0)?.toUpperCase() || 'U'}
                   </div>
                   <div>
                     <div className="text-sm font-medium">
-                      {session?.user?.name || 'User'}
+                      {user?.name || 'User'}
                     </div>
                     <div className="text-xs text-muted-foreground">
-                      {session?.user?.email || ''}
+                      {user?.email || ''}
                     </div>
                   </div>
                 </div>

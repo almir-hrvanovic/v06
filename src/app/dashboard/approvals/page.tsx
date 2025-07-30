@@ -3,7 +3,7 @@
 export const dynamic = 'force-dynamic'
 
 import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -85,7 +85,7 @@ interface ApprovalWithRelations {
 
 export default function ApprovalsPage() {
   const t = useTranslations()
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const [approvals, setApprovals] = useState<ApprovalWithRelations[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedApproval, setSelectedApproval] = useState<ApprovalWithRelations | null>(null)
@@ -94,7 +94,7 @@ export default function ApprovalsPage() {
   const [approvalAction, setApprovalAction] = useState<'APPROVED' | 'REJECTED' | null>(null)
   const [comments, setComments] = useState('')
 
-  const userRole = session?.user?.role
+  const userRole = user?.role
 
   useEffect(() => {
     fetchApprovals()

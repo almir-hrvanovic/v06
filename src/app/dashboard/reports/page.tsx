@@ -22,14 +22,14 @@ import {
   Eye,
   Plus
 } from 'lucide-react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 
 export default function ReportsPage() {
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const [showReportGenerator, setShowReportGenerator] = useState(false)
   const [showExcelDialog, setShowExcelDialog] = useState(false)
   const [selectedExcelEntity, setSelectedExcelEntity] = useState<'inquiries' | 'users' | 'customers'>('inquiries')
-  const userRole = session?.user?.role
+  const userRole = user?.role
 
   // Check if user has permission to access reports
   const canAccessReports = ['SUPERUSER', 'ADMIN', 'MANAGER'].includes(userRole || '')

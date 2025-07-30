@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { useTranslations } from 'next-intl'
 import { useSearchParams } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -43,7 +43,7 @@ import {
 } from 'lucide-react'
 
 export default function SettingsPage() {
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const t = useTranslations('settings')
   const router = useRouter()
   const { theme, setTheme } = useTheme()
@@ -104,23 +104,23 @@ export default function SettingsPage() {
   // Load user data and preferences
   useEffect(() => {
     const loadUserData = async () => {
-      if (!session?.user) return
+      if (!user) return
       
       setIsLoading(true)
       try {
         // Load profile data
         const loadedProfileData = {
-          name: session.user.name || '',
-          email: session.user.email || '',
+          name: user.name || '',
+          email: user.email || '',
           phone: '', // Would come from API
           company: '', // Would come from API
-          role: session.user.role || '',
+          role: user.role || '',
         }
         setProfileData(loadedProfileData)
         setOriginalProfileData(loadedProfileData)
         
         // Load language preference
-        const langResponse = await fetch(`/api/users/${session.user.id}/language`)
+        const langResponse = await fetch(`/api/users/${user.id}/language`)
         if (langResponse.ok) {
           const data = await langResponse.json()
           // Convert full locale to short code for UI
@@ -137,7 +137,7 @@ export default function SettingsPage() {
         
         // Load notification preferences
         // This would be an API call in production
-        // const notifResponse = await fetch(`/api/users/${session.user.id}/notifications`)
+        // const notifResponse = await fetch(`/api/users/${user.id}/notifications`)
         
       } catch (error) {
         console.error('Error loading user data:', error)
@@ -148,7 +148,7 @@ export default function SettingsPage() {
     }
 
     loadUserData()
-  }, [session?.user])
+  }, [user])
 
   // Handle navigation with unsaved changes
   const handleNavigation = useCallback((destination: string) => {
@@ -203,7 +203,7 @@ export default function SettingsPage() {
   }
 
   const handleSaveLanguage = async () => {
-    if (!session?.user?.id) return
+    if (!user?.id) return
     
     setIsSaving(true)
     try {
@@ -217,7 +217,7 @@ export default function SettingsPage() {
       
       const fullLocale = localeMap[selectedLanguage] || selectedLanguage
       
-      const response = await fetch(`/api/users/${session.user.id}/language`, {
+      const response = await fetch(`/api/users/${user.id}/language`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ language: fullLocale }),

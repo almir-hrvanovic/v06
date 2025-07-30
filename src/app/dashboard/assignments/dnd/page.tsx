@@ -3,7 +3,7 @@
 export const dynamic = 'force-dynamic'
 
 import { useState, useEffect, useCallback } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import {
   DndContext,
   closestCenter,
@@ -49,7 +49,7 @@ interface ItemAssignment {
 
 export default function DragDropAssignmentPage() {
   const t = useTranslations()
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [users, setUsers] = useState<User[]>([])
@@ -360,7 +360,7 @@ export default function DragDropAssignmentPage() {
   }
 
   // Check permissions
-  const userRole = session?.user?.role
+  const userRole = user?.role
   if (userRole !== 'VPP' && userRole !== 'ADMIN' && userRole !== 'SUPERUSER') {
     return (
       <div className="space-y-6 p-6">

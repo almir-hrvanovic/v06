@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle, SheetDescription } from '@/components/ui/sheet'
-import { useSession, signOut } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { UserRole } from '@prisma/client'
 import { useTranslations } from 'next-intl'
 import { useSidebar } from '@/contexts/sidebar-context'
@@ -134,8 +134,8 @@ interface MobileBottomMenuProps {
 
 export function MobileBottomMenu({ className }: MobileBottomMenuProps) {
   const pathname = usePathname()
-  const { data: session } = useSession()
-  const userRole = session?.user?.role
+  const { user, signOut } = useAuth()
+  const userRole = user?.role
   const t = useTranslations()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -244,17 +244,17 @@ export function MobileBottomMenu({ className }: MobileBottomMenuProps) {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3 flex-1 min-w-0">
                 <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-semibold flex-shrink-0">
-                  {session?.user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                  {user?.name?.charAt(0)?.toUpperCase() || 'U'}
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-medium truncate">{session?.user?.name || 'User'}</p>
-                  <p className="text-xs text-muted-foreground truncate">{session?.user?.email}</p>
+                  <p className="text-sm font-medium truncate">{user?.name || 'User'}</p>
+                  <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
                 </div>
               </div>
               <Button
                 onClick={() => {
                   setIsOpen(false)
-                  signOut({ callbackUrl: '/auth/signin' })
+                  signOut()
                 }}
                 variant="ghost"
                 size="sm"

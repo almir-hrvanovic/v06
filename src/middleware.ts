@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { applySecurity, securityHeaders, corsHeaders } from '@/middleware/security'
 import { serverMonitor } from '@/lib/server-monitoring'
+import { createClient } from '@/utils/supabase/middleware'
+import { AUTH_URLS, PUBLIC_ROUTES, PROTECTED_ROUTES } from '@/lib/auth-config'
 
 export async function middleware(request: NextRequest) {
   const startTime = Date.now()
@@ -46,36 +48,33 @@ export async function middleware(request: NextRequest) {
     return corsHeaders(request, response)
   }
   
-  // Get session token from cookie for authentication check
-  const sessionToken = request.cookies.get('authjs.session-token')?.value || 
-                      request.cookies.get('__Secure-authjs.session-token')?.value ||
-                      request.cookies.get('next-auth.session-token')?.value || 
-                      request.cookies.get('__Secure-next-auth.session-token')?.value
-
+  // Create Supabase client with middleware
+  const { supabase, response } = createClient(request)
+  
+  // Get session from Supabase
+  const { data: { session } } = await supabase.auth.getSession()
+  
   console.log('Middleware check:', { 
     pathname, 
-    hasSessionToken: !!sessionToken,
-    cookies: request.cookies.getAll().map(c => c.name)
+    hasSession: !!session,
+    userEmail: session?.user?.email
   })
 
   // Allow access to public routes
-  if (pathname.startsWith('/auth') || pathname === '/' || pathname.startsWith('/api/auth') || pathname.startsWith('/api/uploadthing')) {
-    const response = NextResponse.next()
+  if (PUBLIC_ROUTES.some(route => pathname.startsWith(route))) {
     return securityHeaders(corsHeaders(request, response))
   }
 
-  // Protect dashboard routes - redirect to signin if no session token
-  if (pathname.startsWith('/dashboard') && !sessionToken) {
-    console.log('Redirecting to signin - no session token')
-    return NextResponse.redirect(new URL('/auth/signin', request.url))
+  // Protect dashboard routes - redirect to signin if no session
+  if (pathname.startsWith(PROTECTED_ROUTES.dashboard) && !session) {
+    console.log('Redirecting to signin - no Supabase session')
+    return NextResponse.redirect(new URL(AUTH_URLS.signIn, request.url))
   }
 
-  // Protect API routes (except auth) - return 401 if no session token
-  if (pathname.startsWith('/api') && !pathname.startsWith('/api/auth') && !sessionToken) {
+  // Protect API routes (except auth) - return 401 if no session
+  if (pathname.startsWith('/api') && !pathname.startsWith('/api/auth') && !session) {
     return new NextResponse('Unauthorized', { status: 401 })
   }
-
-  const response = NextResponse.next()
   
   // Add monitoring headers
   response.headers.set('x-request-id', requestId)

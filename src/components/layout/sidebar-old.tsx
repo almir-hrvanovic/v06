@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { UserRole } from '@prisma/client'
 import {
   LayoutDashboard,
@@ -120,8 +120,8 @@ const navItems: NavItem[] = [
 
 export function Sidebar() {
   const pathname = usePathname()
-  const { data: session } = useSession()
-  const userRole = session?.user?.role
+  const { user } = useAuth()
+  const userRole = user?.role
 
   const filteredNavItems = navItems.filter(item => 
     userRole && item.roles.includes(userRole)
@@ -170,11 +170,11 @@ export function Sidebar() {
       <div className="border-t border-gray-200 dark:border-gray-700 p-4">
         <div className="flex items-center space-x-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-medium">
-            {session?.user?.name?.charAt(0)?.toUpperCase() || 'U'}
+            {user?.name?.charAt(0)?.toUpperCase() || 'U'}
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
-              {session?.user?.name || 'User'}
+              {user?.name || 'User'}
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
               {userRole?.toLowerCase().replace('_', ' ')}

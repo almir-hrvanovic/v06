@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/hooks/use-auth';
 import { Button } from '@/components/ui/button';
 import { 
   DropdownMenu, 
@@ -68,7 +68,7 @@ export function LanguageSwitcher({
 }: LanguageSwitcherProps) {
   const currentLocale = useLocale();
   const t = useTranslations();
-  const { update } = useSession();
+  const { user } = useAuth();
   const [isChanging, setIsChanging] = useState(false);
 
   const currentLanguage = LANGUAGES.find(lang => 
@@ -96,10 +96,7 @@ export function LanguageSwitcher({
         throw new Error('Failed to update user language preference');
       }
 
-      // Update the session to reflect the new language preference
-      await update({
-        preferredLanguage: language.fullLocale
-      });
+      // Session update is handled by the auth hook and database update
 
       // Then set the locale cookie for immediate effect
       await setLocaleCookie(language.fullLocale);

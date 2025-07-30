@@ -3,7 +3,7 @@
 export const dynamic = 'force-dynamic'
 
 import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -56,7 +56,7 @@ import { toast } from 'sonner'
 
 export default function AssignmentsPage() {
   const t = useTranslations()
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const router = useRouter()
   const [items, setItems] = useState<InquiryItemWithRelations[]>([])
   const [vpUsers, setVpUsers] = useState<User[]>([])
@@ -71,7 +71,7 @@ export default function AssignmentsPage() {
   const [assignLoading, setAssignLoading] = useState(false)
   const [workloadExpanded, setWorkloadExpanded] = useState(false)
 
-  const userRole = session?.user?.role
+  const userRole = user?.role
 
   useEffect(() => {
     fetchData()

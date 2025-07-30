@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { useRouter } from 'next/navigation'
 import { Plus, Edit, Trash2, ToggleLeft, ToggleRight, Activity } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -33,16 +33,16 @@ interface AutomationRule {
 
 export default function AutomationRulesPage() {
   const t = useTranslations()
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const router = useRouter()
   const [rules, setRules] = useState<AutomationRule[]>([])
   const [loading, setLoading] = useState(true)
 
   // Check permissions
-  const canManageRules = session?.user?.role && 
-    (session.user.role === UserRole.ADMIN || session.user.role === UserRole.SUPERUSER)
+  const canManageRules = user?.role && 
+    (user.role === UserRole.ADMIN || user.role === UserRole.SUPERUSER)
 
-  const canDeleteRules = session?.user?.role === UserRole.SUPERUSER
+  const canDeleteRules = user?.role === UserRole.SUPERUSER
 
   useEffect(() => {
     if (!canManageRules) {

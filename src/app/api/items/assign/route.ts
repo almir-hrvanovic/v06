@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerAuth } from '@/lib/auth-helpers'
 import { prisma } from '@/lib/db'
 import { bulkAssignItemsSchema } from '@/lib/validations'
-import { canAssignItems } from '@/lib/auth'
+import { canAssignItems } from '@/utils/supabase/api-auth'
 import { sendNotificationEmail } from '@/lib/email'
 
 export async function POST(request: NextRequest) {

@@ -13,7 +13,7 @@ import { ThemeProvider } from '@/contexts/theme-context'
 import { NextIntlClientProvider } from 'next-intl'
 import { cookies } from 'next/headers'
 import { ErrorBoundary } from '@/components/error-boundary'
-import { AutoLoginProvider } from '@/components/auth/auto-login-provider'
+// import { AutoLoginProvider } from '@/components/auth/auto-login-provider' // DISABLED: Auto-login removed
 import { getServerAuth } from '@/lib/auth-helpers'
 import { prisma } from '@/lib/db'
 
@@ -138,13 +138,11 @@ export default async function RootLayout({
         >
           <ThemeProvider defaultTheme="system" storageKey="gs-cms-theme">
             <AuthProvider>
-              <AutoLoginProvider>
-                <LocaleProvider>
-                  <ConsoleMonitorProvider>
-                    {children}
-                  </ConsoleMonitorProvider>
-                </LocaleProvider>
-              </AutoLoginProvider>
+              <LocaleProvider>
+                <ConsoleMonitorProvider>
+                  {children}
+                </ConsoleMonitorProvider>
+              </LocaleProvider>
             </AuthProvider>
           </ThemeProvider>
         </NextIntlClientProvider>

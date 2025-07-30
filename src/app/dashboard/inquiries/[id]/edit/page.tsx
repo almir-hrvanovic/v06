@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic'
 
 import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -34,7 +34,7 @@ type InquiryFormData = z.infer<typeof updateInquirySchema>
 export default function EditInquiryPage() {
   const router = useRouter()
   const params = useParams()
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const t = useTranslations()
   const [loading, setLoading] = useState(false)
   const [loadingInquiry, setLoadingInquiry] = useState(true)
@@ -93,7 +93,7 @@ export default function EditInquiryPage() {
     }
   }
 
-  const canEditInquiry = session?.user?.role && ['SALES', 'ADMIN', 'SUPERUSER'].includes(session.user.role)
+  const canEditInquiry = user?.role && ['SALES', 'ADMIN', 'SUPERUSER'].includes(user.role)
 
   if (!canEditInquiry) {
     return (

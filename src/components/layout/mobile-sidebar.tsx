@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ResponsiveDrawer } from '@/components/ui/responsive-drawer'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { UserRole } from '@prisma/client'
 import { useTranslations } from 'next-intl'
 import { useSidebar } from '@/contexts/sidebar-context'
@@ -133,8 +133,8 @@ interface MobileSidebarProps {
 
 export function MobileSidebar({ className }: MobileSidebarProps) {
   const pathname = usePathname()
-  const { data: session } = useSession()
-  const userRole = session?.user?.role
+  const { user } = useAuth()
+  const userRole = user?.role
   const t = useTranslations()
   
   // Use enhanced sidebar context
@@ -364,11 +364,11 @@ export function MobileSidebar({ className }: MobileSidebarProps) {
             className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-medium flex-shrink-0"
             aria-hidden="true"
           >
-            {session?.user?.name?.charAt(0)?.toUpperCase() || 'U'}
+            {user?.name?.charAt(0)?.toUpperCase() || 'U'}
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
-              {session?.user?.name || 'User'}
+              {user?.name || 'User'}
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
               {userRole?.toLowerCase().replace('_', ' ')}

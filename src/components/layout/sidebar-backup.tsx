@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { UserRole } from '@prisma/client'
 import { useSidebar } from '@/contexts/sidebar-context'
 import { useTranslations } from 'next-intl'
@@ -136,9 +136,9 @@ const navItems: NavItem[] = [
 
 export function Sidebar() {
   const pathname = usePathname()
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const { isCollapsed, toggleCollapsed } = useSidebar()
-  const userRole = session?.user?.role
+  const userRole = user?.role
 
   const filteredNavItems = navItems.filter(item => 
     userRole && item.roles.includes(userRole)
@@ -244,12 +244,12 @@ export function Sidebar() {
             <Tooltip delayDuration={0}>
               <TooltipTrigger asChild>
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-medium">
-                  {session?.user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                  {user?.name?.charAt(0)?.toUpperCase() || 'U'}
                 </div>
               </TooltipTrigger>
               <TooltipContent side="right">
                 <div>
-                  <p className="font-medium">{session?.user?.name || 'User'}</p>
+                  <p className="font-medium">{user?.name || 'User'}</p>
                   <p className="text-xs text-muted-foreground">
                     {userRole?.toLowerCase().replace('_', ' ')}
                   </p>
@@ -259,11 +259,11 @@ export function Sidebar() {
           ) : (
             <div className="flex items-center space-x-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-medium flex-shrink-0">
-                {session?.user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                {user?.name?.charAt(0)?.toUpperCase() || 'U'}
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
-                  {session?.user?.name || 'User'}
+                  {user?.name || 'User'}
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
                   {userRole?.toLowerCase().replace('_', ' ')}

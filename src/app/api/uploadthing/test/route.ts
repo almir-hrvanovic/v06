@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@/auth';
+import { getServerAuth } from '@/lib/auth-helpers';
 
 export async function GET() {
   try {
@@ -15,7 +15,7 @@ export async function GET() {
     // Check auth session
     let session = null;
     try {
-      session = await auth();
+      session = await getServerAuth();
     } catch (error: any) {
       console.error('Auth error:', error);
     }

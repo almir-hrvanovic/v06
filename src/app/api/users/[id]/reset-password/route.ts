@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerAuth } from '@/lib/auth-helpers'
 import { prisma } from '@/lib/db'
-import { hasPermission } from '@/lib/auth'
+import { hasPermission } from '@/utils/supabase/api-auth'
 import bcrypt from 'bcryptjs'
 
 interface RouteParams {

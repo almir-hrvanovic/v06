@@ -1,9 +1,10 @@
 'use server'
 
-import { signIn } from '@/auth'
-import { AuthError } from 'next-auth'
+import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
+import { prisma } from '@/lib/db'
+import bcrypt from 'bcryptjs'
 
 // Input validation schema
 const loginSchema = z.object({
@@ -24,30 +25,47 @@ export async function authenticate(
     
     const validatedData = loginSchema.parse(rawData)
     
-    // Use the simpler signIn approach with redirectTo
-    await signIn('credentials', {
-      email: validatedData.email,
-      password: validatedData.password,
-      redirectTo: '/dashboard',
+    // First check if user exists in our database and validate password
+    const user = await prisma.user.findUnique({
+      where: { email: validatedData.email },
+      select: {
+        id: true,
+        email: true,
+        password: true,
+        isActive: true,
+      }
     })
     
-    // This line should not be reached if signIn is successful
-    // as signIn will throw a redirect
-    return null
+    if (!user || !user.isActive) {
+      return 'Invalid email or password.'
+    }
+    
+    // Check password using bcrypt
+    const isPasswordValid = user.password 
+      ? await bcrypt.compare(validatedData.password, user.password)
+      : false
+    
+    if (!isPasswordValid) {
+      return 'Invalid email or password.'
+    }
+    
+    // Now sign in with Supabase
+    const supabase = await createClient()
+    const { error } = await supabase.auth.signInWithPassword({
+      email: validatedData.email,
+      password: validatedData.password,
+    })
+    
+    if (error) {
+      console.error('Supabase auth error:', error)
+      return 'Authentication failed. Please try again.'
+    }
+    
+    // Redirect to dashboard on success
+    redirect('/dashboard')
   } catch (error: any) {
     if (error instanceof z.ZodError) {
       return error.errors[0].message
-    }
-    
-    if (error instanceof AuthError) {
-      switch (error.type) {
-        case 'CredentialsSignin':
-          return 'Invalid email or password.'
-        case 'AccessDenied':
-          return 'Access denied. Please check your credentials.'
-        default:
-          return 'Authentication failed. Please try again.'
-      }
     }
     
     // Check if it's a Next.js redirect (this is expected on successful login)

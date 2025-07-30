@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/hooks/use-auth';
 import { toast } from 'sonner';
 import { setLocaleCookie } from '@/lib/locale';
 
@@ -15,7 +15,7 @@ const LOCALE_MAP: Record<string, string> = {
 
 export function LanguageSelector() {
   const currentLocale = useLocale();
-  const { update } = useSession();
+  const { user } = useAuth();
   const [isChanging, setIsChanging] = useState(false);
   const t = useTranslations('header');
   
@@ -44,10 +44,7 @@ export function LanguageSelector() {
         throw new Error('Failed to update user language preference');
       }
 
-      // Update the session to reflect the new language preference
-      await update({
-        preferredLanguage: fullLocale
-      });
+      // Session update is handled by the auth hook and database update
 
       // Then set the locale cookie for immediate effect
       await setLocaleCookie(fullLocale);

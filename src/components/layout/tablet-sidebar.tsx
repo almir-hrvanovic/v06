@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { useSession, signOut } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { UserRole } from '@prisma/client'
 import { useTranslations } from 'next-intl'
 import {
@@ -130,8 +130,8 @@ interface TabletSidebarProps {
 
 export function TabletSidebar({ className }: TabletSidebarProps) {
   const pathname = usePathname()
-  const { data: session } = useSession()
-  const userRole = session?.user?.role
+  const { user, signOut: authSignOut } = useAuth()
+  const userRole = user?.role
   const t = useTranslations()
   const [isExpanded, setIsExpanded] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
@@ -285,15 +285,15 @@ export function TabletSidebar({ className }: TabletSidebarProps) {
           <div className="space-y-2">
             <div className="flex items-center space-x-3 p-2">
               <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-semibold">
-                {session?.user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                {user?.name?.charAt(0)?.toUpperCase() || 'U'}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium truncate">{session?.user?.name || 'User'}</p>
-                <p className="text-xs text-muted-foreground truncate">{session?.user?.email}</p>
+                <p className="text-sm font-medium truncate">{user?.name || 'User'}</p>
+                <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
               </div>
             </div>
             <Button
-              onClick={() => signOut({ callbackUrl: '/auth/signin' })}
+              onClick={() => authSignOut()}
               variant="ghost"
               size="sm"
               className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10"
@@ -310,15 +310,15 @@ export function TabletSidebar({ className }: TabletSidebarProps) {
               className="h-10 w-10 mx-auto flex relative group"
             >
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-semibold">
-                {session?.user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                {user?.name?.charAt(0)?.toUpperCase() || 'U'}
               </div>
               {/* Tooltip */}
               <div className="absolute left-full ml-2 px-2 py-1 bg-popover text-popover-foreground text-sm rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap shadow-md">
-                {session?.user?.name || 'User'}
+                {user?.name || 'User'}
               </div>
             </Button>
             <Button
-              onClick={() => signOut({ callbackUrl: '/auth/signin' })}
+              onClick={() => authSignOut()}
               variant="ghost"
               size="icon"
               className="h-10 w-10 mx-auto flex text-destructive hover:text-destructive hover:bg-destructive/10 relative group"

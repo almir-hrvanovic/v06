@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerAuth } from '@/lib/auth-helpers'
 import { prisma } from '@/lib/db'
 import { costCalculationSchema } from '@/lib/validations'
-import { canCalculateCosts } from '@/lib/auth'
+import { canCalculateCosts } from '@/utils/supabase/api-auth'
 import { sendNotificationEmail } from '@/lib/email'
 
 export async function GET(request: NextRequest) {

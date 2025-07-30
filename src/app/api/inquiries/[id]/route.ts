@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerAuth } from '@/lib/auth-helpers'
 import { prisma } from '@/lib/db'
 import { updateInquirySchema, idSchema } from '@/lib/validations'
-import { hasPermission } from '@/lib/auth'
+import { hasPermission } from '@/utils/supabase/api-auth'
 
 export async function GET(
   request: NextRequest,

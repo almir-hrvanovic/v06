@@ -3,7 +3,7 @@
 export const dynamic = 'force-dynamic'
 
 import React, { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -44,7 +44,7 @@ import { useTranslations } from 'next-intl'
 
 export default function InquiriesPage() {
   const t = useTranslations()
-  const { data: session, status: sessionStatus } = useSession()
+  const { user, isLoading } = useAuth()
   const router = useRouter()
   const [inquiries, setInquiries] = useState<InquiryWithRelations[]>([])
   const [loading, setLoading] = useState(true)
@@ -57,13 +57,13 @@ export default function InquiriesPage() {
   const [assignDialogOpen, setAssignDialogOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState<any>(null)
 
-  const userRole = session?.user?.role
+  const userRole = user?.role
 
   useEffect(() => {
     let isMounted = true
     
     const loadCustomers = async () => {
-      if (sessionStatus === 'loading' || !session?.user) {
+      if (isLoading || !user) {
         return
       }
       
@@ -85,13 +85,13 @@ export default function InquiriesPage() {
     return () => {
       isMounted = false
     }
-  }, [session, sessionStatus])
+  }, [user, isLoading])
 
   useEffect(() => {
     let isMounted = true
     
     const loadInquiries = async () => {
-      if (sessionStatus === 'loading' || !session?.user) {
+      if (isLoading || !user) {
         return
       }
       
@@ -129,10 +129,10 @@ export default function InquiriesPage() {
     return () => {
       isMounted = false
     }
-  }, [session, sessionStatus, searchTerm, statusFilter, priorityFilter, customerFilter])
+  }, [user, isLoading, searchTerm, statusFilter, priorityFilter, customerFilter])
 
   const refreshInquiries = async () => {
-    if (sessionStatus === 'loading' || !session?.user) {
+    if (isLoading || !user) {
       return
     }
     

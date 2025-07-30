@@ -20,7 +20,7 @@ import { Input } from '@/components/ui/input'
 import { MobileBottomMenu } from './mobile-bottom-menu'
 import { NotificationDropdown } from '@/components/notifications/notification-dropdown'
 import { QuickLanguageSwitcher } from '@/components/language/language-switcher'
-import { useSession, signOut } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import {
   Search,
   User,
@@ -41,7 +41,7 @@ export function MobileHeader({ className }: MobileHeaderProps) {
   const [showSearch, setShowSearch] = useState(false)
   const [isChangingLanguage, setIsChangingLanguage] = useState(false)
   const pathname = usePathname()
-  const { data: session } = useSession()
+  const { user, signOut } = useAuth()
   const t = useTranslations('header')
   const tNav = useTranslations('navigation.main')
   const tRoles = useTranslations('roles')
@@ -67,14 +67,14 @@ export function MobileHeader({ className }: MobileHeaderProps) {
   const handleLanguageChange = async (locale: string) => {
     setIsChangingLanguage(true)
     
-    if (!session?.user?.id) {
+    if (!user?.id) {
       console.error('No user session found')
       return
     }
     
     try {
       // Update user preference in the database
-      const response = await fetch(`/api/users/${session.user.id}/language`, {
+      const response = await fetch(`/api/users/${user.id}/language`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ language: locale })
@@ -118,7 +118,7 @@ export function MobileHeader({ className }: MobileHeaderProps) {
   }
 
   const getQuickActions = () => {
-    const userRole = session?.user?.role
+    const userRole = user?.role
     const actions = []
 
     // Add quick actions based on current page and user role
@@ -178,16 +178,16 @@ export function MobileHeader({ className }: MobileHeaderProps) {
                   className="flex h-9 w-9 p-0 hover:bg-[hsl(var(--nav-hover))]"
                 >
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-medium shadow-sm">
-                  {session?.user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                  {user?.name?.charAt(0)?.toUpperCase() || 'U'}
                 </div>
                 <span className="sr-only">{t('userMenu')}</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
               <div className="px-3 py-2">
-                <p className="text-sm font-medium text-foreground">{session?.user?.name || 'User'}</p>
-                <p className="text-xs text-muted-foreground">{session?.user?.email}</p>
-                <p className="text-xs text-muted-foreground font-semibold mt-0.5">{session?.user?.role ? tRoles(session.user.role.toLowerCase()) : ''}</p>
+                <p className="text-sm font-medium text-foreground">{user?.name || 'User'}</p>
+                <p className="text-xs text-muted-foreground">{user?.email}</p>
+                <p className="text-xs text-muted-foreground font-semibold mt-0.5">{user?.role ? tRoles(user.role.toLowerCase()) : ''}</p>
               </div>
               <DropdownMenuSeparator />
               {/* Theme Toggle Inline */}

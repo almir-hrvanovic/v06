@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { Currency } from '@prisma/client'
 import { getSystemSettings } from '@/lib/currency'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 
 interface CurrencySettings {
   mainCurrency: Currency
@@ -23,7 +23,7 @@ interface CurrencyContextType {
 const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined)
 
 export function CurrencyProvider({ children }: { children: ReactNode }) {
-  const { data: session, status } = useSession()
+  const { user, loading: authLoading } = useAuth()
   const [settings, setSettings] = useState<CurrencySettings | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -58,9 +58,9 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Only load settings if authenticated
-    if (status === 'authenticated' && session?.user) {
+    if (!authLoading && user) {
       loadSettings()
-    } else if (status === 'unauthenticated') {
+    } else if (!authLoading && !user) {
       // Set default settings for unauthenticated users
       setSettings({
         mainCurrency: Currency.EUR,
@@ -71,7 +71,7 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
       })
       setLoading(false)
     }
-  }, [status, session])
+  }, [authLoading, user])
 
   const refreshSettings = async () => {
     await loadSettings()

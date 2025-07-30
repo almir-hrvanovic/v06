@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -44,12 +44,12 @@ export function MobileTable({
   onView 
 }: MobileTableProps) {
   const t = useTranslations()
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set())
   const [assignDialogOpen, setAssignDialogOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState<any>(null)
   
-  const userRole = session?.user?.role
+  const userRole = user?.role
 
   const toggleExpanded = (id: string) => {
     const newExpanded = new Set(expandedCards)

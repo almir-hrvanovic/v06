@@ -6,7 +6,7 @@
 import { describe, test, expect, beforeEach, jest } from '@jest/globals'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { NextIntlClientProvider } from 'next-intl'
-import { SessionProvider } from 'next-auth/react'
+// SessionProvider import removed - using mock auth context
 import userEvent from '@testing-library/user-event'
 import * as fs from 'fs'
 import * as path from 'path'
@@ -60,7 +60,7 @@ const TestWrapper = ({
   const translationMessages = messages || loadMessages(locale)
   
   return (
-    <SessionProvider session={mockSession}>
+    <div>
       <NextIntlClientProvider 
         locale={locale} 
         messages={translationMessages}
@@ -68,7 +68,7 @@ const TestWrapper = ({
       >
         {children}
       </NextIntlClientProvider>
-    </SessionProvider>
+    </div>
   )
 }
 

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerAuth } from '@/lib/auth-helpers'
-import { hasPermission } from '@/lib/auth'
+import { hasPermission } from '@/utils/supabase/api-auth'
 import { prisma } from '@/lib/db'
 import { UserRole } from '@prisma/client'
 import { z } from 'zod'

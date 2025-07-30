@@ -5,9 +5,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { signIn } from 'next-auth/react'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { createClient } from '@/utils/supabase/client'
+import { getUserFromDB } from '@/utils/supabase/auth-helpers'
+import { AUTH_URLS } from '@/lib/auth-config'
 
 export default function SignInPage() {
   const [email, setEmail] = useState('')
@@ -23,19 +25,26 @@ export default function SignInPage() {
     setLoading(true)
 
     try {
-      const result = await signIn('credentials', {
+      const supabase = createClient()
+      
+      // Sign in with Supabase Auth
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password,
-        redirect: false,
       })
 
-      if (result?.error) {
-        setError('Invalid email or password.')
-      } else if (result?.ok) {
-        router.push('/dashboard')
+      if (authError) {
+        setError(authError.message || 'Invalid email or password.')
+      } else if (data?.user) {
+        // Successful login
+        console.log('Login successful:', data.user.email)
+        
+        // Redirect to dashboard
+        router.push(AUTH_URLS.dashboard)
         router.refresh()
       }
     } catch (error) {
+      console.error('Sign in error:', error)
       setError('An error occurred. Please try again.')
     } finally {
       setLoading(false)

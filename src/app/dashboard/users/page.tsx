@@ -14,11 +14,11 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Badge } from '@/components/ui/badge'
 import { toast } from 'sonner'
 import { Search, Plus, Pencil, Trash2, Shield, CheckCircle, XCircle, Key, Copy } from 'lucide-react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { useTranslations } from 'next-intl'
 
 export default function UsersPage() {
-  const { data: session } = useSession()
+  const { user: authUser } = useAuth()
   const t = useTranslations()
   const [users, setUsers] = useState<User[]>([])
   const [loading, setLoading] = useState(true)
@@ -38,8 +38,8 @@ export default function UsersPage() {
   })
 
   // Check if user has permission to manage users
-  const canManageUsers = session?.user?.role && 
-    (session.user.role === UserRole.SUPERUSER || session.user.role === UserRole.ADMIN)
+  const canManageUsers = authUser?.role && 
+    (authUser.role === UserRole.SUPERUSER || authUser.role === UserRole.ADMIN)
 
   // Copy to clipboard utility
   const copyToClipboard = async (text: string, label: string) => {
@@ -388,7 +388,7 @@ export default function UsersPage() {
                               variant="ghost"
                               size="sm"
                               onClick={() => handleEdit(user)}
-                              disabled={user.email === session?.user?.email}
+                              disabled={user.email === authUser?.email}
                               title={t('users.actions.editUser')}
                             >
                               <Pencil className="h-4 w-4" />
@@ -453,7 +453,7 @@ export default function UsersPage() {
                           variant="ghost"
                           size="sm"
                           onClick={() => handleResetPassword(user)}
-                          disabled={user.email === session?.user?.email}
+                          disabled={user.email === authUser?.email}
                           title={t('users.actions.resetPassword')}
                         >
                           <Key className="h-4 w-4 text-blue-600" />
@@ -462,7 +462,7 @@ export default function UsersPage() {
                           variant="ghost"
                           size="sm"
                           onClick={() => handleToggleActive(user)}
-                          disabled={user.email === session?.user?.email}
+                          disabled={user.email === authUser?.email}
                           title={user.isActive ? t('users.actions.deactivate') : t('users.actions.activate')}
                         >
                           {user.isActive ? (

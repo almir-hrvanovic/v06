@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { UserRole } from '@prisma/client'
 import { useTranslations } from 'next-intl'
 import {
@@ -43,11 +43,11 @@ interface ResponsiveSidebarProps {
 export function ResponsiveSidebarExample({ className }: ResponsiveSidebarProps) {
   const t = useTranslations()
   const pathname = usePathname()
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
-  const userRole = session?.user?.role
+  const userRole = user?.role
 
   // Detect mobile screen size
   useEffect(() => {
@@ -332,15 +332,15 @@ export function ResponsiveSidebarExample({ className }: ResponsiveSidebarProps) 
         )}
 
         {/* Footer for mobile */}
-        {isMobile && session && (
+        {isMobile && user && (
           <div className="border-t border-sidebar-separator p-4">
             <div className="flex items-center space-x-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-medium flex-shrink-0">
-                {session.user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                {user?.name?.charAt(0)?.toUpperCase() || 'U'}
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-sidebar-foreground truncate">
-                  {session.user?.name || 'User'}
+                  {user?.name || 'User'}
                 </p>
                 <p className="text-xs text-sidebar-text-secondary truncate">
                   {userRole?.toLowerCase().replace('_', ' ')}

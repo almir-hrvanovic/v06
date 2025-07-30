@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { auth } from '@/auth'
+// Removed NextAuth import - now using Supabase auth
 import { prisma } from '@/lib/db'
 import { UserRole } from '@prisma/client'
 

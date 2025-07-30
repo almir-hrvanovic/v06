@@ -1,6 +1,6 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
-import { auth } from "@/auth";
+import { createClient } from "@/utils/supabase/server";
 import { prisma } from "@/lib/db";
 import { headers } from "next/headers";
 
@@ -19,35 +19,39 @@ export const ourFileRouter = {
     },
   })
     .middleware(async ({ req }) => {
-      // Try to get session using NextAuth
+      // Get session using Supabase
       try {
-        const session = await auth();
-        console.log('UploadThing middleware: session check', !!session);
+        const supabase = await createClient();
+        const { data: { user }, error } = await supabase.auth.getUser();
         
-        if (session?.user) {
-          return { 
-            userId: session.user.id,
-            userName: session.user.name || session.user.email 
-          };
+        console.log('UploadThing middleware: session check', !!user);
+        
+        if (error || !user) {
+          throw new UploadThingError("Unauthorized");
         }
+        
+        // Get user details from database
+        const dbUser = await prisma.user.findUnique({
+          where: { email: user.email! },
+          select: {
+            id: true,
+            name: true,
+            email: true
+          }
+        });
+        
+        if (!dbUser) {
+          throw new UploadThingError("User not found");
+        }
+        
+        return { 
+          userId: dbUser.id,
+          userName: dbUser.name || dbUser.email 
+        };
       } catch (error) {
-        console.log('UploadThing middleware: auth() failed, trying cookie fallback');
-      }
-      
-      // Fallback: Try to get session from headers/cookies directly
-      const authToken = req.headers.get('cookie')?.match(/authjs\.session-token=([^;]+)/)?.[1];
-      console.log('UploadThing middleware: checking auth token', !!authToken);
-      
-      if (!authToken) {
+        console.log('UploadThing middleware: auth failed', error);
         throw new UploadThingError("Unauthorized");
       }
-      
-      // For now, return a hardcoded user since we know you're logged in
-      // In production, you'd decode the JWT token here
-      return { 
-        userId: "cmdo8lbgi0000i0pms6dig3ln", // Your actual user ID from the session
-        userName: "Almir Al-Star"
-      };
     })
     .onUploadComplete(async ({ metadata, file }) => {
       console.log("Image upload complete for userId:", metadata.userId);
@@ -115,35 +119,39 @@ export const ourFileRouter = {
     },
   })
     .middleware(async ({ req }) => {
-      // Try to get session using NextAuth
+      // Get session using Supabase
       try {
-        const session = await auth();
-        console.log('UploadThing middleware: session check', !!session);
+        const supabase = await createClient();
+        const { data: { user }, error } = await supabase.auth.getUser();
         
-        if (session?.user) {
-          return { 
-            userId: session.user.id,
-            userName: session.user.name || session.user.email 
-          };
+        console.log('UploadThing middleware: session check', !!user);
+        
+        if (error || !user) {
+          throw new UploadThingError("Unauthorized");
         }
+        
+        // Get user details from database
+        const dbUser = await prisma.user.findUnique({
+          where: { email: user.email! },
+          select: {
+            id: true,
+            name: true,
+            email: true
+          }
+        });
+        
+        if (!dbUser) {
+          throw new UploadThingError("User not found");
+        }
+        
+        return { 
+          userId: dbUser.id,
+          userName: dbUser.name || dbUser.email 
+        };
       } catch (error) {
-        console.log('UploadThing middleware: auth() failed, trying cookie fallback');
-      }
-      
-      // Fallback: Try to get session from headers/cookies directly
-      const authToken = req.headers.get('cookie')?.match(/authjs\.session-token=([^;]+)/)?.[1];
-      console.log('UploadThing middleware: checking auth token', !!authToken);
-      
-      if (!authToken) {
+        console.log('UploadThing middleware: auth failed', error);
         throw new UploadThingError("Unauthorized");
       }
-      
-      // For now, return a hardcoded user since we know you're logged in
-      // In production, you'd decode the JWT token here
-      return { 
-        userId: "cmdo8lbgi0000i0pms6dig3ln", // Your actual user ID from the session
-        userName: "Almir Al-Star"
-      };
     })
     .onUploadComplete(async ({ metadata, file }) => {
       console.log("Document upload complete for userId:", metadata.userId);
@@ -195,35 +203,39 @@ export const ourFileRouter = {
     },
   })
     .middleware(async ({ req }) => {
-      // Try to get session using NextAuth
+      // Get session using Supabase
       try {
-        const session = await auth();
-        console.log('UploadThing middleware: session check', !!session);
+        const supabase = await createClient();
+        const { data: { user }, error } = await supabase.auth.getUser();
         
-        if (session?.user) {
-          return { 
-            userId: session.user.id,
-            userName: session.user.name || session.user.email 
-          };
+        console.log('UploadThing middleware: session check', !!user);
+        
+        if (error || !user) {
+          throw new UploadThingError("Unauthorized");
         }
+        
+        // Get user details from database
+        const dbUser = await prisma.user.findUnique({
+          where: { email: user.email! },
+          select: {
+            id: true,
+            name: true,
+            email: true
+          }
+        });
+        
+        if (!dbUser) {
+          throw new UploadThingError("User not found");
+        }
+        
+        return { 
+          userId: dbUser.id,
+          userName: dbUser.name || dbUser.email 
+        };
       } catch (error) {
-        console.log('UploadThing middleware: auth() failed, trying cookie fallback');
-      }
-      
-      // Fallback: Try to get session from headers/cookies directly
-      const authToken = req.headers.get('cookie')?.match(/authjs\.session-token=([^;]+)/)?.[1];
-      console.log('UploadThing middleware: checking auth token', !!authToken);
-      
-      if (!authToken) {
+        console.log('UploadThing middleware: auth failed', error);
         throw new UploadThingError("Unauthorized");
       }
-      
-      // For now, return a hardcoded user since we know you're logged in
-      // In production, you'd decode the JWT token here
-      return { 
-        userId: "cmdo8lbgi0000i0pms6dig3ln", // Your actual user ID from the session
-        userName: "Almir Al-Star"
-      };
     })
     .onUploadComplete(async ({ metadata, file }) => {
       console.log("Item attachment upload complete for userId:", metadata.userId);

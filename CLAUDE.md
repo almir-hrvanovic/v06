@@ -309,6 +309,11 @@ Database (source of truth) → Cookie (server access) → localStorage (client) 
 
 - Never restart dev server. Ask me to do it, or to let you to do it!
 
+## 🔒 Authentication Principles
+
+### Dynamic Authentication Setup
+- CRITICAL USE DYNAMIC AUTH SETUP NO HARD CODE!
+
 ---
 
 **Remember**: This configuration prioritizes practical development workflows, concurrent execution, and maintaining high code quality through systematic approaches.

@@ -1,7 +1,7 @@
 "use client"
 
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { wsManager, WebSocketNotification } from '@/lib/websocket'
 import { toast } from 'sonner'
 
@@ -30,7 +30,7 @@ interface NotificationProviderProps {
 }
 
 export function NotificationProvider({ children }: NotificationProviderProps) {
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const [notifications, setNotifications] = useState<WebSocketNotification[]>([])
   const [isConnected, setIsConnected] = useState(false)
 
@@ -65,7 +65,7 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
   const unreadCount = notifications.filter(n => !n.read).length
 
   useEffect(() => {
-    if (!session?.user?.id) return
+    if (!user?.id) return
 
     // WebSocket event handlers
     const handleConnected = () => {
@@ -96,7 +96,7 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
 
     // Connect to WebSocket (with error handling)
     try {
-      wsManager.connect(session.user.id)
+      wsManager.connect(user.id)
     } catch (error) {
       console.log('WebSocket connection skipped - running without real-time notifications')
     }
@@ -109,11 +109,11 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
       wsManager.off('error', handleError)
       wsManager.disconnect()
     }
-  }, [session?.user?.id, addNotification])
+  }, [user?.id, addNotification])
 
   // Load existing notifications on mount
   useEffect(() => {
-    if (!session?.user?.id) return
+    if (!user?.id) return
 
     const loadNotifications = async () => {
       try {
@@ -128,7 +128,7 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
     }
 
     loadNotifications()
-  }, [session?.user?.id])
+  }, [user?.id])
 
   return (
     <NotificationContext.Provider

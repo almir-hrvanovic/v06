@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { UserRole } from '@prisma/client'
 import { useSidebar } from '@/contexts/sidebar-context'
 import { useTranslations } from 'next-intl'
@@ -49,7 +49,7 @@ interface NavItem {
 export function Sidebar() {
   const t = useTranslations()
   const pathname = usePathname()
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const { 
     isCollapsed, 
     toggleCollapsed, 
@@ -58,7 +58,7 @@ export function Sidebar() {
     activeItemIndex,
     setActiveItemIndex 
   } = useSidebar()
-  const userRole = session?.user?.role
+  const userRole = user?.role
 
   // Accessibility IDs
   const sidebarId = useA11yId('sidebar')

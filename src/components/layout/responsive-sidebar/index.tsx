@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ResponsiveDrawer } from '@/components/ui/responsive-drawer'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { UserRole } from '@prisma/client'
 import { useSidebar } from '@/contexts/sidebar-context'
 import { useTranslations } from 'next-intl'
@@ -316,9 +316,9 @@ function PersistentSidebar({
   className?: string
 }) {
   const pathname = usePathname()
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const { isCollapsed, toggleCollapsed } = useSidebar()
-  const userRole = session?.user?.role
+  const userRole = user?.role
 
   return (
     <TooltipProvider>
@@ -408,8 +408,8 @@ function OverlaySidebar({
 }) {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
-  const { data: session } = useSession()
-  const userRole = session?.user?.role
+  const { user } = useAuth()
+  const userRole = user?.role
   const t = useTranslations()
 
   const handleNavigate = useCallback((href: string) => {
@@ -485,11 +485,11 @@ function OverlaySidebar({
       <div className="border-t border-[hsl(var(--sidebar-separator))] p-4">
         <div className="flex items-center space-x-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[hsl(var(--sidebar-logo-bg))] text-[hsl(var(--sidebar-badge-text))] text-sm font-medium flex-shrink-0">
-            {session?.user?.name?.charAt(0)?.toUpperCase() || 'U'}
+            {user?.name?.charAt(0)?.toUpperCase() || 'U'}
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-[hsl(var(--sidebar-foreground))] truncate">
-              {session?.user?.name || 'User'}
+              {user?.name || 'User'}
             </p>
             <p className="text-xs text-[hsl(var(--sidebar-text-secondary))] truncate">
               {userRole?.toLowerCase().replace('_', ' ')}

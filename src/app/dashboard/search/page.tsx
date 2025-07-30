@@ -20,12 +20,12 @@ import {
   TrendingUp,
   Clock
 } from 'lucide-react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 
 type EntityType = 'inquiries' | 'items' | 'users' | 'customers' | 'quotes' | 'orders'
 
 export default function SearchPage() {
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const router = useRouter()
   const searchParams = useSearchParams()
   
@@ -33,7 +33,7 @@ export default function SearchPage() {
   const [filters, setFilters] = useState<SearchFilters>({})
   const [recentSearches, setRecentSearches] = useState<Array<{ query: string; type: EntityType; timestamp: Date }>>([])
   
-  const userRole = session?.user?.role
+  const userRole = user?.role
 
   useEffect(() => {
     // Load initial filters from URL params

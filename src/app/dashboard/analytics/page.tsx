@@ -3,7 +3,7 @@
 export const dynamic = 'force-dynamic'
 
 import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -37,14 +37,14 @@ interface AnalyticsData {
 }
 
 export default function AnalyticsPage() {
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const [loading, setLoading] = useState(true)
   const [timeRange, setTimeRange] = useState('30')
   const [activeTab, setActiveTab] = useState('overview')
   const [data, setData] = useState<AnalyticsData>({})
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
 
-  const userRole = session?.user?.role
+  const userRole = user?.role
 
   useEffect(() => {
     fetchAnalytics()

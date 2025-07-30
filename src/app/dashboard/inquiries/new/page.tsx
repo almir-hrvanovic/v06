@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic'
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -33,7 +33,7 @@ type InquiryFormData = z.infer<typeof createInquirySchema>
 
 export default function NewInquiryPage() {
   const router = useRouter()
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const t = useTranslations()
   const [customers, setCustomers] = useState<Array<{ id: string; name: string; email: string }>>([])
   const [loading, setLoading] = useState(false)
@@ -109,7 +109,7 @@ export default function NewInquiryPage() {
     append({ name: '', description: '', quantity: 1, unit: 'pcs', notes: '', priceEstimation: undefined, requestedDelivery: undefined })
   }
 
-  const canCreateInquiry = session?.user?.role && ['SALES', 'ADMIN', 'SUPERUSER'].includes(session.user.role)
+  const canCreateInquiry = user?.role && ['SALES', 'ADMIN', 'SUPERUSER'].includes(user.role)
 
   if (!canCreateInquiry) {
     return (

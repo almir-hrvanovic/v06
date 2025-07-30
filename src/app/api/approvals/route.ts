@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerAuth } from '@/lib/auth-helpers'
 import { prisma } from '@/lib/db'
 import { createApprovalSchema } from '@/lib/validations'
-import { canApprove } from '@/lib/auth'
+import { canApprove } from '@/utils/supabase/api-auth'
 import { sendNotificationEmail } from '@/lib/email'
 
 export async function GET(request: NextRequest) {

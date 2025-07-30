@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic'
 
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/use-auth'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -71,14 +71,14 @@ interface InquiryItem {
 export default function ItemDetailPage() {
   const params = useParams()
   const router = useRouter()
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const t = useTranslations()
   const [item, setItem] = useState<InquiryItem | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   const itemId = params.id as string
-  const userRole = session?.user?.role
+  const userRole = user?.role
 
   useEffect(() => {
     if (itemId) {
