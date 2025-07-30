@@ -1,0 +1,262 @@
+###############################
+###############################   PRODUCTION  
+###############################
+
+
+Project name: v06-production
+pass: J153v6ELFgIgYMb9
+Project URL https://befqdelybliowmsgczph.supabase.co
+API Key anon public: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJlZnFkZWx5Ymxpb3dtc2djenBoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM4OTY4MzcsImV4cCI6MjA2OTQ3MjgzN30.gUVSoHbKarkOvYzS5fu1mFhuQSbBcJwVWOoOCcrITAc
+user:
+almir.hrvanovic@icloud.com
+QG'"^Ukj:_9~%9F
+
+**********************************************
+
+Direct connection:
+postgresql://postgres:[YOUR-PASSWORD]@db.befqdelybliowmsgczph.supabase.co:5432/postgres
+
+host: db.befqdelybliowmsgczph.supabase.co
+port: 5432
+database: postgres
+user: postgres
+
+***********************************************
+
+postgresql://postgres.befqdelybliowmsgczph:[YOUR-PASSWORD]@aws-0-eu-central-2.pooler.supabase.com:6543/postgres
+
+host: aws-0-eu-central-2.pooler.supabase.com
+port: 6543
+database: postgres
+user: postgres.befqdelybliowmsgczph
+pool_mode: transaction
+
+*****************************************
+
+postgresql://postgres.befqdelybliowmsgczph:[YOUR-PASSWORD]@aws-0-eu-central-2.pooler.supabase.com:5432/postgres
+
+host: aws-0-eu-central-2.pooler.supabase.com
+port: 5432
+database: postgres
+user: postgres.befqdelybliowmsgczph
+pool_mode: session
+
+
+###############################
+###############################   DEVELOPMENT  
+###############################
+
+
+Project name: v06-development
+pass: c6nzPXKm3kDxVLaj
+https://qaakctjbseauaybfavth.supabase.co
+API kay ann public:
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFhYWtjdGpic2VhdWF5YmZhdnRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM4OTkwMTMsImV4cCI6MjA2OTQ3NTAxM30.AWKuaunJuztAL1ZxPUe_xGY4XRPZgOdriGA6G7dR7_U
+
+
+************************************
+
+
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = 'https://qaakctjbseauaybfavth.supabase.co'
+const supabaseKey = process.env.SUPABASE_KEY
+const supabase = createClient(supabaseUrl, supabaseKey)
+
+
+**************************************
+
+postgresql://postgres:[YOUR-PASSWORD]@db.qaakctjbseauaybfavth.supabase.co:5432/postgres
+
+host: db.qaakctjbseauaybfavth.supabase.co
+port: 5432
+database: postgres
+user: postgres
+
+**********************************
+
+postgresql://postgres.qaakctjbseauaybfavth:[YOUR-PASSWORD]@aws-0-eu-north-1.pooler.supabase.com:6543/postgres
+
+host: aws-0-eu-north-1.pooler.supabase.com
+port: 6543
+database: postgres
+user: postgres.qaakctjbseauaybfavth
+pool_mode: transaction
+
+**************************************
+
+postgresql://postgres.qaakctjbseauaybfavth:[YOUR-PASSWORD]@aws-0-eu-north-1.pooler.supabase.com:5432/postgres
+
+host: aws-0-eu-north-1.pooler.supabase.com
+port: 5432
+database: postgres
+user: postgres.qaakctjbseauaybfavth
+pool_mode: session
+
+****************************************
+****************************************
+
+Next.js App Router with supabase-js
+
+.env.local
+
+NEXT_PUBLIC_SUPABASE_URL=https://qaakctjbseauaybfavth.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFhYWtjdGpic2VhdWF5YmZhdnRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM4OTkwMTMsImV4cCI6MjA2OTQ3NTAxM30.AWKuaunJuztAL1ZxPUe_xGY4XRPZgOdriGA6G7dR7_U
+
+***************************************
+
+
+page.tsx
+
+
+import { createClient } from '@/utils/supabase/server'
+import { cookies } from 'next/headers'
+
+export default async function Page() {
+  const cookieStore = await cookies()
+  const supabase = createClient(cookieStore)
+
+  const { data: todos } = await supabase.from('todos').select()
+
+  return (
+    <ul>
+      {todos?.map((todo) => (
+        <li>{todo}</li>
+      ))}
+    </ul>
+  )
+}
+
+*****************************************************
+
+utils/supabase/server.ts
+
+
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { cookies } from "next/headers";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+export const createClient = (cookieStore: ReturnType<typeof cookies>) => {
+  return createServerClient(
+    supabaseUrl!,
+    supabaseKey!,
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll()
+        },
+        setAll(cookiesToSet) {
+          try {
+            cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options))
+          } catch {
+            // The `setAll` method was called from a Server Component.
+            // This can be ignored if you have middleware refreshing
+            // user sessions.
+          }
+        },
+      },
+    },
+  );
+};
+
+
+
+***********************************************
+
+utils/supabase*client.ts
+
+
+import { createBrowserClient } from "@supabase/ssr";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+export const createClient = () =>
+  createBrowserClient(
+    supabaseUrl!,
+    supabaseKey!,
+  );
+
+****************************************************
+
+utils/supabase/middleware.ts
+
+
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { type NextRequest, NextResponse } from "next/server";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+export const createClient = (request: NextRequest) => {
+  // Create an unmodified response
+  let supabaseResponse = NextResponse.next({
+    request: {
+      headers: request.headers,
+    },
+  });
+
+  const supabase = createServerClient(
+    supabaseUrl!,
+    supabaseKey!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll()
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
+          supabaseResponse = NextResponse.next({
+            request,
+          })
+          cookiesToSet.forEach(({ name, value, options }) =>
+            supabaseResponse.cookies.set(name, value, options)
+          )
+        },
+      },
+    },
+  );
+
+  return supabaseResponse
+};
+
+*******************************************************
+*******************************************************
+
+Prisma
+
+.env.local
+
+
+# Connect to Supabase via connection pooling
+DATABASE_URL="postgresql://postgres.qaakctjbseauaybfavth:[YOUR-PASSWORD]@aws-0-eu-north-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
+
+# Direct connection to the database. Used for migrations
+DIRECT_URL="postgresql://postgres.qaakctjbseauaybfavth:[YOUR-PASSWORD]@aws-0-eu-north-1.pooler.supabase.com:5432/postgres"
+
+
+****************************************************
+prisma/schema.prisma
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+
+*******************************************************
+
+
+
+
+        
+
+
