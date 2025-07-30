@@ -100,7 +100,7 @@
     "lucide-react": "^0.462.0",
     "mcp-playwright": "^0.0.1",
     "next": "^15.4.4",
-    "next-auth": "5.0.0-beta.25",
+    "next-auth": "5.0.0-beta.29",
     "next-intl": "^4.3.4",
     "nodemailer": "^6.10.1",
     "puppeteer": "^24.15.0",
