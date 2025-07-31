@@ -60,9 +60,13 @@ export default function UsersPage() {
       const response = await fetch('/api/users')
       if (!response.ok) throw new Error('Failed to fetch users')
       const data = await response.json()
-      setUsers(data)
+      // Ensure data is an array
+      const usersArray = Array.isArray(data) ? data : (data.data || data.users || [])
+      setUsers(usersArray)
     } catch (error) {
+      console.error('Error fetching users:', error)
       toast.error(t('messages.error.failedToLoad'))
+      setUsers([]) // Set empty array on error
     } finally {
       setLoading(false)
     }
@@ -199,7 +203,7 @@ export default function UsersPage() {
     }
   }
 
-  const filteredUsers = users.filter(user => {
+  const filteredUsers = (Array.isArray(users) ? users : []).filter(user => {
     const matchesSearch = user.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          user.email?.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesRole = roleFilter === 'all' || user.role === roleFilter

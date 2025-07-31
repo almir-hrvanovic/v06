@@ -71,7 +71,9 @@ export default function InquiriesPage() {
       try {
         const response = await apiClient.getCustomers()
         if (isMounted) {
-          setCustomers(response as any[])
+          // Handle API response structure { data: [...], total: number }
+          const customersArray = Array.isArray(response) ? response : (response.data || response.customers || [])
+          setCustomers(customersArray)
         }
       } catch (error) {
         console.error('Failed to fetch customers:', error)
@@ -309,7 +311,7 @@ export default function InquiriesPage() {
               className="px-3 py-2 border rounded-md text-sm w-full bg-background text-foreground border-input"
             >
               <option value="">{t('inquiries.filters.allCustomers')}</option>
-              {customers.map((customer) => (
+              {(Array.isArray(customers) ? customers : []).map((customer) => (
                 <option key={customer.id} value={customer.id}>
                   {customer.name}
                 </option>

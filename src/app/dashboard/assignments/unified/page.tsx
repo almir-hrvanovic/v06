@@ -27,6 +27,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { WorkloadChart } from '@/components/assignments/workload-chart'
+import { WorkloadAnalytics } from '@/components/analytics/workload-analytics'
 import { Badge } from '@/components/ui/badge'
 
 type ViewMode = 'table' | 'dnd'
@@ -36,6 +37,7 @@ export default function UnifiedAssignmentsPage() {
   const t = useTranslations()
   const { setIsCollapsed, setIsMobileOpen } = useSidebar()
   const [viewMode, setViewMode] = useState<ViewMode>('table')
+  const [mainTab, setMainTab] = useState<'assignments' | 'analytics'>('assignments')
   const [isFilterExpanded, setIsFilterExpanded] = useState(false)
   const [localFilters, setLocalFilters] = useState({
     customerId: '',
@@ -54,6 +56,8 @@ export default function UnifiedAssignmentsPage() {
     }
     return false
   })
+  const [analyticsData, setAnalyticsData] = useState<any>(null)
+  const [analyticsLoading, setAnalyticsLoading] = useState(false)
   
   // Refs for DnD view functions
   const dndResetRef = useRef<(() => void) | null>(null)
@@ -122,6 +126,23 @@ export default function UnifiedAssignmentsPage() {
       setIsMobileOpen(false)
     }
   }
+
+  // Fetch analytics data when analytics tab is selected
+  useEffect(() => {
+    if (mainTab === 'analytics' && !analyticsData && !analyticsLoading) {
+      setAnalyticsLoading(true)
+      fetch('/api/analytics/workload?timeRange=30')
+        .then(res => res.json())
+        .then(data => {
+          setAnalyticsData(data)
+          setAnalyticsLoading(false)
+        })
+        .catch(err => {
+          console.error('Failed to fetch analytics:', err)
+          setAnalyticsLoading(false)
+        })
+    }
+  }, [mainTab, analyticsData, analyticsLoading])
 
   // Toggle workload chart visibility
   const toggleWorkloadChart = () => {
@@ -259,8 +280,17 @@ export default function UnifiedAssignmentsPage() {
         </div>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      {/* Main Tabs */}
+      <Tabs value={mainTab} onValueChange={(v) => setMainTab(v as 'assignments' | 'analytics')} className="space-y-6">
+        <TabsList className="grid w-full max-w-md grid-cols-2">
+          <TabsTrigger value="assignments">{t('assignments.title')}</TabsTrigger>
+          <TabsTrigger value="analytics">{t('navigation.main.analytics')}</TabsTrigger>
+        </TabsList>
+
+        {/* Assignments Tab */}
+        <TabsContent value="assignments" className="space-y-6">
+          {/* Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium">
@@ -531,6 +561,17 @@ export default function UnifiedAssignmentsPage() {
           )}
         </>
       )}
+        </TabsContent>
+
+        {/* Analytics Tab */}
+        <TabsContent value="analytics" className="space-y-6">
+          <WorkloadAnalytics 
+            data={analyticsData}
+            loading={analyticsLoading}
+            timeRange={30}
+          />
+        </TabsContent>
+      </Tabs>
     </div>
   )
 }

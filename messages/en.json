@@ -1229,6 +1229,7 @@
     "unassigned": "Unassigned",
     "assigned": "Assigned",
     "activeUsers": "Active Users",
+    "viewDistribution": "Click to view distribution",
     "item": "Item",
     "customer": "Customer",
     "inquiry": "Inquiry",
@@ -1244,12 +1245,9 @@
     "itemsPerUser": "items per user",
     "overloaded": "overloaded",
     "maxLoad": "Max load",
-    "pendingItems": "Pending Items",
-    "completed": "Completed",
-    "normalLoad": "Normal",
-    "highLoad": "High",
-    "viewDistribution": "View distribution",
-    "noItems": "No items found"
+    "normalLoad": "Normal load",
+    "highLoad": "High load",
+    "pendingItems": "Pending items"
   },
   "automation": {
     "_context": "Workflow automation system for rules and triggers",

@@ -1211,7 +1211,31 @@
     "changesApplied": "Promjene su uspješno primijenjene",
     "reassignmentNotAllowed": "Stavke u toku ne mogu se ponovo dodijeliti bez odobrenja",
     "tableView": "Tabela",
-    "dragDropView": "Prevuci i ispusti"
+    "dragDropView": "Prevuci i ispusti",
+    "pending": "Na čekanju",
+    "assignTo": "Dodijeli",
+    "totalItems": "Ukupno stavki",
+    "assigned": "Dodijeljeno",
+    "activeUsers": "Aktivni korisnici",
+    "viewDistribution": "Klikni za prikaz distribucije",
+    "workloadDistribution": "Distribucija opterećenja",
+    "averageLoad": "Prosječno opterećenje",
+    "itemsPerUser": "stavki po korisniku",
+    "overloaded": "preopterećeno",
+    "maxLoad": "Maks. opterećenje",
+    "normalLoad": "Normalno opterećenje",
+    "highLoad": "Visoko opterećenje",
+    "pendingItems": "Stavke na čekanju",
+    "item": "Stavka",
+    "customer": "Kupac",
+    "inquiry": "Upit",
+    "priority": "Prioritet",
+    "assignedTo": "Dodijeljeno",
+    "quantity": "Količina",
+    "headers": {
+      "status": "Status",
+      "actions": "Akcije"
+    }
   },
   "automation": {
     "_context": "Sustav automatizacije tijeka rada za pravila i okidače",
