@@ -305,6 +305,25 @@ Database (source of truth) → Cookie (server access) → localStorage (client) 
 - Full documentation: [`/docs/persistence-system.md`](./docs/persistence-system.md)
 - Quick reference: [`/docs/persistence-quick-reference.md`](./docs/persistence-quick-reference.md)
 
+## 🚀 Performance Optimization Sprint
+
+**CRITICAL**: The application currently has severe performance issues (27+ second load times). A comprehensive optimization plan is documented in [`SPRINT.md`](./SPRINT.md).
+
+### Quick Performance Wins
+- Add caching headers to API routes
+- Batch multiple API calls
+- Implement React Query for client-side caching
+- Use direct Supabase queries for hot paths
+
+### Next Sprint Focus
+The next development session should focus on implementing the performance optimizations outlined in SPRINT.md, starting with:
+1. Redis caching implementation
+2. Authentication flow optimization
+3. Database view creation
+4. Client-side caching with React Query
+
+**See [`SPRINT.md`](./SPRINT.md) for the complete 10x performance improvement plan.**
+
 ## 🚨 Development Warnings
 
 - Never restart dev server. Ask me to do it, or to let you to do it!
