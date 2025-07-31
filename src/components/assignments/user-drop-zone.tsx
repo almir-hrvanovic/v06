@@ -3,8 +3,7 @@
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { User as UserIcon, Package, CheckCircle2, Sparkles, TrendingUp } from 'lucide-react'
+import { User as UserIcon, Package, CheckCircle2 } from 'lucide-react'
 import { User, InquiryItemWithRelations } from '@/types'
 import { DraggableItem } from './draggable-item'
 import { cn } from '@/lib/utils'
@@ -29,22 +28,21 @@ export function UserDropZone({ user, items, isOver }: UserDropZoneProps) {
     <Card 
       ref={setNodeRef}
       className={cn(
-        "h-full transition-shadow duration-200",
+        "h-full flex flex-col transition-shadow duration-200",
         "hover:shadow-md",
         isOver && "ring-2 ring-primary ring-offset-2 bg-primary/5",
         isVPP && "border-t-2 border-t-primary/50"
       )}
     >
-      <CardHeader className="pb-3">
+      <CardHeader className="pb-3 flex-shrink-0">
         <div className="space-y-2">
-          {/* User Info */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <UserIcon className="h-4 w-4 text-muted-foreground" />
-              <span className="font-medium text-sm">{user.name}</span>
-              {isVPP && (
-                <Badge variant="secondary" className="text-xs">VPP</Badge>
-              )}
+          {/* User Info - Fixed height to prevent layout shift */}
+          <div className="min-h-[40px] flex flex-col justify-start">
+            <div className="flex items-start gap-2">
+              <UserIcon className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+              <div className="flex-1 min-w-0">
+                <span className="font-medium text-sm break-words">{user.name}</span>
+              </div>
             </div>
           </div>
 
@@ -69,11 +67,11 @@ export function UserDropZone({ user, items, isOver }: UserDropZoneProps) {
         </div>
       </CardHeader>
 
-      <CardContent className="pt-0">
+      <CardContent className="pt-0 flex-1 flex flex-col">
         <div 
           className={cn(
-            "min-h-[100px] space-y-2 p-2 rounded-md border-2 border-dashed transition-colors",
-            isOver ? "border-primary bg-primary/5" : "border-gray-200",
+            "flex-1 min-h-[100px] space-y-2 p-2 rounded-md transition-colors bg-muted/50",
+            isOver && "bg-primary/20",
             items.length === 0 && "flex items-center justify-center"
           )}
         >

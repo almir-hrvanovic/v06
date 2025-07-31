@@ -1,17 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { itemFiltersSchema } from '@/lib/validations'
 import { hasPermission } from '@/utils/supabase/api-auth'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser(request)
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    if (!hasPermission(session.user.role, 'inquiry-items', 'read')) {
+    if (!hasPermission(user.role, 'inquiry-items', 'read')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -25,9 +25,11 @@ export async function GET(request: NextRequest) {
       limit: rawParams.limit ? parseInt(rawParams.limit, 10) : undefined,
     }
     
-    // Only add status if it exists (don't pass undefined)
+    // Handle status - it can be a comma-separated string or single value
     if (rawParams.status) {
-      params.status = [rawParams.status]
+      params.status = rawParams.status.includes(',') 
+        ? rawParams.status.split(',').map((s: string) => s.trim())
+        : [rawParams.status]
     }
     
     const filters = itemFiltersSchema.parse(params)
@@ -35,14 +37,14 @@ export async function GET(request: NextRequest) {
     const where: any = {}
 
     // Apply role-based filtering
-    if (session.user.role === 'VP') {
-      where.assignedToId = session.user.id
-    } else if (session.user.role === 'TECH') {
+    if (user.role === 'VP') {
+      where.assignedToId = user.id
+    } else if (user.role === 'TECH') {
       where.assignedTo = {
         role: 'VP',
         inquiryItems: {
           some: {
-            assignedToId: session.user.id
+            assignedToId: user.id
           }
         }
       }
@@ -70,7 +72,7 @@ export async function GET(request: NextRequest) {
     }
 
     const [items, total] = await Promise.all([
-      prisma.inquiryItem.findMany({
+      db.inquiryItem.findMany({
         where,
         include: {
           inquiry: {
@@ -95,7 +97,7 @@ export async function GET(request: NextRequest) {
         skip: (filters.page - 1) * filters.limit,
         take: filters.limit,
       }),
-      prisma.inquiryItem.count({ where }),
+      db.inquiryItem.count({ where }),
     ])
 
     return NextResponse.json({
@@ -110,8 +112,16 @@ export async function GET(request: NextRequest) {
     })
   } catch (error) {
     console.error('Get items error:', error)
+    // Log more details for debugging
+    if (error instanceof Error) {
+      console.error('Error details:', {
+        message: error.message,
+        stack: error.stack,
+        name: error.name
+      })
+    }
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }

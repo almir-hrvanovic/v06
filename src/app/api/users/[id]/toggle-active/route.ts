@@ -1,27 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server'
 // Removed NextAuth import - now using Supabase auth
-import { prisma } from '@/lib/db'
-import { UserRole } from '@prisma/client'
+import { db } from '@/lib/db/index'
+import { UserRole } from '@/lib/db/types'
 
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await auth()
+    const user = await getAuthenticatedUser()
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only SUPERUSER and ADMIN can toggle user status
-    if (session.user.role !== UserRole.SUPERUSER && session.user.role !== UserRole.ADMIN) {
+    if (user.role !== UserRole.SUPERUSER && user.role !== UserRole.ADMIN) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
     const { id } = await params
 
     // Check if user exists
-    const user = await prisma.user.findUnique({
+    const user = await db.user.findUnique({
       where: { id }
     })
 
@@ -33,7 +33,7 @@ export async function PUT(
     }
 
     // Prevent toggling own status
-    if (user.id === session.user.id) {
+    if (user.id === user.id) {
       return NextResponse.json(
         { error: 'Cannot change your own status' },
         { status: 400 }
@@ -41,18 +41,18 @@ export async function PUT(
     }
 
     // Toggle active status
-    const updatedUser = await prisma.user.update({
+    const updatedUser = await db.user.update({
       where: { id },
       data: { isActive: !user.isActive }
     })
 
     // Create audit log
-    await prisma.auditLog.create({
+    await db.auditLog.create({
       data: {
         action: 'UPDATE',
         entity: 'USER',
         entityId: user.id,
-        userId: session.user.id!,
+        userId: user.id!,
         oldData: { isActive: user.isActive },
         newData: { isActive: updatedUser.isActive },
         metadata: {

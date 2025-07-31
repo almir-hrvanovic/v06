@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { updateInquirySchema, idSchema } from '@/lib/validations'
 import { hasPermission } from '@/utils/supabase/api-auth'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 export async function GET(
   request: NextRequest,
@@ -10,18 +10,18 @@ export async function GET(
 ) {
   try {
     const params = await context.params
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    if (!hasPermission(session.user.role, 'inquiries', 'read')) {
+    if (!hasPermission(user.role, 'inquiries', 'read')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
     const { id } = idSchema.parse({ id: params.id })
 
-    const inquiry = await prisma.inquiry.findUnique({
+    const inquiry = await db.inquiry.findUnique({
       where: { id },
       include: {
         customer: true,
@@ -62,13 +62,13 @@ export async function GET(
     }
 
     // Check role-based access
-    if (session.user.role === 'SALES' && inquiry.createdById !== session.user.id) {
+    if (user.role === 'SALES' && inquiry.createdById !== user.id) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
-    if (session.user.role === 'VP') {
+    if (user.role === 'VP') {
       const hasAssignedItems = inquiry.items.some(item => 
-        item.assignedToId === session.user.id
+        item.assignedToId === user.id
       )
       if (!hasAssignedItems) {
         return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
@@ -94,12 +94,12 @@ export async function PUT(
 ) {
   try {
     const params = await context.params
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    if (!hasPermission(session.user.role, 'inquiries', 'write')) {
+    if (!hasPermission(user.role, 'inquiries', 'write')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -108,7 +108,7 @@ export async function PUT(
     const validatedData = updateInquirySchema.parse(body)
 
     // Get the existing inquiry for audit trail
-    const existingInquiry = await prisma.inquiry.findUnique({
+    const existingInquiry = await db.inquiry.findUnique({
       where: { id },
       select: {
         id: true,
@@ -127,11 +127,11 @@ export async function PUT(
     }
 
     // Check role-based access for modifications
-    if (session.user.role === 'SALES' && existingInquiry.createdById !== session.user.id) {
+    if (user.role === 'SALES' && existingInquiry.createdById !== user.id) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
-    const inquiry = await prisma.inquiry.update({
+    const inquiry = await db.inquiry.update({
       where: { id },
       data: {
         ...(validatedData.title && { title: validatedData.title }),
@@ -155,7 +155,7 @@ export async function PUT(
     })
 
     // Create audit log
-    await prisma.auditLog.create({
+    await db.auditLog.create({
       data: {
         action: 'UPDATE',
         entity: 'Inquiry',
@@ -172,7 +172,7 @@ export async function PUT(
           priority: inquiry.priority,
           assignedToId: inquiry.assignedToId,
         },
-        userId: session.user.id,
+        userId: user.id,
         inquiryId: inquiry.id,
       }
     })
@@ -205,18 +205,18 @@ export async function DELETE(
 ) {
   try {
     const params = await context.params
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    if (!hasPermission(session.user.role, 'inquiries', 'delete')) {
+    if (!hasPermission(user.role, 'inquiries', 'delete')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
     const { id } = idSchema.parse({ id: params.id })
 
-    const existingInquiry = await prisma.inquiry.findUnique({
+    const existingInquiry = await db.inquiry.findUnique({
       where: { id },
       select: { id: true, title: true, createdById: true }
     })
@@ -227,19 +227,19 @@ export async function DELETE(
 
     // Only allow deletion by creator or admin/superuser
     if (
-      session.user.role !== 'ADMIN' && 
-      session.user.role !== 'SUPERUSER' && 
-      existingInquiry.createdById !== session.user.id
+      user.role !== 'ADMIN' && 
+      user.role !== 'SUPERUSER' && 
+      existingInquiry.createdById !== user.id
     ) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
-    await prisma.inquiry.delete({
+    await db.inquiry.delete({
       where: { id }
     })
 
     // Create audit log
-    await prisma.auditLog.create({
+    await db.auditLog.create({
       data: {
         action: 'DELETE',
         entity: 'Inquiry',
@@ -247,7 +247,7 @@ export async function DELETE(
         oldData: {
           title: existingInquiry.title,
         },
-        userId: session.user.id,
+        userId: user.id,
       }
     })
 

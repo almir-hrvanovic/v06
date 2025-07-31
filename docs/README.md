@@ -22,10 +22,16 @@ cp .env.example .env.local
 
 # 4. Start development
 npm run dev
+# Or with auto-login: npm run dev:logged
 
 # 5. Check pending tasks
 cat PROJECT_SUMMARY.md | grep -A 10 "Pending Features"
 ```
+
+### 🔐 Development Tools
+- **Dev Auto-Login**: Maintain persistent dev sessions - [Quick Guide](./development/dev-auto-login-quick-ref.md)
+- **Prisma Studio**: Visual database editor - `npm run db:studio`
+- **Dev with Studio**: Both services - `npm run dev:full`
 
 ## 🌟 Features
 

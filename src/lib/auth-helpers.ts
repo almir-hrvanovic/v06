@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 export async function requireAuth() {
   const supabase = await createClient()
@@ -11,7 +12,7 @@ export async function requireAuth() {
   }
   
   // Get full user details from database
-  const dbUser = await prisma.user.findUnique({
+  const dbUser = await db.user.findUnique({
     where: { email: user.email! },
     select: {
       id: true,
@@ -37,7 +38,7 @@ export async function requireAuth() {
   }
 }
 
-export async function getServerAuth() {
+export async function getAuthenticatedUser() {
   try {
     const supabase = await createClient()
     const { data: { user }, error } = await supabase.auth.getUser()
@@ -47,7 +48,7 @@ export async function getServerAuth() {
     }
     
     // Get full user details from database
-    const dbUser = await prisma.user.findUnique({
+    const dbUser = await db.user.findUnique({
       where: { email: user.email! },
       select: {
         id: true,

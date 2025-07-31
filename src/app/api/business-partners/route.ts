@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { hasPermission } from '@/utils/supabase/api-auth'
 import { z } from 'zod'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 const createBusinessPartnerSchema = z.object({
   name: z.string().min(1, 'Name is required').max(255, 'Name too long'),
@@ -18,12 +18,12 @@ const businessPartnerFiltersSchema = z.object({
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    if (!hasPermission(session.user.role, 'business_partners', 'read')) {
+    if (!hasPermission(user.role, 'business_partners', 'read')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -50,13 +50,13 @@ export async function GET(request: NextRequest) {
 
     // Get data with pagination
     const [businessPartners, total] = await Promise.all([
-      prisma.businessPartner.findMany({
+      db.businessPartner.findMany({
         where,
         orderBy: { name: 'asc' },
         skip,
         take: limit
       }),
-      prisma.businessPartner.count({ where })
+      db.businessPartner.count({ where })
     ])
 
     return NextResponse.json({
@@ -80,12 +80,12 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    if (!hasPermission(session.user.role, 'business_partners', 'write')) {
+    if (!hasPermission(user.role, 'business_partners', 'write')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
     const data = createBusinessPartnerSchema.parse(body)
 
     // Check for duplicate name
-    const existingPartner = await prisma.businessPartner.findUnique({
+    const existingPartner = await db.businessPartner.findUnique({
       where: { name: data.name }
     })
 
@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const businessPartner = await prisma.businessPartner.create({
+    const businessPartner = await db.businessPartner.create({
       data
     })
 

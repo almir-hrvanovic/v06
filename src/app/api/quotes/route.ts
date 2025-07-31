@@ -1,19 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
-import { UserRole } from '@prisma/client'
+import { db } from '@/lib/db/index'
+import { UserRole } from '@/lib/db/types'
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await auth()
+    const user = await getAuthenticatedUser()
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only certain roles can view quotes
-    if (session.user.role !== UserRole.SUPERUSER && 
-        session.user.role !== UserRole.ADMIN && 
-        session.user.role !== UserRole.MANAGER && 
-        session.user.role !== UserRole.SALES) {
+    if (user.role !== UserRole.SUPERUSER && 
+        user.role !== UserRole.ADMIN && 
+        user.role !== UserRole.MANAGER && 
+        user.role !== UserRole.SALES) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
       where.status = status
     }
 
-    const quotes = await prisma.quote.findMany({
+    const quotes = await db.quote.findMany({
       where,
       include: {
         inquiry: {

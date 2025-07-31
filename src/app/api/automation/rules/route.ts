@@ -1,22 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { z } from 'zod'
-import { UserRole } from '@prisma/client'
+import { UserRole } from '@/lib/db/types'
 
 // GET /api/automation/rules - Get all automation rules
 export async function GET(request: NextRequest) {
   try {
-    const session = await auth()
+    const user = await getAuthenticatedUser()
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only admins and superusers can view automation rules
-    if (session.user.role !== UserRole.ADMIN && session.user.role !== UserRole.SUPERUSER) {
+    if (user.role !== UserRole.ADMIN && user.role !== UserRole.SUPERUSER) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
-    const rules = await prisma.automationRule.findMany({
+    const rules = await db.automationRule.findMany({
       include: {
         createdBy: {
           select: { id: true, name: true, email: true }
@@ -64,23 +64,23 @@ const createRuleSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await auth()
+    const user = await getAuthenticatedUser()
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only admins and superusers can create automation rules
-    if (session.user.role !== UserRole.ADMIN && session.user.role !== UserRole.SUPERUSER) {
+    if (user.role !== UserRole.ADMIN && user.role !== UserRole.SUPERUSER) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
     const body = await request.json()
     const data = createRuleSchema.parse(body)
 
-    const rule = await prisma.automationRule.create({
+    const rule = await db.automationRule.create({
       data: {
         ...data,
-        createdById: session.user.id
+        createdById: user.id
       },
       include: {
         createdBy: {

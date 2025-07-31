@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
+import { db } from '@/lib/db/index'
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -63,35 +63,35 @@ async function getOverviewAnalytics(startDate: Date) {
     averageProcessingTime
   ] = await Promise.all([
     // Total inquiries
-    prisma.inquiry.count({
+    db.inquiry.count({
       where: { createdAt: { gte: startDate } }
     }),
     // Active inquiries
-    prisma.inquiry.count({
+    db.inquiry.count({
       where: {
         createdAt: { gte: startDate },
         status: { in: ['IN_REVIEW', 'ASSIGNED', 'COSTING'] }
       }
     }),
     // Completed quotes
-    prisma.quote.count({
+    db.quote.count({
       where: { createdAt: { gte: startDate } }
     }),
     // Pending approvals
-    prisma.approval.count({
+    db.approval.count({
       where: {
         createdAt: { gte: startDate },
         status: 'PENDING'
       }
     }),
     // Inquiries by status
-    prisma.inquiry.groupBy({
+    db.inquiry.groupBy({
       by: ['status'],
       where: { createdAt: { gte: startDate } },
       _count: true
     }),
     // Inquiries over time (daily)
-    prisma.$queryRaw`
+    db.$queryRaw`
       SELECT 
         DATE(created_at) as date,
         COUNT(*) as count,
@@ -102,7 +102,7 @@ async function getOverviewAnalytics(startDate: Date) {
       ORDER BY date ASC
     `,
     // Top customers by inquiry count
-    prisma.customer.findMany({
+    db.customer.findMany({
       select: {
         id: true,
         name: true,
@@ -122,7 +122,7 @@ async function getOverviewAnalytics(startDate: Date) {
       take: 10
     }),
     // Average processing time (from inquiry to quote)
-    prisma.$queryRaw`
+    db.$queryRaw`
       SELECT 
         AVG(EXTRACT(epoch FROM (q.created_at - i.created_at)) / 86400) as avg_days
       FROM "Quote" q
@@ -161,7 +161,7 @@ async function getWorkloadAnalytics(startDate: Date) {
     assignmentTrends
   ] = await Promise.all([
     // VP workload
-    prisma.user.findMany({
+    db.user.findMany({
       where: { role: 'VP' },
       select: {
         id: true,
@@ -175,7 +175,7 @@ async function getWorkloadAnalytics(startDate: Date) {
       }
     }),
     // VPP assignments over time
-    prisma.inquiryItem.groupBy({
+    db.inquiryItem.groupBy({
       by: ['status'],
       where: {
         createdAt: { gte: startDate }
@@ -183,7 +183,7 @@ async function getWorkloadAnalytics(startDate: Date) {
       _count: true
     }),
     // Tech workload
-    prisma.user.findMany({
+    db.user.findMany({
       where: { role: 'TECH' },
       select: {
         id: true,
@@ -197,7 +197,7 @@ async function getWorkloadAnalytics(startDate: Date) {
       }
     }),
     // Items by status
-    prisma.inquiryItem.groupBy({
+    db.inquiryItem.groupBy({
       by: ['status'],
       where: {
         updatedAt: { gte: startDate }
@@ -205,7 +205,7 @@ async function getWorkloadAnalytics(startDate: Date) {
       _count: true
     }),
     // Assignment trends
-    prisma.$queryRaw`
+    db.$queryRaw`
       SELECT 
         DATE(vp_assigned_at) as date,
         COUNT(*) as vp_assignments
@@ -245,7 +245,7 @@ async function getPerformanceAnalytics(startDate: Date) {
     bottlenecks
   ] = await Promise.all([
     // Completion rates by user role
-    prisma.$queryRaw`
+    db.$queryRaw`
       SELECT 
         u.role,
         COUNT(CASE WHEN ii.status IN ('APPROVED', 'QUOTED') THEN 1 END) as completed,
@@ -256,7 +256,7 @@ async function getPerformanceAnalytics(startDate: Date) {
       GROUP BY u.role
     `,
     // Average time by stage
-    prisma.$queryRaw`
+    db.$queryRaw`
       SELECT 
         'assignment_to_costing' as stage,
         AVG(EXTRACT(epoch FROM (cc.created_at - ii.vp_assigned_at)) / 86400) as avg_days
@@ -272,7 +272,7 @@ async function getPerformanceAnalytics(startDate: Date) {
       WHERE cc.created_at >= ${startDate} AND a.approved_at IS NOT NULL
     `,
     // Top performers (VPs with highest completion rates)
-    prisma.$queryRaw`
+    db.$queryRaw`
       SELECT 
         u.id,
         u.name,
@@ -292,7 +292,7 @@ async function getPerformanceAnalytics(startDate: Date) {
       LIMIT 10
     `,
     // Bottlenecks (items stuck in stages)
-    prisma.$queryRaw`
+    db.$queryRaw`
       SELECT 
         ii.status,
         COUNT(*) as count,
@@ -323,18 +323,18 @@ async function getFinancialAnalytics(startDate: Date) {
     topValueCustomers
   ] = await Promise.all([
     // Total quote value
-    prisma.quote.aggregate({
+    db.quote.aggregate({
       where: { createdAt: { gte: startDate } },
       _sum: { total: true },
       _count: true
     }),
     // Average quote value
-    prisma.quote.aggregate({
+    db.quote.aggregate({
       where: { createdAt: { gte: startDate } },
       _avg: { total: true }
     }),
     // Quote trends over time
-    prisma.$queryRaw`
+    db.$queryRaw`
       SELECT 
         DATE(created_at) as date,
         COUNT(*) as quote_count,
@@ -345,7 +345,7 @@ async function getFinancialAnalytics(startDate: Date) {
       ORDER BY date ASC
     `,
     // Cost breakdown
-    prisma.costCalculation.aggregate({
+    db.costCalculation.aggregate({
       where: { createdAt: { gte: startDate } },
       _avg: {
         materialCost: true,
@@ -359,7 +359,7 @@ async function getFinancialAnalytics(startDate: Date) {
       }
     }),
     // Margin analysis
-    prisma.$queryRaw`
+    db.$queryRaw`
       SELECT 
         qi.margin_percentage,
         COUNT(*) as count,
@@ -373,7 +373,7 @@ async function getFinancialAnalytics(startDate: Date) {
       ORDER BY qi.margin_percentage
     `,
     // Top customers by quote value
-    prisma.$queryRaw`
+    db.$queryRaw`
       SELECT 
         c.id,
         c.name,

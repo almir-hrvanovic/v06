@@ -52,7 +52,8 @@
       "collapse": "Reduzieren",
       "select": "Auswählen",
       "selectAll": "Alle auswählen",
-      "deselectAll": "Auswahl aufheben"
+      "deselectAll": "Auswahl aufheben",
+      "clearFilters": "Filter löschen"
     },
     "labels": {
       "_context": "Allgemeine Formularbeschriftungen und Feldnamen",
@@ -1165,7 +1166,13 @@
     "allCustomers": "Alle Kunden",
     "allStatuses": "Alle Status",
     "noItemsMatchFilter": "Keine Artikel entsprechen Ihren Filterkriterien.",
-    "noItemsAvailable": "Alle Artikel wurden zugewiesen oder es gibt keine ausstehenden Artikel."
+    "noItemsAvailable": "Alle Artikel wurden zugewiesen oder es gibt keine ausstehenden Artikel.",
+    "unsavedChanges": "Sie haben ungespeicherte Änderungen",
+    "changesReset": "Änderungen wurden zurückgesetzt",
+    "changesApplied": "Änderungen erfolgreich angewendet",
+    "reassignmentNotAllowed": "In Bearbeitung befindliche Artikel können ohne Genehmigung nicht neu zugewiesen werden",
+    "tableView": "Tabelle",
+    "dragDropView": "Drag & Drop"
   },
   "automation": {
     "_context": "Workflow-Automatisierungssystem für Regeln und Trigger",

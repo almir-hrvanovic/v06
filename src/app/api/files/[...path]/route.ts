@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { readFile } from 'fs/promises'
 import { join } from 'path'
 import { existsSync } from 'fs'
@@ -10,7 +10,7 @@ export async function GET(
   { params }: { params: Promise<{ path: string[] }> }
 ) {
   try {
-    const session = await auth()
+    const user = await getAuthenticatedUser()
     
     if (!session?.user) {
       return NextResponse.json(
@@ -23,7 +23,7 @@ export async function GET(
     const filePath = path.join('/')
     
     // Get storage settings
-    const settings = await prisma.systemSettings.findFirst()
+    const settings = await db.systemSettings.findFirst()
     
     if (!settings || settings.storageProvider !== 'LOCAL') {
       return NextResponse.json(
@@ -33,7 +33,7 @@ export async function GET(
     }
 
     // Verify file exists in database
-    const fileRecord = await prisma.fileAttachment.findFirst({
+    const fileRecord = await db.fileAttachment.findFirst({
       where: {
         uploadThingKey: filePath
       }

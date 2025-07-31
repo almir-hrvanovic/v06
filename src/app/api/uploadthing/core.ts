@@ -1,7 +1,7 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 import { createClient } from "@/utils/supabase/server";
-import { prisma } from "@/lib/db";
+import { db } from "@/lib/db/index";
 import { headers } from "next/headers";
 
 const f = createUploadthing();
@@ -31,7 +31,7 @@ export const ourFileRouter = {
         }
         
         // Get user details from database
-        const dbUser = await prisma.user.findUnique({
+        const dbUser = await db.user.findUnique({
           where: { email: user.email! },
           select: {
             id: true,
@@ -65,7 +65,7 @@ export const ourFileRouter = {
 
       // Store file information in database
       try {
-        const fileAttachment = await prisma.fileAttachment.create({
+        const fileAttachment = await db.fileAttachment.create({
           data: {
             fileName: file.name,
             originalName: file.name,
@@ -131,7 +131,7 @@ export const ourFileRouter = {
         }
         
         // Get user details from database
-        const dbUser = await prisma.user.findUnique({
+        const dbUser = await db.user.findUnique({
           where: { email: user.email! },
           select: {
             id: true,
@@ -159,7 +159,7 @@ export const ourFileRouter = {
 
       // Store file information in database
       try {
-        const fileAttachment = await prisma.fileAttachment.create({
+        const fileAttachment = await db.fileAttachment.create({
           data: {
             fileName: file.name,
             originalName: file.name,
@@ -215,7 +215,7 @@ export const ourFileRouter = {
         }
         
         // Get user details from database
-        const dbUser = await prisma.user.findUnique({
+        const dbUser = await db.user.findUnique({
           where: { email: user.email! },
           select: {
             id: true,
@@ -243,7 +243,7 @@ export const ourFileRouter = {
 
       // Store file information in database
       try {
-        const fileAttachment = await prisma.fileAttachment.create({
+        const fileAttachment = await db.fileAttachment.create({
           data: {
             fileName: file.name,
             originalName: file.name,

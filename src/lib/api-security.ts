@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from './auth-helpers'
+import { getAuthenticatedUser } from './auth-helpers'
 import { z } from 'zod'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 // API response helpers with security headers
 export function jsonResponse(data: any, status: number = 200) {
@@ -54,8 +55,8 @@ export class ValidationError extends Error {
 
 // Permission checking utilities
 export async function requireAuth(request?: NextRequest) {
-  const session = await getServerAuth()
-  if (!session) {
+  const user = await getAuthenticatedUser()
+  if (!user) {
     throw new AuthError('Authentication required')
   }
   return session
@@ -63,7 +64,7 @@ export async function requireAuth(request?: NextRequest) {
 
 export async function requireRole(roles: string[], request?: NextRequest) {
   const session = await requireAuth(request)
-  if (!roles.includes(session.user.role)) {
+  if (!roles.includes(user.role)) {
     throw new AuthError('Insufficient permissions')
   }
   return session

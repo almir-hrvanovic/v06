@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
-import { UserRole } from '@prisma/client'
+import { db } from '@/lib/db/index'
+import { UserRole } from '@/lib/db/types'
 import { emailService } from '@/lib/email'
 
 export async function POST(
@@ -8,23 +8,23 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await auth()
+    const user = await getAuthenticatedUser()
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only certain roles can send quotes
-    if (session.user.role !== UserRole.SUPERUSER && 
-        session.user.role !== UserRole.ADMIN && 
-        session.user.role !== UserRole.MANAGER && 
-        session.user.role !== UserRole.SALES) {
+    if (user.role !== UserRole.SUPERUSER && 
+        user.role !== UserRole.ADMIN && 
+        user.role !== UserRole.MANAGER && 
+        user.role !== UserRole.SALES) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
     const { id } = await params
 
     // Get quote with full details
-    const quote = await prisma.quote.findUnique({
+    const quote = await db.quote.findUnique({
       where: { id },
       include: {
         inquiry: {
@@ -53,7 +53,7 @@ export async function POST(
     }
 
     // Update quote status to SENT
-    await prisma.quote.update({
+    await db.quote.update({
       where: { id },
       data: { 
         status: 'SENT'
@@ -81,7 +81,7 @@ export async function POST(
     }
 
     // Create notification for sales rep
-    await prisma.notification.create({
+    await db.notification.create({
       data: {
         userId: quote.inquiry.createdById,
         type: 'QUOTE_GENERATED',
@@ -97,12 +97,12 @@ export async function POST(
     })
 
     // Create audit log
-    await prisma.auditLog.create({
+    await db.auditLog.create({
       data: {
         action: 'UPDATE',
         entity: 'QUOTE',
         entityId: quote.id,
-        userId: session.user.id!,
+        userId: user.id!,
         oldData: { status: quote.status },
         newData: { status: 'SENT' },
         metadata: {

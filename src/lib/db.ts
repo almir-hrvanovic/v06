@@ -1,22 +1,15 @@
-import { PrismaClient } from '@prisma/client'
+// Legacy database file - now redirects to new abstraction layer
+// This maintains backward compatibility during migration
 
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
-}
+import { db, withTransaction as dbTransaction } from '@/lib/db/index'
 
-export const prisma =
-  globalForPrisma.prisma ??
-  new PrismaClient({
-    log: ['query', 'error'],
-    errorFormat: 'pretty',
-  })
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+// Re-export the database client as prisma for backward compatibility
+export const prisma = db
 
 // Connection helper
 export async function connectToDatabase() {
   try {
-    await prisma.$connect()
+    await db.connect()
     console.log('✅ Database connected successfully')
   } catch (error) {
     console.error('❌ Database connection failed:', error)
@@ -27,7 +20,7 @@ export async function connectToDatabase() {
 // Disconnect helper
 export async function disconnectFromDatabase() {
   try {
-    await prisma.$disconnect()
+    await db.disconnect()
     console.log('🔌 Database disconnected')
   } catch (error) {
     console.error('❌ Database disconnection failed:', error)
@@ -37,18 +30,15 @@ export async function disconnectFromDatabase() {
 // Health check
 export async function checkDatabaseHealth() {
   try {
-    await prisma.$queryRaw`SELECT 1`
+    // Test with a simple user query
+    await db.user.findMany({ take: 1 })
     return { status: 'healthy', timestamp: new Date() }
   } catch (error) {
     return { status: 'unhealthy', error, timestamp: new Date() }
   }
 }
 
-// Transaction helper
-export async function withTransaction<T>(
-  fn: (prisma: Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">) => Promise<T>
-): Promise<T> {
-  return await prisma.$transaction(fn)
-}
+// Transaction helper - redirect to new implementation
+export const withTransaction = dbTransaction
 
 export default prisma

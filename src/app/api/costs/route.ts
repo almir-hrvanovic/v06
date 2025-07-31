@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { costCalculationSchema } from '@/lib/validations'
 import { canCalculateCosts } from '@/utils/supabase/api-auth'
 import { sendNotificationEmail } from '@/lib/email'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -20,8 +20,8 @@ export async function GET(request: NextRequest) {
     const where: any = {}
 
     // Apply role-based filtering
-    if (session.user.role === 'VP') {
-      where.calculatedById = session.user.id
+    if (user.role === 'VP') {
+      where.calculatedById = user.id
     }
 
     if (itemId) {
@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
       where.isApproved = approved === 'true'
     }
 
-    const costCalculations = await prisma.costCalculation.findMany({
+    const costCalculations = await db.costCalculation.findMany({
       where,
       include: {
         inquiryItem: {
@@ -75,12 +75,12 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    if (!canCalculateCosts(session.user.role)) {
+    if (!canCalculateCosts(user.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
     const validatedData = costCalculationSchema.parse(costData)
 
     // Verify the inquiry item exists and is assigned to the user
-    const inquiryItem = await prisma.inquiryItem.findUnique({
+    const inquiryItem = await db.inquiryItem.findUnique({
       where: { id: inquiryItemId },
       include: {
         inquiry: { select: { id: true, title: true, status: true } },
@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user can calculate costs for this item
-    if (session.user.role === 'VP' && inquiryItem.assignedToId !== session.user.id) {
+    if (user.role === 'VP' && inquiryItem.assignedToId !== user.id) {
       return NextResponse.json(
         { error: 'You can only calculate costs for items assigned to you' },
         { status: 403 }
@@ -140,7 +140,7 @@ export async function POST(request: NextRequest) {
     const totalCost = validatedData.materialCost + validatedData.laborCost + validatedData.overheadCost
 
     // Create cost calculation in a transaction
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await db.$transaction(async (tx) => {
       // Create the cost calculation
       const costCalculation = await tx.costCalculation.create({
         data: {
@@ -150,7 +150,7 @@ export async function POST(request: NextRequest) {
           totalCost: totalCost,
           notes: validatedData.notes,
           inquiryItemId: inquiryItemId,
-          calculatedById: session.user.id,
+          calculatedById: user.id,
         },
         include: {
           inquiryItem: {
@@ -202,7 +202,7 @@ export async function POST(request: NextRequest) {
             totalCost: costCalculation.totalCost,
             inquiryItemId: inquiryItemId,
           },
-          userId: session.user.id,
+          userId: user.id,
           inquiryId: inquiryItem.inquiry.id,
         }
       })
@@ -239,7 +239,7 @@ export async function POST(request: NextRequest) {
             {
               managerName: managers.map(m => m.name).join(', '), // For multiple managers
               itemName: inquiryItem.name,
-              vpName: session.user.name,
+              vpName: user.name,
               totalCost: totalCost,
               inquiryTitle: inquiryItem.inquiry.title
             }

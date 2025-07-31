@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { z } from 'zod'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 const languageSchema = z.object({
   language: z.enum(['en-US', 'hr-HR', 'de-DE', 'bs-BA'])
@@ -9,8 +9,8 @@ const languageSchema = z.object({
 
 export async function PUT(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -18,8 +18,8 @@ export async function PUT(request: NextRequest) {
     const { language } = languageSchema.parse(body)
 
     // Update user's preferred language
-    const updatedUser = await prisma.user.update({
-      where: { id: session.user.id },
+    const updatedUser = await db.user.update({
+      where: { id: user.id },
       data: { preferredLanguage: language },
       select: {
         id: true,
@@ -51,13 +51,13 @@ export async function PUT(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const user = await prisma.user.findUnique({
-      where: { id: session.user.id },
+    const user = await db.user.findUnique({
+      where: { id: user.id },
       select: { preferredLanguage: true }
     })
 

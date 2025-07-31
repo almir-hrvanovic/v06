@@ -76,7 +76,7 @@ export const navigationGroups: NavGroup[] = [
     items: [
       {
         titleKey: 'navigation.main.assignments',
-        href: '/dashboard/assignments',
+        href: '/dashboard/assignments/unified',
         icon: ClipboardList,
         roles: ['SUPERUSER', 'ADMIN', 'VPP'],
       },

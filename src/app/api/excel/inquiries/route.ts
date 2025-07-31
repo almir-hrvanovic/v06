@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { ExcelService, DEFAULT_EXCEL_COMPANY_INFO } from '@/lib/excel'
 import { z } from 'zod'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 const exportRequestSchema = z.object({
   filters: z.object({
@@ -21,13 +21,13 @@ const exportRequestSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Check user permissions
-    const userRole = session.user.role
+    const userRole = user.role
     if (!['SUPERUSER', 'ADMIN', 'MANAGER', 'SALES', 'VPP', 'VP'].includes(userRole)) {
       return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 })
     }
@@ -74,13 +74,13 @@ export async function POST(request: NextRequest) {
 
     // Apply role-based filtering
     if (userRole === 'SALES') {
-      where.createdById = session.user.id
+      where.createdById = user.id
     } else if (userRole === 'VP') {
-      where.items = { some: { assignedToId: session.user.id } }
+      where.items = { some: { assignedToId: user.id } }
     }
 
     // Fetch inquiries data
-    const inquiries = await prisma.inquiry.findMany({
+    const inquiries = await db.inquiry.findMany({
       where,
       include: {
         customer: true,
@@ -139,20 +139,20 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Check user permissions
-    const userRole = session.user.role
+    const userRole = user.role
     if (!['SUPERUSER', 'ADMIN', 'MANAGER', 'SALES', 'VPP', 'VP'].includes(userRole)) {
       return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 })
     }
 
     // Get basic statistics for export preview
-    const totalInquiries = await prisma.inquiry.count()
-    const recentInquiries = await prisma.inquiry.count({
+    const totalInquiries = await db.inquiry.count()
+    const recentInquiries = await db.inquiry.count({
       where: {
         createdAt: {
           gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) // Last 30 days
@@ -160,12 +160,12 @@ export async function GET(request: NextRequest) {
       }
     })
 
-    const statusCounts = await prisma.inquiry.groupBy({
+    const statusCounts = await db.inquiry.groupBy({
       by: ['status'],
       _count: { status: true }
     })
 
-    const priorityCounts = await prisma.inquiry.groupBy({
+    const priorityCounts = await db.inquiry.groupBy({
       by: ['priority'],
       _count: { priority: true }
     })

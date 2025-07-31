@@ -1,18 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { createInquirySchema, inquiryFiltersSchema } from '@/lib/validations'
 import { hasPermission } from '@/utils/supabase/api-auth'
 import { onInquiryCreated } from '@/lib/automation/hooks'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    if (!hasPermission(session.user.role, 'inquiries', 'read')) {
+    if (!hasPermission(user.role, 'inquiries', 'read')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -33,16 +33,16 @@ export async function GET(request: NextRequest) {
     const where: any = {}
 
     // Apply role-based filtering
-    if (session.user.role === 'SALES') {
-      where.createdById = session.user.id
-    } else if (session.user.role === 'VPP') {
+    if (user.role === 'SALES') {
+      where.createdById = user.id
+    } else if (user.role === 'VPP') {
       where.OR = [
-        { assignedToId: session.user.id },
+        { assignedToId: user.id },
         { status: 'SUBMITTED' }
       ]
-    } else if (session.user.role === 'VP') {
+    } else if (user.role === 'VP') {
       where.items = {
-        some: { assignedToId: session.user.id }
+        some: { assignedToId: user.id }
       }
     }
 
@@ -78,7 +78,7 @@ export async function GET(request: NextRequest) {
     }
 
     const [inquiries, total] = await Promise.all([
-      prisma.inquiry.findMany({
+      db.inquiry.findMany({
         where,
         include: {
           customer: true,
@@ -98,7 +98,7 @@ export async function GET(request: NextRequest) {
         skip: (filters.page - 1) * filters.limit,
         take: filters.limit,
       }),
-      prisma.inquiry.count({ where }),
+      db.inquiry.count({ where }),
     ])
 
     return NextResponse.json({
@@ -122,12 +122,12 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    if (!hasPermission(session.user.role, 'inquiries', 'write')) {
+    if (!hasPermission(user.role, 'inquiries', 'write')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -140,14 +140,14 @@ export async function POST(request: NextRequest) {
     const validatedData = createInquirySchema.parse(inquiryData)
     console.log('POST /api/inquiries - Validated data:', JSON.stringify(validatedData, null, 2))
 
-    const inquiry = await prisma.inquiry.create({
+    const inquiry = await db.inquiry.create({
       data: {
         title: validatedData.title,
         description: validatedData.description,
         priority: validatedData.priority,
         deadline: validatedData.deadline,
         customerId: validatedData.customerId,
-        createdById: session.user.id,
+        createdById: user.id,
         items: {
           create: validatedData.items.map(item => ({
             name: item.name,
@@ -181,7 +181,7 @@ export async function POST(request: NextRequest) {
     })
 
     // Create audit log
-    await prisma.auditLog.create({
+    await db.auditLog.create({
       data: {
         action: 'CREATE',
         entity: 'Inquiry',
@@ -191,7 +191,7 @@ export async function POST(request: NextRequest) {
           status: inquiry.status,
           customerId: inquiry.customerId,
         },
-        userId: session.user.id,
+        userId: user.id,
         inquiryId: inquiry.id,
       }
     })

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getServerAuth } from '@/lib/auth-helpers';
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 export async function GET() {
   try {
@@ -15,7 +15,7 @@ export async function GET() {
     // Check auth session
     let session = null;
     try {
-      session = await getServerAuth();
+      session = await getAuthenticatedUser();
     } catch (error: any) {
       console.error('Auth error:', error);
     }
@@ -24,9 +24,9 @@ export async function GET() {
       success: true,
       config,
       session: session ? {
-        userId: session.user?.id,
-        userName: session.user?.name,
-        userEmail: session.user?.email,
+        userId: user?.id,
+        userName: user?.name,
+        userEmail: user?.email,
       } : null,
       timestamp: new Date().toISOString(),
     });

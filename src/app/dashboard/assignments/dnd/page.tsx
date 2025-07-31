@@ -40,6 +40,8 @@ import { UserDropZone } from '@/components/assignments/user-drop-zone'
 import { UnassignedDropZone } from '@/components/assignments/unassigned-drop-zone'
 import { SortableUserZone } from '@/components/assignments/sortable-user-zone'
 import { AssignmentFilters } from '@/components/assignments/assignment-filters'
+import { UserFilterDropdown } from '@/components/assignments/user-filter-dropdown'
+import { CollapsibleInquiryGroup } from '@/components/assignments/collapsible-inquiry-group'
 import { useRouter } from 'next/navigation'
 
 interface ItemAssignment {
@@ -47,9 +49,11 @@ interface ItemAssignment {
   userId: string | null
 }
 
+const SELECTED_USER_IDS_KEY = 'assignments-vp-vpp-filter'
+
 export default function DragDropAssignmentPage() {
   const t = useTranslations()
-  const { user } = useAuth()
+  const { user: authUser } = useAuth()
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [users, setUsers] = useState<User[]>([])
@@ -60,8 +64,13 @@ export default function DragDropAssignmentPage() {
   const [assignments, setAssignments] = useState<ItemAssignment[]>([])
   const [activeId, setActiveId] = useState<string | null>(null)
   const [showAssigned, setShowAssigned] = useState(false)
+  const [showCostedItems, setShowCostedItems] = useState(false)
   const [over, setOver] = useState<Over | null>(null)
   const [orderedUserIds, setOrderedUserIds] = useState<string[]>([])
+  const [selectedUserIds, setSelectedUserIds] = useState<string[]>([])
+  const [isInitialized, setIsInitialized] = useState(false)
+  const [plannedAssignments, setPlannedAssignments] = useState<ItemAssignment[]>([])
+  const [hasChanges, setHasChanges] = useState(false)
   const [filters, setFilters] = useState({
     customerId: undefined as string | undefined,
     inquiryId: undefined as string | undefined,
@@ -75,6 +84,7 @@ export default function DragDropAssignmentPage() {
     priority?: Priority | undefined
     search?: string | undefined
   }) => {
+    console.log('Filter change received:', newFilters)
     setFilters(prev => ({
       ...prev,
       ...newFilters
@@ -92,13 +102,43 @@ export default function DragDropAssignmentPage() {
     })
   )
 
+  // Load selected user IDs from localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined' && users.length > 0 && !isInitialized) {
+      const saved = localStorage.getItem(SELECTED_USER_IDS_KEY)
+      if (saved) {
+        try {
+          const savedIds = JSON.parse(saved)
+          // Validate that saved IDs still exist in current users
+          const validIds = savedIds.filter((id: string) => 
+            users.some(u => u.id === id)
+          )
+          setSelectedUserIds(validIds.length > 0 ? validIds : users.map(u => u.id))
+        } catch {
+          setSelectedUserIds(users.map(u => u.id))
+        }
+      } else {
+        // First time - select all
+        setSelectedUserIds(users.map(u => u.id))
+      }
+      setIsInitialized(true)
+    }
+  }, [users, isInitialized])
+
+  // Save selected user IDs to localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined' && isInitialized && selectedUserIds.length >= 0) {
+      localStorage.setItem(SELECTED_USER_IDS_KEY, JSON.stringify(selectedUserIds))
+    }
+  }, [selectedUserIds, isInitialized])
+
   useEffect(() => {
     fetchData()
   }, [showAssigned])
 
   useEffect(() => {
     applyFilters()
-  }, [items, filters])
+  }, [items, filters, showAssigned, showCostedItems, assignments])
 
   const fetchData = async () => {
     try {
@@ -116,47 +156,109 @@ export default function DragDropAssignmentPage() {
             if (a.role !== 'VPP' && b.role === 'VPP') return 1
             return a.name.localeCompare(b.name)
           })
+        }).catch(err => {
+          console.log('Failed to fetch users:', err.message)
+          return []
         }),
-        // Fetch all items without status filter
-        apiClient.getInquiryItems({ 
-          limit: 100
-        }).then(res => (res as any)?.data || []),
+        // Fetch items - fetch all relevant statuses in fewer requests
+        Promise.all([
+          // Get all items (like the regular assignments page)
+          apiClient.getInquiryItems({ 
+            limit: 200
+          }).then(res => (res as any)?.data || [])
+        ]).then(([allItems]) => {
+          // Just return all items
+          console.log('Fetched items:', allItems.length)
+          return allItems
+        }).catch(err => {
+          console.log('Failed to fetch items:', err.message)
+          return []
+        }),
         // Fetch customers
-        apiClient.getCustomers({ limit: 100 }).then(res => (res as any) || []),
+        apiClient.getCustomers({ limit: 100 }).then(res => (res as any)?.data || (res as any) || []).catch(err => {
+          console.log('Failed to fetch customers:', err.message)
+          return []
+        }),
         // Fetch inquiries
-        apiClient.getInquiries({ limit: 100 }).then(res => (res as any)?.data || [])
+        apiClient.getInquiries({ limit: 100 }).then(res => (res as any)?.data || []).catch(err => {
+          console.log('Failed to fetch inquiries:', err.message)
+          return []
+        })
       ])
 
       console.log('Fetched users:', usersData)
       console.log('Fetched items:', itemsData)
-
-      // Calculate workload for each user
-      const usersWithWorkload = await Promise.all(
-        usersData.map(async (user: any) => {
-          try {
-            const workloadData = await apiClient.getWorkload(user.id)
-            return {
-              ...user,
-              pendingCount: (workloadData as any)?.pendingItems || 0,
-              completedCount: (workloadData as any)?.completedItems || 0,
-            }
-          } catch (error) {
-            console.error(`Failed to fetch workload for user ${user.id}:`, error)
-            return {
-              ...user,
-              pendingCount: 0,
-              completedCount: 0,
-            }
-          }
-        })
+      
+      // Debug: Check item statuses
+      const statusCounts = itemsData.reduce((acc: any, item: any) => {
+        acc[item.status] = (acc[item.status] || 0) + 1
+        return acc
+      }, {})
+      console.log('Item status distribution:', statusCounts)
+      
+      // Debug: Check inquiry statuses
+      const inquiryStatusCounts = itemsData.reduce((acc: any, item: any) => {
+        const status = item.inquiry?.status || 'NO_INQUIRY'
+        acc[status] = (acc[status] || 0) + 1
+        return acc
+      }, {})
+      console.log('Inquiry status distribution:', inquiryStatusCounts)
+      
+      // Debug: Check assignment status
+      const assignmentCounts = {
+        assigned: itemsData.filter((item: any) => item.assignedToId).length,
+        unassigned: itemsData.filter((item: any) => !item.assignedToId).length
+      }
+      console.log('Assignment distribution:', assignmentCounts)
+      
+      // Debug: Check for items without inquiry
+      const itemsWithoutInquiry = itemsData.filter((item: any) => !item.inquiry)
+      console.log('Items without inquiry relation:', itemsWithoutInquiry.length)
+      
+      // Debug: Check for unassigned PENDING items
+      const unassignedPending = itemsData.filter((item: any) => 
+        !item.assignedToId && 
+        item.status === 'PENDING'
       )
+      console.log('Unassigned PENDING items:', unassignedPending.length, unassignedPending.slice(0, 3))
+      
+      // Also check items that might be filtered out by inquiry status
+      const allUnassignedPending = itemsData.filter((item: any) => 
+        !item.assignedToId && 
+        item.status === 'PENDING'
+      )
+      console.log('All unassigned PENDING (no inquiry filter):', allUnassignedPending.length)
+      
+      // Debug: Sample item structure
+      if (itemsData.length > 0) {
+        console.log('Sample item structure:', itemsData[0])
+      }
+
+      // Calculate workload for each user from the items data
+      const usersWithWorkload = usersData.map((user: any) => {
+        // Count items assigned to this user
+        const userItems = itemsData.filter((item: any) => item.assignedToId === user.id)
+        const pendingCount = userItems.filter((item: any) => 
+          ['PENDING', 'ASSIGNED', 'IN_PROGRESS'].includes(item.status)
+        ).length
+        const completedCount = userItems.filter((item: any) => 
+          ['COSTED', 'APPROVED', 'QUOTED'].includes(item.status)
+        ).length
+        
+        return {
+          ...user,
+          pendingCount,
+          completedCount,
+        }
+      })
 
       console.log('Users with workload:', usersWithWorkload)
 
       setUsers(usersWithWorkload)
       setItems(itemsData)
-      // Initialize user order
+      // Initialize user order only (not selection)
       setOrderedUserIds(usersWithWorkload.map((u: User) => u.id))
+      // selectedUserIds is now managed by localStorage
       setCustomers(customersData)
       setInquiries(inquiriesData)
 
@@ -166,6 +268,9 @@ export default function DragDropAssignmentPage() {
         userId: item.assignedToId || null,
       }))
       setAssignments(initialAssignments)
+      // Reset planned assignments and changes flag
+      setPlannedAssignments([])
+      setHasChanges(false)
 
     } catch (error) {
       console.error('Failed to fetch data:', error)
@@ -177,26 +282,66 @@ export default function DragDropAssignmentPage() {
 
   const applyFilters = () => {
     let filtered = [...items]
+    
+    console.log('applyFilters start:', { 
+      itemsCount: filtered.length,
+      showAssigned,
+      showCostedItems
+    })
 
-    // Only show items from inquiries that can be assigned (SUBMITTED or ASSIGNED status)
-    filtered = filtered.filter(item => 
-      ['SUBMITTED', 'ASSIGNED'].includes(item.inquiry.status)
-    )
+    // Only show items from inquiries that can be assigned
+    // Removed strict inquiry status filter - let's show all items with inquiries
+    filtered = filtered.filter(item => item.inquiry)
+    
+    // NEVER show QUOTED items
+    filtered = filtered.filter(item => item.status !== 'QUOTED')
+    
+    console.log('After inquiry status and QUOTED filter:', filtered.length)
 
-    // Only show items that are in assignable states (not already calculated/approved/quoted)
-    filtered = filtered.filter(item => 
-      ['PENDING', 'ASSIGNED', 'IN_PROGRESS'].includes(item.status)
-    )
+    if (showAssigned) {
+      // When showing assigned items
+      filtered = filtered.filter(item => 
+        item.assignedToId && 
+        ['ASSIGNED', 'IN_PROGRESS', 'COSTED', 'APPROVED'].includes(item.status)
+      )
+    } else {
+      // Default: Only show unassigned items (PENDING status only)
+      const unassignedBeforeFilter = filtered.filter(item => !item.assignedToId).length
+      filtered = filtered.filter(item => 
+        !item.assignedToId &&
+        item.status === 'PENDING'
+      )
+      console.log('Default filter - unassigned:', {
+        beforeFilter: unassignedBeforeFilter,
+        afterStatusFilter: filtered.length
+      })
+    }
+
+    // Handle COSTED items filter
+    if (!showCostedItems) {
+      // Filter out COSTED items that don't have quotes
+      filtered = filtered.filter(item => {
+        if (item.status === 'COSTED') {
+          // Check if this item has a quote
+          // For now, assume items without quotes are those in COSTED status
+          return false
+        }
+        return true
+      })
+    }
 
     if (filters.customerId) {
+      console.log('Applying customer filter:', filters.customerId)
       filtered = filtered.filter(item => item.inquiry.customerId === filters.customerId)
     }
 
     if (filters.inquiryId) {
+      console.log('Applying inquiry filter:', filters.inquiryId)
       filtered = filtered.filter(item => item.inquiryId === filters.inquiryId)
     }
 
     if (filters.priority) {
+      console.log('Applying priority filter:', filters.priority)
       filtered = filtered.filter(item => item.inquiry.priority === filters.priority)
     }
 
@@ -210,6 +355,14 @@ export default function DragDropAssignmentPage() {
       )
     }
 
+    // Sort by deadline (requestedDelivery date)
+    filtered.sort((a, b) => {
+      const dateA = a.requestedDelivery ? new Date(a.requestedDelivery).getTime() : Infinity
+      const dateB = b.requestedDelivery ? new Date(b.requestedDelivery).getTime() : Infinity
+      return dateA - dateB // Earliest deadline first
+    })
+
+    console.log('Final filtered items:', filtered.length)
     setFilteredItems(filtered)
   }
 
@@ -221,7 +374,7 @@ export default function DragDropAssignmentPage() {
     setOver(event.over)
   }
 
-  const handleDragEnd = async (event: DragEndEvent) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
 
     if (!over) {
@@ -231,6 +384,87 @@ export default function DragDropAssignmentPage() {
 
     const activeId = active.id as string
     const overId = over.id as string
+
+    // Check if trying to reassign COSTED, APPROVED, or IN_PROGRESS items
+    const checkReassignment = (itemId: string) => {
+      const item = items.find(i => i.id === itemId)
+      if (item && item.assignedToId && ['COSTED', 'APPROVED', 'IN_PROGRESS'].includes(item.status)) {
+        toast.error(t('assignments.reassignmentNotAllowed') || 'Reassignment of items in progress requires special approval. This functionality will be implemented soon.')
+        return false
+      }
+      return true
+    }
+
+    // For group dragging
+    if (activeId.startsWith('group-')) {
+      const groupData = active.data.current as { type: string, inquiryId: string, itemIds: string[] }
+      const itemIds = groupData.itemIds
+      
+      // Check all items in the group
+      const hasRestrictedItems = itemIds.some(itemId => {
+        const item = items.find(i => i.id === itemId)
+        return item && item.assignedToId && ['COSTED', 'APPROVED', 'IN_PROGRESS'].includes(item.status)
+      })
+      
+      if (hasRestrictedItems) {
+        toast.error(t('assignments.reassignmentNotAllowed') || 'Reassignment of items in progress requires special approval. This functionality will be implemented soon.')
+        setActiveId(null)
+        return
+      }
+    } else if (!activeId.startsWith('user-')) {
+      // For individual item dragging
+      if (!checkReassignment(activeId)) {
+        setActiveId(null)
+        return
+      }
+    }
+
+    // Check if we're dragging a group
+    if (activeId.startsWith('group-')) {
+      // Handle group dragging
+      const groupData = active.data.current as { type: string, inquiryId: string, itemIds: string[] }
+      const itemIds = groupData.itemIds
+      
+      // Determine target
+      let targetUserId: string | null = null
+      
+      if (overId === 'unassigned') {
+        targetUserId = null
+      } else if (overId.startsWith('user-')) {
+        targetUserId = overId.replace('user-', '')
+      } else {
+        // Check if it's a direct user ID
+        const targetUser = users.find(u => u.id === overId)
+        if (targetUser) {
+          targetUserId = targetUser.id
+        }
+      }
+      
+      // Update local assignments only
+      setAssignments(prev => {
+        const newAssignments = [...prev]
+        itemIds.forEach(itemId => {
+          const index = newAssignments.findIndex(a => a.itemId === itemId)
+          if (index !== -1) {
+            newAssignments[index] = { ...newAssignments[index], userId: targetUserId }
+          }
+        })
+        return newAssignments
+      })
+      
+      // Track planned changes
+      setPlannedAssignments(prev => {
+        const newPlanned = [...prev.filter(p => !itemIds.includes(p.itemId))]
+        itemIds.forEach(itemId => {
+          newPlanned.push({ itemId, userId: targetUserId })
+        })
+        return newPlanned
+      })
+      
+      setHasChanges(true)
+      setActiveId(null)
+      return
+    }
 
     // Check if we're dragging a user
     if (activeId.startsWith('user-') && overId.startsWith('user-')) {
@@ -252,43 +486,14 @@ export default function DragDropAssignmentPage() {
     const itemId = activeId
     const dropTargetId = overId
 
-    // Handle dropping on unassigned area
-    if (dropTargetId === 'unassigned') {
-      // Remove assignment (set to null)
-      setAssignments(prev => 
-        prev.map(a => a.itemId === itemId ? { ...a, userId: null } : a)
-      )
-
-      // Update items state
-      setItems(prev =>
-        prev.map(item =>
-          item.id === itemId
-            ? { ...item, assignedToId: null, assignedTo: null as any }
-            : item
-        )
-      )
-
-      try {
-        // API call to remove assignment
-        await apiClient.unassignItems({ itemIds: [itemId] })
-        toast.success(t('assignments.itemUnassigned'))
-        fetchData()
-      } catch (error) {
-        console.error('Failed to unassign item:', error)
-        toast.error(t('errors.failedToUnassignItem'))
-        fetchData()
-      }
-
-      setActiveId(null)
-      return
-    }
-
-    // Check if dropping on a user zone
+    // Determine target user
     let targetUserId: string | null = null
     
-    if (dropTargetId.startsWith('user-')) {
+    if (dropTargetId === 'unassigned') {
+      targetUserId = null
+    } else if (dropTargetId.startsWith('user-')) {
       targetUserId = dropTargetId.replace('user-', '')
-    } else if (dropTargetId !== 'unassigned') {
+    } else {
       // Check if it's a direct user ID (for backward compatibility)
       const targetUser = users.find(u => u.id === dropTargetId)
       if (targetUser) {
@@ -296,46 +501,19 @@ export default function DragDropAssignmentPage() {
       }
     }
     
-    if (!targetUserId && dropTargetId !== 'unassigned') {
-      setActiveId(null)
-      return
-    }
-    
-    const targetUser = targetUserId ? users.find(u => u.id === targetUserId) : null
-
-    // Update local state optimistically
+    // Update local assignments only
     setAssignments(prev => 
       prev.map(a => a.itemId === itemId ? { ...a, userId: targetUserId } : a)
     )
-
-    // Update items state to reflect the new assignment
-    setItems(prev =>
-      prev.map(item =>
-        item.id === itemId
-          ? { ...item, assignedToId: targetUserId, assignedTo: targetUser || null }
-          : item
-      )
-    )
-
-    try {
-      // Make API call to persist the assignment
-      await apiClient.assignItems({
-        itemIds: [itemId],
-        assigneeId: targetUserId!
-      })
-
-      toast.success(t('assignments.itemAssignedTo', { name: targetUser?.name || '' }))
-      
-      // Refresh workload data
-      fetchData()
-    } catch (error) {
-      console.error('Failed to assign item:', error)
-      toast.error(t('errors.failedToAssignItem'))
-      
-      // Revert on error
-      fetchData()
-    }
-
+    
+    // Track planned changes
+    setPlannedAssignments(prev => {
+      const newPlanned = [...prev.filter(p => p.itemId !== itemId)]
+      newPlanned.push({ itemId, userId: targetUserId })
+      return newPlanned
+    })
+    
+    setHasChanges(true)
     setActiveId(null)
   }
 
@@ -348,8 +526,22 @@ export default function DragDropAssignmentPage() {
     return userItems
   }
 
-  const activeItem = activeId && !activeId.startsWith('user-') ? filteredItems.find(item => item.id === activeId) : null
+  const activeItem = activeId && !activeId.startsWith('user-') && !activeId.startsWith('group-') ? filteredItems.find(item => item.id === activeId) : null
   const activeUser = activeId && activeId.startsWith('user-') ? users.find(u => u.id === activeId.replace('user-', '')) : null
+  
+  // Get active group data
+  let activeGroup = null
+  if (activeId && activeId.startsWith('group-')) {
+    const inquiryId = activeId.replace('group-', '')
+    const groupItems = filteredItems.filter(item => item.inquiryId === inquiryId)
+    if (groupItems.length > 0) {
+      activeGroup = {
+        inquiryId,
+        items: groupItems,
+        inquiry: groupItems[0].inquiry
+      }
+    }
+  }
 
   if (loading) {
     return (
@@ -360,7 +552,8 @@ export default function DragDropAssignmentPage() {
   }
 
   // Check permissions
-  const userRole = user?.role
+  const userRole = authUser?.role
+  console.log('Current user role:', userRole)
   if (userRole !== 'VPP' && userRole !== 'ADMIN' && userRole !== 'SUPERUSER') {
     return (
       <div className="space-y-6 p-6">
@@ -371,6 +564,15 @@ export default function DragDropAssignmentPage() {
   }
 
   const unassignedItems = getItemsForUser(null)
+  
+  console.log('Debug DND page:', {
+    totalItems: items.length,
+    filteredItems: filteredItems.length,
+    assignments: assignments.length,
+    unassignedItems: unassignedItems.length,
+    showAssigned,
+    hasChanges
+  })
 
   return (
     <div className="h-screen flex flex-col bg-background overflow-hidden">
@@ -408,14 +610,25 @@ export default function DragDropAssignmentPage() {
                 {t('assignments.showAssignedItems')}
               </Label>
             </div>
+            <div className="flex items-center gap-2">
+              <Switch
+                id="show-costed"
+                checked={showCostedItems}
+                onCheckedChange={setShowCostedItems}
+              />
+              <Label htmlFor="show-costed" className="text-sm">
+                {t('assignments.showCostedItems')}
+              </Label>
+            </div>
             <Badge variant="secondary" className="gap-1">
               <Package className="h-3 w-3" />
               {t('assignments.assignableItems', { count: filteredItems.length })}
             </Badge>
-            <Badge variant="secondary" className="gap-1">
-              <Users className="h-3 w-3" />
-              {t('assignments.users', { count: users.length })}
-            </Badge>
+            <UserFilterDropdown
+              users={users}
+              selectedUserIds={selectedUserIds}
+              onSelectionChange={setSelectedUserIds}
+            />
           </div>
         </div>
 
@@ -424,32 +637,106 @@ export default function DragDropAssignmentPage() {
           customers={customers}
           inquiries={inquiries}
           onFilterChange={handleFilterChange}
+          defaultExpanded={true}
         />
+        
+        {/* Assignment Controls */}
+        <div className="flex items-center justify-between mt-4">
+          <div className="text-sm text-muted-foreground">
+            {hasChanges && (
+              <span className="text-orange-500 font-medium">
+                {t('assignments.unsavedChanges')}
+              </span>
+            )}
+          </div>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                // Reset all assignments back to unassigned
+                setAssignments(items.map(item => ({ itemId: item.id, userId: null })))
+                setPlannedAssignments([])
+                setHasChanges(false)
+                toast.info(t('assignments.changesReset'))
+              }}
+              disabled={!hasChanges}
+            >
+              {t('common.actions.reset')}
+            </Button>
+            <Button
+              variant="default"
+              size="sm"
+              onClick={async () => {
+                // Apply all planned assignments
+                try {
+                  // Group assignments by user
+                  const assignmentsByUser = plannedAssignments.reduce((acc, assignment) => {
+                    if (assignment.userId) {
+                      if (!acc[assignment.userId]) {
+                        acc[assignment.userId] = []
+                      }
+                      acc[assignment.userId].push(assignment.itemId)
+                    }
+                    return acc
+                  }, {} as Record<string, string[]>)
+                  
+                  // Apply assignments for each user
+                  for (const [userId, itemIds] of Object.entries(assignmentsByUser)) {
+                    await apiClient.assignItems({ itemIds, assigneeId: userId })
+                  }
+                  
+                  // Apply unassignments
+                  const unassignedItems = plannedAssignments
+                    .filter(a => !a.userId)
+                    .map(a => a.itemId)
+                  
+                  if (unassignedItems.length > 0) {
+                    await apiClient.unassignItems({ itemIds: unassignedItems })
+                  }
+                  
+                  toast.success(t('assignments.changesApplied'))
+                  setHasChanges(false)
+                  setPlannedAssignments([])
+                  fetchData()
+                } catch (error) {
+                  console.error('Failed to apply assignments:', error)
+                  toast.error(t('errors.failedToApplyAssignments'))
+                }
+              }}
+              disabled={!hasChanges}
+            >
+              {t('common.actions.apply')}
+            </Button>
+          </div>
+        </div>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex overflow-hidden relative">
+      <div className="flex-1 overflow-hidden relative">
         <DndContext
           sensors={sensors}
-          collisionDetection={pointerWithin}
+          collisionDetection={closestCenter}
           onDragStart={handleDragStart}
           onDragOver={handleDragOver}
           onDragEnd={handleDragEnd}
         >
-          {/* Left Panel - Unassigned Items */}
-          <UnassignedDropZone
-            items={unassignedItems}
-            isOver={activeId ? over?.id === 'unassigned' : false}
-          />
+          <div className="h-full grid grid-cols-[300px_1fr] overflow-hidden">
+            {/* Left Panel - Unassigned Items */}
+            <UnassignedDropZone
+              items={unassignedItems}
+              isOver={activeId ? over?.id === 'unassigned' : false}
+            />
 
-          {/* Right Panel - User Drop Zones */}
-          <div className="flex-1 p-4 overflow-y-auto">
-            <SortableContext
-              items={orderedUserIds.map(id => `user-${id}`)}
-              strategy={rectSortingStrategy}
-            >
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-max">
+            {/* Right Panel - User Drop Zones */}
+            <div className="p-4 overflow-y-auto overflow-x-hidden">
+              <SortableContext
+                items={orderedUserIds.map(id => `user-${id}`)}
+                strategy={rectSortingStrategy}
+              >
+                <div className="grid grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 auto-rows-max">
                 {orderedUserIds
+                  .filter(userId => selectedUserIds.includes(userId))
                   .map(userId => users.find(u => u.id === userId))
                   .filter(Boolean)
                   .map((user) => user && (
@@ -460,8 +747,9 @@ export default function DragDropAssignmentPage() {
                       isOver={activeId && !activeId.startsWith('user-') ? over?.id === `user-${user.id}` : false}
                     />
                   ))}
-              </div>
-            </SortableContext>
+                </div>
+              </SortableContext>
+            </div>
           </div>
 
           {/* Drag Overlay */}
@@ -473,6 +761,17 @@ export default function DragDropAssignmentPage() {
                 <UserDropZone 
                   user={activeUser} 
                   items={getItemsForUser(activeUser.id)}
+                />
+              </div>
+            ) : activeGroup ? (
+              <div className="opacity-80 bg-card rounded-md p-2 border">
+                <CollapsibleInquiryGroup
+                  inquiryId={activeGroup.inquiryId}
+                  inquiryTitle={activeGroup.inquiry.title}
+                  customerName={activeGroup.inquiry.customer.name}
+                  items={activeGroup.items}
+                  priority={activeGroup.inquiry.priority}
+                  isDragging
                 />
               </div>
             ) : null}

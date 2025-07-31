@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerAuth()
+    const user = await getAuthenticatedUser()
     
     if (!session?.user?.id) {
       return NextResponse.json(
@@ -23,8 +23,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Update user's preferred language
-    await prisma.user.update({
-      where: { id: session.user.id },
+    await db.user.update({
+      where: { id: user.id },
       data: { preferredLanguage: language }
     })
 

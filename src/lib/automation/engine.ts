@@ -1,5 +1,6 @@
-import { prisma } from '@/lib/db'
-import { AutomationRule, AutomationTrigger, AutomationLogStatus, UserRole } from '@prisma/client'
+import { db } from '@/lib/db/index'
+import { AutomationRule, AutomationTrigger, AutomationLogStatus, UserRole } from '@/lib/db/types'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 import { 
   AutomationCondition, 
   AutomationAction, 
@@ -10,7 +11,6 @@ import {
 } from './types'
 import { sendEmailNotification } from './email-service'
 import { createDeadline } from './deadline-service'
-import { getServerAuth } from '@/lib/auth-helpers'
 
 export class AutomationEngine {
   private static instance: AutomationEngine
@@ -30,7 +30,7 @@ export class AutomationEngine {
 
     try {
       // Get all active rules for this trigger
-      const rules = await prisma.automationRule.findMany({
+      const rules = await db.automationRule.findMany({
         where: {
           trigger: execution.trigger,
           isActive: true
@@ -46,7 +46,7 @@ export class AutomationEngine {
         results.push(result)
         
         // Log the execution
-        await prisma.automationLog.create({
+        await db.automationLog.create({
           data: {
             ruleId: rule.id,
             status: result.success ? AutomationLogStatus.SUCCESS : AutomationLogStatus.FAILED,
@@ -183,12 +183,12 @@ export class AutomationEngine {
     const { userId, entityType, entityId } = params
     
     if (entityType === 'inquiry') {
-      await prisma.inquiry.update({
+      await db.inquiry.update({
         where: { id: entityId || context.inquiryId },
         data: { assignedToId: userId }
       })
     } else if (entityType === 'inquiryItem') {
-      await prisma.inquiryItem.update({
+      await db.inquiryItem.update({
         where: { id: entityId || context.inquiryItemId },
         data: { assignedToId: userId }
       })
@@ -209,7 +209,7 @@ export class AutomationEngine {
       userId = leastBusy.userId
     } else {
       // Get random active user with the role
-      const users = await prisma.user.findMany({
+      const users = await db.user.findMany({
         where: { role: role as UserRole, isActive: true }
       })
       if (users.length === 0) throw new Error(`No active users with role ${role}`)
@@ -220,7 +220,7 @@ export class AutomationEngine {
   }
 
   private async getWorkloadsByRole(role: UserRole): Promise<WorkloadBalance[]> {
-    const users = await prisma.user.findMany({
+    const users = await db.user.findMany({
       where: { role, isActive: true },
       include: {
         inquiryItems: {
@@ -263,12 +263,12 @@ export class AutomationEngine {
       // Resolve special recipients
       switch (to) {
         case 'assignee':
-          const assignee = await prisma.user.findUnique({
+          const assignee = await db.user.findUnique({
             where: { id: context.assignedToId }
           })
           return assignee?.email ? [assignee.email] : []
         case 'managers':
-          const managers = await prisma.user.findMany({
+          const managers = await db.user.findMany({
             where: { role: UserRole.MANAGER, isActive: true }
           })
           return managers.map(m => m.email).filter(Boolean) as string[]
@@ -283,7 +283,7 @@ export class AutomationEngine {
   private async createNotification(params: any, context: Record<string, any>): Promise<void> {
     const { userId, type, title, message } = params
     
-    await prisma.notification.create({
+    await db.notification.create({
       data: {
         userId: userId || context.assignedToId,
         type,
@@ -298,12 +298,12 @@ export class AutomationEngine {
     const { entityType, entityId, status } = params
     
     if (entityType === 'inquiry') {
-      await prisma.inquiry.update({
+      await db.inquiry.update({
         where: { id: entityId || context.inquiryId },
         data: { status }
       })
     } else if (entityType === 'inquiryItem') {
-      await prisma.inquiryItem.update({
+      await db.inquiryItem.update({
         where: { id: entityId || context.inquiryItemId },
         data: { status }
       })
@@ -327,7 +327,7 @@ export class AutomationEngine {
 
   private async escalate(params: any, context: Record<string, any>): Promise<void> {
     // Escalate to managers
-    const managers = await prisma.user.findMany({
+    const managers = await db.user.findMany({
       where: { role: UserRole.MANAGER, isActive: true }
     })
     

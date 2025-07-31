@@ -13,9 +13,10 @@ import { ThemeProvider } from '@/contexts/theme-context'
 import { NextIntlClientProvider } from 'next-intl'
 import { cookies } from 'next/headers'
 import { ErrorBoundary } from '@/components/error-boundary'
+import { getAuthenticatedUser } from '@/lib/auth-helpers'
 // import { AutoLoginProvider } from '@/components/auth/auto-login-provider' // DISABLED: Auto-login removed
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { DevAutoLoginProvider } from '@/components/auth/dev-auto-login-provider'
+import { db } from '@/lib/db/index'
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -51,13 +52,13 @@ export default async function RootLayout({
   // Try to get user's preferred language from database
   let userPreferredLanguage: string | null = null;
   try {
-    const session = await getServerAuth();
-    if (session?.user?.id) {
-      const user = await prisma.user.findUnique({
-        where: { id: session.user.id },
+    const authUser = await getAuthenticatedUser();
+    if (authUser?.id) {
+      const dbUser = await db.user.findUnique({
+        where: { id: authUser.id },
         select: { preferredLanguage: true }
       });
-      userPreferredLanguage = user?.preferredLanguage || null;
+      userPreferredLanguage = dbUser?.preferredLanguage || null;
     }
   } catch (error) {
     console.warn('Failed to fetch user language preference:', error);
@@ -138,11 +139,13 @@ export default async function RootLayout({
         >
           <ThemeProvider defaultTheme="system" storageKey="gs-cms-theme">
             <AuthProvider>
-              <LocaleProvider>
-                <ConsoleMonitorProvider>
-                  {children}
-                </ConsoleMonitorProvider>
-              </LocaleProvider>
+              <DevAutoLoginProvider>
+                <LocaleProvider>
+                  <ConsoleMonitorProvider>
+                    {children}
+                  </ConsoleMonitorProvider>
+                </LocaleProvider>
+              </DevAutoLoginProvider>
             </AuthProvider>
           </ThemeProvider>
         </NextIntlClientProvider>

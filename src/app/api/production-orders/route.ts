@@ -1,18 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
-import { UserRole } from '@prisma/client'
+import { db } from '@/lib/db/index'
+import { UserRole } from '@/lib/db/types'
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await auth()
+    const user = await getAuthenticatedUser()
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only certain roles can view production orders
-    if (session.user.role !== UserRole.SUPERUSER && 
-        session.user.role !== UserRole.ADMIN && 
-        session.user.role !== UserRole.MANAGER) {
+    if (user.role !== UserRole.SUPERUSER && 
+        user.role !== UserRole.ADMIN && 
+        user.role !== UserRole.MANAGER) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
       where.status = status
     }
 
-    const orders = await prisma.productionOrder.findMany({
+    const orders = await db.productionOrder.findMany({
       where,
       include: {
         quote: {
@@ -67,15 +67,15 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await auth()
+    const user = await getAuthenticatedUser()
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only certain roles can create production orders
-    if (session.user.role !== UserRole.SUPERUSER && 
-        session.user.role !== UserRole.ADMIN && 
-        session.user.role !== UserRole.MANAGER) {
+    if (user.role !== UserRole.SUPERUSER && 
+        user.role !== UserRole.ADMIN && 
+        user.role !== UserRole.MANAGER) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -83,7 +83,7 @@ export async function POST(request: NextRequest) {
     const { quoteId } = body
 
     // Check if quote exists and is accepted
-    const quote = await prisma.quote.findUnique({
+    const quote = await db.quote.findUnique({
       where: { id: quoteId },
       include: {
         inquiry: {
@@ -110,7 +110,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if production order already exists for this quote
-    const existingOrder = await prisma.productionOrder.findUnique({
+    const existingOrder = await db.productionOrder.findUnique({
       where: { quoteId }
     })
 
@@ -122,11 +122,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate order number
-    const orderCount = await prisma.productionOrder.count()
+    const orderCount = await db.productionOrder.count()
     const orderNumber = `PO-${new Date().getFullYear()}-${String(orderCount + 1).padStart(5, '0')}`
 
     // Create production order
-    const order = await prisma.productionOrder.create({
+    const order = await db.productionOrder.create({
       data: {
         orderNumber,
         title: quote.title,
@@ -161,9 +161,9 @@ export async function POST(request: NextRequest) {
     })
 
     // Create notification
-    await prisma.notification.create({
+    await db.notification.create({
       data: {
-        userId: session.user.id!,
+        userId: user.id!,
         type: 'PRODUCTION_ORDER_CREATED',
         title: 'Production Order Created',
         message: `Production order ${orderNumber} has been created for ${quote.inquiry.customer.name}`,
@@ -177,12 +177,12 @@ export async function POST(request: NextRequest) {
     })
 
     // Create audit log
-    await prisma.auditLog.create({
+    await db.auditLog.create({
       data: {
         action: 'CREATE',
         entity: 'PRODUCTION_ORDER',
         entityId: order.id,
-        userId: session.user.id!,
+        userId: user.id!,
         newData: order as any,
         metadata: {
           orderNumber,

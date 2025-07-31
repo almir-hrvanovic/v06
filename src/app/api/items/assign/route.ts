@@ -1,18 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { bulkAssignItemsSchema } from '@/lib/validations'
 import { canAssignItems } from '@/utils/supabase/api-auth'
 import { sendNotificationEmail } from '@/lib/email'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    if (!canAssignItems(session.user.role)) {
+    if (!canAssignItems(user.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     const validatedData = bulkAssignItemsSchema.parse(body)
 
     // Verify assignee exists and has VP role
-    const assignee = await prisma.user.findUnique({
+    const assignee = await db.user.findUnique({
       where: { id: validatedData.assigneeId },
       select: { id: true, name: true, email: true, role: true, isActive: true }
     })
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify all items exist and are assignable
-    const items = await prisma.inquiryItem.findMany({
+    const items = await db.inquiryItem.findMany({
       where: {
         id: { in: validatedData.itemIds },
         status: { in: ['PENDING', 'ASSIGNED'] }
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Perform bulk assignment in a transaction
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await db.$transaction(async (tx) => {
       // Update items
       const updatedItems = await tx.inquiryItem.updateMany({
         where: { id: { in: validatedData.itemIds } },
@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
               assigneeName: assignee.name,
               status: 'ASSIGNED'
             },
-            userId: session.user.id,
+            userId: user.id,
             inquiryId: item.inquiry.id,
           }
         })
@@ -173,7 +173,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Fetch updated items for response
-    const updatedItems = await prisma.inquiryItem.findMany({
+    const updatedItems = await db.inquiryItem.findMany({
       where: { id: { in: validatedData.itemIds } },
       include: {
         inquiry: {

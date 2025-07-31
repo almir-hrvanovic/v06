@@ -1,0 +1,211 @@
+ Server  �[31mprisma:error�[39m 
+Invalid `prisma.user.findUnique()` invocation:
+
+
+Error querying the database: FATAL: Max client connections reached prisma-adapter.ts:33:32
+ Server  Error getting authenticated user: PrismaClientInitializationError: 
+Invalid `prisma.user.findUnique()` invocation:
+
+
+Error querying the database: FATAL: Max client connections reached
+    findUnique rsc://react/Server/webpack-internal:///(rsc)/./src/lib/db/adapters/prisma-adapter.ts?1:33
+    getAuthenticatedUser rsc://react/Server/webpack-internal:///(rsc)/./src/utils/supabase/api-auth.ts?2:32
+    RootLayout rsc://react/Server/webpack-internal:///(rsc)/./src/app/layout.tsx?3:60
+    resolveErrorDev webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:2172
+    getOutlinedModel webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:1547
+    parseModelString webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:1713
+    createFromJSONCallback webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:2760
+    initializeModelChunk webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:1109
+    getOutlinedModel webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:1485
+    parseModelString webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:1822
+    createFromJSONCallback webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:2760
+    resolveConsoleEntry webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:2501
+    processFullStringRow webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:2644
+    processFullBinaryRow webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:2606
+    processBinaryChunk webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:2733
+    progress webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:2997
+    promise callback*progress webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:2998
+    promise callback*progress webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:2998
+    promise callback*progress webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:2998
+    promise callback*progress webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:2998
+    promise callback*progress webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:2998
+    promise callback*startReadingFromStream webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:3006
+    createFromReadableStream webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-client.browser.development.js:3235
+    <anonymous> webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/app-index.js:131
+    NextJS 4
+    <anonymous> webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/app-next-dev.js:14
+    appBootstrap webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/app-bootstrap.js:62
+    loadScriptsInSequence webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/app-bootstrap.js:23
+    appBootstrap webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/app-bootstrap.js:56
+    <anonymous> webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/app-next-dev.js:13
+    NextJS 7
+ Stack: 
+    RootLayout unknown:0
+<anonymous code>:1:147461
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 4648ms]
+
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 4647ms]
+
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 4646ms]
+
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 4645ms]
+
+Source map error: request failed with status 404
+Resource URL: http://localhost:3000/dashboard/%3Canonymous%20code%3E
+Source Map URL: installHook.js.map
+Source map error: can't access property "sources", map is undefined
+Resource URL: http://localhost:3000/dashboard/%3Canonymous%20code%3E
+Source Map URL: react_devtools_backend_compact.js.map
+XHRGET
+http://localhost:3000/api/items?status=PENDING&limit=50
+[HTTP/1.1 401 Unauthorized 2508ms]
+
+XHRGET
+http://localhost:3000/api/users?roles=VP,VPP&active=true
+[HTTP/1.1 401 Unauthorized 2506ms]
+
+XHRGET
+http://localhost:3000/api/customers?active=true
+[HTTP/1.1 401 Unauthorized 2505ms]
+
+XHRGET
+http://localhost:3000/api/items?status=PENDING&limit=50
+[HTTP/1.1 401 Unauthorized 2494ms]
+
+XHRGET
+http://localhost:3000/api/users?roles=VP,VPP&active=true
+[HTTP/1.1 401 Unauthorized 2482ms]
+
+XHRGET
+http://localhost:3000/api/customers?active=true
+[HTTP/1.1 401 Unauthorized 2480ms]
+
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 4674ms]
+
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 4629ms]
+
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 4583ms]
+
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 4582ms]
+
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 4580ms]
+
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 4580ms]
+
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 6957ms]
+
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 6954ms]
+
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 6953ms]
+
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 6948ms]
+
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 6921ms]
+
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 6919ms]
+
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 10364ms]
+
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 10363ms]
+
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 10362ms]
+
+XHRGET
+http://localhost:3000/api/users/me
+[HTTP/1.1 401 Unauthorized 10362ms]
+
+Source map error: Error: request failed with status 404
+Stack in the worker:networkRequest@resource://devtools/client/shared/source-map-loader/utils/network-request.js:43:9
+
+Resource URL: http://localhost:3000/dashboard/%3Canonymous%20code%3E
+Source Map URL: installHook.js.map
+API Error Response: 
+Object { error: "Unauthorized" }
+<anonymous code>:1:147461
+Failed to fetch data: Error: Unauthorized
+    request webpack-internal:///(app-pages-browser)/./src/lib/api-client.ts:33
+    getInquiryItems webpack-internal:///(app-pages-browser)/./src/lib/api-client.ts:105
+    fetchData webpack-internal:///(app-pages-browser)/./src/app/dashboard/assignments/page.tsx:93
+    useEffect webpack-internal:///(app-pages-browser)/./src/app/dashboard/assignments/page.tsx:76
+    react_stack_bottom_frame webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js:23638
+    runWithFiberInDEV webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js:876
+    commitHookEffectListMount webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js:12296
+    commitHookPassiveMountEffects webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js:12417
+<anonymous code>:1:147461
+API Error Response: 
+Object { error: "Unauthorized" }
+<anonymous code>:1:147461
+Failed to fetch data: Error: Unauthorized
+    request webpack-internal:///(app-pages-browser)/./src/lib/api-client.ts:33
+    getCustomers webpack-internal:///(app-pages-browser)/./src/lib/api-client.ts:65
+    fetchData webpack-internal:///(app-pages-browser)/./src/app/dashboard/assignments/page.tsx:98
+    useEffect webpack-internal:///(app-pages-browser)/./src/app/dashboard/assignments/page.tsx:76
+    react_stack_bottom_frame webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js:23638
+    runWithFiberInDEV webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js:876
+    commitHookEffectListMount webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js:12296
+    commitHookPassiveMountEffects webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js:12417
+<anonymous code>:1:147461
+API Error Response: 
+Object { error: "Unauthorized" }
+<anonymous code>:1:147461
+API Error Response: 
+Object { error: "Unauthorized" }
+<anonymous code>:1:147461
+API Error Response: 
+Object { error: "Unauthorized" }
+<anonymous code>:1:147461
+API Error Response: 
+Object { error: "Unauthorized" }
+<anonymous code>:1:147461
+XHRGET
+http://localhost:3000/api/notifications
+[HTTP/1.1 401 Unauthorized 5654ms]
+
+XHRGET
+http://localhost:3000/api/system-settings
+[HTTP/1.1 401 Unauthorized 5653ms]
+
+User not authenticated, using default currency settings <anonymous code>:1:147461
+XHRGET
+http://localhost:3000/api/system-settings
+[HTTP/1.1 401 Unauthorized 1513ms]
+
+User not authenticated, using default currency settings <anonymous code>:1:147461

@@ -1,7 +1,7 @@
 import { createClient } from './server';
-import { prisma } from '@/lib/db';
+import { db } from '@/lib/db/index';
 import { NextRequest, NextResponse } from 'next/server';
-import { UserRole } from '@prisma/client';
+import { UserRole } from '@/lib/db/types';
 
 export interface AuthenticatedUser {
   id: string;
@@ -22,7 +22,7 @@ export async function getAuthenticatedUser(request: NextRequest): Promise<Authen
     }
 
     // Get full user details from database
-    const dbUser = await prisma.user.findUnique({
+    const dbUser = await db.user.findUnique({
       where: { email: user.email! },
       select: {
         id: true,

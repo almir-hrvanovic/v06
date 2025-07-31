@@ -1,21 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
-import { UserRole } from '@prisma/client'
+import { db } from '@/lib/db/index'
+import { UserRole } from '@/lib/db/types'
 
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await auth()
+    const user = await getAuthenticatedUser()
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only certain roles can update production order status
-    if (session.user.role !== UserRole.SUPERUSER && 
-        session.user.role !== UserRole.ADMIN && 
-        session.user.role !== UserRole.MANAGER) {
+    if (user.role !== UserRole.SUPERUSER && 
+        user.role !== UserRole.ADMIN && 
+        user.role !== UserRole.MANAGER) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -33,7 +33,7 @@ export async function PUT(
     }
 
     // Get current order
-    const order = await prisma.productionOrder.findUnique({
+    const order = await db.productionOrder.findUnique({
       where: { id },
       include: {
         quote: {
@@ -68,7 +68,7 @@ export async function PUT(
     // Note: ProductionOrder model doesn't have shippedDate or deliveredDate fields
 
     // Update order
-    const updatedOrder = await prisma.productionOrder.update({
+    const updatedOrder = await db.productionOrder.update({
       where: { id },
       data: updateData,
       include: {
@@ -107,7 +107,7 @@ export async function PUT(
 
     // Notify managers
     if (status === 'COMPLETED' || status === 'DELIVERED') {
-      const managers = await prisma.user.findMany({
+      const managers = await db.user.findMany({
         where: { role: { in: [UserRole.MANAGER, UserRole.ADMIN, UserRole.SUPERUSER] } }
       })
 
@@ -129,17 +129,17 @@ export async function PUT(
       }
     }
 
-    await prisma.notification.createMany({
+    await db.notification.createMany({
       data: notifications
     })
 
     // Create audit log
-    await prisma.auditLog.create({
+    await db.auditLog.create({
       data: {
         action: 'UPDATE',
         entity: 'PRODUCTION_ORDER',
         entityId: order.id,
-        userId: session.user.id!,
+        userId: user.id!,
         oldData: { status: order.status },
         newData: { status: status },
         metadata: {

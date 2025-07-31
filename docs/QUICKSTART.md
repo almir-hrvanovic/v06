@@ -19,6 +19,9 @@ manager@gs-cms.com / password123
 sales@gs-cms.com / password123
 ```
 
+## 🔐 Dev Auto-Login (Optional)
+For persistent dev sessions, see: [dev-auto-login-quick-ref.md](./development/dev-auto-login-quick-ref.md)
+
 ## What to Work On Next
 
 ### Option 1: Workflow Automation (Recommended)
@@ -73,6 +76,8 @@ npm run db:seed        # Add test data
 
 # Development
 npm run dev            # Start dev server
+npm run dev:logged     # Dev server with auto-login setup
+npm run dev:full       # Dev server + Prisma Studio
 npm run build          # Check build
 npm run type-check     # Check types
 

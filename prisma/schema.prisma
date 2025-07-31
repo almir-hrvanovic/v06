@@ -36,6 +36,7 @@ model User {
   automationRules     AutomationRule[]
   automationLogs      AutomationLog[]
   systemSettingsUpdates SystemSettings[]
+  createdCustomers    Customer[]
 
   @@map("users")
 }
@@ -52,18 +53,23 @@ enum UserRole {
 
 // Customer Management
 model Customer {
-  id        String   @id @default(cuid())
-  name      String
-  email     String?
-  phone     String?
-  address   String?
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  id            String   @id @default(cuid())
+  name          String
+  email         String?
+  phone         String?
+  address       String?
+  website       String?
+  contactPerson String?
+  notes         String?
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  createdById   String?
+  
   // Relations
+  createdBy User?     @relation(fields: [createdById], references: [id])
   inquiries Inquiry[]
-
+  
   @@map("customers")
 }
 

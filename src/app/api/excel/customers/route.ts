@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { ExcelService, DEFAULT_EXCEL_COMPANY_INFO } from '@/lib/excel'
 import { z } from 'zod'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 const exportRequestSchema = z.object({
   filters: z.object({
@@ -19,13 +19,13 @@ const exportRequestSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Check user permissions
-    const userRole = session.user.role
+    const userRole = user.role
     if (!['SUPERUSER', 'ADMIN', 'MANAGER', 'SALES'].includes(userRole)) {
       return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 })
     }
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Fetch customers data
-    const customers = await prisma.customer.findMany({
+    const customers = await db.customer.findMany({
       where,
       include: {
         _count: {
@@ -127,21 +127,21 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Check user permissions
-    const userRole = session.user.role
+    const userRole = user.role
     if (!['SUPERUSER', 'ADMIN', 'MANAGER', 'SALES'].includes(userRole)) {
       return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 })
     }
 
     // Get basic statistics for export preview
-    const totalCustomers = await prisma.customer.count()
-    const activeCustomers = await prisma.customer.count({ where: { isActive: true } })
-    const recentCustomers = await prisma.customer.count({
+    const totalCustomers = await db.customer.count()
+    const activeCustomers = await db.customer.count({ where: { isActive: true } })
+    const recentCustomers = await db.customer.count({
       where: {
         createdAt: {
           gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) // Last 30 days
@@ -150,7 +150,7 @@ export async function GET(request: NextRequest) {
     })
 
     // Get customers with inquiry counts
-    const customersWithInquiries = await prisma.customer.findMany({
+    const customersWithInquiries = await db.customer.findMany({
       select: {
         _count: {
           select: { inquiries: true }

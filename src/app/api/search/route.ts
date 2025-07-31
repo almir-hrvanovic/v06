@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { z } from 'zod'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 const searchSchema = z.object({
   query: z.string().optional(),
@@ -32,8 +32,8 @@ const searchSchema = z.object({
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -66,12 +66,12 @@ export async function GET(request: NextRequest) {
     })
 
     // Check user permissions
-    const userRole = session.user.role
+    const userRole = user.role
     if (!canAccessEntityType(userRole, validatedData.type)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
-    const results = await performSearch(validatedData, userRole, session.user.id)
+    const results = await performSearch(validatedData, userRole, user.id)
 
     return NextResponse.json({
       success: true,
@@ -230,7 +230,7 @@ async function searchInquiries(filters: any, skip: number, limit: number, sortBy
   }
 
   const [data, total] = await Promise.all([
-    prisma.inquiry.findMany({
+    db.inquiry.findMany({
       where,
       include: {
         customer: { select: { id: true, name: true } },
@@ -247,7 +247,7 @@ async function searchInquiries(filters: any, skip: number, limit: number, sortBy
       take: limit,
       orderBy: { [sortBy]: sortOrder }
     }),
-    prisma.inquiry.count({ where })
+    db.inquiry.count({ where })
   ])
 
   return { data, total }
@@ -298,7 +298,7 @@ async function searchItems(filters: any, skip: number, limit: number, sortBy: st
   }
 
   const [data, total] = await Promise.all([
-    prisma.inquiryItem.findMany({
+    db.inquiryItem.findMany({
       where,
       include: {
         inquiry: {
@@ -315,7 +315,7 @@ async function searchItems(filters: any, skip: number, limit: number, sortBy: st
       take: limit,
       orderBy: { [sortBy]: sortOrder }
     }),
-    prisma.inquiryItem.count({ where })
+    db.inquiryItem.count({ where })
   ])
 
   return { data, total }
@@ -350,7 +350,7 @@ async function searchUsers(filters: any, skip: number, limit: number, sortBy: st
   }
 
   const [data, total] = await Promise.all([
-    prisma.user.findMany({
+    db.user.findMany({
       where,
       select: {
         id: true,
@@ -373,7 +373,7 @@ async function searchUsers(filters: any, skip: number, limit: number, sortBy: st
       take: limit,
       orderBy: { [sortBy]: sortOrder }
     }),
-    prisma.user.count({ where })
+    db.user.count({ where })
   ])
 
   return { data, total }
@@ -403,7 +403,7 @@ async function searchCustomers(filters: any, skip: number, limit: number, sortBy
   }
 
   const [data, total] = await Promise.all([
-    prisma.customer.findMany({
+    db.customer.findMany({
       where,
       include: {
         _count: { select: { inquiries: true } }
@@ -412,7 +412,7 @@ async function searchCustomers(filters: any, skip: number, limit: number, sortBy
       take: limit,
       orderBy: { [sortBy]: sortOrder }
     }),
-    prisma.customer.count({ where })
+    db.customer.count({ where })
   ])
 
   return { data, total }

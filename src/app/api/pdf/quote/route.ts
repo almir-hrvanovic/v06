@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { PDFService, generateQuoteNumber, getQuoteValidityDate } from '@/lib/pdf'
 import { generateQuoteHTML } from '@/lib/pdf-templates'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Fetch inquiry with all related data
-    const inquiry = await prisma.inquiry.findUnique({
+    const inquiry = await db.inquiry.findUnique({
       where: { id: inquiryId },
       include: {
         customer: true,
@@ -36,9 +36,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Check permissions
-    const userRole = session.user.role
+    const userRole = user.role
     const canGenerate = ['SUPERUSER', 'ADMIN', 'MANAGER', 'SALES'].includes(userRole) ||
-      (userRole === 'VP' && inquiry.items.some(item => item.assignedToId === session.user.id))
+      (userRole === 'VP' && inquiry.items.some(item => item.assignedToId === user.id))
 
     if (!canGenerate) {
       return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 })
@@ -91,8 +91,8 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -104,7 +104,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Check if inquiry exists and user has permission
-    const inquiry = await prisma.inquiry.findUnique({
+    const inquiry = await db.inquiry.findUnique({
       where: { id: inquiryId },
       include: {
         items: {
@@ -119,9 +119,9 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Inquiry not found' }, { status: 404 })
     }
 
-    const userRole = session.user.role
+    const userRole = user.role
     const canGenerate = ['SUPERUSER', 'ADMIN', 'MANAGER', 'SALES'].includes(userRole) ||
-      (userRole === 'VP' && inquiry.items.some(item => item.assignedToId === session.user.id))
+      (userRole === 'VP' && inquiry.items.some(item => item.assignedToId === user.id))
 
     if (!canGenerate) {
       return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 })

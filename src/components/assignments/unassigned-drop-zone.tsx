@@ -1,11 +1,11 @@
 'use client'
 
 import { useDroppable } from '@dnd-kit/core'
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { Package } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { InquiryItemWithRelations } from '@/types'
 import { DraggableItem } from './draggable-item'
+import { CollapsibleInquiryGroup } from './collapsible-inquiry-group'
 import { cn } from '@/lib/utils'
 import { useTranslations } from 'next-intl'
 
@@ -20,25 +20,31 @@ export function UnassignedDropZone({ items, isOver }: UnassignedDropZoneProps) {
     id: 'unassigned',
   })
 
+  // Group items by inquiry
+  const itemsByInquiry = items.reduce((acc, item) => {
+    const inquiryId = item.inquiryId
+    if (!acc[inquiryId]) {
+      acc[inquiryId] = {
+        inquiry: item.inquiry,
+        items: []
+      }
+    }
+    acc[inquiryId].items.push(item)
+    return acc
+  }, {} as Record<string, { inquiry: any, items: InquiryItemWithRelations[] }>)
+
   return (
     <div 
       ref={setNodeRef}
       className={cn(
-        "w-[30%] border-r bg-card p-4 overflow-y-auto",
+        "h-full border-r bg-card p-4 overflow-y-auto",
         isOver && "bg-primary/5"
       )}
     >
-      <div className="mb-4">
-        <h2 className="font-semibold flex items-center gap-2">
-          {t('assignments.unassignedItems')}
-          <Badge>{items.length}</Badge>
-        </h2>
-      </div>
-      
       <div 
         className={cn(
-          "min-h-[400px] p-2 rounded-md border-2 border-dashed transition-colors",
-          isOver ? "border-primary bg-primary/5" : "border-gray-200",
+          "min-h-[400px] p-2 rounded-md transition-colors",
+          isOver && "bg-primary/5",
           items.length === 0 && "flex items-center justify-center"
         )}
       >
@@ -51,16 +57,18 @@ export function UnassignedDropZone({ items, isOver }: UnassignedDropZoneProps) {
             )}
           </div>
         ) : (
-          <SortableContext 
-            items={items.map(item => item.id)} 
-            strategy={verticalListSortingStrategy}
-          >
-            <div className="space-y-2">
-              {items.map((item) => (
-                <DraggableItem key={item.id} item={item} />
-              ))}
-            </div>
-          </SortableContext>
+          <div className="space-y-2">
+            {Object.entries(itemsByInquiry).map(([inquiryId, group]) => (
+              <CollapsibleInquiryGroup
+                key={inquiryId}
+                inquiryId={inquiryId}
+                inquiryTitle={group.inquiry.title}
+                customerName={group.inquiry.customer.name}
+                items={group.items}
+                priority={group.inquiry.priority}
+              />
+            ))}
+          </div>
         )}
       </div>
     </div>

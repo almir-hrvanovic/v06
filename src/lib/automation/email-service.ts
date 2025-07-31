@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { EmailNotification } from './types'
 import nodemailer from 'nodemailer'
 
@@ -30,7 +30,7 @@ const transporter = createTransporter()
 export async function sendEmailNotification(notification: EmailNotification): Promise<void> {
   try {
     // Get email template
-    const template = await prisma.emailTemplate.findUnique({
+    const template = await db.emailTemplate.findUnique({
       where: { name: notification.templateName, isActive: true }
     })
 
@@ -214,7 +214,7 @@ GS-CMS System
   ]
 
   for (const template of templates) {
-    await prisma.emailTemplate.upsert({
+    await db.emailTemplate.upsert({
       where: { name: template.name },
       update: template,
       create: template

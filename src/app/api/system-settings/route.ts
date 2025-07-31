@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { z } from 'zod'
-import { Currency, StorageProvider } from '@prisma/client'
+import { Currency, StorageProvider } from '@/lib/db/types'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 // Validation schema for system settings
 const systemSettingsSchema = z.object({
@@ -62,9 +63,9 @@ const systemSettingsSchema = z.object({
 // GET /api/system-settings
 export async function GET(request: NextRequest) {
   try {
-    const session = await auth()
+    const user = await getAuthenticatedUser()
     
-    if (!session?.user) {
+    if (!user) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -72,11 +73,11 @@ export async function GET(request: NextRequest) {
     }
 
     // Get or create system settings
-    let settings = await prisma.systemSettings.findFirst()
+    let settings = await db.systemSettings.findFirst()
     
     if (!settings) {
       // Create default settings if none exist
-      settings = await prisma.systemSettings.create({
+      settings = await db.systemSettings.create({
         data: {
           mainCurrency: Currency.EUR,
         }
@@ -98,10 +99,9 @@ export async function GET(request: NextRequest) {
       maxFileSize: settings.maxFileSize,
       allowedFileTypes: settings.allowedFileTypes,
       updatedAt: settings.updatedAt,
-      updatedBy: settings.updatedById ? await prisma.user.findUnique({
-        where: { id: settings.updatedById },
-        select: { name: true, email: true }
-      }) : null
+      updatedBy: settings.updatedById ? await db.user.findUnique({
+        where: { id: settings.updatedById }
+      }).then(user => user ? { name: user.name, email: user.email } : null) : null
     })
   } catch (error) {
     console.error('Failed to fetch system settings:', error)
@@ -117,20 +117,20 @@ export async function PUT(request: NextRequest) {
   try {
     console.log('[SystemSettings] PUT request received')
     
-    const session = await auth()
+    const user = await getAuthenticatedUser()
     
-    if (!session?.user) {
-      console.log('[SystemSettings] No session found')
+    if (!user) {
+      console.log('[SystemSettings] No user found')
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
       )
     }
 
-    console.log('[SystemSettings] User role:', session.user.role)
+    console.log('[SystemSettings] User role:', user.role)
     
     // Only SUPERUSER can update system settings
-    if (session.user.role !== 'SUPERUSER') {
+    if (user.role !== 'SUPERUSER') {
       return NextResponse.json(
         { error: 'Forbidden: Only SUPERUSER can update system settings' },
         { status: 403 }
@@ -154,12 +154,12 @@ export async function PUT(request: NextRequest) {
     console.log('[SystemSettings] Validated data:', data)
 
     // Get existing settings
-    let settings = await prisma.systemSettings.findFirst()
+    let settings = await db.systemSettings.findFirst()
     console.log('[SystemSettings] Existing settings:', settings?.id)
     
     if (!settings) {
       // Create if doesn't exist
-      settings = await prisma.systemSettings.create({
+      settings = await db.systemSettings.create({
         data: {
           mainCurrency: data.mainCurrency || Currency.EUR,
           additionalCurrency1: data.additionalCurrency1,
@@ -173,7 +173,7 @@ export async function PUT(request: NextRequest) {
           localStoragePath: data.localStoragePath || './uploads',
           maxFileSize: data.maxFileSize || 16777216,
           allowedFileTypes: data.allowedFileTypes || ['image/*', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
-          updatedById: session.user.id,
+          updatedById: user.id,
         }
       })
     } else {
@@ -194,11 +194,11 @@ export async function PUT(request: NextRequest) {
           localStoragePath: data.localStoragePath !== undefined ? data.localStoragePath : settings.localStoragePath,
           maxFileSize: data.maxFileSize !== undefined ? data.maxFileSize : settings.maxFileSize,
           allowedFileTypes: data.allowedFileTypes !== undefined ? data.allowedFileTypes : settings.allowedFileTypes,
-          updatedById: session.user.id,
+          updatedById: user.id,
         }
         console.log('[SystemSettings] Update data:', JSON.stringify(updateData, null, 2))
         
-        settings = await prisma.systemSettings.update({
+        settings = await db.systemSettings.update({
           where: { id: settings.id },
           data: updateData
         })
@@ -211,12 +211,12 @@ export async function PUT(request: NextRequest) {
     }
 
     // Create audit log
-    await prisma.auditLog.create({
+    await db.auditLog.create({
       data: {
         action: 'UPDATE_SYSTEM_SETTINGS',
         entity: 'SystemSettings',
         entityId: settings.id,
-        userId: session.user.id,
+        userId: user.id,
         metadata: {
           changes: data
         }
@@ -239,8 +239,8 @@ export async function PUT(request: NextRequest) {
       allowedFileTypes: settings.allowedFileTypes,
       updatedAt: settings.updatedAt,
       updatedBy: {
-        name: session.user.name || '',
-        email: session.user.email || ''
+        name: user.name || '',
+        email: user.email || ''
       }
     }
     

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { z } from 'zod'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 // Schema for linking attachments to inquiries/items
 const linkAttachmentSchema = z.object({
@@ -14,8 +14,8 @@ const linkAttachmentSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     const validatedData = linkAttachmentSchema.parse(body)
 
     // Verify the file exists and belongs to the user or they have permission
-    const fileAttachment = await prisma.fileAttachment.findUnique({
+    const fileAttachment = await db.fileAttachment.findUnique({
       where: { id: validatedData.fileId },
       include: {
         uploadedBy: { select: { id: true, name: true } }
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     // Create the appropriate link
     if (validatedData.inquiryId) {
       // Verify user has access to the inquiry
-      const inquiry = await prisma.inquiry.findUnique({
+      const inquiry = await db.inquiry.findUnique({
         where: { id: validatedData.inquiryId },
         select: { id: true, createdById: true, assignedToId: true }
       })
@@ -50,16 +50,16 @@ export async function POST(request: NextRequest) {
 
       // Check permissions - user must be creator, assignee, or admin
       const hasPermission = 
-        inquiry.createdById === session.user.id ||
-        inquiry.assignedToId === session.user.id ||
-        ['ADMIN', 'SUPERUSER', 'MANAGER'].includes(session.user.role)
+        inquiry.createdById === user.id ||
+        inquiry.assignedToId === user.id ||
+        ['ADMIN', 'SUPERUSER', 'MANAGER'].includes(user.role)
 
       if (!hasPermission) {
         return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 })
       }
 
       // Create inquiry attachment link
-      const inquiryAttachment = await prisma.inquiryAttachment.create({
+      const inquiryAttachment = await db.inquiryAttachment.create({
         data: {
           inquiryId: validatedData.inquiryId,
           attachmentId: validatedData.fileId,
@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
 
     if (validatedData.itemId) {
       // Verify user has access to the inquiry item
-      const item = await prisma.inquiryItem.findUnique({
+      const item = await db.inquiryItem.findUnique({
         where: { id: validatedData.itemId },
         include: {
           inquiry: { select: { id: true, createdById: true, assignedToId: true } },
@@ -95,17 +95,17 @@ export async function POST(request: NextRequest) {
 
       // Check permissions
       const hasPermission = 
-        item.inquiry.createdById === session.user.id ||
-        item.inquiry.assignedToId === session.user.id ||
-        item.assignedToId === session.user.id ||
-        ['ADMIN', 'SUPERUSER', 'MANAGER'].includes(session.user.role)
+        item.inquiry.createdById === user.id ||
+        item.inquiry.assignedToId === user.id ||
+        item.assignedToId === user.id ||
+        ['ADMIN', 'SUPERUSER', 'MANAGER'].includes(user.role)
 
       if (!hasPermission) {
         return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 })
       }
 
       // Create item attachment link
-      const itemAttachment = await prisma.itemAttachment.create({
+      const itemAttachment = await db.itemAttachment.create({
         data: {
           itemId: validatedData.itemId,
           attachmentId: validatedData.fileId,
@@ -145,8 +145,8 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -156,7 +156,7 @@ export async function GET(request: NextRequest) {
 
     if (inquiryId) {
       // Get inquiry attachments
-      const attachments = await prisma.inquiryAttachment.findMany({
+      const attachments = await db.inquiryAttachment.findMany({
         where: { inquiryId },
         include: {
           attachment: {
@@ -176,7 +176,7 @@ export async function GET(request: NextRequest) {
 
     if (itemId) {
       // Get item attachments
-      const attachments = await prisma.itemAttachment.findMany({
+      const attachments = await db.itemAttachment.findMany({
         where: { itemId },
         include: {
           attachment: {
@@ -195,8 +195,8 @@ export async function GET(request: NextRequest) {
     }
 
     // Get all user's uploaded files
-    const attachments = await prisma.fileAttachment.findMany({
-      where: { uploadedById: session.user.id },
+    const attachments = await db.fileAttachment.findMany({
+      where: { uploadedById: user.id },
       include: {
         uploadedBy: { select: { id: true, name: true, email: true } },
         inquiryAttachments: {
@@ -229,8 +229,8 @@ export async function GET(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -245,7 +245,7 @@ export async function DELETE(request: NextRequest) {
 
     if (inquiryId) {
       // Remove inquiry attachment link
-      await prisma.inquiryAttachment.deleteMany({
+      await db.inquiryAttachment.deleteMany({
         where: {
           inquiryId,
           attachmentId
@@ -260,7 +260,7 @@ export async function DELETE(request: NextRequest) {
 
     if (itemId) {
       // Remove item attachment link
-      await prisma.itemAttachment.deleteMany({
+      await db.itemAttachment.deleteMany({
         where: {
           itemId,
           attachmentId

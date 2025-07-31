@@ -309,10 +309,34 @@ Database (source of truth) → Cookie (server access) → localStorage (client) 
 
 - Never restart dev server. Ask me to do it, or to let you to do it!
 
-## 🔒 Authentication Principles
+## 🔒 Authentication & Database Configuration
 
 ### Dynamic Authentication Setup
-- CRITICAL USE DYNAMIC AUTH SETUP NO HARD CODE!
+- **CRITICAL**: Use dynamic auth setup - NO HARDCODED authentication logic!
+- All auth configuration must use centralized `AUTH_URLS` config
+- Authentication fully integrated with Supabase
+- See full documentation: [`/Documentation/auth/dynamic-auth-setup.md`](./Documentation/auth/dynamic-auth-setup.md)
+
+### Dynamic Database Setup
+- **CRITICAL**: Use dynamic database abstraction layer - NO DIRECT PRISMA IMPORTS!
+- All database operations must go through the centralized `db` interface
+- Supports multiple database providers (Prisma, Supabase, etc.)
+- See full documentation: [`/Documentation/database/dynamic-db-setup.md`](./Documentation/database/dynamic-db-setup.md)
+
+### Key Implementation Details
+- **Database Import**: Use `import { db } from '@/lib/db'` (NOT `@/lib/prisma`)
+- **Auth Import**: Use `import { getAuthenticatedUser } from '@/utils/supabase/api-auth'`
+- **User Hook**: Enhanced `useAuth` automatically fetches full DB user data
+- **Environment**: Configured for v06-development Supabase instance
+
+### Test Credentials
+- **Email**: almir.hrvanovic@icloud.com
+- **Password**: QG'"^Ukj:_9~%9F
+- **Role**: SUPERUSER
+
+### Authentication & Database Memories
+
+- **CRITICAL !!! FIRST THING TO CHECK! IS PROPER CENTRALISED AUTH AND DB CONNECTIONS - NO HARDCODE CONNECTIONS!**
 
 ---
 

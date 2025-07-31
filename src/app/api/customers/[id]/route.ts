@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
-import { UserRole } from '@prisma/client'
+import { db } from '@/lib/db/index'
+import { UserRole } from '@/lib/db/types'
 import { z } from 'zod'
 
 // Schema for updating customers
@@ -16,15 +16,15 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await auth()
+    const user = await getAuthenticatedUser()
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only certain roles can update customers
-    if (session.user.role !== UserRole.SUPERUSER && 
-        session.user.role !== UserRole.ADMIN && 
-        session.user.role !== UserRole.SALES) {
+    if (user.role !== UserRole.SUPERUSER && 
+        user.role !== UserRole.ADMIN && 
+        user.role !== UserRole.SALES) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -33,7 +33,7 @@ export async function PUT(
     const validatedData = updateCustomerSchema.parse(body)
 
     // Check if customer exists
-    const existing = await prisma.customer.findUnique({
+    const existing = await db.customer.findUnique({
       where: { id }
     })
 
@@ -46,7 +46,7 @@ export async function PUT(
 
     // Check if email is being changed to one that already exists
     if (validatedData.email !== existing.email) {
-      const emailExists = await prisma.customer.findFirst({
+      const emailExists = await db.customer.findFirst({
         where: { 
           email: validatedData.email,
           id: { not: id }
@@ -62,7 +62,7 @@ export async function PUT(
     }
 
     // Update customer
-    const customer = await prisma.customer.update({
+    const customer = await db.customer.update({
       where: { id },
       data: validatedData,
       include: {
@@ -73,12 +73,12 @@ export async function PUT(
     })
 
     // Create audit log
-    await prisma.auditLog.create({
+    await db.auditLog.create({
       data: {
         action: 'UPDATE',
         entity: 'CUSTOMER',
         entityId: customer.id,
-        userId: session.user.id!,
+        userId: user.id!,
         oldData: existing as any,
         newData: customer as any,
         metadata: {
@@ -109,20 +109,20 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await auth()
+    const user = await getAuthenticatedUser()
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only certain roles can deactivate customers
-    if (session.user.role !== UserRole.SUPERUSER && session.user.role !== UserRole.ADMIN) {
+    if (user.role !== UserRole.SUPERUSER && user.role !== UserRole.ADMIN) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
     const { id } = await params
 
     // Check if customer exists
-    const customer = await prisma.customer.findUnique({
+    const customer = await db.customer.findUnique({
       where: { id },
       include: {
         _count: {
@@ -141,17 +141,17 @@ export async function DELETE(
     // Don't delete if customer has inquiries
     if (customer._count.inquiries > 0) {
       // Soft delete (deactivate) instead
-      await prisma.customer.update({
+      await db.customer.update({
         where: { id },
         data: { isActive: false }
       })
 
-      await prisma.auditLog.create({
+      await db.auditLog.create({
         data: {
           action: 'UPDATE',
           entity: 'CUSTOMER',
           entityId: customer.id,
-          userId: session.user.id!,
+          userId: user.id!,
           oldData: { isActive: true },
           newData: { isActive: false },
           metadata: {
@@ -166,16 +166,16 @@ export async function DELETE(
     }
 
     // Hard delete if no inquiries
-    await prisma.customer.delete({
+    await db.customer.delete({
       where: { id }
     })
 
-    await prisma.auditLog.create({
+    await db.auditLog.create({
       data: {
         action: 'DELETE',
         entity: 'CUSTOMER',
         entityId: customer.id,
-        userId: session.user.id!,
+        userId: user.id!,
         oldData: customer as any,
         metadata: {
           customerName: customer.name,

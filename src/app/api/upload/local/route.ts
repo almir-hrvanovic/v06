@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { writeFile, mkdir } from 'fs/promises'
 import { join, dirname } from 'path'
 import { existsSync } from 'fs'
@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
   try {
     console.log('[LocalUpload] Upload request received')
     
-    const session = await auth()
+    const user = await getAuthenticatedUser()
     
     if (!session?.user) {
       return NextResponse.json(
@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get system settings
-    const settings = await prisma.systemSettings.findFirst()
+    const settings = await db.systemSettings.findFirst()
     
     if (!settings || settings.storageProvider !== 'LOCAL') {
       return NextResponse.json(
@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
         console.log(`[LocalUpload] File saved successfully`)
         
         // Create database record
-        const attachment = await prisma.fileAttachment.create({
+        const attachment = await db.fileAttachment.create({
           data: {
             fileName,
             originalName: file.name,
@@ -105,19 +105,19 @@ export async function POST(request: NextRequest) {
             mimeType: file.type,
             uploadThingUrl: `/api/files/${encodeURIComponent(relativePath)}`,
             uploadThingKey: relativePath,
-            uploadedById: session.user.id,
+            uploadedById: user.id,
             folderPath: folderPath || null
           }
         })
         
         // If inquiry ID is provided, link to inquiry
         if (inquiryId) {
-          const inquiry = await prisma.inquiry.findUnique({
+          const inquiry = await db.inquiry.findUnique({
             where: { id: inquiryId }
           })
           
           if (inquiry) {
-            await prisma.inquiryAttachment.create({
+            await db.inquiryAttachment.create({
               data: {
                 inquiryId: inquiryId,
                 attachmentId: attachment.id,
@@ -130,7 +130,7 @@ export async function POST(request: NextRequest) {
           fileId: attachment.id,
           fileName: attachment.fileName,
           fileUrl: attachment.uploadThingUrl,
-          uploadedBy: session.user.id
+          uploadedBy: user.id
         })
       }
     }

@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import path from 'path'
 import fs from 'fs/promises'
 import { z } from 'zod'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 // Schema for document upload
 const uploadDocumentsSchema = z.object({
@@ -41,15 +41,15 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const { id: inquiryId } = await params
 
     // Verify inquiry exists and user has access
-    const inquiry = await prisma.inquiry.findUnique({
+    const inquiry = await db.inquiry.findUnique({
       where: { id: inquiryId },
       select: { 
         id: true, 
@@ -65,16 +65,16 @@ export async function POST(
 
     // Check permissions
     const hasPermission = 
-      inquiry.createdById === session.user.id ||
-      inquiry.assignedToId === session.user.id ||
-      ['ADMIN', 'SUPERUSER', 'MANAGER'].includes(session.user.role)
+      inquiry.createdById === user.id ||
+      inquiry.assignedToId === user.id ||
+      ['ADMIN', 'SUPERUSER', 'MANAGER'].includes(user.role)
 
     if (!hasPermission) {
       return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 })
     }
 
     // Get storage settings
-    const settings = await prisma.systemSettings.findFirst()
+    const settings = await db.systemSettings.findFirst()
     const basePath = settings?.storageProvider === 'LOCAL' 
       ? (settings.localStoragePath || './uploads')
       : path.join(process.cwd(), 'inquiry-documents')
@@ -90,7 +90,7 @@ export async function POST(
     const savedFiles = []
     for (const file of files) {
       // Save file reference
-      const fileAttachment = await prisma.fileAttachment.create({
+      const fileAttachment = await db.fileAttachment.create({
         data: {
           fileName: file.name,
           originalName: file.name,
@@ -98,13 +98,13 @@ export async function POST(
           mimeType: file.type,
           uploadThingKey: '', // Will be updated when file is moved
           uploadThingUrl: file.url,
-          uploadedById: session.user.id,
+          uploadedById: user.id,
           folderPath: customerDocsDir,
         }
       })
 
       // Link to inquiry
-      await prisma.inquiryAttachment.create({
+      await db.inquiryAttachment.create({
         data: {
           inquiryId: inquiryId,
           attachmentId: fileAttachment.id,
@@ -120,7 +120,7 @@ export async function POST(
       inquiryId,
       inquiryTitle: inquiry.title,
       createdAt: new Date().toISOString(),
-      createdBy: session.user.name || session.user.email,
+      createdBy: user.name || user.email,
       folders: {
         'customer-documents': {
           description: 'Documents uploaded by customer',
@@ -163,15 +163,15 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const { id: inquiryId } = await params
 
     // Verify inquiry exists and user has access
-    const inquiry = await prisma.inquiry.findUnique({
+    const inquiry = await db.inquiry.findUnique({
       where: { id: inquiryId },
       select: { 
         id: true, 
@@ -186,16 +186,16 @@ export async function GET(
 
     // Check permissions
     const hasPermission = 
-      inquiry.createdById === session.user.id ||
-      inquiry.assignedToId === session.user.id ||
-      ['ADMIN', 'SUPERUSER', 'MANAGER'].includes(session.user.role)
+      inquiry.createdById === user.id ||
+      inquiry.assignedToId === user.id ||
+      ['ADMIN', 'SUPERUSER', 'MANAGER'].includes(user.role)
 
     if (!hasPermission) {
       return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 })
     }
 
     // Get storage settings
-    const settings = await prisma.systemSettings.findFirst()
+    const settings = await db.systemSettings.findFirst()
     const basePath = settings?.storageProvider === 'LOCAL' 
       ? (settings.localStoragePath || './uploads')
       : path.join(process.cwd(), 'inquiry-documents')

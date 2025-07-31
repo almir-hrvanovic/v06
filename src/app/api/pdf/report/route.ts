@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { PDFService } from '@/lib/pdf'
 import { generateReportHTML } from '@/lib/pdf-templates'
 import { z } from 'zod'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 const reportRequestSchema = z.object({
   title: z.string().min(1),
@@ -20,13 +20,13 @@ const reportRequestSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only allow certain roles to generate reports
-    const userRole = session.user.role
+    const userRole = user.role
     if (!['SUPERUSER', 'ADMIN', 'MANAGER'].includes(userRole)) {
       return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 })
     }
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
 
         // Fetch inquiries data
         const [inquiries, totalInquiries, totalValue] = await Promise.all([
-          validatedData.includeDetails ? prisma.inquiry.findMany({
+          validatedData.includeDetails ? db.inquiry.findMany({
             where: inquiryWhere,
             include: {
               customer: true,
@@ -72,8 +72,8 @@ export async function POST(request: NextRequest) {
             orderBy: { createdAt: 'desc' },
             take: 100 // Limit for PDF performance
           }) : [],
-          prisma.inquiry.count({ where: inquiryWhere }),
-          prisma.inquiry.aggregate({
+          db.inquiry.count({ where: inquiryWhere }),
+          db.inquiry.aggregate({
             where: inquiryWhere,
             _sum: { totalValue: true },
             _avg: { totalValue: true }
@@ -82,10 +82,10 @@ export async function POST(request: NextRequest) {
 
         if (validatedData.includeSummary) {
           const [pendingCount, completedCount] = await Promise.all([
-            prisma.inquiry.count({
+            db.inquiry.count({
               where: { ...inquiryWhere, status: { in: ['DRAFT', 'SUBMITTED', 'ASSIGNED'] } }
             }),
-            prisma.inquiry.count({
+            db.inquiry.count({
               where: { ...inquiryWhere, status: { in: ['QUOTED', 'APPROVED'] } }
             })
           ])
@@ -117,7 +117,7 @@ export async function POST(request: NextRequest) {
           userWhere.isActive = validatedData.filters.isActive
         }
 
-        const users = await prisma.user.findMany({
+        const users = await db.user.findMany({
           where: userWhere,
           select: {
             id: true,
@@ -141,7 +141,7 @@ export async function POST(request: NextRequest) {
           }
         }
 
-        const customers = await prisma.customer.findMany({
+        const customers = await db.customer.findMany({
           where: customerWhere,
           include: {
             _count: { select: { inquiries: true } }
@@ -208,13 +208,13 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only allow certain roles to access report capabilities
-    const userRole = session.user.role
+    const userRole = user.role
     if (!['SUPERUSER', 'ADMIN', 'MANAGER'].includes(userRole)) {
       return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 })
     }

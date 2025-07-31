@@ -10,5 +10,5 @@ export function AuthProvider({ children }: AuthProviderProps) {
   return <>{children}</>
 }
 
-// Re-export useAuth from the hook
-export { useAuth } from '@/hooks/use-auth'
+// Re-export useAuth from the optimized hook
+export { useAuth } from '@/hooks/use-auth-optimized'

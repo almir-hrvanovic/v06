@@ -3,7 +3,7 @@
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import bcrypt from 'bcryptjs'
 
 // Input validation schema
@@ -26,7 +26,7 @@ export async function authenticate(
     const validatedData = loginSchema.parse(rawData)
     
     // First check if user exists in our database and validate password
-    const user = await prisma.user.findUnique({
+    const user = await db.user.findUnique({
       where: { email: validatedData.email },
       select: {
         id: true,

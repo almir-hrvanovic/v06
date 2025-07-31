@@ -52,16 +52,16 @@ export function DraggableItem({ item, isDragging }: DraggableItemProps) {
           (isDragging || isSortableDragging) && "opacity-50 shadow-lg scale-105"
         )}
       >
-        <div className="p-3 space-y-2">
+        <div className="p-3 space-y-2 overflow-hidden">
           {/* Item Name */}
-          <div className="font-medium text-sm truncate" title={item.name}>
+          <div className="font-medium text-sm break-words line-clamp-2" title={item.name}>
             {item.name}
           </div>
 
           {/* Customer and Inquiry */}
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <Building2 className="h-3 w-3" />
-            <span className="truncate" title={item.inquiry.customer.name}>
+          <div className="flex items-start gap-2 text-xs text-muted-foreground">
+            <Building2 className="h-3 w-3 mt-0.5 flex-shrink-0" />
+            <span className="break-words line-clamp-1" title={item.inquiry.customer.name}>
               {item.inquiry.customer.name}
             </span>
           </div>
@@ -83,18 +83,18 @@ export function DraggableItem({ item, isDragging }: DraggableItemProps) {
           </div>
 
           {/* Inquiry Reference */}
-          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-            <Hash className="h-3 w-3" />
-            <span className="truncate" title={item.inquiry.title}>
+          <div className="flex items-start gap-1 text-xs text-muted-foreground">
+            <Hash className="h-3 w-3 mt-0.5 flex-shrink-0" />
+            <span className="break-words line-clamp-1" title={item.inquiry.title}>
               {item.inquiry.title}
             </span>
           </div>
 
           {/* Assigned To - Show when item is assigned */}
           {item.assignedTo && (
-            <div className="flex items-center gap-1 text-xs bg-primary/10 text-primary rounded px-2 py-1 mt-1">
-              <User className="h-3 w-3" />
-              <span className="font-medium">
+            <div className="flex items-start gap-1 text-xs bg-primary/10 text-primary rounded px-2 py-1 mt-1">
+              <User className="h-3 w-3 mt-0.5 flex-shrink-0" />
+              <span className="font-medium break-words">
                 {item.assignedTo.name}
                 {item.assignedTo.role === 'VPP' && ' (VPP)'}
               </span>

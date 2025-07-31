@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
-import { UserRole } from '@prisma/client'
+import { db } from '@/lib/db/index'
+import { UserRole } from '@/lib/db/types'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerAuth()
+    const user = await getAuthenticatedUser()
     
     if (!session?.user) {
       return NextResponse.json(
@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
 
     // Only VPP, ADMIN, and SUPERUSER can unassign items
     const allowedRoles: UserRole[] = ['VPP', 'ADMIN', 'SUPERUSER']
-    if (!allowedRoles.includes(session.user.role)) {
+    if (!allowedRoles.includes(user.role)) {
       return NextResponse.json(
         { error: 'Forbidden: Insufficient permissions' },
         { status: 403 }
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Update items to remove assignment
-    const result = await prisma.inquiryItem.updateMany({
+    const result = await db.inquiryItem.updateMany({
       where: {
         id: { in: itemIds },
       },

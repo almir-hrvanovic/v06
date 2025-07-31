@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { z } from 'zod'
-import { UserRole } from '@prisma/client'
+import { UserRole } from '@/lib/db/types'
 
 // GET /api/automation/rules/[ruleId] - Get single rule
 export async function GET(
@@ -9,19 +9,19 @@ export async function GET(
   { params }: { params: Promise<{ ruleId: string }> }
 ) {
   try {
-    const session = await auth()
+    const user = await getAuthenticatedUser()
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only admins and superusers can view automation rules
-    if (session.user.role !== UserRole.ADMIN && session.user.role !== UserRole.SUPERUSER) {
+    if (user.role !== UserRole.ADMIN && user.role !== UserRole.SUPERUSER) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
     const { ruleId } = await params
 
-    const rule = await prisma.automationRule.findUnique({
+    const rule = await db.automationRule.findUnique({
       where: { id: ruleId },
       include: {
         createdBy: {
@@ -79,13 +79,13 @@ export async function PATCH(
   { params }: { params: Promise<{ ruleId: string }> }
 ) {
   try {
-    const session = await auth()
+    const user = await getAuthenticatedUser()
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only admins and superusers can update automation rules
-    if (session.user.role !== UserRole.ADMIN && session.user.role !== UserRole.SUPERUSER) {
+    if (user.role !== UserRole.ADMIN && user.role !== UserRole.SUPERUSER) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -94,7 +94,7 @@ export async function PATCH(
 
     const { ruleId } = await params
 
-    const rule = await prisma.automationRule.update({
+    const rule = await db.automationRule.update({
       where: { id: ruleId },
       data,
       include: {
@@ -126,19 +126,19 @@ export async function DELETE(
   { params }: { params: Promise<{ ruleId: string }> }
 ) {
   try {
-    const session = await auth()
+    const user = await getAuthenticatedUser()
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only superusers can delete automation rules
-    if (session.user.role !== UserRole.SUPERUSER) {
+    if (user.role !== UserRole.SUPERUSER) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
     const { ruleId } = await params
 
-    await prisma.automationRule.delete({
+    await db.automationRule.delete({
       where: { id: ruleId }
     })
 

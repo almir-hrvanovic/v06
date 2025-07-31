@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { redis } from '@/lib/redis'
 import { serverMonitor } from '@/lib/server-monitoring'
 
@@ -25,7 +25,7 @@ export async function GET() {
   // Check database
   try {
     const dbStart = Date.now()
-    await prisma.$queryRaw`SELECT 1`
+    await db.$queryRaw`SELECT 1`
     const dbDuration = Date.now() - dbStart
     health.services.database = 'healthy'
     

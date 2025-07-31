@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from 'next/server'
 // Rate limiting configuration
 const RATE_LIMIT_WINDOW = 60 * 1000 // 1 minute
 const RATE_LIMIT_MAX_REQUESTS = {
-  api: 60,          // 60 requests per minute for API routes
-  auth: 5,          // 5 requests per minute for auth routes  
+  api: 100,         // 100 requests per minute for API routes
+  auth: 20,         // 20 requests per minute for auth routes  
   upload: 10,       // 10 requests per minute for uploads
-  default: 100      // 100 requests per minute for other routes
+  default: 200      // 200 requests per minute for other routes
 }
 
 // In-memory rate limiting for Edge Runtime
@@ -90,7 +90,7 @@ export function securityHeaders(response: NextResponse): NextResponse {
   response.headers.set('X-Frame-Options', 'SAMEORIGIN')
   response.headers.set('X-Content-Type-Options', 'nosniff')
   response.headers.set('X-XSS-Protection', '1; mode=block')
-  response.headers.set('Referrer-Policy', 'origin-when-cross-origin')
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
   response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
   
   // Content Security Policy

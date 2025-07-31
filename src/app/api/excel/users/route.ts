@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { ExcelService, DEFAULT_EXCEL_COMPANY_INFO } from '@/lib/excel'
 import { z } from 'zod'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 const exportRequestSchema = z.object({
   filters: z.object({
@@ -18,13 +18,13 @@ const exportRequestSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only admins and superusers can export user data
-    const userRole = session.user.role
+    const userRole = user.role
     if (!['SUPERUSER', 'ADMIN'].includes(userRole)) {
       return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 })
     }
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Fetch users data
-    const users = await prisma.user.findMany({
+    const users = await db.user.findMany({
       where,
       select: {
         id: true,
@@ -121,21 +121,21 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only admins and superusers can access user export info
-    const userRole = session.user.role
+    const userRole = user.role
     if (!['SUPERUSER', 'ADMIN'].includes(userRole)) {
       return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 })
     }
 
     // Get basic statistics for export preview
-    const totalUsers = await prisma.user.count()
-    const activeUsers = await prisma.user.count({ where: { isActive: true } })
-    const recentUsers = await prisma.user.count({
+    const totalUsers = await db.user.count()
+    const activeUsers = await db.user.count({ where: { isActive: true } })
+    const recentUsers = await db.user.count({
       where: {
         createdAt: {
           gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) // Last 30 days
@@ -143,7 +143,7 @@ export async function GET(request: NextRequest) {
       }
     })
 
-    const roleCounts = await prisma.user.groupBy({
+    const roleCounts = await db.user.groupBy({
       by: ['role'],
       _count: { role: true }
     })

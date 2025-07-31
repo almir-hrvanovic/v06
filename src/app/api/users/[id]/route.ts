@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
-import { UserRole } from '@prisma/client'
+import { db } from '@/lib/db/index'
+import { UserRole } from '@/lib/db/types'
 import { hasPermission } from '@/utils/supabase/api-auth'
 import { z } from 'zod'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 // Schema for updating users
 const updateUserSchema = z.object({
@@ -19,13 +19,13 @@ export async function PUT(
 ) {
   const { id } = await params
   try {
-    const session = await getServerAuth()
+    const user = await getAuthenticatedUser()
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Check permissions
-    if (!hasPermission(session.user.role, 'users', 'write')) {
+    if (!hasPermission(user.role, 'users', 'write')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -33,7 +33,7 @@ export async function PUT(
     const validatedData = updateUserSchema.parse(body)
 
     // Check if user exists
-    const existingUser = await prisma.user.findUnique({
+    const existingUser = await db.user.findUnique({
       where: { id }
     })
 
@@ -45,7 +45,7 @@ export async function PUT(
     }
 
     // Prevent changing own role
-    if (existingUser.id === session.user.id && validatedData.role) {
+    if (existingUser.id === user.id && validatedData.role) {
       return NextResponse.json(
         { error: 'Cannot change your own role' },
         { status: 400 }
@@ -54,7 +54,7 @@ export async function PUT(
 
     // Check if email is being changed to one that already exists
     if (validatedData.email && validatedData.email !== existingUser.email) {
-      const emailExists = await prisma.user.findUnique({
+      const emailExists = await db.user.findUnique({
         where: { email: validatedData.email }
       })
 
@@ -67,23 +67,23 @@ export async function PUT(
     }
 
     // Update user
-    const user = await prisma.user.update({
+    const user = await db.user.update({
       where: { id },
       data: validatedData
     })
 
     // Create audit log (if session user exists in database)
-    const sessionUser = await prisma.user.findUnique({
-      where: { id: session.user.id! }
+    const sessionUser = await db.user.findUnique({
+      where: { id: user.id! }
     })
     
     if (sessionUser) {
-      await prisma.auditLog.create({
+      await db.auditLog.create({
         data: {
           action: 'UPDATE',
           entity: 'USER',
           entityId: user.id,
-          userId: session.user.id!,
+          userId: user.id!,
           oldData: existingUser,
           newData: user
         }
@@ -113,18 +113,18 @@ export async function DELETE(
 ) {
   const { id } = await params
   try {
-    const session = await getServerAuth()
+    const user = await getAuthenticatedUser()
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Check permissions
-    if (!hasPermission(session.user.role, 'users', 'delete')) {
+    if (!hasPermission(user.role, 'users', 'delete')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
     // Check if user exists
-    const user = await prisma.user.findUnique({
+    const user = await db.user.findUnique({
       where: { id }
     })
 
@@ -136,7 +136,7 @@ export async function DELETE(
     }
 
     // Prevent deleting self
-    if (user.id === session.user.id) {
+    if (user.id === user.id) {
       return NextResponse.json(
         { error: 'Cannot delete your own account' },
         { status: 400 }
@@ -144,23 +144,23 @@ export async function DELETE(
     }
 
     // Soft delete (deactivate) the user
-    await prisma.user.update({
+    await db.user.update({
       where: { id },
       data: { isActive: false }
     })
 
     // Create audit log (if session user exists in database)
-    const sessionUserForDelete = await prisma.user.findUnique({
-      where: { id: session.user.id! }
+    const sessionUserForDelete = await db.user.findUnique({
+      where: { id: user.id! }
     })
     
     if (sessionUserForDelete) {
-      await prisma.auditLog.create({
+      await db.auditLog.create({
         data: {
           action: 'DELETE',
           entity: 'USER',
           entityId: user.id,
-          userId: session.user.id!,
+          userId: user.id!,
           oldData: user,
           metadata: {
             action: 'deactivated'

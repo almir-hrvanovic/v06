@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { hasPermission } from '@/utils/supabase/api-auth'
 import bcrypt from 'bcryptjs'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 interface RouteParams {
   params: Promise<{
@@ -14,18 +14,18 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
   const { id } = await params
   
   try {
-    const session = await getServerAuth()
+    const user = await getAuthenticatedUser()
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Check permissions
-    if (!hasPermission(session.user.role, 'users', 'write')) {
+    if (!hasPermission(user.role, 'users', 'write')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
     // Check if user exists
-    const existingUser = await prisma.user.findUnique({
+    const existingUser = await db.user.findUnique({
       where: { id }
     })
 
@@ -41,25 +41,25 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     const hashedPassword = await bcrypt.hash(tempPassword, 12)
 
     // Update user's password
-    await prisma.user.update({
+    await db.user.update({
       where: { id },
       data: { password: hashedPassword }
     })
 
     // Create audit log (if session user exists in database)
-    const sessionUser = await prisma.user.findUnique({
-      where: { id: session.user.id! }
+    const sessionUser = await db.user.findUnique({
+      where: { id: user.id! }
     })
     
     if (sessionUser) {
-      await prisma.auditLog.create({
+      await db.auditLog.create({
         data: {
           action: 'RESET_PASSWORD',
           entity: 'USER',
           entityId: existingUser.id,
-          userId: session.user.id!,
+          userId: user.id!,
           metadata: {
-            resetBy: session.user.email
+            resetBy: user.email
           }
         }
       })

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
+import { db } from '@/lib/db/index'
 import { WebSocketNotification } from '@/lib/websocket'
 
 // Mock notification store - in production, use database
@@ -8,12 +8,12 @@ const notificationStore = new Map<string, WebSocketNotification[]>()
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session?.user?.id) {
+    const user = await getAuthenticatedUser()
+    if (!user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const userId = session.user.id
+    const userId = user.id
     const notifications = notificationStore.get(userId) || []
     
     // Sort by timestamp, newest first
@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerAuth()
+    const user = await getAuthenticatedUser()
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Store notification
-    const targetUserId = userId || session.user.id
+    const targetUserId = userId || user.id
     const existingNotifications = notificationStore.get(targetUserId) || []
     existingNotifications.unshift(notification)
     
@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
-    const session = await getServerAuth()
+    const user = await getAuthenticatedUser()
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
@@ -89,7 +89,7 @@ export async function PUT(request: NextRequest) {
     const body = await request.json()
     const { id, read } = body
 
-    const userId = session.user.id
+    const userId = user.id
     const notifications = notificationStore.get(userId) || []
     
     const notificationIndex = notifications.findIndex(n => n.id === id)

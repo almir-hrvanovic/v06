@@ -1,10 +1,10 @@
 import { automationEngine } from './engine'
 import { AutomationTrigger } from '@prisma/client'
-import { getServerAuth } from '@/lib/auth-helpers'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 // Hook to be called when inquiry is created
 export async function onInquiryCreated(inquiryId: string, inquiry: any) {
-  const session = await getServerAuth()
+  const user = await getAuthenticatedUser()
   
   await automationEngine.executeRulesForTrigger({
     ruleId: '',
@@ -31,7 +31,7 @@ export async function onInquiryStatusChanged(
   newStatus: string,
   inquiry: any
 ) {
-  const session = await getServerAuth()
+  const user = await getAuthenticatedUser()
   
   await automationEngine.executeRulesForTrigger({
     ruleId: '',
@@ -57,7 +57,7 @@ export async function onItemAssigned(
   assignedToId: string,
   item: any
 ) {
-  const session = await getServerAuth()
+  const user = await getAuthenticatedUser()
   
   await automationEngine.executeRulesForTrigger({
     ruleId: '',
@@ -81,7 +81,7 @@ export async function onCostCalculated(
   costCalculationId: string,
   calculation: any
 ) {
-  const session = await getServerAuth()
+  const user = await getAuthenticatedUser()
   
   await automationEngine.executeRulesForTrigger({
     ruleId: '',
@@ -106,7 +106,7 @@ export async function onApprovalRequired(
   entityType: string,
   entity: any
 ) {
-  const session = await getServerAuth()
+  const user = await getAuthenticatedUser()
   
   await automationEngine.executeRulesForTrigger({
     ruleId: '',
@@ -126,7 +126,7 @@ export async function onApprovalRequired(
 
 // Hook to be called when quote is created
 export async function onQuoteCreated(quoteId: string, quote: any) {
-  const session = await getServerAuth()
+  const user = await getAuthenticatedUser()
   
   await automationEngine.executeRulesForTrigger({
     ruleId: '',
@@ -153,7 +153,7 @@ export async function onProductionOrderCreated(
   orderId: string,
   order: any
 ) {
-  const session = await getServerAuth()
+  const user = await getAuthenticatedUser()
   
   await automationEngine.executeRulesForTrigger({
     ruleId: '',
@@ -174,7 +174,7 @@ export async function onProductionOrderCreated(
 
 // Hook to check workload and trigger balancing if needed
 export async function checkWorkloadBalance(role: string) {
-  const session = await getServerAuth()
+  const user = await getAuthenticatedUser()
   
   await automationEngine.executeRulesForTrigger({
     ruleId: '',

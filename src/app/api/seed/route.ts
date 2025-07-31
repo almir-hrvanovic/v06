@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import bcrypt from 'bcryptjs'
 
 export async function POST() {
   try {
     // Check if admin user already exists
-    const existingAdmin = await prisma.user.findUnique({
+    const existingAdmin = await db.user.findUnique({
       where: { email: 'admin@gs-cms.com' }
     })
 
@@ -16,7 +16,7 @@ export async function POST() {
     // Create admin user
     const hashedPassword = await bcrypt.hash('password123', 10)
     
-    const admin = await prisma.user.create({
+    const admin = await db.user.create({
       data: {
         email: 'admin@gs-cms.com',
         name: 'Admin User',

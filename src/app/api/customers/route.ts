@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
 import { hasPermission } from '@/utils/supabase/api-auth'
-import { prisma } from '@/lib/db'
-import { UserRole } from '@prisma/client'
+import { db } from '@/lib/db/index'
+import { UserRole } from '@/lib/db/types'
 import { z } from 'zod'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 // Schema for creating/updating customers
 const customerSchema = z.object({
@@ -15,13 +15,13 @@ const customerSchema = z.object({
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session?.user) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only certain roles can view customers
-    if (!hasPermission(session.user.role, 'customers', 'read')) {
+    if (!hasPermission(user.role, 'customers', 'read')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
       where.isActive = isActive === 'true'
     }
 
-    const customers = await prisma.customer.findMany({
+    const customers = await db.customer.findMany({
       where,
       include: {
         _count: {
@@ -65,13 +65,13 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session?.user) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only certain roles can create customers
-    if (!hasPermission(session.user.role, 'customers', 'write')) {
+    if (!hasPermission(user.role, 'customers', 'write')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
     const validatedData = customerSchema.parse(body)
 
     // Check if customer with same email already exists
-    const existing = await prisma.customer.findFirst({
+    const existing = await db.customer.findFirst({
       where: { email: validatedData.email }
     })
 
@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create customer
-    const customer = await prisma.customer.create({
+    const customer = await db.customer.create({
       data: validatedData,
       include: {
         _count: {
@@ -103,12 +103,12 @@ export async function POST(request: NextRequest) {
     })
 
     // Create audit log
-    await prisma.auditLog.create({
+    await db.auditLog.create({
       data: {
         action: 'CREATE',
         entity: 'CUSTOMER',
         entityId: customer.id,
-        userId: session.user.id!,
+        userId: user.id!,
         newData: customer as any,
         metadata: {
           customerName: customer.name,

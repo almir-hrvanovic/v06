@@ -1,17 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
+import { db } from '@/lib/db/index'
 
 // Simple CSV export functionality
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Check permissions
-    if (!['ADMIN', 'SUPERUSER', 'MANAGER'].includes(session.user.role)) {
+    if (!['ADMIN', 'SUPERUSER', 'MANAGER'].includes(user.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -60,7 +60,7 @@ export async function GET(request: NextRequest) {
 }
 
 async function generateOverviewCSV(startDate: Date): Promise<string> {
-  const inquiries = await prisma.inquiry.findMany({
+  const inquiries = await db.inquiry.findMany({
     where: { createdAt: { gte: startDate } },
     include: {
       customer: { select: { name: true } },
@@ -80,7 +80,7 @@ async function generateOverviewCSV(startDate: Date): Promise<string> {
 }
 
 async function generateWorkloadCSV(startDate: Date): Promise<string> {
-  const vpWorkload = await prisma.user.findMany({
+  const vpWorkload = await db.user.findMany({
     where: { role: 'VP' },
     select: {
       id: true,
@@ -101,7 +101,7 @@ async function generateWorkloadCSV(startDate: Date): Promise<string> {
   })
 
   // Add tech workload
-  const techWorkload = await prisma.user.findMany({
+  const techWorkload = await db.user.findMany({
     where: { role: 'TECH' },
     select: {
       id: true,
@@ -123,7 +123,7 @@ async function generateWorkloadCSV(startDate: Date): Promise<string> {
 }
 
 async function generatePerformanceCSV(startDate: Date): Promise<string> {
-  const performance = await prisma.$queryRaw`
+  const performance = await db.$queryRaw`
     SELECT 
       u.id,
       u.name,
@@ -152,7 +152,7 @@ async function generatePerformanceCSV(startDate: Date): Promise<string> {
 }
 
 async function generateFinancialCSV(startDate: Date): Promise<string> {
-  const quotes = await prisma.quote.findMany({
+  const quotes = await db.quote.findMany({
     where: { createdAt: { gte: startDate } },
     include: {
       inquiry: {

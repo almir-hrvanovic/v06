@@ -93,7 +93,8 @@
       "collapse": "Skupi",
       "select": "Odaberi",
       "selectAll": "Odaberi sve",
-      "deselectAll": "Poništi odabir"
+      "deselectAll": "Poništi odabir",
+      "clearFilters": "Očisti filtere"
     },
     "labels": {
       "_context": "Uobičajene oznake obrazaca i nazivi polja",
@@ -1162,7 +1163,13 @@
     "allCustomers": "Svi kupci",
     "allStatuses": "Svi statusi",
     "noItemsMatchFilter": "Nema stavki koje odgovaraju vašim kriterijima filtriranja.",
-    "noItemsAvailable": "Sve stavke su dodijeljene ili nema stavki na čekanju."
+    "noItemsAvailable": "Sve stavke su dodijeljene ili nema stavki na čekanju.",
+    "unsavedChanges": "Imate nespremljene promjene",
+    "changesReset": "Promjene su poništene",
+    "changesApplied": "Promjene su uspješno primijenjene",
+    "reassignmentNotAllowed": "Stavke u tijeku ne mogu se ponovno dodijeliti bez odobrenja",
+    "tableView": "Tablica",
+    "dragDropView": "Povuci i ispusti"
   },
   "automation": {
     "_context": "Sustav automatizacije tijeka rada za pravila i okidače",

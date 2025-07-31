@@ -1,20 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
-import { UserRole } from '@prisma/client'
+import { db } from '@/lib/db/index'
+import { UserRole } from '@/lib/db/types'
 import { hasPermission } from '@/utils/supabase/api-auth'
 import { z } from 'zod'
 import bcrypt from 'bcryptjs'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session?.user) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Check permissions
-    if (!hasPermission(session.user.role, 'users', 'read')) {
+    if (!hasPermission(user.role, 'users', 'read')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
       ]
     }
 
-    const users = await prisma.user.findMany({
+    const users = await db.user.findMany({
       where,
       select: {
         id: true,
@@ -85,13 +85,13 @@ const createUserSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session?.user) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Check permissions
-    if (!hasPermission(session.user.role, 'users', 'write')) {
+    if (!hasPermission(user.role, 'users', 'write')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
     const validatedData = createUserSchema.parse(body)
 
     // Check if user with email already exists
-    const existingUser = await prisma.user.findUnique({
+    const existingUser = await db.user.findUnique({
       where: { email: validatedData.email }
     })
 
@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await bcrypt.hash(tempPassword, 12)
 
     // Create user
-    const user = await prisma.user.create({
+    const newUser = await db.user.create({
       data: {
         ...validatedData,
         password: hashedPassword
@@ -123,34 +123,34 @@ export async function POST(request: NextRequest) {
     })
 
     // Create audit log (if session user exists in database)
-    const sessionUser = await prisma.user.findUnique({
-      where: { id: session.user.id! }
+    const sessionUser = await db.user.findUnique({
+      where: { id: user.id! }
     })
     
     if (sessionUser) {
-      await prisma.auditLog.create({
+      await db.auditLog.create({
         data: {
           action: 'CREATE',
           entity: 'USER',
-          entityId: user.id,
-          userId: session.user.id!,
+          entityId: newUser.id,
+          userId: user.id!,
           newData: {
-            userName: user.name,
-            userEmail: user.email,
-            userRole: user.role
+            userName: newUser.name,
+            userEmail: newUser.email,
+            userRole: newUser.role
           },
           metadata: {
-            createdBy: session.user.email
+            createdBy: user.email
           }
         }
       })
     }
 
     // In production, send email with temporary password
-    console.log(`Created user ${user.email} with temporary password: ${tempPassword}`)
+    console.log(`Created user ${newUser.email} with temporary password: ${tempPassword}`)
 
     return NextResponse.json({
-      ...user,
+      ...newUser,
       tempPassword // In production, don't return this
     })
   } catch (error) {

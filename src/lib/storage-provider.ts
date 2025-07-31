@@ -1,5 +1,5 @@
-import { prisma } from '@/lib/db'
-import { StorageProvider } from '@prisma/client'
+import { db } from '@/lib/db/index'
+import { StorageProvider } from '@/lib/db/types'
 import { writeFile, mkdir, unlink, readFile } from 'fs/promises'
 import { join, dirname } from 'path'
 import { existsSync } from 'fs'
@@ -43,7 +43,7 @@ class StorageProviderFactory {
       return this.settings
     }
 
-    this.settings = await prisma.systemSettings.findFirst()
+    this.settings = await db.systemSettings.findFirst()
     this.lastFetch = now
     return this.settings
   }
@@ -112,7 +112,7 @@ class StorageProviderFactory {
         await writeFile(fullPath, buffer)
         
         // Create database record
-        const attachment = await prisma.fileAttachment.create({
+        const attachment = await db.fileAttachment.create({
           data: {
             fileName,
             originalName: file.name,

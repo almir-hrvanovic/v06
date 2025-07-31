@@ -1,18 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { createApprovalSchema } from '@/lib/validations'
-import { canApprove } from '@/utils/supabase/api-auth'
+import { getAuthenticatedUser, canApprove } from '@/utils/supabase/api-auth'
 import { sendNotificationEmail } from '@/lib/email'
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    if (!canApprove(session.user.role)) {
+    if (!canApprove(user.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -23,10 +22,10 @@ export async function GET(request: NextRequest) {
     const where: any = {}
 
     // Apply role-based filtering
-    if (session.user.role === 'MANAGER') {
+    if (user.role === 'MANAGER') {
       // Managers can see all approvals they need to handle
       where.OR = [
-        { approverId: session.user.id },
+        { approverId: user.id },
         { status: 'PENDING' } // Show pending approvals that need assignment
       ]
     }
@@ -39,7 +38,7 @@ export async function GET(request: NextRequest) {
       where.type = type
     }
 
-    const approvals = await prisma.approval.findMany({
+    const approvals = await db.approval.findMany({
       where,
       include: {
         approver: { select: { id: true, name: true, email: true } },
@@ -76,12 +75,12 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    if (!canApprove(session.user.role)) {
+    if (!canApprove(user.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -89,7 +88,7 @@ export async function POST(request: NextRequest) {
     const validatedData = createApprovalSchema.parse(body)
 
     // Verify the cost calculation exists
-    const costCalculation = await prisma.costCalculation.findUnique({
+    const costCalculation = await db.costCalculation.findUnique({
       where: { id: validatedData.costCalculationId },
       include: {
         inquiryItem: {
@@ -128,14 +127,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Create approval in a transaction
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await db.$transaction(async (tx) => {
       // Create the approval
       const approval = await tx.approval.create({
         data: {
           type: 'COST_CALCULATION',
           status: validatedData.status,
           comments: validatedData.comments,
-          approverId: session.user.id,
+          approverId: user.id,
           costCalculationId: validatedData.costCalculationId,
           ...(validatedData.status === 'APPROVED' && { approvedAt: new Date() })
         },
@@ -235,7 +234,7 @@ export async function POST(request: NextRequest) {
           data: {
             type: 'STATUS_UPDATE',
             title: 'Cost calculation approved',
-            message: `Your cost calculation for "${costCalculation.inquiryItem.name}" has been approved by ${session.user.name}`,
+            message: `Your cost calculation for "${costCalculation.inquiryItem.name}" has been approved by ${user.name}`,
             userId: costCalculation.calculatedBy.id,
             data: {
               costCalculationId: costCalculation.id,
@@ -254,7 +253,7 @@ export async function POST(request: NextRequest) {
               vpName: costCalculation.calculatedBy.name,
               itemName: costCalculation.inquiryItem.name,
               status: 'approved' as const,
-              managerName: session.user.name,
+              managerName: user.name,
               comments: validatedData.comments
             }
           )
@@ -293,7 +292,7 @@ export async function POST(request: NextRequest) {
               vpName: costCalculation.calculatedBy.name,
               itemName: costCalculation.inquiryItem.name,
               status: 'rejected' as const,
-              managerName: session.user.name,
+              managerName: user.name,
               comments: validatedData.comments
             }
           )
@@ -310,10 +309,10 @@ export async function POST(request: NextRequest) {
           entityId: costCalculation.id,
           newData: {
             approvalStatus: validatedData.status,
-            approvedBy: session.user.name,
+            approvedBy: user.name,
             comments: validatedData.comments
           },
-          userId: session.user.id,
+          userId: user.id,
           inquiryId: costCalculation.inquiryItem.inquiry.id,
         }
       })

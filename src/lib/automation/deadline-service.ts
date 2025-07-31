@@ -1,8 +1,8 @@
-import { prisma } from '@/lib/db'
-import { DeadlineEntity, DeadlineStatus } from '@prisma/client'
+import { db } from '@/lib/db/index'
+import { DeadlineEntity, DeadlineStatus } from '@/lib/db/types'
 import { DeadlineConfig } from './types'
 import { automationEngine } from './engine'
-import { AutomationTrigger } from '@prisma/client'
+import { AutomationTrigger } from '@/lib/db/types'
 
 export async function createDeadline(config: DeadlineConfig): Promise<void> {
   const { entityType, entityId, dueDate, warningDays = 3, escalationDays = 1 } = config
@@ -14,7 +14,7 @@ export async function createDeadline(config: DeadlineConfig): Promise<void> {
   const escalationDate = new Date(dueDate)
   escalationDate.setDate(escalationDate.getDate() - escalationDays)
 
-  await prisma.deadline.upsert({
+  await db.deadline.upsert({
     where: {
       entityType_entityId: {
         entityType: entityType as DeadlineEntity,
@@ -42,7 +42,7 @@ export async function checkDeadlines(): Promise<void> {
   const now = new Date()
   
   // Get all active deadlines
-  const deadlines = await prisma.deadline.findMany({
+  const deadlines = await db.deadline.findMany({
     where: {
       status: DeadlineStatus.ACTIVE
     }
@@ -74,7 +74,7 @@ export async function checkDeadlines(): Promise<void> {
 
 async function handleOverdueDeadline(deadline: any): Promise<void> {
   // Update deadline status
-  await prisma.deadline.update({
+  await db.deadline.update({
     where: { id: deadline.id },
     data: { status: DeadlineStatus.OVERDUE }
   })
@@ -99,7 +99,7 @@ async function handleOverdueDeadline(deadline: any): Promise<void> {
 
 async function handleDeadlineEscalation(deadline: any): Promise<void> {
   // Update reminder count
-  await prisma.deadline.update({
+  await db.deadline.update({
     where: { id: deadline.id },
     data: { remindersSent: 2 }
   })
@@ -124,7 +124,7 @@ async function handleDeadlineEscalation(deadline: any): Promise<void> {
 
 async function handleDeadlineWarning(deadline: any): Promise<void> {
   // Update reminder count
-  await prisma.deadline.update({
+  await db.deadline.update({
     where: { id: deadline.id },
     data: { remindersSent: 1 }
   })
@@ -150,7 +150,7 @@ async function handleDeadlineWarning(deadline: any): Promise<void> {
 async function getEntityDetails(entityType: DeadlineEntity, entityId: string): Promise<any> {
   switch (entityType) {
     case DeadlineEntity.INQUIRY:
-      const inquiry = await prisma.inquiry.findUnique({
+      const inquiry = await db.inquiry.findUnique({
         where: { id: entityId },
         include: {
           customer: true,
@@ -169,7 +169,7 @@ async function getEntityDetails(entityType: DeadlineEntity, entityId: string): P
       }
 
     case DeadlineEntity.INQUIRY_ITEM:
-      const item = await prisma.inquiryItem.findUnique({
+      const item = await db.inquiryItem.findUnique({
         where: { id: entityId },
         include: {
           inquiry: {
@@ -192,7 +192,7 @@ async function getEntityDetails(entityType: DeadlineEntity, entityId: string): P
       }
 
     case DeadlineEntity.QUOTE:
-      const quote = await prisma.quote.findUnique({
+      const quote = await db.quote.findUnique({
         where: { id: entityId },
         include: {
           inquiry: {
@@ -215,7 +215,7 @@ async function getEntityDetails(entityType: DeadlineEntity, entityId: string): P
       }
 
     case DeadlineEntity.PRODUCTION_ORDER:
-      const order = await prisma.productionOrder.findUnique({
+      const order = await db.productionOrder.findUnique({
         where: { id: entityId },
         include: {
           quote: {
@@ -243,7 +243,7 @@ async function getEntityDetails(entityType: DeadlineEntity, entityId: string): P
 }
 
 export async function completeDeadline(entityType: DeadlineEntity, entityId: string): Promise<void> {
-  await prisma.deadline.updateMany({
+  await db.deadline.updateMany({
     where: {
       entityType,
       entityId,

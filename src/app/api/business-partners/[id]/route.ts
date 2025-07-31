@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerAuth } from '@/lib/auth-helpers'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db/index'
 import { hasPermission } from '@/utils/supabase/api-auth'
 import { z } from 'zod'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 const updateBusinessPartnerSchema = z.object({
   name: z.string().min(1, 'Name is required').max(255, 'Name too long').optional(),
@@ -14,18 +14,18 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    if (!hasPermission(session.user.role, 'business_partners', 'read')) {
+    if (!hasPermission(user.role, 'business_partners', 'read')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
     const { id } = await params
 
-    const businessPartner = await prisma.businessPartner.findUnique({
+    const businessPartner = await db.businessPartner.findUnique({
       where: { id }
     })
 
@@ -52,12 +52,12 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    if (!hasPermission(session.user.role, 'business_partners', 'write')) {
+    if (!hasPermission(user.role, 'business_partners', 'write')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -67,7 +67,7 @@ export async function PATCH(
     const { id } = await params
 
     // Check if business partner exists
-    const existingPartner = await prisma.businessPartner.findUnique({
+    const existingPartner = await db.businessPartner.findUnique({
       where: { id }
     })
 
@@ -80,7 +80,7 @@ export async function PATCH(
 
     // Check for duplicate name if name is being updated
     if (data.name && data.name !== existingPartner.name) {
-      const duplicatePartner = await prisma.businessPartner.findUnique({
+      const duplicatePartner = await db.businessPartner.findUnique({
         where: { name: data.name }
       })
 
@@ -92,7 +92,7 @@ export async function PATCH(
       }
     }
 
-    const updatedPartner = await prisma.businessPartner.update({
+    const updatedPartner = await db.businessPartner.update({
       where: { id },
       data
     })
@@ -120,19 +120,19 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getServerAuth()
-    if (!session) {
+    const user = await getAuthenticatedUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    if (!hasPermission(session.user.role, 'business_partners', 'delete')) {
+    if (!hasPermission(user.role, 'business_partners', 'delete')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
     const { id } = await params
 
     // Check if business partner exists
-    const existingPartner = await prisma.businessPartner.findUnique({
+    const existingPartner = await db.businessPartner.findUnique({
       where: { id }
     })
 
@@ -144,7 +144,7 @@ export async function DELETE(
     }
 
     // Soft delete by setting isActive to false
-    const deletedPartner = await prisma.businessPartner.update({
+    const deletedPartner = await db.businessPartner.update({
       where: { id },
       data: { isActive: false }
     })

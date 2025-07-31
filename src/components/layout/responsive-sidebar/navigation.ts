@@ -82,7 +82,7 @@ export const defaultNavItems: NavItem[] = [
   },
   {
     titleKey: 'navigation.main.assignments',
-    href: '/dashboard/assignments',
+    href: '/dashboard/assignments/unified',
     icon: ClipboardList,
     roles: ['SUPERUSER', 'ADMIN', 'VPP'],
   },
@@ -238,7 +238,7 @@ export const extendedNavItems: NavItem[] = [
   },
   {
     titleKey: 'navigation.main.assignments',
-    href: '/dashboard/assignments',
+    href: '/dashboard/assignments/unified',
     icon: ClipboardList,
     roles: ['SUPERUSER', 'ADMIN', 'VPP'],
   },

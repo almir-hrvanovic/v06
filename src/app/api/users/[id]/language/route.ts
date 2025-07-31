@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerAuth } from '@/lib/auth-helpers';
-import { prisma } from '@/lib/db';
+import { db } from '@/lib/db/index';
 import { z } from 'zod';
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 const languageSchema = z.object({
   language: z.enum(['hr', 'bs', 'en', 'de', 'hr-HR', 'bs-BA', 'en-US', 'de-DE'])
@@ -12,7 +12,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getServerAuth();
+    const user = await getAuthenticatedUser();
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -20,11 +20,11 @@ export async function GET(
     const { id } = await params;
 
     // Users can only access their own language preference
-    if (session.user.id !== id) {
+    if (user.id !== id) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
-    const user = await prisma.user.findUnique({
+    const user = await db.user.findUnique({
       where: { id },
       select: { preferredLanguage: true }
     });
@@ -48,7 +48,7 @@ export async function PUT(
   
   try {
     console.log('🔍 Getting server auth...');
-    const session = await getServerAuth();
+    const user = await getAuthenticatedUser();
     console.log('✅ Session retrieved:', session?.user?.id ? 'Valid' : 'Invalid');
     
     if (!session?.user) {
@@ -58,10 +58,10 @@ export async function PUT(
 
     console.log('📥 Parsing params...');
     const { id } = await params;
-    console.log('🎯 Target user ID:', id, 'Session user ID:', session.user.id);
+    console.log('🎯 Target user ID:', id, 'Session user ID:', user.id);
 
     // Users can only update their own language preference
-    if (session.user.id !== id) {
+    if (user.id !== id) {
       console.log('❌ User ID mismatch');
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
@@ -75,7 +75,7 @@ export async function PUT(
     console.log('🎯 Validated language:', language);
 
     console.log('💾 Checking if user exists...');
-    const existingUser = await prisma.user.findUnique({
+    const existingUser = await db.user.findUnique({
       where: { id },
       select: { id: true, email: true, preferredLanguage: true }
     });
@@ -88,7 +88,7 @@ export async function PUT(
     console.log('✅ User found:', existingUser.email, 'Current language:', existingUser.preferredLanguage);
     
     console.log('💾 Updating user language preference...');
-    const updatedUser = await prisma.user.update({
+    const updatedUser = await db.user.update({
       where: { id },
       data: { preferredLanguage: language },
       select: { preferredLanguage: true }

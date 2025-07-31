@@ -74,7 +74,7 @@ const navItems: NavItem[] = [
   },
   {
     titleKey: 'navigation.main.assignments',
-    href: '/dashboard/assignments',
+    href: '/dashboard/assignments/unified',
     icon: Database,
     roles: ['SUPERUSER', 'ADMIN', 'VPP'],
   },
