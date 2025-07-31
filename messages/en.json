@@ -1192,6 +1192,7 @@
     "assignItemsTitle": "Assign Items to VP/VPP",
     "assignItemsDescription": "Assign {count, plural, =1 {1 selected item} other {# selected items}} to a VP/VPP user for cost calculation.",
     "selectVPUser": "Select VP/VPP User",
+    "completed": "Completed",
     "chooseVPUser": "Choose a VP/VPP user...",
     "selectedItems": "Selected items",
     "itemsAssignedSuccess": "Items assigned successfully!",
@@ -1433,10 +1434,22 @@
     "folder": {
       "_context": "Folder operations",
       "open": "Open Folder",
+      "browse": "Browse Folder",
+      "browser": "Folder Browser",
+      "browserDescription": "Click on files to open them with your default application",
       "opened": "Folder opened: {path} ({count} files)",
       "notFound": "No documents folder found for this inquiry",
       "openFailed": "Failed to open documents folder",
-      "created": "Documents folder created successfully"
+      "created": "Documents folder created successfully",
+      "empty": "Folder is empty",
+      "noFiles": "No files in this folder",
+      "loadFailed": "Failed to load folder contents"
+    },
+    "file": {
+      "_context": "File operations",
+      "opened": "Opening {name}...",
+      "downloaded": "{name} downloaded successfully",
+      "downloadFailed": "Failed to download file"
     },
     "errors": {
       "_context": "File upload error messages",

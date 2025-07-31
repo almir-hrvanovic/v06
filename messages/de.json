@@ -1176,6 +1176,7 @@
     "assignItemsTitle": "Artikel VP/VPP zuweisen",
     "assignItemsDescription": "{count, plural, =1 {1 ausgewählten Artikel} other {# ausgewählte Artikel}} einem VP/VPP-Benutzer für die Kostenberechnung zuweisen.",
     "selectVPUser": "VP/VPP-Benutzer auswählen",
+    "completed": "Abgeschlossen",
     "chooseVPUser": "Wählen Sie einen VP/VPP-Benutzer...",
     "selectedItems": "Ausgewählte Artikel",
     "itemsAssignedSuccess": "Artikel erfolgreich zugewiesen!",
@@ -1385,10 +1386,22 @@
     "folder": {
       "_context": "Ordneroperationen",
       "open": "Ordner öffnen",
+      "browse": "Ordner durchsuchen",
+      "browser": "Ordner-Browser",
+      "browserDescription": "Klicken Sie auf Dateien, um sie mit Ihrer Standardanwendung zu öffnen",
       "opened": "Ordner geöffnet: {path} ({count} Dateien)",
       "notFound": "Kein Dokumentenordner für diese Anfrage gefunden",
       "openFailed": "Dokumentenordner konnte nicht geöffnet werden",
-      "created": "Dokumentenordner erfolgreich erstellt"
+      "created": "Dokumentenordner erfolgreich erstellt",
+      "empty": "Ordner ist leer",
+      "noFiles": "Keine Dateien in diesem Ordner",
+      "loadFailed": "Ordnerinhalte konnten nicht geladen werden"
+    },
+    "file": {
+      "_context": "Dateioperationen",
+      "opened": "Öffne {name}...",
+      "downloaded": "{name} erfolgreich heruntergeladen",
+      "downloadFailed": "Datei konnte nicht heruntergeladen werden"
     }
   },
   "excel": {

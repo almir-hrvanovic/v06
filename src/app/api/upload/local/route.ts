@@ -3,6 +3,7 @@ import { db } from '@/lib/db/index'
 import { writeFile, mkdir } from 'fs/promises'
 import { join, dirname } from 'path'
 import { existsSync } from 'fs'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 export async function POST(request: NextRequest) {
   try {
@@ -73,7 +74,7 @@ export async function POST(request: NextRequest) {
         // Determine folder path
         let folderPath = ''
         if (inquiryId) {
-          folderPath = join(inquiryId, 'customer-documents')
+          folderPath = join('inquiries', inquiryId)
         }
         
         // Full path

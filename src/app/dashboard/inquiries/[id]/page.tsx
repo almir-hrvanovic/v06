@@ -13,7 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getPriorityBadge } from '@/lib/priority-utils'
 import { AttachmentManager } from '@/components/attachments/attachment-manager'
 import { PDFExportButton } from '@/components/pdf/pdf-export-button'
-import { OpenFolderButton } from '@/components/attachments/open-folder-button'
+import { BrowseFolderButton } from '@/components/attachments/browse-folder-button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -208,7 +208,7 @@ export default function InquiryDetailPage() {
           </div>
         </div>
         <div className="flex items-center space-x-2">
-          <OpenFolderButton inquiryId={inquiry.id} />
+          <BrowseFolderButton inquiryId={inquiry.id} size="default" />
           {inquiry.attachments && inquiry.attachments.length > 0 && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -355,19 +355,6 @@ export default function InquiryDetailPage() {
                 <div>
                   <label className="text-sm font-medium text-muted-foreground">Status</label>
                   <div className="mt-1">{getStatusBadge(inquiry.status)}</div>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-muted-foreground">Assigned To</label>
-                  <p className="mt-1">
-                    {inquiry.assignedTo ? (
-                      <span className="flex items-center space-x-2">
-                        <User className="h-4 w-4" />
-                        <span>{inquiry.assignedTo.name}</span>
-                      </span>
-                    ) : (
-                      'Unassigned'
-                    )}
-                  </p>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-muted-foreground">Created By</label>

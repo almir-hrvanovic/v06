@@ -1149,6 +1149,7 @@
     "assignItemsTitle": "Dodijeli stavke VP/VPP-u",
     "assignItemsDescription": "Dodijeli {count, plural, =1 {1 odabranu stavku} other {# odabranih stavki}} VP/VPP korisniku za izračun troškova.",
     "selectVPUser": "Odaberi VP/VPP korisnika",
+    "completed": "Završeno",
     "chooseVPUser": "Odaberi VP/VPP korisnika...",
     "selectedItems": "Odabrane stavke",
     "itemsAssignedSuccess": "Stavke uspješno dodijeljene!",
@@ -1394,10 +1395,22 @@
     "folder": {
       "_context": "Operacije s mapama",
       "open": "Otvori mapu",
+      "browse": "Pretraži mapu",
+      "browser": "Preglednik mapa",
+      "browserDescription": "Kliknite na datoteke da ih otvorite s vašom zadanom aplikacijom",
       "opened": "Mapa otvorena: {path} ({count} datoteka)",
       "notFound": "Nema pronađene mape dokumenata za ovaj upit",
       "openFailed": "Neuspješno otvaranje mape dokumenata",
-      "created": "Mapa dokumenata uspješno stvorena"
+      "created": "Mapa dokumenata uspješno stvorena",
+      "empty": "Mapa je prazna",
+      "noFiles": "Nema datoteka u ovoj mapi",
+      "loadFailed": "Neuspješno učitavanje sadržaja mape"
+    },
+    "file": {
+      "_context": "Operacije s datotekama",
+      "opened": "Otvaram {name}...",
+      "downloaded": "{name} uspješno preuzeta",
+      "downloadFailed": "Neuspješno preuzimanje datoteke"
     }
   },
   "excel": {

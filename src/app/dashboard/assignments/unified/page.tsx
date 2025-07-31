@@ -37,7 +37,13 @@ export default function UnifiedAssignmentsPage() {
   const t = useTranslations()
   const { setIsCollapsed, setIsMobileOpen } = useSidebar()
   const [viewMode, setViewMode] = useState<ViewMode>('table')
-  const [mainTab, setMainTab] = useState<'assignments' | 'analytics'>('assignments')
+  const [mainTab, setMainTab] = useState<'assignments' | 'analytics'>(() => {
+    // Load from localStorage
+    if (typeof window !== 'undefined') {
+      return (localStorage.getItem('assignments-main-tab') as 'assignments' | 'analytics') || 'assignments'
+    }
+    return 'assignments'
+  })
   const [isFilterExpanded, setIsFilterExpanded] = useState(false)
   const [localFilters, setLocalFilters] = useState({
     customerId: '',
@@ -129,11 +135,15 @@ export default function UnifiedAssignmentsPage() {
 
   // Fetch analytics data when analytics tab is selected
   useEffect(() => {
-    if (mainTab === 'analytics' && !analyticsData && !analyticsLoading) {
+    if (mainTab === 'analytics') {
       setAnalyticsLoading(true)
       fetch('/api/analytics/workload?timeRange=30')
         .then(res => res.json())
         .then(data => {
+          console.log('Analytics data received:', data)
+          if (data.error) {
+            console.error('Analytics API error:', data)
+          }
           setAnalyticsData(data)
           setAnalyticsLoading(false)
         })
@@ -142,7 +152,7 @@ export default function UnifiedAssignmentsPage() {
           setAnalyticsLoading(false)
         })
     }
-  }, [mainTab, analyticsData, analyticsLoading])
+  }, [mainTab])
 
   // Toggle workload chart visibility
   const toggleWorkloadChart = () => {
@@ -281,7 +291,11 @@ export default function UnifiedAssignmentsPage() {
       </div>
 
       {/* Main Tabs */}
-      <Tabs value={mainTab} onValueChange={(v) => setMainTab(v as 'assignments' | 'analytics')} className="space-y-6">
+      <Tabs value={mainTab} onValueChange={(v) => {
+        const newTab = v as 'assignments' | 'analytics'
+        setMainTab(newTab)
+        localStorage.setItem('assignments-main-tab', newTab)
+      }} className="space-y-6">
         <TabsList className="grid w-full max-w-md grid-cols-2">
           <TabsTrigger value="assignments">{t('assignments.title')}</TabsTrigger>
           <TabsTrigger value="analytics">{t('navigation.main.analytics')}</TabsTrigger>

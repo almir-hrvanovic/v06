@@ -28,6 +28,7 @@ import { Priority, InquiryStatus } from '@prisma/client'
 import { CurrencyInput } from '@/components/ui/currency-input'
 import { AttachmentManager } from '@/components/attachments/attachment-manager'
 import { BulkDocumentUploadV2 } from '@/components/attachments/bulk-document-upload-v2'
+import { BrowseFolderButton } from '@/components/attachments/browse-folder-button'
 
 type InquiryFormData = z.infer<typeof updateInquirySchema>
 
@@ -283,7 +284,13 @@ export default function EditInquiryPage() {
 
           {/* Attachments */}
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">{t('inquiries.form.documentation.title')}</h3>
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-medium">{t('inquiries.form.documentation.title')}</h3>
+              <BrowseFolderButton
+                inquiryId={params.id as string}
+                size="sm"
+              />
+            </div>
             <AttachmentManager
               inquiryId={params.id as string}
               showUpload={true}
