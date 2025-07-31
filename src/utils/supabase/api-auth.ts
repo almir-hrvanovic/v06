@@ -106,10 +106,10 @@ export function canModifyResource(userRole: UserRole, resource: string): boolean
 
 // Role-based permissions matrix (migrated from NextAuth)
 const rolePermissions: Record<UserRole, Array<{resource: string, action: string}>> = {
-  [UserRole.SUPERUSER]: [
+  SUPERUSER: [
     { resource: '*', action: '*' }
   ],
-  [UserRole.ADMIN]: [
+  ADMIN: [
     { resource: 'users', action: '*' },
     { resource: 'customers', action: '*' },
     { resource: 'inquiries', action: '*' },
@@ -121,7 +121,7 @@ const rolePermissions: Record<UserRole, Array<{resource: string, action: string}
     { resource: 'settings', action: '*' },
     { resource: 'workload', action: 'read' }
   ],
-  [UserRole.MANAGER]: [
+  MANAGER: [
     { resource: 'inquiries', action: 'read' },
     { resource: 'quotes', action: 'read' },
     { resource: 'production-orders', action: 'read' },
@@ -129,25 +129,26 @@ const rolePermissions: Record<UserRole, Array<{resource: string, action: string}
     { resource: 'reports', action: 'read' },
     { resource: 'cost-calculations', action: 'approve' }
   ],
-  [UserRole.SALES]: [
+  SALES: [
     { resource: 'customers', action: '*' },
     { resource: 'inquiries', action: '*' },
     { resource: 'quotes', action: '*' },
     { resource: 'reports', action: 'read' }
   ],
-  [UserRole.VPP]: [
+  VPP: [
     { resource: 'inquiries', action: 'read' },
     { resource: 'inquiry-items', action: 'read' },
     { resource: 'inquiry-items', action: 'assign' },
     { resource: 'users', action: 'read' },
+    { resource: 'customers', action: 'read' },
     { resource: 'workload', action: 'read' }
   ],
-  [UserRole.VP]: [
+  VP: [
     { resource: 'inquiry-items', action: 'read' },
     { resource: 'cost-calculations', action: '*' },
     { resource: 'tech-assignments', action: '*' }
   ],
-  [UserRole.TECH]: [
+  TECH: [
     { resource: 'inquiry-items', action: 'read' },
     { resource: 'technical-tasks', action: '*' },
     { resource: 'documentation', action: '*' }
@@ -161,20 +162,20 @@ export function getUserPermissions(userRole: UserRole) {
 
 // Helper function to check if user can assign items
 export function canAssignItems(userRole: UserRole): boolean {
-  return userRole === UserRole.VPP || userRole === UserRole.ADMIN || userRole === UserRole.SUPERUSER;
+  return userRole === 'VPP' || userRole === 'ADMIN' || userRole === 'SUPERUSER';
 }
 
 // Helper function to check if user can calculate costs
 export function canCalculateCosts(userRole: UserRole): boolean {
-  return userRole === UserRole.VP || userRole === UserRole.ADMIN || userRole === UserRole.SUPERUSER;
+  return userRole === 'VP' || userRole === 'ADMIN' || userRole === 'SUPERUSER';
 }
 
 // Helper function to check if user can approve
 export function canApprove(userRole: UserRole): boolean {
-  return userRole === UserRole.MANAGER || userRole === UserRole.ADMIN || userRole === UserRole.SUPERUSER;
+  return userRole === 'MANAGER' || userRole === 'ADMIN' || userRole === 'SUPERUSER';
 }
 
 // Helper function to check if user can create quotes
 export function canCreateQuotes(userRole: UserRole): boolean {
-  return userRole === UserRole.SALES || userRole === UserRole.ADMIN || userRole === UserRole.SUPERUSER;
+  return userRole === 'SALES' || userRole === 'ADMIN' || userRole === 'SUPERUSER';
 }

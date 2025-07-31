@@ -26,12 +26,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui/collapsible'
-import { WorkloadChart } from '@/components/assignments/workload-chart'
+// import { WorkloadChart } from '@/components/assignments/workload-chart'
+import { Badge } from '@/components/ui/badge'
 
 type ViewMode = 'table' | 'dnd'
 
@@ -49,16 +45,15 @@ export default function UnifiedAssignmentsPage() {
   })
   const [dndHasChanges, setDndHasChanges] = useState(false)
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([])
-  const [showUserFilter, setShowUserFilter] = useState(false)
   const [tableSelectedItems, setTableSelectedItems] = useState<string[]>([])
   const [showAssignDropdown, setShowAssignDropdown] = useState(false)
-  const [showWorkloadChart, setShowWorkloadChart] = useState(() => {
-    // Load from localStorage
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('show-workload-chart') === 'true'
-    }
-    return false
-  })
+  // const [showWorkloadChart, setShowWorkloadChart] = useState(() => {
+  //   // Load from localStorage
+  //   if (typeof window !== 'undefined') {
+  //     return localStorage.getItem('show-workload-chart') === 'true'
+  //   }
+  //   return false
+  // })
   
   // Refs for DnD view functions
   const dndResetRef = useRef<(() => void) | null>(null)
@@ -128,12 +123,12 @@ export default function UnifiedAssignmentsPage() {
     }
   }
 
-  // Toggle workload chart visibility
-  const toggleWorkloadChart = () => {
-    const newValue = !showWorkloadChart
-    setShowWorkloadChart(newValue)
-    localStorage.setItem('show-workload-chart', String(newValue))
-  }
+  // // Toggle workload chart visibility
+  // const toggleWorkloadChart = () => {
+  //   const newValue = !showWorkloadChart
+  //   setShowWorkloadChart(newValue)
+  //   localStorage.setItem('show-workload-chart', String(newValue))
+  // }
 
   // Handle filter changes
   const handleFilterChange = (key: string, value: string) => {
@@ -152,7 +147,11 @@ export default function UnifiedAssignmentsPage() {
   const hasActiveFilters = Object.values(localFilters).some(v => v && v.trim() !== '' && v !== 'all')
 
   if (!user) {
-    return null
+    return (
+      <div className="flex items-center justify-center h-64">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    )
   }
 
   // Check permissions
@@ -282,25 +281,14 @@ export default function UnifiedAssignmentsPage() {
             <div className="text-2xl font-bold">{unassignedItems.length}</div>
           </CardContent>
         </Card>
-        <Card 
-          className={cn(
-            "cursor-pointer transition-all",
-            "hover:shadow-md hover:border-primary/50",
-            showWorkloadChart && "border-primary shadow-md"
-          )}
-          onClick={toggleWorkloadChart}
-        >
+        <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium flex items-center justify-between">
+            <CardTitle className="text-sm font-medium">
               {t('assignments.assigned')}
-              <BarChart3 className="h-4 w-4 text-muted-foreground" />
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{assignedItems.length}</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              {t('assignments.viewDistribution')}
-            </p>
           </CardContent>
         </Card>
         <Card className={cn(
@@ -323,20 +311,22 @@ export default function UnifiedAssignmentsPage() {
                   <span className="text-sm text-muted-foreground">/ {users.length}</span>
                 )}
               </div>
-              <UserFilterDropdown
-                users={users}
-                selectedUserIds={selectedUserIds}
-                onSelectionChange={setSelectedUserIds}
-                userWorkloads={userWorkloads}
-              />
+              {users.length > 0 && (
+                <UserFilterDropdown
+                  users={users}
+                  selectedUserIds={selectedUserIds}
+                  onSelectionChange={setSelectedUserIds}
+                  userWorkloads={userWorkloads}
+                />
+              )}
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Collapsible Workload Chart */}
-      <Collapsible open={showWorkloadChart} onOpenChange={setShowWorkloadChart}>
-        <CollapsibleContent className="overflow-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-up-2 data-[state=open]:slide-down-2">
+      {/* Collapsible Workload Chart - DISABLED DUE TO ERRORS */}
+      {/* {showWorkloadChart && users.length > 0 && selectedUserIds && selectedUserIds.length > 0 && (
+        <div className="animate-in slide-down-2 fade-in duration-200">
           <Card className="transition-all duration-200">
             <CardContent className="pt-6">
               <WorkloadChart 
@@ -346,8 +336,8 @@ export default function UnifiedAssignmentsPage() {
               />
             </CardContent>
           </Card>
-        </CollapsibleContent>
-      </Collapsible>
+        </div>
+      )} */}
 
       {/* Filters and View Mode Controls */}
       <div className="space-y-2">

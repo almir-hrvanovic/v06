@@ -93,7 +93,7 @@ export default function CustomersPage() {
       if (!response.ok) throw new Error('Failed to fetch customers')
       
       const data = await response.json()
-      setCustomers(data)
+      setCustomers(data.data || [])
     } catch (error) {
       console.error('Failed to fetch customers:', error)
       toast.error(t('messages.error.failedToLoad'))

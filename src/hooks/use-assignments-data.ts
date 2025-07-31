@@ -70,21 +70,50 @@ export function useAssignmentsData(): UseAssignmentsDataReturn {
       }
 
       // Fetch all data in parallel
-      const [itemsRes, usersRes, customersRes, inquiriesRes] = await Promise.all([
-        apiClient.getInquiryItems({ limit: 200 }),
-        apiClient.getUsers({ roles: 'VP,VPP', active: 'true' }),
-        apiClient.getCustomers({ active: 'true', limit: 100 }),
-        apiClient.getInquiries({ limit: 100 })
-      ])
+      let itemsRes, usersRes, customersRes, inquiriesRes
+      
+      try {
+        itemsRes = await apiClient.getInquiryItems({ limit: 200 })
+      } catch (e) {
+        console.error('Failed to fetch items:', e)
+        throw new Error('Failed to fetch items: ' + (e as any).message)
+      }
+      
+      try {
+        usersRes = await apiClient.getUsers({ roles: 'VP,VPP', active: 'true' })
+      } catch (e) {
+        console.error('Failed to fetch users:', e)
+        throw new Error('Failed to fetch users: ' + (e as any).message)
+      }
+      
+      try {
+        customersRes = await apiClient.getCustomers({ active: 'true', limit: 100 })
+      } catch (e) {
+        console.error('Failed to fetch customers:', e)
+        throw new Error('Failed to fetch customers: ' + (e as any).message)
+      }
+      
+      try {
+        inquiriesRes = await apiClient.getInquiries({ limit: 100 })
+      } catch (e) {
+        console.error('Failed to fetch inquiries:', e)
+        throw new Error('Failed to fetch inquiries: ' + (e as any).message)
+      }
 
       setItems((itemsRes as any).data || [])
       setUsers((usersRes as any).data || [])
       setCustomers((customersRes as any).data || [])
       setInquiries((inquiriesRes as any).data || [])
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to fetch assignments data:', error)
-      toast.error('Failed to load assignments data')
+      // Show more specific error message
+      const errorMessage = error?.message || 'Failed to load assignments data'
+      if (errorMessage.includes('Forbidden') || errorMessage.includes('Unauthorized')) {
+        toast.error('Nemate ovlasti za upravljanje zadacima')
+      } else {
+        toast.error(errorMessage)
+      }
     } finally {
       setLoading(false)
       setRefreshing(false)

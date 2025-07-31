@@ -179,7 +179,7 @@ export async function POST(request: NextRequest) {
           include: { costCalculation: true }
         })
 
-        const allApproved = inquiryItems.every(item => 
+        const allApproved = inquiryItems.every((item: any) => 
           item.costCalculation?.isApproved || ['APPROVED', 'QUOTED'].includes(item.status)
         )
 
