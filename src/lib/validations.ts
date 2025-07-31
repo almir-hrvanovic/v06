@@ -182,7 +182,7 @@ export const inquiryFiltersSchema = z.object({
   }),
   search: z.string().optional(),
   page: z.number().int().min(1).default(1),
-  limit: z.number().int().min(1).max(100).default(10),
+  limit: z.number().int().min(1).max(500).default(10),
 })
 
 export const itemFiltersSchema = z.object({
@@ -191,7 +191,7 @@ export const itemFiltersSchema = z.object({
   inquiryId: z.string().cuid('Invalid inquiry ID').optional(),
   search: z.string().optional(),
   page: z.number().int().min(1).default(1),
-  limit: z.number().int().min(1).max(100).default(10),
+  limit: z.number().int().min(1).max(500).default(10),
 })
 
 // Pagination Schema

@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
 import { db } from '@/lib/db/index'
-import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 export async function requireAuth() {
   const supabase = await createClient()
