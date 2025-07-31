@@ -10,9 +10,9 @@ export async function GET(
   { params }: { params: Promise<{ path: string[] }> }
 ) {
   try {
-    const user = await getAuthenticatedUser()
+    const user = await getAuthenticatedUser(request)
     
-    if (!session?.user) {
+    if (!user) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }

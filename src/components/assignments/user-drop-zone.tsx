@@ -3,7 +3,7 @@
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { User as UserIcon, Package, CheckCircle2 } from 'lucide-react'
+import { User as UserIcon, Package, CheckCircle2, AlertTriangle } from 'lucide-react'
 import { User, InquiryItemWithRelations } from '@/types'
 import { DraggableItem } from './draggable-item'
 import { cn } from '@/lib/utils'
@@ -15,14 +15,17 @@ interface UserDropZoneProps {
   }
   items: InquiryItemWithRelations[]
   isOver?: boolean
+  averagePending?: number
 }
 
-export function UserDropZone({ user, items = [], isOver }: UserDropZoneProps) {
+export function UserDropZone({ user, items = [], isOver, averagePending = 0 }: UserDropZoneProps) {
   const { setNodeRef } = useDroppable({
     id: `user-${user.id}`,
   })
 
   const isVPP = user.role === 'VPP'
+  const pendingCount = user.pendingCount || 0
+  const isOverloaded = averagePending > 0 && pendingCount > averagePending * 1.5
 
   return (
     <Card 
@@ -42,17 +45,34 @@ export function UserDropZone({ user, items = [], isOver }: UserDropZoneProps) {
               <UserIcon className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
               <div className="flex-1 min-w-0">
                 <span className="font-medium text-sm break-words">{user.name}</span>
+                {isVPP && (
+                  <span className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                    VPP
+                  </span>
+                )}
               </div>
+              {isOverloaded && (
+                <AlertTriangle className="h-4 w-4 text-destructive flex-shrink-0" />
+              )}
             </div>
           </div>
 
           {/* Workload Indicators */}
           <div className="flex items-center gap-3">
             {/* Pending Items */}
-            <div className="flex items-center gap-1">
-              <Package className="h-4 w-4 text-red-500" />
-              <span className="text-lg font-bold text-red-500">
-                {user.pendingCount || 0}
+            <div className={cn(
+              "flex items-center gap-1",
+              isOverloaded && "animate-pulse"
+            )}>
+              <Package className={cn(
+                "h-4 w-4",
+                isOverloaded ? "text-destructive" : "text-red-500"
+              )} />
+              <span className={cn(
+                "text-lg font-bold",
+                isOverloaded ? "text-destructive" : "text-red-500"
+              )}>
+                {pendingCount}
               </span>
             </div>
 

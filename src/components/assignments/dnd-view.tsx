@@ -263,6 +263,13 @@ export function DndView({
     ? items.find(item => item.id === activeId)
     : null
 
+  // Calculate average pending for overload detection
+  const totalPending = users.reduce((sum, user) => {
+    const workload = userWorkloads.get(user.id)
+    return sum + (workload?.pending || 0)
+  }, 0)
+  const avgPending = users.length > 0 ? totalPending / users.length : 0
+
   return (
     <div className="space-y-4">
       {/* DND Context */}
@@ -318,6 +325,7 @@ export function DndView({
                           }}
                           items={userItems}
                           isOver={false}
+                          averagePending={avgPending}
                         />
                       </SortableUserZone>
                     )

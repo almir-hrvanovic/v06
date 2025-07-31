@@ -63,7 +63,7 @@ const systemSettingsSchema = z.object({
 // GET /api/system-settings
 export async function GET(request: NextRequest) {
   try {
-    const user = await getAuthenticatedUser()
+    const user = await getAuthenticatedUser(request)
     
     if (!user) {
       return NextResponse.json(
@@ -117,7 +117,7 @@ export async function PUT(request: NextRequest) {
   try {
     console.log('[SystemSettings] PUT request received')
     
-    const user = await getAuthenticatedUser()
+    const user = await getAuthenticatedUser(request)
     
     if (!user) {
       console.log('[SystemSettings] No user found')

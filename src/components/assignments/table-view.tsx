@@ -20,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { UserCheck, Clock, CheckSquare2, ChevronDown, ChevronRight, Package } from 'lucide-react'
+import { UserCheck, Clock, CheckSquare2, ChevronDown, ChevronRight, Package, AlertTriangle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { getPriorityBadge } from '@/lib/priority-utils'
@@ -307,12 +307,36 @@ export function TableView({
                               <SelectValue placeholder="Assign all..." />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="unassigned">Unassign</SelectItem>
+                              <SelectItem value="unassigned">
+                                <span className="flex items-center">
+                                  <Package className="h-4 w-4 mr-2 text-muted-foreground" />
+                                  Unassign
+                                </span>
+                              </SelectItem>
                               {filteredUsers.map((user) => {
                                 const workload = userWorkloads.get(user.id)
+                                const avgPending = filteredUsers.reduce((sum, u) => {
+                                  const w = userWorkloads.get(u.id)
+                                  return sum + (w?.pending || 0)
+                                }, 0) / filteredUsers.length
+                                const isOverloaded = (workload?.pending || 0) > avgPending * 1.5
+                                
                                 return (
                                   <SelectItem key={user.id} value={user.id}>
-                                    {user.name} ({workload?.pending || 0})
+                                    <span className="flex items-center justify-between w-full">
+                                      <span className="flex items-center gap-2">
+                                        {user.name}
+                                        {user.role === 'VPP' && (
+                                          <Badge variant="outline" className="text-xs h-4 px-1">VPP</Badge>
+                                        )}
+                                      </span>
+                                      <span className={cn(
+                                        "text-xs",
+                                        isOverloaded ? "text-destructive font-semibold" : "text-muted-foreground"
+                                      )}>
+                                        {workload?.pending || 0} {isOverloaded && <AlertTriangle className="inline h-3 w-3 ml-1" />}
+                                      </span>
+                                    </span>
                                   </SelectItem>
                                 )
                               })}
@@ -372,12 +396,36 @@ export function TableView({
                                 <SelectValue />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="unassigned">Unassigned</SelectItem>
+                                <SelectItem value="unassigned">
+                                  <span className="flex items-center">
+                                    <Package className="h-4 w-4 mr-2 text-muted-foreground" />
+                                    Unassigned
+                                  </span>
+                                </SelectItem>
                                 {filteredUsers.map((user) => {
                                   const workload = userWorkloads.get(user.id)
+                                  const avgPending = filteredUsers.reduce((sum, u) => {
+                                    const w = userWorkloads.get(u.id)
+                                    return sum + (w?.pending || 0)
+                                  }, 0) / filteredUsers.length
+                                  const isOverloaded = (workload?.pending || 0) > avgPending * 1.5
+                                  
                                   return (
                                     <SelectItem key={user.id} value={user.id}>
-                                      {user.name} ({workload?.pending || 0})
+                                      <span className="flex items-center justify-between w-full">
+                                        <span className="flex items-center gap-2">
+                                          {user.name}
+                                          {user.role === 'VPP' && (
+                                            <Badge variant="outline" className="text-xs h-4 px-1">VPP</Badge>
+                                          )}
+                                        </span>
+                                        <span className={cn(
+                                          "text-xs",
+                                          isOverloaded ? "text-destructive font-semibold" : "text-muted-foreground"
+                                        )}>
+                                          {workload?.pending || 0} {isOverloaded && <AlertTriangle className="inline h-3 w-3 ml-1" />}
+                                        </span>
+                                      </span>
                                     </SelectItem>
                                   )
                                 })}

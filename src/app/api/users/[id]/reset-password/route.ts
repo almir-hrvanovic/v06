@@ -14,8 +14,8 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
   const { id } = await params
   
   try {
-    const user = await getAuthenticatedUser()
-    if (!session?.user) {
+    const user = await getAuthenticatedUser(request)
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 

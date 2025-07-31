@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Loader2, Table, Grip, RefreshCw, Search, Filter, RotateCcw, Save, Users } from 'lucide-react'
+import { Loader2, Table, Grip, RefreshCw, Search, Filter, RotateCcw, Save, Users, BarChart3, ChevronDown, Package, AlertTriangle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { UserFilterDropdown } from '@/components/assignments/user-filter-dropdown'
@@ -26,6 +26,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible'
+import { WorkloadChart } from '@/components/assignments/workload-chart'
 
 type ViewMode = 'table' | 'dnd'
 
@@ -46,6 +52,13 @@ export default function UnifiedAssignmentsPage() {
   const [showUserFilter, setShowUserFilter] = useState(false)
   const [tableSelectedItems, setTableSelectedItems] = useState<string[]>([])
   const [showAssignDropdown, setShowAssignDropdown] = useState(false)
+  const [showWorkloadChart, setShowWorkloadChart] = useState(() => {
+    // Load from localStorage
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('show-workload-chart') === 'true'
+    }
+    return false
+  })
   
   // Refs for DnD view functions
   const dndResetRef = useRef<(() => void) | null>(null)
@@ -113,6 +126,13 @@ export default function UnifiedAssignmentsPage() {
       setIsCollapsed(true)
       setIsMobileOpen(false)
     }
+  }
+
+  // Toggle workload chart visibility
+  const toggleWorkloadChart = () => {
+    const newValue = !showWorkloadChart
+    setShowWorkloadChart(newValue)
+    localStorage.setItem('show-workload-chart', String(newValue))
   }
 
   // Handle filter changes
@@ -190,10 +210,17 @@ export default function UnifiedAssignmentsPage() {
                       }
                     }}
                   >
+                    <Package className="h-4 w-4 mr-2 text-muted-foreground" />
                     {t('assignments.unassigned')}
                   </Button>
                   {users.filter(u => selectedUserIds.includes(u.id)).map((user) => {
                     const workload = userWorkloads.get(user.id)
+                    const avgPending = users.reduce((sum, u) => {
+                      const w = userWorkloads.get(u.id)
+                      return sum + (w?.pending || 0)
+                    }, 0) / users.length
+                    const isOverloaded = (workload?.pending || 0) > avgPending * 1.5
+                    
                     return (
                       <Button
                         key={user.id}
@@ -209,9 +236,18 @@ export default function UnifiedAssignmentsPage() {
                         }}
                       >
                         <span className="flex items-center justify-between w-full">
-                          <span>{user.name}</span>
-                          <span className="text-xs text-muted-foreground">
-                            {workload?.pending || 0} {t('assignments.pending')}
+                          <span className="flex items-center gap-2">
+                            <span>{user.name}</span>
+                            {user.role === 'VPP' && (
+                              <Badge variant="outline" className="text-xs h-4 px-1">VPP</Badge>
+                            )}
+                          </span>
+                          <span className={cn(
+                            "flex items-center gap-1 text-xs",
+                            isOverloaded ? "text-destructive font-semibold" : "text-muted-foreground"
+                          )}>
+                            {workload?.pending || 0}
+                            {isOverloaded && <AlertTriangle className="h-3 w-3" />}
                           </span>
                         </span>
                       </Button>
@@ -246,50 +282,72 @@ export default function UnifiedAssignmentsPage() {
             <div className="text-2xl font-bold">{unassignedItems.length}</div>
           </CardContent>
         </Card>
-        <Card>
+        <Card 
+          className={cn(
+            "cursor-pointer transition-all",
+            "hover:shadow-md hover:border-primary/50",
+            showWorkloadChart && "border-primary shadow-md"
+          )}
+          onClick={toggleWorkloadChart}
+        >
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">
+            <CardTitle className="text-sm font-medium flex items-center justify-between">
               {t('assignments.assigned')}
+              <BarChart3 className="h-4 w-4 text-muted-foreground" />
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{assignedItems.length}</div>
+            <p className="text-xs text-muted-foreground mt-1">
+              {t('assignments.viewDistribution')}
+            </p>
           </CardContent>
         </Card>
-        <Popover open={showUserFilter} onOpenChange={setShowUserFilter}>
-          <PopoverTrigger asChild>
-            <Card className={cn(
-              "cursor-pointer transition-all",
-              "hover:shadow-md hover:border-primary/50",
-              showUserFilter && "border-primary shadow-md"
-            )}>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium flex items-center justify-between">
-                  {t('assignments.activeUsers')}
-                  <Users className="h-4 w-4 text-muted-foreground" />
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-baseline gap-2">
-                  <div className="text-2xl font-bold">
-                    {selectedUserIds.length}
-                  </div>
-                  {selectedUserIds.length !== users.length && (
-                    <span className="text-sm text-muted-foreground">/ {users.length}</span>
-                  )}
+        <Card className={cn(
+          "cursor-pointer transition-all",
+          "hover:shadow-md hover:border-primary/50"
+        )}>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium flex items-center justify-between">
+              {t('assignments.activeUsers')}
+              <Users className="h-4 w-4 text-muted-foreground" />
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center justify-between">
+              <div className="flex items-baseline gap-2">
+                <div className="text-2xl font-bold">
+                  {selectedUserIds.length}
                 </div>
-              </CardContent>
-            </Card>
-          </PopoverTrigger>
-          <PopoverContent className="w-64 p-0" align="end">
-            <UserFilterDropdown
-              users={users}
-              selectedUserIds={selectedUserIds}
-              onSelectionChange={setSelectedUserIds}
-            />
-          </PopoverContent>
-        </Popover>
+                {selectedUserIds.length !== users.length && (
+                  <span className="text-sm text-muted-foreground">/ {users.length}</span>
+                )}
+              </div>
+              <UserFilterDropdown
+                users={users}
+                selectedUserIds={selectedUserIds}
+                onSelectionChange={setSelectedUserIds}
+                userWorkloads={userWorkloads}
+              />
+            </div>
+          </CardContent>
+        </Card>
       </div>
+
+      {/* Collapsible Workload Chart */}
+      <Collapsible open={showWorkloadChart} onOpenChange={setShowWorkloadChart}>
+        <CollapsibleContent className="overflow-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-up-2 data-[state=open]:slide-down-2">
+          <Card className="transition-all duration-200">
+            <CardContent className="pt-6">
+              <WorkloadChart 
+                users={users.filter(u => selectedUserIds.includes(u.id))}
+                userWorkloads={userWorkloads}
+                loading={loading}
+              />
+            </CardContent>
+          </Card>
+        </CollapsibleContent>
+      </Collapsible>
 
       {/* Filters and View Mode Controls */}
       <div className="space-y-2">

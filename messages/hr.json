@@ -1189,7 +1189,17 @@
     "headers": {
       "status": "Status",
       "actions": "Akcije"
-    }
+    },
+    "workloadDistribution": "Distribucija opterećenja",
+    "averageLoad": "Prosječno opterećenje",
+    "itemsPerUser": "stavki po korisniku",
+    "overloaded": "preopterećeno",
+    "maxLoad": "Maks. opterećenje",
+    "pendingItems": "Stavke na čekanju",
+    "completed": "Završeno",
+    "normalLoad": "Normalno",
+    "highLoad": "Visoko",
+    "viewDistribution": "Prikaži distribuciju"
   },
   "automation": {
     "_context": "Sustav automatizacije tijeka rada za pravila i okidače",

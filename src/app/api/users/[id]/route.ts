@@ -19,8 +19,8 @@ export async function PUT(
 ) {
   const { id } = await params
   try {
-    const user = await getAuthenticatedUser()
-    if (!session?.user) {
+    const user = await getAuthenticatedUser(request)
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -113,8 +113,8 @@ export async function DELETE(
 ) {
   const { id } = await params
   try {
-    const user = await getAuthenticatedUser()
-    if (!session?.user) {
+    const user = await getAuthenticatedUser(request)
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 

@@ -68,62 +68,57 @@ async function generateOverviewCSV(startDate: Date): Promise<string> {
       _count: { select: { items: true } }
     },
     orderBy: { createdAt: 'desc' }
-  })
+  }) as any[]
 
   let csv = 'Date,Inquiry ID,Title,Customer,Created By,Status,Items Count\n'
   
   inquiries.forEach(inquiry => {
-    csv += `"${inquiry.createdAt.toISOString().split('T')[0]}","${inquiry.id}","${inquiry.title}","${inquiry.customer.name}","${inquiry.createdBy.name}","${inquiry.status}","${inquiry._count.items}"\n`
+    csv += `"${inquiry.createdAt.toISOString().split('T')[0]}","${inquiry.id}","${inquiry.title}","${inquiry.customer?.name || 'N/A'}","${inquiry.createdBy?.name || 'N/A'}","${inquiry.status}","${inquiry._count.items}"\n`
   })
 
   return csv
 }
 
 async function generateWorkloadCSV(startDate: Date): Promise<string> {
-  const vpWorkload = await db.user.findMany({
-    where: { role: 'VP' },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      _count: {
-        select: {
-          inquiryItems: true
-        }
-      }
-    }
-  })
+  const vpUsers = await db.user.findMany({
+    where: { role: 'VP' }
+  }) as any[]
 
   let csv = 'User Name,Email,Role,Active Items\n'
   
-  vpWorkload.forEach(vp => {
-    csv += `"${vp.name}","${vp.email}","VP","${vp._count.inquiryItems}"\n`
-  })
+  // Get item counts for VP users
+  for (const vp of vpUsers) {
+    const itemCount = db.inquiryItem.count 
+      ? await db.inquiryItem.count({
+          where: { assignedToId: vp.id }
+        })
+      : (await db.inquiryItem.findMany({
+          where: { assignedToId: vp.id }
+        })).length
+    csv += `"${vp.name}","${vp.email}","VP","${itemCount}"\n`
+  }
 
   // Add tech workload
-  const techWorkload = await db.user.findMany({
-    where: { role: 'TECH' },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      _count: {
-        select: {
-          inquiryItems: true
-        }
-      }
-    }
-  })
+  const techUsers = await db.user.findMany({
+    where: { role: 'TECH' }
+  }) as any[]
 
-  techWorkload.forEach(tech => {
-    csv += `"${tech.name}","${tech.email}","TECH","${tech._count.inquiryItems}"\n`
-  })
+  for (const tech of techUsers) {
+    const itemCount = db.inquiryItem.count 
+      ? await db.inquiryItem.count({
+          where: { assignedToId: tech.id }
+        })
+      : (await db.inquiryItem.findMany({
+          where: { assignedToId: tech.id }
+        })).length
+    csv += `"${tech.name}","${tech.email}","TECH","${itemCount}"\n`
+  }
 
   return csv
 }
 
 async function generatePerformanceCSV(startDate: Date): Promise<string> {
-  const performance = await db.$queryRaw`
+  const performance = db.$queryRaw ? await db.$queryRaw`
     SELECT 
       u.id,
       u.name,
@@ -140,9 +135,14 @@ async function generatePerformanceCSV(startDate: Date): Promise<string> {
     WHERE u.role IN ('VP', 'MANAGER') AND ii.vp_assigned_at >= ${startDate}
     GROUP BY u.id, u.name, u.email, u.role
     ORDER BY completion_rate DESC
-  ` as any[]
+  ` as any[] : []
 
   let csv = 'Name,Email,Role,Completed,Total,Completion Rate\n'
+  
+  // Fallback if queryRaw is not available
+  if (!db.$queryRaw) {
+    return csv + 'Performance data not available in current database provider\n'
+  }
   
   performance.forEach(user => {
     csv += `"${user.name}","${user.email}","${user.role}","${user.completed}","${user.total}","${user.completion_rate}%"\n`
@@ -163,12 +163,12 @@ async function generateFinancialCSV(startDate: Date): Promise<string> {
       createdBy: { select: { name: true } }
     },
     orderBy: { createdAt: 'desc' }
-  })
+  }) as any[]
 
   let csv = 'Date,Quote Number,Customer,Total Amount,Status,Created By,Valid Until\n'
   
   quotes.forEach(quote => {
-    csv += `"${quote.createdAt.toISOString().split('T')[0]}","${quote.quoteNumber}","${quote.inquiry.customer.name}","${quote.total}","${quote.status}","${quote.createdBy.name}","${quote.validUntil.toISOString().split('T')[0]}"\n`
+    csv += `"${quote.createdAt.toISOString().split('T')[0]}","${quote.quoteNumber}","${quote.inquiry?.customer?.name || 'N/A'}","${quote.total}","${quote.status}","${quote.createdBy?.name || 'N/A'}","${quote.validUntil.toISOString().split('T')[0]}"\n`
   })
 
   return csv

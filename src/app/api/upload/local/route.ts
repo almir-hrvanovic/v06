@@ -8,9 +8,9 @@ export async function POST(request: NextRequest) {
   try {
     console.log('[LocalUpload] Upload request received')
     
-    const user = await getAuthenticatedUser()
+    const user = await getAuthenticatedUser(request)
     
-    if (!session?.user) {
+    if (!user) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }

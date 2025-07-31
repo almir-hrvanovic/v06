@@ -1239,6 +1239,16 @@
       "status": "Status",
       "actions": "Actions"
     },
+    "workloadDistribution": "Workload Distribution",
+    "averageLoad": "Average load",
+    "itemsPerUser": "items per user",
+    "overloaded": "overloaded",
+    "maxLoad": "Max load",
+    "pendingItems": "Pending Items",
+    "completed": "Completed",
+    "normalLoad": "Normal",
+    "highLoad": "High",
+    "viewDistribution": "View distribution",
     "noItems": "No items found"
   },
   "automation": {

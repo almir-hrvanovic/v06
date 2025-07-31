@@ -4,8 +4,8 @@ import { UserRole } from '@/lib/db/types'
 
 export async function GET(request: NextRequest) {
   try {
-    const user = await getAuthenticatedUser()
-    if (!session?.user) {
+    const user = await getAuthenticatedUser(request)
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 

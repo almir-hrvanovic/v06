@@ -6,7 +6,7 @@ import { sendNotificationEmail } from '@/lib/email'
 
 export async function GET(request: NextRequest) {
   try {
-    const user = await getAuthenticatedUser()
+    const user = await getAuthenticatedUser(request)
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
@@ -75,7 +75,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const user = await getAuthenticatedUser()
+    const user = await getAuthenticatedUser(request)
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
         calculatedBy: { select: { id: true, name: true, email: true } },
         approvals: { select: { id: true, status: true } }
       }
-    })
+    }) as any
 
     if (!costCalculation) {
       return NextResponse.json(
@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if there's already an active approval
-    const existingApproval = costCalculation.approvals.find(a => 
+    const existingApproval = costCalculation.approvals.find((a: any) => 
       a.status === 'PENDING' || a.status === 'APPROVED'
     )
 
@@ -127,7 +127,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create approval in a transaction
-    const result = await db.$transaction(async (tx) => {
+    const result = await db.$transaction ? await db.$transaction(async (tx: any) => {
       // Create the approval
       const approval = await tx.approval.create({
         data: {
@@ -318,7 +318,9 @@ export async function POST(request: NextRequest) {
       })
 
       return approval
-    })
+    }) : (() => {
+      throw new Error('Database transactions not supported')
+    })()
 
     return NextResponse.json({
       success: true,

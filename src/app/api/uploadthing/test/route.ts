@@ -15,7 +15,7 @@ export async function GET() {
     // Check auth session
     let session = null;
     try {
-      session = await getAuthenticatedUser();
+      session = await getAuthenticatedUser(request);
     } catch (error: any) {
       console.error('Auth error:', error);
     }

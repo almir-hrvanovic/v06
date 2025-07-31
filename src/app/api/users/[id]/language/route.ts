@@ -12,8 +12,8 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await getAuthenticatedUser();
-    if (!session?.user) {
+    const user = await getAuthenticatedUser(request);
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -48,7 +48,7 @@ export async function PUT(
   
   try {
     console.log('🔍 Getting server auth...');
-    const authenticatedUser = await getAuthenticatedUser();
+    const authenticatedUser = await getAuthenticatedUser(request);
     console.log('✅ User authenticated:', authenticatedUser?.id ? 'Valid' : 'Invalid');
     
     if (!authenticatedUser) {

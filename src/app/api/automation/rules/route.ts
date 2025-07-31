@@ -6,8 +6,8 @@ import { UserRole } from '@/lib/db/types'
 // GET /api/automation/rules - Get all automation rules
 export async function GET(request: NextRequest) {
   try {
-    const user = await getAuthenticatedUser()
-    if (!session?.user) {
+    const user = await getAuthenticatedUser(request)
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -64,8 +64,8 @@ const createRuleSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    const user = await getAuthenticatedUser()
-    if (!session?.user) {
+    const user = await getAuthenticatedUser(request)
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
