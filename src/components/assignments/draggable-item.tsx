@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { Building2, Package, Clock, Hash, User } from 'lucide-react'
 import { InquiryItemWithRelations, Priority } from '@/types'
 import { cn } from '@/lib/utils'
+import { getPriorityBadge, getPriorityBorderClass } from '@/lib/priority-utils'
 
 interface DraggableItemProps {
   item: InquiryItemWithRelations
@@ -28,16 +29,6 @@ export function DraggableItem({ item, isDragging }: DraggableItemProps) {
     transition,
   }
 
-  const getPriorityBadge = (priority: Priority) => {
-    const priorityMap = {
-      LOW: { variant: 'secondary' as const, className: 'text-gray-700' },
-      MEDIUM: { variant: 'default' as const, className: 'text-yellow-700' },
-      HIGH: { variant: 'destructive' as const, className: 'text-orange-700' },
-      URGENT: { variant: 'destructive' as const, className: 'text-red-700 font-bold' },
-    }
-    const { variant, className } = priorityMap[priority]
-    return <Badge variant={variant} className={className}>{priority}</Badge>
-  }
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
@@ -45,10 +36,7 @@ export function DraggableItem({ item, isDragging }: DraggableItemProps) {
         className={cn(
           "cursor-move transition-shadow duration-200 hover:shadow-md",
           "border-l-4",
-          item.inquiry.priority === 'URGENT' && "border-l-red-500",
-          item.inquiry.priority === 'HIGH' && "border-l-orange-500",
-          item.inquiry.priority === 'MEDIUM' && "border-l-yellow-500",
-          item.inquiry.priority === 'LOW' && "border-l-gray-400",
+          getPriorityBorderClass(item.inquiry.priority),
           (isDragging || isSortableDragging) && "opacity-50 shadow-lg scale-105"
         )}
       >

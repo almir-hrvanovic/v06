@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
+import { getPriorityBadge } from '@/lib/priority-utils'
 import { 
   Table, 
   TableBody, 
@@ -175,17 +176,6 @@ export default function InquiriesPage() {
     return <Badge variant={variant}>{label}</Badge>
   }
 
-  const getPriorityBadge = (priority: Priority) => {
-    const priorityMap = {
-      LOW: { variant: 'secondary' as const, label: t('inquiries.priority.low') },
-      MEDIUM: { variant: 'warning' as const, label: t('inquiries.priority.medium') },
-      HIGH: { variant: 'destructive' as const, label: t('inquiries.priority.high') },
-      URGENT: { variant: 'destructive' as const, label: t('inquiries.priority.urgent') },
-    }
-
-    const { variant, label } = priorityMap[priority]
-    return <Badge variant={variant}>{label}</Badge>
-  }
 
   const toggleRowExpanded = (inquiryId: string) => {
     setExpandedRows(prev => {
@@ -425,7 +415,7 @@ export default function InquiriesPage() {
                           </div>
                         </TableCell>
                         <TableCell>{getStatusBadge(inquiry.status)}</TableCell>
-                        <TableCell>{getPriorityBadge(inquiry.priority)}</TableCell>
+                        <TableCell>{getPriorityBadge(inquiry.priority, t(`inquiries.priority.${inquiry.priority.toLowerCase()}`))}</TableCell>
                         <TableCell>
                           <div className="text-sm">
                             <div>{t('inquiries.table.itemsCount', { count: inquiry.items.length })}</div>

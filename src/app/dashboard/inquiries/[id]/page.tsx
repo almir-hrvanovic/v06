@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { getPriorityBadge } from '@/lib/priority-utils'
 import { AttachmentManager } from '@/components/attachments/attachment-manager'
 import { PDFExportButton } from '@/components/pdf/pdf-export-button'
 import { OpenFolderButton } from '@/components/attachments/open-folder-button'
@@ -112,17 +113,6 @@ export default function InquiryDetailPage() {
     return <Badge variant={variant}>{label}</Badge>
   }
 
-  const getPriorityBadge = (priority: Priority) => {
-    const priorityMap = {
-      LOW: { variant: 'secondary' as const, label: t("common.priority.low") },
-      MEDIUM: { variant: 'warning' as const, label: t("common.priority.medium") },
-      HIGH: { variant: 'destructive' as const, label: t("common.priority.high") },
-      URGENT: { variant: 'destructive' as const, label: t("common.priority.urgent") },
-    }
-
-    const { variant, label } = priorityMap[priority]
-    return <Badge variant={variant}>{label}</Badge>
-  }
 
   const getItemStatusBadge = (status: string) => {
     const statusMap: { [key: string]: { variant: any, label: string } } = {
@@ -210,7 +200,7 @@ export default function InquiryDetailPage() {
             <h1 className="text-3xl font-bold tracking-tight">{inquiry.title}</h1>
             <div className="flex items-center space-x-4 mt-2">
               {getStatusBadge(inquiry.status)}
-              {getPriorityBadge(inquiry.priority)}
+              {getPriorityBadge(inquiry.priority, t(`common.priority.${inquiry.priority.toLowerCase()}`))}
               <span className="text-sm text-muted-foreground">
                 ID: {inquiry.id.slice(-8)}
               </span>
@@ -352,7 +342,7 @@ export default function InquiryDetailPage() {
                 </div>
                 <div>
                   <label className="text-sm font-medium text-muted-foreground">Priority</label>
-                  <div className="mt-1">{getPriorityBadge(inquiry.priority)}</div>
+                  <div className="mt-1">{getPriorityBadge(inquiry.priority, t(`common.priority.${inquiry.priority.toLowerCase()}`))}</div>
                 </div>
               </CardContent>
             </Card>
