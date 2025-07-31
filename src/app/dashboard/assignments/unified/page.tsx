@@ -1,23 +1,45 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useAuth } from '@/hooks/use-auth'
 import { useAssignmentsData } from '@/hooks/use-assignments-data'
+import { useSidebar } from '@/contexts/sidebar-context'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { TableView } from '@/components/assignments/table-view'
 import { DndView } from '@/components/assignments/dnd-view'
-import { AssignmentFilters } from '@/components/assignments/assignment-filters'
-import { Loader2, Table, Grip, RefreshCw } from 'lucide-react'
+import { Input } from '@/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Loader2, Table, Grip, RefreshCw, Search, Filter, RotateCcw, Save } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { cn } from '@/lib/utils'
 
 type ViewMode = 'table' | 'dnd'
 
 export default function UnifiedAssignmentsPage() {
   const { user } = useAuth()
   const t = useTranslations()
+  const { setIsCollapsed, setIsMobileOpen } = useSidebar()
   const [viewMode, setViewMode] = useState<ViewMode>('table')
+  const [isFilterExpanded, setIsFilterExpanded] = useState(false)
+  const [localFilters, setLocalFilters] = useState({
+    customerId: '',
+    inquiryId: '',
+    priority: '',
+    search: '',
+  })
+  const [dndHasChanges, setDndHasChanges] = useState(false)
+  
+  // Refs for DnD view functions
+  const dndResetRef = useRef<(() => void) | null>(null)
+  const dndApplyRef = useRef<(() => void) | null>(null)
   
   const {
     items,
@@ -44,11 +66,33 @@ export default function UnifiedAssignmentsPage() {
     }
   }, [])
 
-  // Save view mode preference
+  // Save view mode preference and handle sidebar
   const handleViewModeChange = (mode: ViewMode) => {
     setViewMode(mode)
     localStorage.setItem('assignments-view-mode', mode)
+    
+    // Close sidebar when entering DnD mode for more space
+    if (mode === 'dnd') {
+      setIsCollapsed(true)
+      setIsMobileOpen(false)
+    }
   }
+
+  // Handle filter changes
+  const handleFilterChange = (key: string, value: string) => {
+    const newFilters = { ...localFilters, [key]: value }
+    setLocalFilters(newFilters)
+    
+    // Convert empty strings and "all" to undefined for the callback
+    const callbackFilters = Object.entries(newFilters).reduce((acc, [k, v]) => {
+      if (v && v.trim() !== '' && v !== 'all') acc[k as keyof typeof newFilters] = v as any
+      return acc
+    }, {} as any)
+    
+    setFilters(callbackFilters)
+  }
+
+  const hasActiveFilters = Object.values(localFilters).some(v => v && v.trim() !== '' && v !== 'all')
 
   if (!user) {
     return null
@@ -125,56 +169,162 @@ export default function UnifiedAssignmentsPage() {
         </Card>
       </div>
 
-      {/* Filters */}
-      <AssignmentFilters
-        filters={filters}
-        onFiltersChange={setFilters}
-        customers={customers}
-        inquiries={inquiries}
-        users={users}
-      />
+      {/* Filters and View Mode Controls */}
+      <div className="space-y-2">
+        <div className="flex gap-2 items-center">
+          {/* View Mode Switch */}
+          <Tabs value={viewMode} onValueChange={(v) => handleViewModeChange(v as ViewMode)} className="mr-2">
+            <TabsList className="grid grid-cols-2 h-9">
+              <TabsTrigger value="table" className="flex items-center gap-1 text-xs px-3">
+                <Table className="h-3.5 w-3.5" />
+                <span className="hidden sm:inline">{t('assignments.tableView')}</span>
+              </TabsTrigger>
+              <TabsTrigger value="dnd" className="flex items-center gap-1 text-xs px-3">
+                <Grip className="h-3.5 w-3.5" />
+                <span className="hidden sm:inline">{t('assignments.dragDropView')}</span>
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
 
-      {/* View Mode Tabs */}
-      <Tabs value={viewMode} onValueChange={(v) => handleViewModeChange(v as ViewMode)}>
-        <TabsList className="grid w-[200px] grid-cols-2">
-          <TabsTrigger value="table" className="flex items-center gap-2">
-            <Table className="h-4 w-4" />
-            {t('assignments.tableView')}
-          </TabsTrigger>
-          <TabsTrigger value="dnd" className="flex items-center gap-2">
-            <Grip className="h-4 w-4" />
-            {t('assignments.dragDropView')}
-          </TabsTrigger>
-        </TabsList>
+          {/* Reset and Apply Buttons (DnD mode only) */}
+          {viewMode === 'dnd' && (
+            <>
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-9"
+                onClick={() => dndResetRef.current?.()}
+                disabled={!dndHasChanges}
+              >
+                <RotateCcw className="h-4 w-4 mr-1" />
+                {t('common.actions.reset')}
+              </Button>
+              <Button
+                variant="default"
+                size="sm"
+                className="h-9"
+                onClick={() => dndApplyRef.current?.()}
+                disabled={!dndHasChanges}
+              >
+                <Save className="h-4 w-4 mr-1" />
+                {t('common.actions.apply')}
+              </Button>
+            </>
+          )}
 
-        {loading ? (
-          <div className="flex items-center justify-center h-64">
-            <Loader2 className="h-8 w-8 animate-spin" />
+          {/* Search Bar */}
+          <div className="relative flex-1 transition-all duration-200">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              placeholder={t("placeholders.searchItems")}
+              value={localFilters.search}
+              onChange={(e) => handleFilterChange('search', e.target.value)}
+              className="pl-9 h-9"
+            />
           </div>
-        ) : (
-          <>
-            <TabsContent value="table" className="mt-6">
-              <TableView
-                items={filteredItems}
-                users={users}
-                canAssign={canAssign}
-                onAssign={assignItems}
-                userWorkloads={userWorkloads}
-              />
-            </TabsContent>
 
-            <TabsContent value="dnd" className="mt-6">
-              <DndView
-                items={filteredItems}
-                users={users}
-                canAssign={canAssign}
-                onAssign={assignItems}
-                userWorkloads={userWorkloads}
-              />
-            </TabsContent>
-          </>
+          {/* Filter Button */}
+          <Button
+            variant={isFilterExpanded ? "secondary" : "outline"}
+            size="sm"
+            onClick={() => setIsFilterExpanded(!isFilterExpanded)}
+            className="h-9"
+          >
+            <Filter className="h-4 w-4 mr-1" />
+            {t("common.actions.filter")}
+            {hasActiveFilters && (
+              <span className="ml-1 bg-primary text-primary-foreground rounded-full h-4 w-4 text-xs flex items-center justify-center">
+                {Object.values(localFilters).filter(v => v && v.trim() !== '' && v !== 'all').length}
+              </span>
+            )}
+          </Button>
+        </div>
+
+        {/* Expandable Filters */}
+        {isFilterExpanded && (
+          <div className="flex gap-2 items-center animate-in slide-in-from-top-2 duration-200">
+            <Select
+              value={localFilters.customerId || 'all'}
+              onValueChange={(value) => handleFilterChange('customerId', value === 'all' ? '' : value)}
+            >
+              <SelectTrigger className="h-9 text-xs">
+                <SelectValue placeholder={t("placeholders.allCustomers")} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">{t('common.all')}</SelectItem>
+                {customers.map((customer) => (
+                  <SelectItem key={customer.id} value={customer.id}>
+                    {customer.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select
+              value={localFilters.inquiryId || 'all'}
+              onValueChange={(value) => handleFilterChange('inquiryId', value === 'all' ? '' : value)}
+            >
+              <SelectTrigger className="h-9 text-xs">
+                <SelectValue placeholder={t("placeholders.allInquiries")} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">{t('common.all')}</SelectItem>
+                {inquiries.map((inquiry) => (
+                  <SelectItem key={inquiry.id} value={inquiry.id}>
+                    {inquiry.title}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select
+              value={localFilters.priority || 'all'}
+              onValueChange={(value) => handleFilterChange('priority', value === 'all' ? '' : value)}
+            >
+              <SelectTrigger className="h-9 text-xs">
+                <SelectValue placeholder={t("placeholders.allPriorities")} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">{t('common.all')}</SelectItem>
+                <SelectItem value="LOW">{t('common.priority.low')}</SelectItem>
+                <SelectItem value="MEDIUM">{t('common.priority.medium')}</SelectItem>
+                <SelectItem value="HIGH">{t('common.priority.high')}</SelectItem>
+                <SelectItem value="URGENT">{t('common.priority.urgent')}</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         )}
-      </Tabs>
+      </div>
+
+      {/* Content Area */}
+      {loading ? (
+        <div className="flex items-center justify-center h-64">
+          <Loader2 className="h-8 w-8 animate-spin" />
+        </div>
+      ) : (
+        <>
+          {viewMode === 'table' ? (
+            <TableView
+              items={filteredItems}
+              users={users}
+              canAssign={canAssign}
+              onAssign={assignItems}
+              userWorkloads={userWorkloads}
+            />
+          ) : (
+            <DndView
+              items={filteredItems}
+              users={users}
+              canAssign={canAssign}
+              onAssign={assignItems}
+              userWorkloads={userWorkloads}
+              onResetRef={dndResetRef}
+              onApplyRef={dndApplyRef}
+              onHasChangesUpdate={setDndHasChanges}
+            />
+          )}
+        </>
+      )}
     </div>
   )
 }

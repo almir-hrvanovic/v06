@@ -37,6 +37,9 @@ interface DndViewProps {
   canAssign: boolean
   onAssign: (itemIds: string[], userId: string | null) => Promise<boolean>
   userWorkloads: Map<string, { pending: number; completed: number; total: number }>
+  onResetRef?: React.MutableRefObject<(() => void) | null>
+  onApplyRef?: React.MutableRefObject<(() => void) | null>
+  onHasChangesUpdate?: (hasChanges: boolean) => void
 }
 
 interface PlannedAssignment {
@@ -49,7 +52,10 @@ export function DndView({
   users,
   canAssign,
   onAssign,
-  userWorkloads
+  userWorkloads,
+  onResetRef,
+  onApplyRef,
+  onHasChangesUpdate
 }: DndViewProps) {
   const t = useTranslations()
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([])
@@ -57,6 +63,11 @@ export function DndView({
   const [activeId, setActiveId] = useState<string | null>(null)
   const [plannedAssignments, setPlannedAssignments] = useState<PlannedAssignment[]>([])
   const [hasChanges, setHasChanges] = useState(false)
+  
+  // Notify parent about hasChanges state
+  useEffect(() => {
+    onHasChangesUpdate?.(hasChanges)
+  }, [hasChanges, onHasChangesUpdate])
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -97,6 +108,16 @@ export function DndView({
       localStorage.setItem('dnd-selected-users', JSON.stringify(selectedUserIds))
     }
   }, [selectedUserIds])
+
+  // Expose reset and apply functions to parent
+  useEffect(() => {
+    if (onResetRef) {
+      onResetRef.current = handleReset
+    }
+    if (onApplyRef) {
+      onApplyRef.current = handleApply
+    }
+  })
 
   // Initialize planned assignments from current state
   useEffect(() => {
@@ -182,7 +203,7 @@ export function DndView({
     }
   }
 
-  const handleApplyChanges = async () => {
+  const handleApply = async () => {
     // Group changes by assignment action
     const toAssign = new Map<string, string[]>() // userId -> itemIds
     const toUnassign: string[] = []
@@ -238,39 +259,17 @@ export function DndView({
 
   return (
     <div className="space-y-4">
-      {/* Actions Bar */}
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-4">
-          <Badge variant="outline" className="px-3 py-1">
-            <Users className="h-4 w-4 mr-2" />
-            {selectedUserIds.length} / {users.length} users
-          </Badge>
-          <UserFilterDropdown
-            users={users}
-            selectedUserIds={selectedUserIds}
-            onSelectionChange={setSelectedUserIds}
-          />
-        </div>
-        
-        {canAssign && hasChanges && (
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleReset}
-            >
-              <RotateCcw className="h-4 w-4 mr-2" />
-              {t('assignments.reset')}
-            </Button>
-            <Button
-              size="sm"
-              onClick={handleApplyChanges}
-            >
-              <Save className="h-4 w-4 mr-2" />
-              {t('assignments.apply')}
-            </Button>
-          </div>
-        )}
+      {/* User Filter */}
+      <div className="flex items-center gap-4">
+        <Badge variant="outline" className="px-3 py-1">
+          <Users className="h-4 w-4 mr-2" />
+          {selectedUserIds.length} / {users.length} users
+        </Badge>
+        <UserFilterDropdown
+          users={users}
+          selectedUserIds={selectedUserIds}
+          onSelectionChange={setSelectedUserIds}
+        />
       </div>
 
       {/* DND Context */}
