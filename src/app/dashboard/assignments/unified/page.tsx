@@ -141,7 +141,7 @@ export default function UnifiedAssignmentsPage() {
       const now = Date.now()
       if (!analyticsData || now - lastAnalyticsFetch > 30000) {
         setAnalyticsLoading(true)
-        fetch('/api/analytics/workload?timeRange=30')
+        fetch('/api/analytics/workload-optimized?timeRange=30')
           .then(res => res.json())
           .then(data => {
             console.log('Analytics data received:', data)
