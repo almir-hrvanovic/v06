@@ -17,9 +17,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Loader2, Table, Grip, RefreshCw, Search, Filter, RotateCcw, Save } from 'lucide-react'
+import { Loader2, Table, Grip, RefreshCw, Search, Filter, RotateCcw, Save, Users } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
+import { UserFilterDropdown } from '@/components/assignments/user-filter-dropdown'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
 
 type ViewMode = 'table' | 'dnd'
 
@@ -36,6 +42,8 @@ export default function UnifiedAssignmentsPage() {
     search: '',
   })
   const [dndHasChanges, setDndHasChanges] = useState(false)
+  const [selectedUserIds, setSelectedUserIds] = useState<string[]>([])
+  const [showUserFilter, setShowUserFilter] = useState(false)
   
   // Refs for DnD view functions
   const dndResetRef = useRef<(() => void) | null>(null)
@@ -65,6 +73,33 @@ export default function UnifiedAssignmentsPage() {
       setViewMode(savedMode)
     }
   }, [])
+
+  // Initialize selected users
+  useEffect(() => {
+    if (users.length > 0 && selectedUserIds.length === 0) {
+      const userIds = users.map(u => u.id)
+      // Load saved selection or select all
+      const saved = localStorage.getItem('dnd-selected-users')
+      if (saved) {
+        try {
+          const savedIds = JSON.parse(saved)
+          const validIds = savedIds.filter((id: string) => userIds.includes(id))
+          setSelectedUserIds(validIds.length > 0 ? validIds : userIds)
+        } catch {
+          setSelectedUserIds(userIds)
+        }
+      } else {
+        setSelectedUserIds(userIds)
+      }
+    }
+  }, [users, selectedUserIds.length])
+
+  // Save selected users preference
+  useEffect(() => {
+    if (selectedUserIds.length > 0) {
+      localStorage.setItem('dnd-selected-users', JSON.stringify(selectedUserIds))
+    }
+  }, [selectedUserIds])
 
   // Save view mode preference and handle sidebar
   const handleViewModeChange = (mode: ViewMode) => {
@@ -157,16 +192,39 @@ export default function UnifiedAssignmentsPage() {
             <div className="text-2xl font-bold">{assignedItems.length}</div>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">
-              {t('assignments.activeUsers')}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{users.length}</div>
-          </CardContent>
-        </Card>
+        <Popover open={showUserFilter} onOpenChange={setShowUserFilter}>
+          <PopoverTrigger asChild>
+            <Card className={cn(
+              "cursor-pointer transition-all",
+              "hover:shadow-md hover:border-primary/50",
+              showUserFilter && "border-primary shadow-md"
+            )}>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium flex items-center justify-between">
+                  {t('assignments.activeUsers')}
+                  <Users className="h-4 w-4 text-muted-foreground" />
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-baseline gap-2">
+                  <div className="text-2xl font-bold">
+                    {selectedUserIds.length}
+                  </div>
+                  {selectedUserIds.length !== users.length && (
+                    <span className="text-sm text-muted-foreground">/ {users.length}</span>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </PopoverTrigger>
+          <PopoverContent className="w-64 p-0" align="end">
+            <UserFilterDropdown
+              users={users}
+              selectedUserIds={selectedUserIds}
+              onSelectionChange={setSelectedUserIds}
+            />
+          </PopoverContent>
+        </Popover>
       </div>
 
       {/* Filters and View Mode Controls */}
@@ -197,7 +255,7 @@ export default function UnifiedAssignmentsPage() {
                 disabled={!dndHasChanges}
               >
                 <RotateCcw className="h-4 w-4 mr-1" />
-                {t('common.actions.reset')}
+                {t('assignments.actions.reassign')}
               </Button>
               <Button
                 variant="default"
@@ -222,6 +280,27 @@ export default function UnifiedAssignmentsPage() {
               className="pl-9 h-9"
             />
           </div>
+
+          {/* Reset Filters Button */}
+          {hasActiveFilters && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                setLocalFilters({
+                  customerId: '',
+                  inquiryId: '',
+                  priority: '',
+                  search: '',
+                })
+                setFilters({})
+              }}
+              className="h-9"
+            >
+              <RotateCcw className="h-4 w-4 mr-1" />
+              {t('common.actions.reset')}
+            </Button>
+          )}
 
           {/* Filter Button */}
           <Button
@@ -310,6 +389,7 @@ export default function UnifiedAssignmentsPage() {
               canAssign={canAssign}
               onAssign={assignItems}
               userWorkloads={userWorkloads}
+              selectedUserIds={selectedUserIds}
             />
           ) : (
             <DndView
@@ -321,6 +401,7 @@ export default function UnifiedAssignmentsPage() {
               onResetRef={dndResetRef}
               onApplyRef={dndApplyRef}
               onHasChangesUpdate={setDndHasChanges}
+              selectedUserIds={selectedUserIds}
             />
           )}
         </>

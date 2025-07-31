@@ -21,13 +21,11 @@ import {
 } from '@dnd-kit/sortable'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { DraggableItem } from '@/components/assignments/draggable-item'
 import { UserDropZone } from '@/components/assignments/user-drop-zone'
 import { UnassignedDropZone } from '@/components/assignments/unassigned-drop-zone'
 import { SortableUserZone } from '@/components/assignments/sortable-user-zone'
-import { UserFilterDropdown } from '@/components/assignments/user-filter-dropdown'
-import { Save, RotateCcw, Users } from 'lucide-react'
+import { Save, RotateCcw } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
 
@@ -40,6 +38,7 @@ interface DndViewProps {
   onResetRef?: React.MutableRefObject<(() => void) | null>
   onApplyRef?: React.MutableRefObject<(() => void) | null>
   onHasChangesUpdate?: (hasChanges: boolean) => void
+  selectedUserIds?: string[]
 }
 
 interface PlannedAssignment {
@@ -55,10 +54,11 @@ export function DndView({
   userWorkloads,
   onResetRef,
   onApplyRef,
-  onHasChangesUpdate
+  onHasChangesUpdate,
+  selectedUserIds: parentSelectedUserIds
 }: DndViewProps) {
   const t = useTranslations()
-  const [selectedUserIds, setSelectedUserIds] = useState<string[]>([])
+  const [localSelectedUserIds, setLocalSelectedUserIds] = useState<string[]>([])
   const [orderedUserIds, setOrderedUserIds] = useState<string[]>([])
   const [activeId, setActiveId] = useState<string | null>(null)
   const [plannedAssignments, setPlannedAssignments] = useState<PlannedAssignment[]>([])
@@ -80,34 +80,40 @@ export function DndView({
     })
   )
 
+  // Use parent's selectedUserIds or manage locally
+  const selectedUserIds = parentSelectedUserIds || localSelectedUserIds
+
   // Initialize user selection and order
   useEffect(() => {
     if (users.length > 0 && orderedUserIds.length === 0) {
       const userIds = users.map(u => u.id)
       setOrderedUserIds(userIds)
       
-      // Load saved selection or select all
-      const saved = localStorage.getItem('dnd-selected-users')
-      if (saved) {
-        try {
-          const savedIds = JSON.parse(saved)
-          const validIds = savedIds.filter((id: string) => userIds.includes(id))
-          setSelectedUserIds(validIds.length > 0 ? validIds : userIds)
-        } catch {
-          setSelectedUserIds(userIds)
+      // Only manage selection locally if parent doesn't provide it
+      if (!parentSelectedUserIds) {
+        // Load saved selection or select all
+        const saved = localStorage.getItem('dnd-selected-users')
+        if (saved) {
+          try {
+            const savedIds = JSON.parse(saved)
+            const validIds = savedIds.filter((id: string) => userIds.includes(id))
+            setLocalSelectedUserIds(validIds.length > 0 ? validIds : userIds)
+          } catch {
+            setLocalSelectedUserIds(userIds)
+          }
+        } else {
+          setLocalSelectedUserIds(userIds)
         }
-      } else {
-        setSelectedUserIds(userIds)
       }
     }
-  }, [users, orderedUserIds.length])
+  }, [users, orderedUserIds.length, parentSelectedUserIds])
 
-  // Save selected users preference
+  // Save selected users preference only if managing locally
   useEffect(() => {
-    if (selectedUserIds.length > 0) {
-      localStorage.setItem('dnd-selected-users', JSON.stringify(selectedUserIds))
+    if (!parentSelectedUserIds && localSelectedUserIds.length > 0) {
+      localStorage.setItem('dnd-selected-users', JSON.stringify(localSelectedUserIds))
     }
-  }, [selectedUserIds])
+  }, [localSelectedUserIds, parentSelectedUserIds])
 
   // Expose reset and apply functions to parent
   useEffect(() => {
@@ -249,7 +255,7 @@ export function DndView({
     }))
     setPlannedAssignments(assignments)
     setHasChanges(false)
-    toast.info(t('assignments.changesReset'))
+    toast.info(t('assignments.changesReassigned'))
   }
 
   // Active dragging item
@@ -259,19 +265,6 @@ export function DndView({
 
   return (
     <div className="space-y-4">
-      {/* User Filter */}
-      <div className="flex items-center gap-4">
-        <Badge variant="outline" className="px-3 py-1">
-          <Users className="h-4 w-4 mr-2" />
-          {selectedUserIds.length} / {users.length} users
-        </Badge>
-        <UserFilterDropdown
-          users={users}
-          selectedUserIds={selectedUserIds}
-          onSelectionChange={setSelectedUserIds}
-        />
-      </div>
-
       {/* DND Context */}
       <DndContext
         sensors={sensors}

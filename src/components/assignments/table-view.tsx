@@ -30,6 +30,7 @@ interface TableViewProps {
   canAssign: boolean
   onAssign: (itemIds: string[], userId: string | null) => Promise<boolean>
   userWorkloads: Map<string, { pending: number; completed: number; total: number }>
+  selectedUserIds?: string[]
 }
 
 export function TableView({
@@ -37,11 +38,17 @@ export function TableView({
   users,
   canAssign,
   onAssign,
-  userWorkloads
+  userWorkloads,
+  selectedUserIds
 }: TableViewProps) {
   const t = useTranslations()
   const [selectedItems, setSelectedItems] = useState<string[]>([])
   const [assigningItems, setAssigningItems] = useState<string[]>([])
+  
+  // Filter users based on selectedUserIds
+  const filteredUsers = selectedUserIds && selectedUserIds.length > 0
+    ? users.filter(user => selectedUserIds.includes(user.id))
+    : users
 
   const handleSelectAll = (checked: boolean) => {
     if (checked) {
@@ -125,7 +132,7 @@ export function TableView({
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="unassigned">Unassign</SelectItem>
-              {users.map((user) => {
+              {filteredUsers.map((user) => {
                 const workload = userWorkloads.get(user.id)
                 return (
                   <SelectItem key={user.id} value={user.id}>
@@ -227,7 +234,7 @@ export function TableView({
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="unassigned">Unassigned</SelectItem>
-                          {users.map((user) => {
+                          {filteredUsers.map((user) => {
                             const workload = userWorkloads.get(user.id)
                             return (
                               <SelectItem key={user.id} value={user.id}>

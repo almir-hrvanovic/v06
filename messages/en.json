@@ -1214,6 +1214,7 @@
     "unsavedChanges": "You have unsaved changes",
     "changesReset": "Changes have been reset",
     "changesApplied": "Changes applied successfully",
+    "changesReassigned": "Assignments have been reset to original state",
     "reassignmentNotAllowed": "Items in progress cannot be reassigned without approval",
     "tableView": "Table",
     "dragDropView": "Drag & Drop",
