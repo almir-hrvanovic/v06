@@ -17,7 +17,7 @@ interface UserDropZoneProps {
   isOver?: boolean
 }
 
-export function UserDropZone({ user, items, isOver }: UserDropZoneProps) {
+export function UserDropZone({ user, items = [], isOver }: UserDropZoneProps) {
   const { setNodeRef } = useDroppable({
     id: `user-${user.id}`,
   })

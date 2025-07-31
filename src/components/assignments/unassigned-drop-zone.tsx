@@ -14,7 +14,7 @@ interface UnassignedDropZoneProps {
   isOver?: boolean
 }
 
-export function UnassignedDropZone({ items, isOver }: UnassignedDropZoneProps) {
+export function UnassignedDropZone({ items = [], isOver }: UnassignedDropZoneProps) {
   const t = useTranslations()
   const { setNodeRef } = useDroppable({
     id: 'unassigned',

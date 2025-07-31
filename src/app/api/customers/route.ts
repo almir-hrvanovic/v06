@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
       orderBy: { createdAt: 'desc' }
     })
 
-    return NextResponse.json(customers)
+    return NextResponse.json({ data: customers, total: customers.length })
   } catch (error) {
     console.error('Failed to fetch customers:', error)
     return NextResponse.json(

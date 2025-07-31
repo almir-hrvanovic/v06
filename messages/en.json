@@ -1219,7 +1219,19 @@
     "dragDropView": "Drag & Drop",
     "description": "Manage item assignments and workload distribution",
     "totalItems": "Total Items",
-    "assignmentFilters": "Assignment Filters"
+    "assignmentFilters": "Assignment Filters",
+    "unassigned": "Unassigned",
+    "assigned": "Assigned",
+    "activeUsers": "Active Users",
+    "item": "Item",
+    "customer": "Customer",
+    "inquiry": "Inquiry",
+    "priority": "Priority",
+    "assignedTo": "Assigned To",
+    "quantity": "Quantity",
+    "status": "Status",
+    "actions": "Actions",
+    "noItems": "No items found"
   },
   "automation": {
     "_context": "Workflow automation system for rules and triggers",

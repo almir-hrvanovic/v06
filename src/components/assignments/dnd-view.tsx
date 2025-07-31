@@ -308,12 +308,24 @@ export function DndView({
                     const workload = userWorkloads.get(user.id)
                     
                     return (
-                      <SortableUserZone key={user.id} user={user}>
+                      <SortableUserZone 
+                        key={user.id} 
+                        user={{
+                          ...user,
+                          pendingCount: workload?.pending || 0,
+                          completedCount: workload?.completed || 0
+                        }}
+                        items={userItems}
+                        isOver={false}
+                      >
                         <UserDropZone
-                          user={user}
+                          user={{
+                            ...user,
+                            pendingCount: workload?.pending || 0,
+                            completedCount: workload?.completed || 0
+                          }}
                           items={userItems}
                           isOver={false}
-                          workload={workload}
                         />
                       </SortableUserZone>
                     )

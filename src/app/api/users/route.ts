@@ -66,7 +66,7 @@ export async function GET(request: NextRequest) {
       orderBy: { name: 'asc' }
     })
 
-    return NextResponse.json(users)
+    return NextResponse.json({ data: users, total: users.length })
   } catch (error) {
     console.error('Get users error:', error)
     return NextResponse.json(
