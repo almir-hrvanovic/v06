@@ -64,6 +64,7 @@ export default function UnifiedAssignmentsPage() {
   })
   const [analyticsData, setAnalyticsData] = useState<any>(null)
   const [analyticsLoading, setAnalyticsLoading] = useState(false)
+  const [lastAnalyticsFetch, setLastAnalyticsFetch] = useState<number>(0)
   
   // Refs for DnD view functions
   const dndResetRef = useRef<(() => void) | null>(null)
@@ -136,23 +137,28 @@ export default function UnifiedAssignmentsPage() {
   // Fetch analytics data when analytics tab is selected
   useEffect(() => {
     if (mainTab === 'analytics') {
-      setAnalyticsLoading(true)
-      fetch('/api/analytics/workload?timeRange=30')
-        .then(res => res.json())
-        .then(data => {
-          console.log('Analytics data received:', data)
-          if (data.error) {
-            console.error('Analytics API error:', data)
-          }
-          setAnalyticsData(data)
-          setAnalyticsLoading(false)
-        })
-        .catch(err => {
-          console.error('Failed to fetch analytics:', err)
-          setAnalyticsLoading(false)
-        })
+      // Only fetch if we don't have data or it's been more than 30 seconds
+      const now = Date.now()
+      if (!analyticsData || now - lastAnalyticsFetch > 30000) {
+        setAnalyticsLoading(true)
+        fetch('/api/analytics/workload?timeRange=30')
+          .then(res => res.json())
+          .then(data => {
+            console.log('Analytics data received:', data)
+            if (data.error) {
+              console.error('Analytics API error:', data)
+            }
+            setAnalyticsData(data)
+            setAnalyticsLoading(false)
+            setLastAnalyticsFetch(now)
+          })
+          .catch(err => {
+            console.error('Failed to fetch analytics:', err)
+            setAnalyticsLoading(false)
+          })
+      }
     }
-  }, [mainTab])
+  }, [mainTab, analyticsData, lastAnalyticsFetch])
 
   // Toggle workload chart visibility
   const toggleWorkloadChart = () => {

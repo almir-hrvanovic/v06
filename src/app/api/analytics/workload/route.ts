@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     const startDate = new Date()
     startDate.setDate(startDate.getDate() - timeRange)
 
-    // Get VP/VPP workload - simplified query first
+    // Get VP/VPP users
     const vpUsers = await db.user.findMany({
       where: {
         role: { in: ['VP', 'VPP'] },
@@ -40,23 +40,32 @@ export async function GET(request: NextRequest) {
     
     console.log('VP users found:', vpUsers.length)
     
-    // Get items assigned to each VP/VPP
-    const vpWorkload = []
-    for (const vp of vpUsers) {
-      const activeItemsCount = await db.inquiryItem.count({
-        where: {
-          assignedToId: vp.id,
-          status: { in: ['PENDING', 'ASSIGNED', 'IN_PROGRESS'] }
-        }
-      })
-      
-      vpWorkload.push({
-        ...vp,
-        _count: {
-          inquiryItems: activeItemsCount
-        }
-      })
-    }
+    // Get all items with their assignedToId in one query
+    const allAssignedItems = await db.inquiryItem.findMany({
+      where: {
+        assignedToId: { in: vpUsers.map(u => u.id) },
+        status: { in: ['PENDING', 'ASSIGNED', 'IN_PROGRESS'] }
+      },
+      select: {
+        assignedToId: true
+      }
+    })
+    
+    // Count items per user
+    const itemCountByUser = allAssignedItems.reduce((acc, item) => {
+      if (item.assignedToId) {
+        acc[item.assignedToId] = (acc[item.assignedToId] || 0) + 1
+      }
+      return acc
+    }, {} as Record<string, number>)
+    
+    // Build VP workload data
+    const vpWorkload = vpUsers.map(vp => ({
+      ...vp,
+      _count: {
+        inquiryItems: itemCountByUser[vp.id] || 0
+      }
+    }))
     
     console.log('VP workload data:', vpWorkload)
 
@@ -116,24 +125,32 @@ export async function GET(request: NextRequest) {
       assignments: count
     }))
 
-    // Get completed items count per user - simplified
-    const completedByUser = []
-    for (const vp of vpUsers) {
-      const completedCount = await db.inquiryItem.count({
-        where: {
-          assignedToId: vp.id,
-          status: { in: ['COSTED', 'APPROVED', 'QUOTED'] },
-          updatedAt: { gte: startDate }
-        }
-      })
-      
-      completedByUser.push({
-        id: vp.id,
-        _count: {
-          inquiryItems: completedCount
-        }
-      })
-    }
+    // Get completed items count per user - optimized
+    const completedItems = await db.inquiryItem.findMany({
+      where: {
+        assignedToId: { in: vpUsers.map(u => u.id) },
+        status: { in: ['COSTED', 'APPROVED', 'QUOTED'] },
+        updatedAt: { gte: startDate }
+      },
+      select: {
+        assignedToId: true
+      }
+    })
+    
+    // Count completed items per user
+    const completedCountByUser = completedItems.reduce((acc, item) => {
+      if (item.assignedToId) {
+        acc[item.assignedToId] = (acc[item.assignedToId] || 0) + 1
+      }
+      return acc
+    }, {} as Record<string, number>)
+    
+    const completedByUser = vpUsers.map(vp => ({
+      id: vp.id,
+      _count: {
+        inquiryItems: completedCountByUser[vp.id] || 0
+      }
+    }))
 
     // Create a map of completed items
     const completedMap = new Map(
