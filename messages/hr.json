@@ -52,6 +52,7 @@
       "converted": "Pretvoreno"
     },
     "all": "Sve",
+    "refresh": "Osvježi",
     "actions": {
       "_context": "Uobičajeni gumbovi akcija i operacije",
       "save": "Spremi",
@@ -67,10 +68,10 @@
       "next": "Sljedeći",
       "previous": "Prethodni",
       "search": "Pretraži",
+      "refresh": "Osvježi",
       "filter": "Filtriraj",
       "export": "Izvezi",
       "import": "Uvezi",
-      "refresh": "Osvježi",
       "loading": "Učitava...",
       "creating": "Stvara...",
       "processing": "Obrađuje...",
@@ -1121,6 +1122,7 @@
     "_context": "Sustav dodjele zadataka i upravljanja opterećenjem",
     "title": "Dodjele",
     "subtitle": "Upravljanje dodjelama zadataka i distribucijom opterećenja",
+    "description": "Povucite stavke da ih dodijelite VP-ovima ili VPP-ovima za izračun troškova",
     "list": {
       "title": "Sve dodjele",
       "count": "{count, plural, =0 {Nema dodjela} =1 {1 dodjela} few {# dodjele} other {# dodjela}} pronađeno",
@@ -1152,6 +1154,7 @@
     "itemAssignedTo": "Stavka dodijeljena {name}",
     "itemUnassigned": "Stavka uspješno uklonjena iz dodjele",
     "dropToUnassign": "Ispustite ovdje da uklonite dodjelu",
+    "unassigned": "Nedodijeljeno",
     "unassignedItems": "Nedodijeljene stavke",
     "dragDropTitle": "Povuci i ispusti dodjele",
     "dragDropDescription": "Povucite stavke da ih dodijelite VP-ovima ili VPP-ovima",
@@ -1168,8 +1171,24 @@
     "changesReset": "Promjene su poništene",
     "changesApplied": "Promjene su uspješno primijenjene",
     "reassignmentNotAllowed": "Stavke u tijeku ne mogu se ponovno dodijeliti bez odobrenja",
+    "pending": "Na čekanju",
+    "assignTo": "Dodijeli",
+    "totalItems": "Ukupno stavki",
+    "assigned": "Dodijeljeno",
+    "activeUsers": "Aktivni korisnici",
+    "item": "Stavka",
+    "customer": "Kupac",
+    "inquiry": "Upit",
+    "priority": "Prioritet",
+    "assignedTo": "Dodijeljeno",
+    "quantity": "Količina",
+    "noItems": "Nema stavki",
     "tableView": "Tablica",
-    "dragDropView": "Povuci i ispusti"
+    "dragDropView": "Povuci i ispusti",
+    "headers": {
+      "status": "Status",
+      "actions": "Akcije"
+    }
   },
   "automation": {
     "_context": "Sustav automatizacije tijeka rada za pravila i okidače",
@@ -2315,6 +2334,7 @@
     "companyLogo": "Logo tvrtke",
     "search": "Pretraži...",
     "filter": "Filtriraj...",
+    "searchItems": "Pretraži stavke...",
     "noResults": "Nema rezultata",
     "loading": "Učitava..."
   },

@@ -24,16 +24,16 @@ export async function GET(
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
-    const user = await db.user.findUnique({
+    const userData = await db.user.findUnique({
       where: { id },
       select: { preferredLanguage: true }
     });
 
-    if (!user) {
+    if (!userData) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    return NextResponse.json({ language: user.preferredLanguage });
+    return NextResponse.json({ language: userData.preferredLanguage });
   } catch (error) {
     console.error('Error fetching user language:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -48,20 +48,20 @@ export async function PUT(
   
   try {
     console.log('🔍 Getting server auth...');
-    const user = await getAuthenticatedUser();
-    console.log('✅ Session retrieved:', session?.user?.id ? 'Valid' : 'Invalid');
+    const authenticatedUser = await getAuthenticatedUser();
+    console.log('✅ User authenticated:', authenticatedUser?.id ? 'Valid' : 'Invalid');
     
-    if (!session?.user) {
-      console.log('❌ No session found');
+    if (!authenticatedUser) {
+      console.log('❌ No authenticated user found');
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     console.log('📥 Parsing params...');
     const { id } = await params;
-    console.log('🎯 Target user ID:', id, 'Session user ID:', user.id);
+    console.log('🎯 Target user ID:', id, 'Session user ID:', authenticatedUser.id);
 
     // Users can only update their own language preference
-    if (user.id !== id) {
+    if (authenticatedUser.id !== id) {
       console.log('❌ User ID mismatch');
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }

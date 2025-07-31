@@ -67,7 +67,7 @@ export async function PUT(
     }
 
     // Update user
-    const user = await db.user.update({
+    const updatedUser = await db.user.update({
       where: { id },
       data: validatedData
     })
@@ -82,15 +82,15 @@ export async function PUT(
         data: {
           action: 'UPDATE',
           entity: 'USER',
-          entityId: user.id,
+          entityId: updatedUser.id,
           userId: user.id!,
           oldData: existingUser,
-          newData: user
+          newData: updatedUser
         }
       })
     }
 
-    return NextResponse.json(user)
+    return NextResponse.json(updatedUser)
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -124,11 +124,11 @@ export async function DELETE(
     }
 
     // Check if user exists
-    const user = await db.user.findUnique({
+    const userToDelete = await db.user.findUnique({
       where: { id }
     })
 
-    if (!user) {
+    if (!userToDelete) {
       return NextResponse.json(
         { error: 'User not found' },
         { status: 404 }

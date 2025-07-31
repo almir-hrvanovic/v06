@@ -21,11 +21,11 @@ export async function PUT(
     const { id } = await params
 
     // Check if user exists
-    const user = await db.user.findUnique({
+    const targetUser = await db.user.findUnique({
       where: { id }
     })
 
-    if (!user) {
+    if (!targetUser) {
       return NextResponse.json(
         { error: 'User not found' },
         { status: 404 }
@@ -33,7 +33,7 @@ export async function PUT(
     }
 
     // Prevent toggling own status
-    if (user.id === user.id) {
+    if (targetUser.id === user.id) {
       return NextResponse.json(
         { error: 'Cannot change your own status' },
         { status: 400 }
@@ -43,7 +43,7 @@ export async function PUT(
     // Toggle active status
     const updatedUser = await db.user.update({
       where: { id },
-      data: { isActive: !user.isActive }
+      data: { isActive: !targetUser.isActive }
     })
 
     // Create audit log
@@ -51,12 +51,12 @@ export async function PUT(
       data: {
         action: 'UPDATE',
         entity: 'USER',
-        entityId: user.id,
+        entityId: targetUser.id,
         userId: user.id!,
-        oldData: { isActive: user.isActive },
+        oldData: { isActive: targetUser.isActive },
         newData: { isActive: updatedUser.isActive },
         metadata: {
-          userName: user.name,
+          userName: targetUser.name,
           action: updatedUser.isActive ? 'activated' : 'deactivated'
         }
       }

@@ -176,10 +176,10 @@ export function TableView({
               <TableHead>{t('assignments.customer')}</TableHead>
               <TableHead>{t('assignments.inquiry')}</TableHead>
               <TableHead>{t('assignments.priority')}</TableHead>
-              <TableHead>{t('assignments.status')}</TableHead>
+              <TableHead>{t('assignments.headers.status')}</TableHead>
               <TableHead>{t('assignments.assignedTo')}</TableHead>
               <TableHead>{t('assignments.quantity')}</TableHead>
-              {canAssign && <TableHead>{t('assignments.actions')}</TableHead>}
+              {canAssign && <TableHead>{t('assignments.headers.actions')}</TableHead>}
             </TableRow>
           </TableHeader>
           <TableBody>

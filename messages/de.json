@@ -267,7 +267,8 @@
     },
     "name": "Name",
     "email": "E-Mail",
-    "all": "Alle"
+    "all": "Alle",
+    "refresh": "Aktualisieren"
   },
   "errors": {
     "_context": "Allgemeine Fehlermeldungen, die in der gesamten Anwendung verwendet werden",
@@ -1124,6 +1125,23 @@
     "_context": "Aufgabenzuweisungssystem und Arbeitslastverwaltung",
     "title": "Zuweisungen",
     "subtitle": "Aufgabenzuweisungen und Arbeitsverteilung verwalten",
+    "description": "Aufgabenzuweisungen und Arbeitsverteilung verwalten",
+    "pending": "Ausstehend",
+    "assignTo": "Zuweisen an",
+    "unassigned": "Nicht zugewiesen",
+    "assigned": "Zugewiesen",
+    "totalItems": "Gesamt Artikel",
+    "activeUsers": "Aktive Benutzer",
+    "item": "Artikel",
+    "customer": "Kunde",
+    "inquiry": "Anfrage",
+    "priority": "Priorität",
+    "assignedTo": "Zugewiesen an",
+    "quantity": "Menge",
+    "headers": {
+      "status": "Status",
+      "actions": "Aktionen"
+    },
     "list": {
       "title": "Alle Zuweisungen",
       "count": "{count, plural, =0 {Keine Zuweisungen} =1 {1 Zuweisung} other {# Zuweisungen}} gefunden",
@@ -1708,6 +1726,7 @@
     "placeholders": {
       "searchUsers": "[German: searchUsers]",
       "searchCustomers": "[German: searchCustomers]",
+      "searchItems": "Artikel suchen...",
       "selectRole": "[German: selectRole]",
       "selectStatus": "[German: selectStatus]",
       "selectPriority": "[German: selectPriority]",
@@ -2316,6 +2335,7 @@
     "allStatuses": "Alle Status",
     "companyLogo": "Unternehmens-Logo",
     "search": "Suchen...",
+    "searchItems": "Artikel suchen...",
     "filter": "Filtern...",
     "noResults": "Keine Ergebnisse gefunden",
     "loading": "Wird geladen..."

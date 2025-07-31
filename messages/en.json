@@ -1235,8 +1235,10 @@
     "priority": "Priority",
     "assignedTo": "Assigned To",
     "quantity": "Quantity",
-    "status": "Status",
-    "actions": "Actions",
+    "headers": {
+      "status": "Status",
+      "actions": "Actions"
+    },
     "noItems": "No items found"
   },
   "automation": {
