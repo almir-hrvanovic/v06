@@ -1124,8 +1124,8 @@
   "assignments": {
     "_context": "Aufgabenzuweisungssystem und Arbeitslastverwaltung",
     "title": "Zuweisungen",
-    "subtitle": "Aufgabenzuweisungen und Arbeitsverteilung verwalten",
-    "description": "Aufgabenzuweisungen und Arbeitsverteilung verwalten",
+    "subtitle": "Artikel/Anfragen an Projektmanager zuweisen",
+    "description": "Artikel/Anfragen an Projektmanager zuweisen",
     "pending": "Ausstehend",
     "assignTo": "Zuweisen an",
     "unassigned": "Nicht zugewiesen",

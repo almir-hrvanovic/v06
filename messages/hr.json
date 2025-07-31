@@ -95,7 +95,8 @@
       "select": "Odaberi",
       "selectAll": "Odaberi sve",
       "deselectAll": "Poništi odabir",
-      "clearFilters": "Očisti filtere"
+      "clearFilters": "Očisti filtere",
+      "apply": "Primijeni"
     },
     "labels": {
       "_context": "Uobičajene oznake obrazaca i nazivi polja",
@@ -1121,8 +1122,8 @@
   "assignments": {
     "_context": "Sustav dodjele zadataka i upravljanja opterećenjem",
     "title": "Dodjele",
-    "subtitle": "Upravljanje dodjelama zadataka i distribucijom opterećenja",
-    "description": "Povucite stavke da ih dodijelite VP-ovima ili VPP-ovima za izračun troškova",
+    "subtitle": "Dodjelite stavke/upite voditeljima projekata",
+    "description": "Dodjelite stavke/upite voditeljima projekata",
     "list": {
       "title": "Sve dodjele",
       "count": "{count, plural, =0 {Nema dodjela} =1 {1 dodjela} few {# dodjele} other {# dodjela}} pronađeno",

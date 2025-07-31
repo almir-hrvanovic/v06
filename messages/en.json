@@ -1166,7 +1166,7 @@
   "assignments": {
     "_context": "Task assignment and workload management system",
     "title": "Assignments",
-    "subtitle": "Manage task assignments and workload distribution",
+    "subtitle": "Assign items/inquiries to project managers",
     "list": {
       "title": "All Assignments",
       "count": "{count, plural, =0 {No assignments} =1 {1 assignment} other {# assignments}} found",
@@ -1223,7 +1223,7 @@
     "reassignmentNotAllowed": "Items in progress cannot be reassigned without approval",
     "tableView": "Table",
     "dragDropView": "Drag & Drop",
-    "description": "Manage item assignments and workload distribution",
+    "description": "Assign items/inquiries to project managers",
     "totalItems": "Total Items",
     "assignmentFilters": "Assignment Filters",
     "unassigned": "Unassigned",

@@ -338,6 +338,11 @@ Database (source of truth) → Cookie (server access) → localStorage (client) 
 
 - **CRITICAL !!! FIRST THING TO CHECK! IS PROPER CENTRALISED AUTH AND DB CONNECTIONS - NO HARDCODE CONNECTIONS!**
 
+## Critical Action Guidelines
+
+### Code Modification Protocol
+- **CRITICAL!!!  IF CODE WILL BREAK FUNCIONALITY ASK FOR SPECIAL PERMISIONS!**
+
 ---
 
 **Remember**: This configuration prioritizes practical development workflows, concurrent execution, and maintaining high code quality through systematic approaches.
