@@ -44,6 +44,8 @@ export default function UnifiedAssignmentsPage() {
   const [dndHasChanges, setDndHasChanges] = useState(false)
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([])
   const [showUserFilter, setShowUserFilter] = useState(false)
+  const [tableSelectedItems, setTableSelectedItems] = useState<string[]>([])
+  const [showAssignDropdown, setShowAssignDropdown] = useState(false)
   
   // Refs for DnD view functions
   const dndResetRef = useRef<(() => void) | null>(null)
@@ -145,19 +147,81 @@ export default function UnifiedAssignmentsPage() {
             {t('assignments.description')}
           </p>
         </div>
-        <Button
-          onClick={refresh}
-          disabled={refreshing}
-          variant="outline"
-          size="sm"
-        >
-          {refreshing ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <RefreshCw className="h-4 w-4" />
+        <div className="flex gap-2">
+          <Button
+            onClick={refresh}
+            disabled={refreshing}
+            variant="outline"
+            size="sm"
+          >
+            {refreshing ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <RefreshCw className="h-4 w-4" />
+            )}
+            {t('common.refresh')}
+          </Button>
+          {viewMode === 'table' && canAssign && (
+            <Popover open={showAssignDropdown} onOpenChange={setShowAssignDropdown}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={tableSelectedItems.length === 0}
+                >
+                  <Save className="h-4 w-4 mr-1" />
+                  {t('assignments.actions.assign')} {tableSelectedItems.length > 0 && `(${tableSelectedItems.length})`}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-64 p-2" align="end">
+                <div className="space-y-2">
+                  <p className="text-sm font-medium px-2 py-1">
+                    {t('assignments.assignTo')}
+                  </p>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="w-full justify-start"
+                    onClick={async () => {
+                      const success = await assignItems(tableSelectedItems, null)
+                      if (success) {
+                        setTableSelectedItems([])
+                        setShowAssignDropdown(false)
+                      }
+                    }}
+                  >
+                    {t('assignments.unassigned')}
+                  </Button>
+                  {users.filter(u => selectedUserIds.includes(u.id)).map((user) => {
+                    const workload = userWorkloads.get(user.id)
+                    return (
+                      <Button
+                        key={user.id}
+                        variant="ghost"
+                        size="sm"
+                        className="w-full justify-start"
+                        onClick={async () => {
+                          const success = await assignItems(tableSelectedItems, user.id)
+                          if (success) {
+                            setTableSelectedItems([])
+                            setShowAssignDropdown(false)
+                          }
+                        }}
+                      >
+                        <span className="flex items-center justify-between w-full">
+                          <span>{user.name}</span>
+                          <span className="text-xs text-muted-foreground">
+                            {workload?.pending || 0} {t('assignments.pending')}
+                          </span>
+                        </span>
+                      </Button>
+                    )
+                  })}
+                </div>
+              </PopoverContent>
+            </Popover>
           )}
-          {t('common.refresh')}
-        </Button>
+        </div>
       </div>
 
       {/* Stats */}
@@ -390,6 +454,8 @@ export default function UnifiedAssignmentsPage() {
               onAssign={assignItems}
               userWorkloads={userWorkloads}
               selectedUserIds={selectedUserIds}
+              selectedItems={tableSelectedItems}
+              onSelectedItemsChange={setTableSelectedItems}
             />
           ) : (
             <DndView

@@ -9,7 +9,7 @@ const languageSchema = z.object({
 
 export async function PUT(request: NextRequest) {
   try {
-    const user = await getAuthenticatedUser()
+    const user = await getAuthenticatedUser(request)
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
@@ -51,19 +51,19 @@ export async function PUT(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const user = await getAuthenticatedUser()
+    const user = await getAuthenticatedUser(request)
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const user = await db.user.findUnique({
+    const userData = await db.user.findUnique({
       where: { id: user.id },
       select: { preferredLanguage: true }
     })
 
     return NextResponse.json({
       success: true,
-      preferredLanguage: user?.preferredLanguage || 'hr-HR'
+      preferredLanguage: userData?.preferredLanguage || 'hr-HR'
     })
 
   } catch (error) {

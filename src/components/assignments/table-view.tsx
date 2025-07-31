@@ -31,6 +31,8 @@ interface TableViewProps {
   onAssign: (itemIds: string[], userId: string | null) => Promise<boolean>
   userWorkloads: Map<string, { pending: number; completed: number; total: number }>
   selectedUserIds?: string[]
+  onSelectedItemsChange?: (itemIds: string[]) => void
+  selectedItems?: string[]
 }
 
 export function TableView({
@@ -39,11 +41,23 @@ export function TableView({
   canAssign,
   onAssign,
   userWorkloads,
-  selectedUserIds
+  selectedUserIds,
+  onSelectedItemsChange,
+  selectedItems: controlledSelectedItems
 }: TableViewProps) {
   const t = useTranslations()
-  const [selectedItems, setSelectedItems] = useState<string[]>([])
+  const [internalSelectedItems, setInternalSelectedItems] = useState<string[]>([])
   const [assigningItems, setAssigningItems] = useState<string[]>([])
+  
+  // Use controlled selectedItems if provided, otherwise use internal state
+  const selectedItems = controlledSelectedItems ?? internalSelectedItems
+  const setSelectedItems = (items: string[]) => {
+    if (onSelectedItemsChange) {
+      onSelectedItemsChange(items)
+    } else {
+      setInternalSelectedItems(items)
+    }
+  }
   
   // Filter users based on selectedUserIds
   const filteredUsers = selectedUserIds && selectedUserIds.length > 0

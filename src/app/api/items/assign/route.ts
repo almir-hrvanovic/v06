@@ -7,7 +7,9 @@ import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 export async function POST(request: NextRequest) {
   try {
-    const user = await getAuthenticatedUser()
+    console.log('Assign route: Starting')
+    const user = await getAuthenticatedUser(request)
+    console.log('Assign route: User authenticated:', user?.email)
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
@@ -17,13 +19,16 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
+    console.log('Assign route: Request body:', body)
     const validatedData = bulkAssignItemsSchema.parse(body)
+    console.log('Assign route: Validated data:', validatedData)
 
     // Verify assignee exists and has VP role
     const assignee = await db.user.findUnique({
       where: { id: validatedData.assigneeId },
       select: { id: true, name: true, email: true, role: true, isActive: true }
     })
+    console.log('Assign route: Assignee found:', assignee?.email)
 
     if (!assignee) {
       return NextResponse.json({ error: 'Assignee not found' }, { status: 404 })
@@ -192,6 +197,7 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('Assign items error:', error)
+    console.error('Error stack:', error instanceof Error ? error.stack : 'No stack')
     
     if (error instanceof Error && error.message.includes('validation')) {
       return NextResponse.json(
@@ -201,7 +207,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }

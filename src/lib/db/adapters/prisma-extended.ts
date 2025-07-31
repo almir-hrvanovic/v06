@@ -20,6 +20,7 @@ export function createExtendedPrismaOperations(prisma: PrismaClient): ExtendedDa
       findMany: (args) => prisma.inquiry.findMany(args),
       create: (args) => prisma.inquiry.create(args),
       update: (args) => prisma.inquiry.update(args),
+      updateMany: (args) => prisma.inquiry.updateMany(args),
       delete: (args) => prisma.inquiry.delete(args),
       count: (args) => prisma.inquiry.count(args)
     },
@@ -29,6 +30,7 @@ export function createExtendedPrismaOperations(prisma: PrismaClient): ExtendedDa
       findMany: (args) => prisma.inquiryItem.findMany(args),
       create: (args) => prisma.inquiryItem.create(args),
       update: (args) => prisma.inquiryItem.update(args),
+      updateMany: (args) => prisma.inquiryItem.updateMany(args),
       delete: (args) => prisma.inquiryItem.delete(args),
       count: (args) => prisma.inquiryItem.count(args)
     },
@@ -137,6 +139,7 @@ export function createExtendedTransactionOperations(tx: any): ExtendedDatabaseOp
       findMany: (args) => tx.inquiry.findMany(args),
       create: (args) => tx.inquiry.create(args),
       update: (args) => tx.inquiry.update(args),
+      updateMany: (args) => tx.inquiry.updateMany(args),
       delete: (args) => tx.inquiry.delete(args),
       count: (args) => tx.inquiry.count(args)
     },
@@ -146,6 +149,7 @@ export function createExtendedTransactionOperations(tx: any): ExtendedDatabaseOp
       findMany: (args) => tx.inquiryItem.findMany(args),
       create: (args) => tx.inquiryItem.create(args),
       update: (args) => tx.inquiryItem.update(args),
+      updateMany: (args) => tx.inquiryItem.updateMany(args),
       delete: (args) => tx.inquiryItem.delete(args),
       count: (args) => tx.inquiryItem.count(args)
     },
