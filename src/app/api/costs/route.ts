@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
         inquiry: { select: { id: true, title: true, status: true } },
         costCalculation: { select: { id: true } }
       }
-    })
+    }) as any
 
     if (!inquiryItem) {
       return NextResponse.json(
@@ -195,6 +195,7 @@ export async function POST(request: NextRequest) {
           action: 'CREATE',
           entity: 'CostCalculation',
           entityId: costCalculation.id,
+          oldData: {},
           newData: {
             materialCost: costCalculation.materialCost,
             laborCost: costCalculation.laborCost,
@@ -202,6 +203,7 @@ export async function POST(request: NextRequest) {
             totalCost: costCalculation.totalCost,
             inquiryItemId: inquiryItemId,
           },
+          metadata: {},
           userId: user.id,
           inquiryId: inquiryItem.inquiry.id,
         }
@@ -220,6 +222,8 @@ export async function POST(request: NextRequest) {
             title: 'Cost calculation needs approval',
             message: `Cost calculation for "${inquiryItem.name}" in inquiry "${inquiryItem.inquiry.title}" requires your approval`,
             userId: manager.id,
+            isRead: false,
+            readAt: null,
             data: {
               costCalculationId: costCalculation.id,
               inquiryItemId: inquiryItemId,

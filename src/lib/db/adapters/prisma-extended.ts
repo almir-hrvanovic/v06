@@ -8,6 +8,7 @@ export function createExtendedPrismaOperations(prisma: PrismaClient): ExtendedDa
   return {
     customer: {
       findUnique: (args) => prisma.customer.findUnique(args),
+      findFirst: (args) => prisma.customer.findFirst(args),
       findMany: (args) => prisma.customer.findMany(args),
       create: (args) => prisma.customer.create(args),
       update: (args) => prisma.customer.update(args),

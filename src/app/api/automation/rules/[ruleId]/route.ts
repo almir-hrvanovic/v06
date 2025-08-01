@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db/index'
 import { z } from 'zod'
 import { UserRole } from '@/lib/db/types'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 // GET /api/automation/rules/[ruleId] - Get single rule
 export async function GET(

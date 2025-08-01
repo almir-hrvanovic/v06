@@ -56,7 +56,7 @@ export async function GET(request: NextRequest) {
         skip,
         take: limit
       }),
-      db.businessPartner.count({ where })
+      db.businessPartner.count?.({ where }) || Promise.resolve(0)
     ])
 
     return NextResponse.json({

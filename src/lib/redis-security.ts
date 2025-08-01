@@ -36,7 +36,7 @@ export async function redisRateLimit(request: NextRequest, routeType: string = '
   
   try {
     // Check if Redis is available
-    const redisClient = redis()
+    const redisClient = await redis()
     if (!redisClient) {
       // Fallback to in-memory rate limiting if Redis unavailable
       return null

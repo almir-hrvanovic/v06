@@ -215,9 +215,9 @@ export async function POST(request: NextRequest) {
             try {
               await sendNotificationEmail(
                 'quote_ready',
-                salesUsers.map(s => s.email),
+                salesUsers.map((s: any) => s.email),
                 {
-                  salesPersonName: salesUsers.map(s => s.name).join(', '),
+                  salesPersonName: salesUsers.map((s: any) => s.name).join(', '),
                   inquiryTitle: costCalculation.inquiryItem.inquiry.title,
                   customerName: costCalculation.inquiryItem.inquiry.customer.name,
                   itemCount: inquiryItems.length

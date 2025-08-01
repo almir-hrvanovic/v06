@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
-import { cache, redisInstance } from '@/lib/redis'
+import { cache, isRedisAvailable } from '@/lib/upstash-redis'
 
 export async function GET(request: NextRequest) {
   try {
@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
     const stats = cache.getStats()
     
     // Check Redis connection status
-    const redisStatus = redisInstance.isReady() ? 'connected' : 'disconnected'
+    const redisStatus = isRedisAvailable() ? 'connected' : 'disconnected'
     
     // Force log current metrics for visibility
     cache.logStats()
@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
     const response = {
       redis: {
         status: redisStatus,
-        connected: redisInstance.isReady()
+        connected: isRedisAvailable()
       },
       cache: {
         ...stats,

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db/index'
 import { hasPermission } from '@/utils/supabase/api-auth'
 import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
-import { cache } from '@/lib/redis'
+import { cache } from '@/lib/upstash-redis'
 
 export async function GET(request: NextRequest) {
   const startTime = Date.now()
@@ -35,8 +35,8 @@ export async function GET(request: NextRequest) {
     console.log(`[API] /analytics/workload cache MISS for timeRange ${timeRange} - querying database`)
     
     // Quick check: Count total inquiry items
-    const totalItems = await db.inquiryItem.count()
-    console.log('Total inquiry items in database:', totalItems)
+    const totalItems = await db.inquiryItem.count?.()
+    console.log('Total inquiry items in database:', totalItems || 'count not available')
 
     const startDate = new Date()
     startDate.setDate(startDate.getDate() - timeRange)

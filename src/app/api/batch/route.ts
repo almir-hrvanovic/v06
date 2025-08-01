@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { apiAuth } from '@/utils/api/optimized-auth-wrapper'
 import { ApiOptimizer } from '@/lib/api-optimization'
 import { z } from 'zod'
 
@@ -17,8 +16,19 @@ const batchRequestSchema = z.object({
  * Batch API endpoint for handling multiple operations in a single request
  * This reduces the number of HTTP requests and improves performance
  */
-export const POST = apiAuth.withAuth(async (request: NextRequest, user: any) => {
+export async function POST(request: NextRequest) {
   try {
+    // Check authentication
+    const { optimizedAuth } = await import('@/utils/supabase/optimized-auth');
+    const user = await optimizedAuth.getUser(request);
+    
+    if (!user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     const body = await request.json()
     const validatedData = batchRequestSchema.parse(body)
 
@@ -60,4 +70,4 @@ export const POST = apiAuth.withAuth(async (request: NextRequest, user: any) => 
       { status: 500 }
     )
   }
-})
+}

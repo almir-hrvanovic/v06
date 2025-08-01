@@ -1,24 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createHash } from 'crypto'
 import { gzipSync, brotliCompressSync } from 'zlib'
-// Import logging utility (fallback to console if not available)
-let OptimizationLogger: any
-try {
-  const loggingModule = require('@/Optimising_Doc/Templates/logging-utility')
-  OptimizationLogger = loggingModule.OptimizationLogger
-} catch {
-  // Fallback logger if optimization logger is not available
-  OptimizationLogger = class {
-    constructor(public issueId: string, public phase: string) {}
-    startOperation(name: string) { console.log(`[${this.issueId}] Starting: ${name}`) }
-    endOperation(name: string, success: boolean, details?: any) { 
-      console.log(`[${this.issueId}] ${success ? 'Completed' : 'Failed'}: ${name}`, details) 
-    }
-    log(level: string, message: string, data?: any) { 
-      console.log(`[${this.issueId}] ${level}: ${message}`, data) 
-    }
-  }
-}
+// Import logging utility
+import { OptimizationLogger } from '@/lib/optimization-logger'
 
 // Initialize logger for API optimization tracking
 const logger = new OptimizationLogger('api-optimization', 'quick-wins')

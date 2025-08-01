@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db/index'
 import { UserRole } from '@/lib/db/types'
 import { z } from 'zod'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 
 // Schema for updating customers
 const updateCustomerSchema = z.object({
@@ -83,7 +84,8 @@ export async function PUT(
         newData: customer as any,
         metadata: {
           customerName: customer.name
-        }
+        },
+        inquiryId: null
       }
     })
 
@@ -129,7 +131,7 @@ export async function DELETE(
           select: { inquiries: true }
         }
       }
-    })
+    }) as any
 
     if (!customer) {
       return NextResponse.json(
@@ -158,7 +160,8 @@ export async function DELETE(
             action: 'deactivated',
             customerName: customer.name,
             reason: 'Has existing inquiries'
-          }
+          },
+          inquiryId: null
         }
       })
 
@@ -177,10 +180,12 @@ export async function DELETE(
         entityId: customer.id,
         userId: user.id!,
         oldData: customer as any,
+        newData: {},
         metadata: {
           customerName: customer.name,
           customerEmail: customer.email
-        }
+        },
+        inquiryId: null
       }
     })
 

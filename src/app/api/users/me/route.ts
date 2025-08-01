@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 import { db } from '@/lib/db/index'
-import { cache, cacheKeys } from '@/lib/redis'
+import { cache, cacheKeys } from '@/lib/upstash-redis'
 
 export async function GET(request: NextRequest) {
   const startTime = Date.now()

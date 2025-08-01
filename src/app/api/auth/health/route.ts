@@ -1,20 +1,35 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { optimizedAuth } from '@/utils/supabase/optimized-auth';
-import { cache } from '@/lib/redis';
-import { apiAuth } from '@/utils/api/optimized-auth-wrapper';
-import { UserRole } from '@/lib/db/types';
 
-// Health check endpoint for authentication system
-export const GET = apiAuth.withRole(['SUPERUSER', 'ADMIN'], async (request: NextRequest, user: any) => {
+// Simplified health check endpoint - we'll implement auth checking inside
+export async function GET(request: NextRequest) {
   try {
+    // Dynamic imports to avoid build-time issues
+    const [
+      { optimizedAuth },
+      { cache },
+      { authMiddleware }
+    ] = await Promise.all([
+      import('@/utils/supabase/optimized-auth'),
+      import('@/lib/redis'),
+      import('@/middleware/optimized-auth-middleware')
+    ]);
+
+    // Check if user has permission
+    const user = await optimizedAuth.getUser(request);
+    if (!user || !['SUPERUSER', 'ADMIN'].includes(user.role)) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     // Get auth system health
     const authHealth = await optimizedAuth.healthCheck();
     
     // Get cache statistics
     const cacheStats = cache.getStats();
     
-    // Get middleware performance stats (if available)
-    const { authMiddleware } = await import('@/middleware/optimized-auth-middleware');
+    // Get middleware performance stats
     const middlewareStats = authMiddleware.getStats();
     
     const healthData = {
@@ -35,7 +50,7 @@ export const GET = apiAuth.withRole(['SUPERUSER', 'ADMIN'], async (request: Next
       middlewareStats: {
         routeCacheSize: middlewareStats.routeCacheSize,
         routeCacheEfficiency: middlewareStats.routeCacheEntries.length > 0 ? 
-          middlewareStats.routeCacheEntries.filter(e => e.hasUser).length / middlewareStats.routeCacheEntries.length * 100 : 0
+          middlewareStats.routeCacheEntries.filter((e: any) => e.hasUser).length / middlewareStats.routeCacheEntries.length * 100 : 0
       },
       systemInfo: {
         nodeVersion: process.version,
@@ -65,7 +80,8 @@ export const GET = apiAuth.withRole(['SUPERUSER', 'ADMIN'], async (request: Next
     return NextResponse.json({
       status: 'unhealthy',
       error: 'Health check failed',
+      message: error instanceof Error ? error.message : 'Unknown error',
       timestamp: new Date().toISOString()
     }, { status: 503 });
   }
-});
+}

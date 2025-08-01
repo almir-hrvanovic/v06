@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
           inquiry: { select: { id: true, createdById: true, assignedToId: true } },
           assignedTo: { select: { id: true } }
         }
-      })
+      }) as any
 
       if (!item) {
         return NextResponse.json({ error: 'Item not found' }, { status: 404 })
@@ -245,7 +245,7 @@ export async function DELETE(request: NextRequest) {
 
     if (inquiryId) {
       // Remove inquiry attachment link
-      await db.inquiryAttachment.deleteMany({
+      await db.inquiryAttachment.deleteMany?.({
         where: {
           inquiryId,
           attachmentId
@@ -260,7 +260,7 @@ export async function DELETE(request: NextRequest) {
 
     if (itemId) {
       // Remove item attachment link
-      await db.itemAttachment.deleteMany({
+      await db.itemAttachment.deleteMany?.({
         where: {
           itemId,
           attachmentId

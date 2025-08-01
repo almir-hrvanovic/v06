@@ -119,11 +119,13 @@ const postHandler = async (request: NextRequest) => {
         entity: 'CUSTOMER',
         entityId: customer.id,
         userId: user.id!,
+        oldData: {},
         newData: customer as any,
         metadata: {
           customerName: customer.name,
           customerEmail: customer.email
-        }
+        },
+        inquiryId: null
       }
     })
 

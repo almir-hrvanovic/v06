@@ -7,8 +7,9 @@ import { hasPermission } from '@/utils/supabase/api-auth'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
+  const params = await context.params;
   try {
     // Authenticate user
     const user = await getAuthenticatedUser(request)

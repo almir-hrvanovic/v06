@@ -36,11 +36,14 @@ export type {
 // Generic CRUD operations interface
 interface CrudOperations<T, CreateInput, UpdateInput> {
   findUnique: (args: any) => Promise<T | null>
+  findFirst?: (args?: any) => Promise<T | null>
   findMany: (args?: any) => Promise<T[]>
-  create: (args: { data: CreateInput }) => Promise<T>
-  update: (args: { where: any; data: UpdateInput }) => Promise<T>
+  create: (args: { data: CreateInput; include?: any; select?: any }) => Promise<any>
+  update: (args: { where: any; data: UpdateInput; include?: any; select?: any }) => Promise<any>
   delete: (args: { where: any }) => Promise<T>
   count?: (args?: any) => Promise<number>
+  updateMany?: (args: { where: any; data: UpdateInput }) => Promise<{ count: number }>
+  deleteMany?: (args: { where: any }) => Promise<{ count: number }>
 }
 
 // Extended database operations

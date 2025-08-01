@@ -2,13 +2,23 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db/index'
 import { createInquirySchema, inquiryFiltersSchema } from '@/lib/validations'
 import { onInquiryCreated } from '@/lib/automation/hooks'
-import { cache, cacheKeys } from '@/lib/redis'
-import { apiAuth } from '@/utils/api/optimized-auth-wrapper'
+import { cache, cacheKeys } from '@/lib/upstash-redis'
+import { optimizedAuth } from '@/utils/supabase/optimized-auth'
 
-export const GET = apiAuth.withPermission('inquiries', 'read', async (request: NextRequest, user: any) => {
+export async function GET(request: NextRequest) {
   const startTime = Date.now()
   
   try {
+    // Check authentication
+    const user = await optimizedAuth.getUser(request)
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    // Check permission
+    if (!optimizedAuth.hasPermission(user.role, 'inquiries', 'read')) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
 
     const { searchParams } = new URL(request.url)
     const rawParams = Object.fromEntries(searchParams)
@@ -48,191 +58,160 @@ export const GET = apiAuth.withPermission('inquiries', 'read', async (request: N
         { status: 'SUBMITTED' }
       ]
     } else if (user.role === 'VP') {
-      where.items = {
-        some: { assignedToId: user.id }
-      }
+      where.OR = [
+        { assignedToId: user.id }
+      ]
     }
 
-    // Apply filters
-    if (filters.status && filters.status.length > 0) {
-      where.status = { in: filters.status }
-    }
-
-    if (filters.priority && filters.priority.length > 0) {
-      where.priority = { in: filters.priority }
-    }
-
-    if (filters.assignedToId) {
-      where.assignedToId = filters.assignedToId
-    }
-
-    if (filters.customerId) {
-      where.customerId = filters.customerId
-    }
-
-    if (filters.dateFrom || filters.dateTo) {
-      where.createdAt = {}
-      if (filters.dateFrom) where.createdAt.gte = filters.dateFrom
-      if (filters.dateTo) where.createdAt.lte = filters.dateTo
-    }
-
+    // Apply search filter
     if (filters.search) {
       where.OR = [
-        { title: { contains: filters.search, mode: 'insensitive' } },
+        ...(where.OR || []),
         { description: { contains: filters.search, mode: 'insensitive' } },
         { customer: { name: { contains: filters.search, mode: 'insensitive' } } }
       ]
     }
 
-    const [inquiries, total] = await Promise.all([
-      db.inquiry.findMany({
-        where,
-        include: {
-          customer: true,
-          createdBy: { select: { id: true, name: true, email: true } },
-          assignedTo: { select: { id: true, name: true, email: true } },
-          items: {
-            include: {
-              assignedTo: { select: { id: true, name: true, email: true } },
-              costCalculation: true,
-            }
-          },
-          _count: {
-            select: { items: true }
-          }
-        },
-        orderBy: { createdAt: 'desc' },
-        skip: (filters.page - 1) * filters.limit,
-        take: filters.limit,
-      }),
-      db.inquiry.count({ where }),
-    ])
-
-    const result = {
-      success: true,
-      data: inquiries,
-      pagination: {
-        page: filters.page,
-        limit: filters.limit,
-        total,
-        pages: Math.ceil(total / filters.limit),
-      },
+    // Apply status filter
+    if (filters.status && filters.status.length > 0) {
+      where.status = { in: filters.status }
     }
-    
-    // Cache the result for 2 minutes (120 seconds)
-    await cache.set(cacheKey, result, 120)
-    
-    const duration = Date.now() - startTime
-    console.log(`[API] /inquiries database query completed (${duration}ms) for user ${user.email}`)
-    
-    return NextResponse.json(result)
-  } catch (error) {
-    const duration = Date.now() - startTime
-    console.error(`[API] /inquiries error (${duration}ms):`, error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
-  }
-})
 
-export const POST = apiAuth.withPermission('inquiries', 'write', async (request: NextRequest, user: any) => {
-  try {
-    const body = await request.json()
-    console.log('POST /api/inquiries - Request body:', JSON.stringify(body, null, 2))
-    
-    // Extract attachmentIds before validation (not part of schema)
-    const { attachmentIds, ...inquiryData } = body
-    
-    const validatedData = createInquirySchema.parse(inquiryData)
-    console.log('POST /api/inquiries - Validated data:', JSON.stringify(validatedData, null, 2))
+    // Apply priority filter
+    if (filters.priority && filters.priority.length > 0) {
+      where.priority = { in: filters.priority }
+    }
 
-    const inquiry = await db.inquiry.create({
-      data: {
-        title: validatedData.title,
-        description: validatedData.description,
-        priority: validatedData.priority,
-        deadline: validatedData.deadline,
-        customerId: validatedData.customerId,
-        createdById: user.id,
-        items: {
-          create: validatedData.items.map(item => ({
-            name: item.name,
-            description: item.description,
-            quantity: item.quantity,
-            unit: item.unit,
-            notes: item.notes,
-            priceEstimation: item.priceEstimation,
-            requestedDelivery: item.requestedDelivery,
-          }))
-        },
-        // Create attachments if provided
-        ...(attachmentIds && attachmentIds.length > 0 && {
-          attachments: {
-            create: attachmentIds.map((fileId: string) => ({
-              attachmentId: fileId
-            }))
-          }
-        })
-      },
+    // Apply assignedTo filter
+    if (filters.assignedTo) {
+      where.assignedToId = filters.assignedTo
+    }
+
+    // Apply date range filter
+    if (filters.dateFrom || filters.dateTo) {
+      where.createdAt = {}
+      if (filters.dateFrom) {
+        where.createdAt.gte = new Date(filters.dateFrom)
+      }
+      if (filters.dateTo) {
+        where.createdAt.lte = new Date(filters.dateTo)
+      }
+    }
+
+    // Get total count for pagination
+    const total = await db.inquiry.count({ where })
+
+    // Get inquiries with pagination
+    const inquiries = await db.inquiry.findMany({
+      where,
+      skip: ((filters.page || 1) - 1) * (filters.limit || 10),
+      take: filters.limit || 10,
+      orderBy: filters.orderBy || { createdAt: 'desc' },
       include: {
         customer: true,
-        createdBy: { select: { id: true, name: true, email: true } },
-        items: true,
-        attachments: {
+        createdBy: {
+          select: {
+            id: true,
+            name: true,
+            email: true
+          }
+        },
+        assignedTo: {
+          select: {
+            id: true,
+            name: true,
+            email: true
+          }
+        },
+        items: {
           include: {
-            attachment: true
+            assignedTo: {
+              select: {
+                id: true,
+                name: true
+              }
+            },
+            costs: true
           }
         }
       }
     })
 
-    // Create audit log
-    await db.auditLog.create({
-      data: {
-        action: 'CREATE',
-        entity: 'Inquiry',
-        entityId: inquiry.id,
-        newData: {
-          title: inquiry.title,
-          status: inquiry.status,
-          customerId: inquiry.customerId,
-        },
-        userId: user.id,
-        inquiryId: inquiry.id,
-      }
-    })
-
-    // Trigger automation rules
-    await onInquiryCreated(inquiry.id, inquiry)
-    
-    // Invalidate inquiry caches since we added a new inquiry
-    await cache.clearPattern('inquiries:*')
-    console.log(`[Cache] Invalidated inquiry caches after creating inquiry ${inquiry.id}`)
-
-    return NextResponse.json({
-      success: true,
-      data: inquiry,
-      message: 'Inquiry created successfully',
-    })
-  } catch (error) {
-    console.error('Create inquiry error:', error)
-    console.error('Error details:', {
-      name: error instanceof Error ? error.name : 'Unknown',
-      message: error instanceof Error ? error.message : 'Unknown error',
-      stack: error instanceof Error ? error.stack : undefined
-    })
-    
-    if (error instanceof Error && error.message.includes('validation')) {
-      return NextResponse.json(
-        { error: 'Validation error', details: error.message },
-        { status: 400 }
-      )
+    const result = {
+      inquiries,
+      total,
+      page: filters.page || 1,
+      limit: filters.limit || 10,
+      totalPages: Math.ceil(total / (filters.limit || 10))
     }
-
+    
+    // Cache the result for 2 minutes
+    await cache.set(cacheKey, result, 120)
+    
+    const duration = Date.now() - startTime
+    console.log(`[API] /inquiries completed in ${duration}ms for user ${user.email}`)
+    
+    return NextResponse.json(result)
+  } catch (error) {
+    console.error('[API] Error fetching inquiries:', error)
     return NextResponse.json(
-      { error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' },
+      { error: error instanceof Error ? error.message : 'Failed to fetch inquiries' },
       { status: 500 }
     )
   }
-})
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    // Check authentication
+    const user = await optimizedAuth.getUser(request)
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    // Check permission
+    if (!optimizedAuth.hasPermission(user.role, 'inquiries', 'write')) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
+    const body = await request.json()
+    const validatedData = createInquirySchema.parse(body)
+
+    // Get next sequential number
+    const latestInquiry = await db.inquiry.findFirst({
+      orderBy: { sequentialNumber: 'desc' },
+      select: { sequentialNumber: true }
+    })
+    
+    const nextNumber = (latestInquiry?.sequentialNumber || 0) + 1
+
+    // Create inquiry with sequential number
+    const inquiry = await db.inquiry.create({
+      data: {
+        ...validatedData,
+        sequentialNumber: nextNumber,
+        createdById: user.id,
+        status: 'DRAFT'
+      },
+      include: {
+        customer: true,
+        createdBy: true,
+        items: true
+      }
+    })
+
+    // Trigger automation hooks
+    await onInquiryCreated(inquiry)
+    
+    // Invalidate cache for this user
+    await cache.clearPattern(`inquiries:${user.role}:${user.id}:*`)
+    
+    return NextResponse.json(inquiry, { status: 201 })
+  } catch (error) {
+    console.error('[API] Error creating inquiry:', error)
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Failed to create inquiry' },
+      { status: 500 }
+    )
+  }
+}

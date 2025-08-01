@@ -39,8 +39,19 @@ export function formatCurrency(amount: number | string, locale?: string): string
   }).format(num)
 }
 
-export function formatDate(date: Date | string, locale?: string): string {
+export function formatDate(date: Date | string | null | undefined, locale?: string): string {
+  // Handle null/undefined dates
+  if (!date) {
+    return 'N/A'
+  }
+  
   const d = typeof date === 'string' ? new Date(date) : date
+  
+  // Check if date is valid
+  if (!d || isNaN(d.getTime()) || !isFinite(d.getTime())) {
+    return 'Invalid Date'
+  }
+  
   const userLocale = locale || 'hr-HR'
   return new Intl.DateTimeFormat(userLocale, {
     year: 'numeric',
@@ -49,8 +60,19 @@ export function formatDate(date: Date | string, locale?: string): string {
   }).format(d)
 }
 
-export function formatDateTime(date: Date | string, locale?: string): string {
+export function formatDateTime(date: Date | string | null | undefined, locale?: string): string {
+  // Handle null/undefined dates
+  if (!date) {
+    return 'N/A'
+  }
+  
   const d = typeof date === 'string' ? new Date(date) : date
+  
+  // Check if date is valid
+  if (!d || isNaN(d.getTime()) || !isFinite(d.getTime())) {
+    return 'Invalid Date'
+  }
+  
   const userLocale = locale || 'hr-HR'
   const isUS = userLocale.includes('en')
   return new Intl.DateTimeFormat(userLocale, {
@@ -63,8 +85,19 @@ export function formatDateTime(date: Date | string, locale?: string): string {
   }).format(d)
 }
 
-export function formatRelativeTime(date: Date | string, locale?: string): string {
+export function formatRelativeTime(date: Date | string | null | undefined, locale?: string): string {
+  // Handle null/undefined dates
+  if (!date) {
+    return 'N/A'
+  }
+  
   const d = typeof date === 'string' ? new Date(date) : date
+  
+  // Check if date is valid
+  if (!d || isNaN(d.getTime()) || !isFinite(d.getTime())) {
+    return 'Invalid Date'
+  }
+  
   const now = new Date()
   const diff = now.getTime() - d.getTime()
   
@@ -284,6 +317,11 @@ export function getInitials(name: string): string {
 }
 
 export function colorFromString(str: string): string {
+  // Handle undefined or empty strings
+  if (!str || typeof str !== 'string') {
+    return 'hsl(0, 70%, 50%)' // Default color
+  }
+  
   let hash = 0
   for (let i = 0; i < str.length; i++) {
     hash = str.charCodeAt(i) + ((hash << 5) - hash)

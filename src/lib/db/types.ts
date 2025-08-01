@@ -10,23 +10,44 @@ import type {
   AuditLog,
   Notification,
   NotificationType,
+  DeadlineStatus,
+  DeadlineEntity,
+  AutomationLogStatus,
+  AutomationTrigger,
   Prisma
 } from '@prisma/client'
 
-// Re-export common types
+// Re-export common types (only non-enum types)
 export type {
   User,
-  UserRole,
   SystemSettings,
-  Currency,
-  StorageProvider,
   AuditLog,
-  Notification,
-  NotificationType
+  Notification
 }
 
-// Re-export enums as values
-export { UserRole, Currency, StorageProvider, NotificationType } from '@prisma/client'
+// Re-export enums as both types and values
+export { 
+  UserRole, 
+  Currency, 
+  StorageProvider, 
+  NotificationType,
+  DeadlineStatus,
+  DeadlineEntity,
+  AutomationLogStatus,
+  AutomationTrigger
+} from '@prisma/client'
+
+// Re-export enum types explicitly for type usage
+export type {
+  UserRole as UserRoleType,
+  Currency as CurrencyType,
+  StorageProvider as StorageProviderType,
+  NotificationType as NotificationTypeType,
+  DeadlineStatus as DeadlineStatusType,
+  DeadlineEntity as DeadlineEntityType,
+  AutomationLogStatus as AutomationLogStatusType,
+  AutomationTrigger as AutomationTriggerType
+} from '@prisma/client'
 
 // Import extended operations  
 import type { ExtendedDatabaseOperations } from './extended-types'
@@ -35,8 +56,8 @@ import type { ExtendedDatabaseOperations } from './extended-types'
 export interface DatabaseOperations extends ExtendedDatabaseOperations {
   // User operations
   user: {
-    findUnique: (args: { where: { id?: string; email?: string } }) => Promise<User | null>
-    findMany: (args?: { where?: any; take?: number; skip?: number }) => Promise<User[]>
+    findUnique: (args: { where: { id?: string; email?: string }; select?: any; include?: any }) => Promise<any>
+    findMany: (args?: { where?: any; take?: number; skip?: number; select?: any; include?: any; orderBy?: any }) => Promise<any[]>
     create: (args: { data: Omit<User, 'id' | 'createdAt' | 'updatedAt'> }) => Promise<User>
     update: (args: { where: { id: string }; data: Partial<User> }) => Promise<User>
     delete: (args: { where: { id: string } }) => Promise<User>

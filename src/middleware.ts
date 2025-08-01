@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { applySecurity, securityHeaders, corsHeaders } from '@/middleware/security'
 import { serverMonitor } from '@/lib/server-monitoring'
-import { authMiddleware } from '@/middleware/optimized-auth-middleware'
+import { authMiddleware } from '@/middleware/optimized-auth-middleware-edge'
 import { AUTH_URLS, PUBLIC_ROUTES, PROTECTED_ROUTES } from '@/lib/auth-config'
 
 export async function middleware(request: NextRequest) {

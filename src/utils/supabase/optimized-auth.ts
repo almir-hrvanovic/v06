@@ -2,7 +2,7 @@ import { createClient } from './server';
 import { db } from '@/lib/db/index';
 import { NextRequest, NextResponse } from 'next/server';
 import { UserRole } from '@/lib/db/types';
-import { cache, cacheKeys } from '@/lib/redis';
+import { cache, cacheKeys } from '@/lib/upstash-redis';
 
 // Performance monitoring
 class OptimizationLogger {

@@ -90,6 +90,14 @@ class CacheMetrics {
       avgTime: this.operations > 0 ? this.totalTime / this.operations : 0
     }
   }
+
+  reset() {
+    this.hits = 0
+    this.misses = 0
+    this.operations = 0
+    this.totalTime = 0
+    this.lastLog = Date.now()
+  }
 }
 
 const metrics = new CacheMetrics()
@@ -419,6 +427,26 @@ export const cache = {
   // Force log current metrics
   logStats() {
     metrics.logMetrics()
+  },
+
+  // Clear auth-related cache entries
+  async clearAuth(): Promise<void> {
+    const startTime = Date.now()
+    logger.info('Clearing auth cache...')
+    
+    // Clear all auth-related patterns
+    await this.clearPattern('auth:*')
+    await this.clearPattern('user:*')
+    await this.clearPattern('session:*')
+    
+    const duration = Date.now() - startTime
+    logger.info(`Auth cache cleared (${duration}ms)`)
+  },
+
+  // Reset cache statistics
+  resetStats(): void {
+    metrics.reset()
+    logger.info('Cache statistics reset')
   },
 }
 
