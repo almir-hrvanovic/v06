@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Fetch customers data
-    const customers = await db.customer.findMany({
+    const customers = await (db.customer as any).findMany({
       where,
       include: {
         _count: {
@@ -72,8 +72,8 @@ export async function POST(request: NextRequest) {
     // Apply inquiry count filters if specified
     let filteredCustomers = customers
     if (validatedData.filters?.minInquiries !== undefined || validatedData.filters?.maxInquiries !== undefined) {
-      filteredCustomers = customers.filter(customer => {
-        const inquiryCount = customer._count.inquiries
+      filteredCustomers = customers.filter((customer: any) => {
+        const inquiryCount = (customer as any)._count.inquiries
         if (validatedData.filters?.minInquiries !== undefined && inquiryCount < validatedData.filters.minInquiries) {
           return false
         }
@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate Excel file
-    const excelBuffer = await ExcelService.exportCustomersToExcel(filteredCustomers, {
+    const excelBuffer = await ExcelService.exportCustomersToExcel(filteredCustomers as any, {
       fileName: validatedData.fileName || `customers-export-${new Date().toISOString().split('T')[0]}.xlsx`,
       includeFormatting: true,
       companyInfo: DEFAULT_EXCEL_COMPANY_INFO
@@ -107,7 +107,7 @@ export async function POST(request: NextRequest) {
     headers.set('Content-Disposition', `attachment; filename="${filename}"`)
     headers.set('Content-Length', excelBuffer.length.toString())
 
-    return new NextResponse(excelBuffer, { headers })
+    return new NextResponse(excelBuffer as any, { headers })
   } catch (error) {
     console.error('Excel export error:', error)
     
@@ -139,9 +139,9 @@ export async function GET(request: NextRequest) {
     }
 
     // Get basic statistics for export preview
-    const totalCustomers = await db.customer.count()
-    const activeCustomers = await db.customer.count({ where: { isActive: true } })
-    const recentCustomers = await db.customer.count({
+    const totalCustomers = await (db.customer as any).count()
+    const activeCustomers = await (db.customer as any).count({ where: { isActive: true } })
+    const recentCustomers = await (db.customer as any).count({
       where: {
         createdAt: {
           gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) // Last 30 days
@@ -150,7 +150,7 @@ export async function GET(request: NextRequest) {
     })
 
     // Get customers with inquiry counts
-    const customersWithInquiries = await db.customer.findMany({
+    const customersWithInquiries = await (db.customer as any).findMany({
       select: {
         _count: {
           select: { inquiries: true }
@@ -159,7 +159,7 @@ export async function GET(request: NextRequest) {
     })
 
     const inquiryCountStats = customersWithInquiries.reduce(
-      (acc, customer) => {
+      (acc: any, customer: any) => {
         const count = customer._count.inquiries
         acc.total += count
         if (count === 0) acc.withoutInquiries++

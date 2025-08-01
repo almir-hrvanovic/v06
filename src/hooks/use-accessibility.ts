@@ -480,10 +480,13 @@ export function useA11yComposite<T extends HTMLElement = HTMLElement>(
   const announcementHook = useA11yAnnouncements()
 
   // List navigation
-  const listHook = listNavigation ? useA11yListNavigation(listNavigation.items, {
-    orientation: listNavigation.orientation,
-    onSelect: listNavigation.onSelect
-  }) : null
+  const listHook = useA11yListNavigation(
+    listNavigation?.items || [],
+    listNavigation ? {
+      orientation: listNavigation.orientation,
+      onSelect: listNavigation.onSelect
+    } : undefined
+  )
 
   // Combine refs
   const combinedRef = useCallback((element: T | null) => {
@@ -493,7 +496,7 @@ export function useA11yComposite<T extends HTMLElement = HTMLElement>(
     if (keyboardHook.elementRef) {
       keyboardHook.elementRef.current = element
     }
-    if (listHook?.containerRef) {
+    if (listHook.containerRef) {
       listHook.containerRef.current = element
     }
   }, [focusTrapHook, keyboardHook, listHook])
@@ -503,12 +506,10 @@ export function useA11yComposite<T extends HTMLElement = HTMLElement>(
     ...(role && { role }),
     ...(label && { 'aria-label': label, 'aria-labelledby': labelId }),
     ...(description && { 'aria-describedby': descriptionId }),
-    ...(listHook && {
-      'aria-activedescendant': listHook.currentIndex >= 0 
-        ? `item-${listHook.currentIndex}` 
-        : undefined
+    ...(listNavigation && listHook.currentIndex >= 0 && {
+      'aria-activedescendant': `item-${listHook.currentIndex}`
     })
-  }), [role, label, description, labelId, descriptionId, listHook])
+  }), [role, label, description, labelId, descriptionId, listHook, listNavigation])
 
   return {
     // Refs
@@ -529,7 +530,7 @@ export function useA11yComposite<T extends HTMLElement = HTMLElement>(
     announcements: announcements ? announcementHook : null,
     
     // List navigation
-    list: listHook,
+    list: listNavigation ? listHook : null,
     
     // Utility functions
     focusFirst: () => {

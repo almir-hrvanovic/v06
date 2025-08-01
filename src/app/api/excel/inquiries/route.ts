@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Fetch inquiries data
-    const inquiries = await db.inquiry.findMany({
+    const inquiries = await (db.inquiry as any).findMany({
       where,
       include: {
         customer: true,
@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate Excel file
-    const excelBuffer = await ExcelService.exportInquiriesToExcel(inquiries, {
+    const excelBuffer = await ExcelService.exportInquiriesToExcel(inquiries as any, {
       fileName: validatedData.fileName || `inquiries-export-${new Date().toISOString().split('T')[0]}.xlsx`,
       includeSummary: validatedData.includeSummary,
       includeFormatting: true,
@@ -119,7 +119,7 @@ export async function POST(request: NextRequest) {
     headers.set('Content-Disposition', `attachment; filename="${filename}"`)
     headers.set('Content-Length', excelBuffer.length.toString())
 
-    return new NextResponse(excelBuffer, { headers })
+    return new NextResponse(excelBuffer as any, { headers })
   } catch (error) {
     console.error('Excel export error:', error)
     
@@ -151,8 +151,8 @@ export async function GET(request: NextRequest) {
     }
 
     // Get basic statistics for export preview
-    const totalInquiries = await db.inquiry.count()
-    const recentInquiries = await db.inquiry.count({
+    const totalInquiries = await (db.inquiry as any).count()
+    const recentInquiries = await (db.inquiry as any).count({
       where: {
         createdAt: {
           gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) // Last 30 days
@@ -160,12 +160,12 @@ export async function GET(request: NextRequest) {
       }
     })
 
-    const statusCounts = await db.inquiry.groupBy({
+    const statusCounts = await (db.inquiry as any).groupBy({
       by: ['status'],
       _count: { status: true }
     })
 
-    const priorityCounts = await db.inquiry.groupBy({
+    const priorityCounts = await (db.inquiry as any).groupBy({
       by: ['priority'],
       _count: { priority: true }
     })
