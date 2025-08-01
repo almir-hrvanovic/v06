@@ -173,11 +173,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       totalInquiries,
       recentInquiries,
-      statusBreakdown: statusCounts.reduce((acc, item) => {
+      statusBreakdown: statusCounts.reduce((acc: Record<string, number>, item) => {
         acc[item.status] = item._count.status
         return acc
       }, {} as Record<string, number>),
-      priorityBreakdown: priorityCounts.reduce((acc, item) => {
+      priorityBreakdown: priorityCounts.reduce((acc: Record<string, number>, item) => {
         acc[item.priority] = item._count.priority
         return acc
       }, {} as Record<string, number>),
