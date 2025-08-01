@@ -47,7 +47,7 @@ export async function PUT(
 
     // Check if email is being changed to one that already exists
     if (validatedData.email !== existing.email) {
-      const emailExists = await db.customer.findFirst({
+      const emailExists = await db.customer!.findFirst({
         where: { 
           email: validatedData.email,
           id: { not: id }
