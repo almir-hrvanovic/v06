@@ -1,4 +1,4 @@
-import { createClient } from './server';
+import { createEdgeClient } from './edge-client';
 import { NextRequest, NextResponse } from 'next/server';
 import { UserRole } from '@/lib/db/types';
 
@@ -55,8 +55,17 @@ class OptimizedAuthEdge {
     const startTime = Date.now();
     
     try {
-      const supabase = await createClient();
-      const { data: { user }, error } = await supabase.auth.getUser();
+      // Get auth token from request
+      const authHeader = request.headers.get('authorization')
+      const token = authHeader?.replace('Bearer ', '') || request.cookies.get('sb-access-token')?.value
+      
+      if (!token) {
+        logger.info('No auth token found in request');
+        return null;
+      }
+      
+      const supabase = createEdgeClient(authHeader || `Bearer ${token}`);
+      const { data: { user }, error } = await supabase.auth.getUser(token);
       
       if (error || !user) {
         logger.info('No authenticated Supabase user');
