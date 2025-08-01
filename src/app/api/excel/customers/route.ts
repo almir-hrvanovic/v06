@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
     let filteredCustomers = customers
     if (validatedData.filters?.minInquiries !== undefined || validatedData.filters?.maxInquiries !== undefined) {
       filteredCustomers = customers.filter(customer => {
-        const inquiryCount = customer._count.inquiries
+        const inquiryCount = (customer as any)._count.inquiries
         if (validatedData.filters?.minInquiries !== undefined && inquiryCount < validatedData.filters.minInquiries) {
           return false
         }

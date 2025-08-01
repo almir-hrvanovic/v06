@@ -4,11 +4,11 @@
 Central repository for all performance optimization issues across all phases. This log provides a comprehensive view of problems encountered, their resolutions, and impact on system performance.
 
 ## Issue Summary Statistics
-- **Total Issues**: 6
-- **Resolved**: 2
+- **Total Issues**: 7
+- **Resolved**: 3
 - **Open**: 4
 - **Critical**: 4
-- **High**: 2
+- **High**: 3
 - **Medium**: 0
 
 ## Critical Issues Register
@@ -76,6 +76,27 @@ Central repository for all performance optimization issues across all phases. Th
   - `/src/app/api/customers/route.ts:94`
   - `/src/lib/db/extended-types.ts:39`
 - **Reference**: TypeScript build error during Vercel deployment
+
+### HIGH-003: Deprecated Package Warnings
+- **Phase**: Build/Deployment
+- **Date**: 2025-08-01
+- **Status**: Resolved
+- **Impact**: Build warnings during npm install on Vercel
+- **Root Cause**: Transitive dependencies using deprecated packages
+- **Deprecated Packages Found**:
+  - `node-domexception@1.0.0` - Should use native DOMException
+  - `rimraf@2.7.1` - Versions < v4 no longer supported
+  - `inflight@1.0.6` - Memory leaks
+  - `glob@7.2.3` - Versions < v9 no longer supported
+  - `fstream@1.0.12` - No longer supported
+  - `lodash.isequal@4.5.0` - Use node:util.isDeepStrictEqual
+- **Resolution**: 
+  - Added npm overrides in package.json for glob (^10.0.0), rimraf (^5.0.0), and inflight (@isaacs/inflight)
+  - Updated direct dependencies to latest compatible versions
+  - Cleaned and reinstalled dependencies
+- **Time to Resolution**: 45 minutes
+- **Remaining Warnings**: 3 (lodash.isequal, fstream, node-domexception) - these require upstream updates
+- **Reference**: Vercel build deprecation warnings
 
 ## Open Issues Tracker
 
