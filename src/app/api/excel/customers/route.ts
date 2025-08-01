@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate Excel file
-    const excelBuffer = await ExcelService.exportCustomersToExcel(filteredCustomers, {
+    const excelBuffer = await ExcelService.exportCustomersToExcel(filteredCustomers as any, {
       fileName: validatedData.fileName || `customers-export-${new Date().toISOString().split('T')[0]}.xlsx`,
       includeFormatting: true,
       companyInfo: DEFAULT_EXCEL_COMPANY_INFO
@@ -107,7 +107,7 @@ export async function POST(request: NextRequest) {
     headers.set('Content-Disposition', `attachment; filename="${filename}"`)
     headers.set('Content-Length', excelBuffer.length.toString())
 
-    return new NextResponse(excelBuffer, { headers })
+    return new NextResponse(excelBuffer as any, { headers })
   } catch (error) {
     console.error('Excel export error:', error)
     
