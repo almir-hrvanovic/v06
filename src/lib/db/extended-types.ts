@@ -36,7 +36,7 @@ export type {
 // Generic CRUD operations interface
 interface CrudOperations<T, CreateInput, UpdateInput> {
   findUnique: (args: any) => Promise<T | null>
-  findFirst?: (args?: any) => Promise<T | null>
+  findFirst: (args?: any) => Promise<T | null>
   findMany: (args?: any) => Promise<T[]>
   create: (args: { data: CreateInput; include?: any; select?: any }) => Promise<any>
   update: (args: { where: any; data: UpdateInput; include?: any; select?: any }) => Promise<any>
@@ -49,7 +49,9 @@ interface CrudOperations<T, CreateInput, UpdateInput> {
 // Extended database operations
 export interface ExtendedDatabaseOperations {
   // Customer operations
-  customer: CrudOperations<Customer, any, any>
+  customer: CrudOperations<Customer, any, any> & {
+    findFirst: (args?: any) => Promise<Customer | null>
+  }
   
   // Inquiry operations
   inquiry: CrudOperations<Inquiry, any, any>

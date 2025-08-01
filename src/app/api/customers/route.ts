@@ -91,7 +91,7 @@ const postHandler = async (request: NextRequest) => {
     const validatedData = customerSchema.parse(body)
 
     // Check if customer with same email already exists
-    const existing = await db.customer.findFirst({
+    const existing = await db.customer!.findFirst({
       where: { email: validatedData.email }
     })
 
