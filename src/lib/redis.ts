@@ -14,19 +14,122 @@ const redisConfig = {
   lazyConnect: true, // Don't connect immediately
 }
 
-// Redis client - only create if Redis is configured
-let redis: Redis | null = null
+// Performance monitoring
+class OptimizationLogger {
+  private context: string
+  private category: string
 
-// Initialize Redis only if URL is provided or in development
-function getRedisClient(): Redis | null {
-  if (redis) return redis
-  
-  // Only create Redis client if explicitly configured or in development
-  if (process.env.REDIS_URL || (process.env.NODE_ENV === 'development' && process.env.REDIS_HOST !== 'disabled')) {
+  constructor(context: string, category: string) {
+    this.context = context
+    this.category = category
+  }
+
+  info(message: string, data?: any) {
+    console.log(`[${this.context}:${this.category}] ${message}`, data || '')
+  }
+
+  error(message: string, error?: any) {
+    console.error(`[${this.context}:${this.category}] ${message}`, error || '')
+  }
+
+  performance(operation: string, duration: number, hitRate?: number) {
+    const hitInfo = hitRate !== undefined ? ` (Hit Rate: ${hitRate.toFixed(1)}%)` : ''
+    console.log(`[${this.context}:${this.category}] ${operation}: ${duration}ms${hitInfo}`)
+  }
+}
+
+const logger = new OptimizationLogger('redis-implementation', 'quick-wins')
+
+// Cache performance metrics
+class CacheMetrics {
+  private hits = 0
+  private misses = 0
+  private operations = 0
+  private totalTime = 0
+  private lastLog = Date.now()
+
+  recordHit(duration: number) {
+    this.hits++
+    this.operations++
+    this.totalTime += duration
+    this.logIfNeeded()
+  }
+
+  recordMiss(duration: number) {
+    this.misses++
+    this.operations++
+    this.totalTime += duration
+    this.logIfNeeded()
+  }
+
+  private logIfNeeded() {
+    // Log every 50 operations or every 30 seconds
+    if (this.operations % 50 === 0 || Date.now() - this.lastLog > 30000) {
+      this.logMetrics()
+      this.lastLog = Date.now()
+    }
+  }
+
+  logMetrics() {
+    const hitRate = this.operations > 0 ? (this.hits / this.operations) * 100 : 0
+    const avgTime = this.operations > 0 ? this.totalTime / this.operations : 0
+    
+    logger.performance(
+      `Cache Stats - Ops: ${this.operations}, Hits: ${this.hits}, Misses: ${this.misses}, Avg: ${avgTime.toFixed(2)}ms`,
+      avgTime,
+      hitRate
+    )
+  }
+
+  getStats() {
+    return {
+      hits: this.hits,
+      misses: this.misses,
+      operations: this.operations,
+      hitRate: this.operations > 0 ? (this.hits / this.operations) * 100 : 0,
+      avgTime: this.operations > 0 ? this.totalTime / this.operations : 0
+    }
+  }
+}
+
+const metrics = new CacheMetrics()
+
+// Redis singleton implementation
+class RedisSingleton {
+  private static instance: RedisSingleton
+  private client: Redis | null = null
+  private isConnected = false
+  private connectionPromise: Promise<Redis | null> | null = null
+
+  private constructor() {}
+
+  static getInstance(): RedisSingleton {
+    if (!RedisSingleton.instance) {
+      RedisSingleton.instance = new RedisSingleton()
+    }
+    return RedisSingleton.instance
+  }
+
+  async getClient(): Promise<Redis | null> {
+    if (this.client && this.isConnected) {
+      return this.client
+    }
+
+    if (this.connectionPromise) {
+      return this.connectionPromise
+    }
+
+    this.connectionPromise = this.connect()
+    return this.connectionPromise
+  }
+
+  private async connect(): Promise<Redis | null> {
     try {
+      let client: Redis | null = null
+
       if (process.env.REDIS_URL) {
-        // Use Redis URL (works for both local and Upstash)
-        redis = new Redis(process.env.REDIS_URL, {
+        logger.info('Initializing Redis with URL')
+        client = new Redis(process.env.REDIS_URL, {
           retryStrategy: (times: number) => {
             const delay = Math.min(times * 50, 2000)
             return delay
@@ -35,57 +138,101 @@ function getRedisClient(): Redis | null {
           lazyConnect: true,
           connectTimeout: 10000,
           commandTimeout: 5000,
-          // Upstash requires TLS
           tls: {
             rejectUnauthorized: false
           },
         })
-      } else {
-        // Use individual config for local development
-        redis = new Redis(redisConfig)
+      } else if (process.env.NODE_ENV === 'development' && process.env.REDIS_HOST !== 'disabled') {
+        logger.info('Initializing Redis with config')
+        client = new Redis(redisConfig)
       }
 
-      // Handle connection events
-      redis.on('connect', () => {
-        console.log('✅ Redis connected')
-      })
+      if (client) {
+        // Handle connection events
+        client.on('connect', () => {
+          this.isConnected = true
+          logger.info('Redis connected successfully')
+        })
 
-      redis.on('error', (error) => {
-        console.error('❌ Redis error:', error)
-      })
+        client.on('error', (error) => {
+          this.isConnected = false
+          logger.error('Redis connection error', error)
+        })
 
-      redis.on('close', () => {
-        console.log('🔌 Redis connection closed')
-      })
-      
-      return redis
+        client.on('close', () => {
+          this.isConnected = false
+          logger.info('Redis connection closed')
+        })
+
+        // Test connection
+        await client.ping()
+        this.client = client
+        this.isConnected = true
+        logger.info('Redis connection established and tested')
+        return client
+      }
     } catch (error) {
-      console.warn('⚠️ Redis initialization failed, falling back to in-memory cache:', error)
-      return null
+      logger.error('Redis initialization failed, falling back to in-memory cache', error)
+      this.isConnected = false
+    }
+    
+    this.connectionPromise = null
+    return null
+  }
+
+  async disconnect(): Promise<void> {
+    if (this.client) {
+      await this.client.quit()
+      this.client = null
+      this.isConnected = false
+      logger.info('Redis disconnected')
     }
   }
-  
-  return null
+
+  isReady(): boolean {
+    return this.isConnected && this.client !== null
+  }
+}
+
+const redisSingleton = RedisSingleton.getInstance()
+
+// Initialize Redis only if URL is provided or in development
+function getRedisClient(): Promise<Redis | null> {
+  return redisSingleton.getClient()
 }
 
 // Export redis getter
-export { getRedisClient as redis }
+export const redis = getRedisClient
+export const redisInstance = redisSingleton
 
 // In-memory cache fallback
 const memoryCache = new Map<string, { value: any; expires?: number }>()
 
-// Cache utilities
+// Cache utilities with performance monitoring
 export const cache = {
   // Get cached data
   async get<T>(key: string): Promise<T | null> {
-    const redisClient = getRedisClient()
+    const startTime = Date.now()
+    const redisClient = await getRedisClient()
     
     if (redisClient) {
       try {
         const data = await redisClient.get(key)
-        return data ? JSON.parse(data) : null
+        const duration = Date.now() - startTime
+        
+        if (data) {
+          metrics.recordHit(duration)
+          logger.info(`Cache HIT: ${key} (${duration}ms)`)
+          return JSON.parse(data)
+        } else {
+          metrics.recordMiss(duration)
+          logger.info(`Cache MISS: ${key} (${duration}ms)`)
+          return null
+        }
       } catch (error) {
-        console.error(`Redis get error for key ${key}:`, error)
+        const duration = Date.now() - startTime
+        metrics.recordMiss(duration)
+        logger.error(`Redis get error for key ${key}`, error)
       }
     }
     
@@ -93,17 +240,24 @@ export const cache = {
     const cached = memoryCache.get(key)
     if (cached) {
       if (!cached.expires || cached.expires > Date.now()) {
+        const duration = Date.now() - startTime
+        metrics.recordHit(duration)
+        logger.info(`Memory cache HIT: ${key} (${duration}ms)`)
         return cached.value
       } else {
         memoryCache.delete(key)
       }
     }
+    
+    const duration = Date.now() - startTime
+    metrics.recordMiss(duration)
     return null
   },
 
   // Set cache with expiration
   async set(key: string, value: any, expirationInSeconds?: number): Promise<void> {
-    const redisClient = getRedisClient()
+    const startTime = Date.now()
+    const redisClient = await getRedisClient()
     
     if (redisClient) {
       try {
@@ -113,20 +267,26 @@ export const cache = {
         } else {
           await redisClient.set(key, serialized)
         }
+        const duration = Date.now() - startTime
+        logger.info(`Cache SET: ${key} (${duration}ms, TTL: ${expirationInSeconds || 'none'}s)`)
         return
       } catch (error) {
-        console.error(`Redis set error for key ${key}:`, error)
+        const duration = Date.now() - startTime
+        logger.error(`Redis set error for key ${key} (${duration}ms)`, error)
       }
     }
     
     // Fallback to memory cache
     const expires = expirationInSeconds ? Date.now() + (expirationInSeconds * 1000) : undefined
     memoryCache.set(key, { value, expires })
+    const duration = Date.now() - startTime
+    logger.info(`Memory cache SET: ${key} (${duration}ms, TTL: ${expirationInSeconds || 'none'}s)`)
   },
 
   // Delete cache
   async del(key: string | string[]): Promise<void> {
-    const redisClient = getRedisClient()
+    const startTime = Date.now()
+    const redisClient = await getRedisClient()
     
     if (redisClient) {
       try {
@@ -135,9 +295,12 @@ export const cache = {
         } else {
           await redisClient.del(key)
         }
+        const duration = Date.now() - startTime
+        logger.info(`Cache DEL: ${Array.isArray(key) ? key.join(', ') : key} (${duration}ms)`)
         return
       } catch (error) {
-        console.error(`Redis delete error for key ${key}:`, error)
+        const duration = Date.now() - startTime
+        logger.error(`Redis delete error for key ${key} (${duration}ms)`, error)
       }
     }
     
@@ -147,43 +310,53 @@ export const cache = {
     } else {
       memoryCache.delete(key)
     }
+    const duration = Date.now() - startTime
+    logger.info(`Memory cache DEL: ${Array.isArray(key) ? key.join(', ') : key} (${duration}ms)`)
   },
 
   // Clear all cache with pattern
   async clearPattern(pattern: string): Promise<void> {
-    const redisClient = getRedisClient()
+    const startTime = Date.now()
+    const redisClient = await getRedisClient()
     
     if (redisClient) {
       try {
         const keys = await redisClient.keys(pattern)
         if (keys.length > 0) {
           await redisClient.del(...keys)
+          const duration = Date.now() - startTime
+          logger.info(`Cache CLEAR PATTERN: ${pattern} (${keys.length} keys, ${duration}ms)`)
         }
         return
       } catch (error) {
-        console.error(`Redis clear error for pattern ${pattern}:`, error)
+        const duration = Date.now() - startTime
+        logger.error(`Redis clear error for pattern ${pattern} (${duration}ms)`, error)
       }
     }
     
     // Fallback to memory cache - simple pattern matching
     const regex = new RegExp(pattern.replace(/\*/g, '.*'))
+    let deletedCount = 0
     for (const key of memoryCache.keys()) {
       if (regex.test(key)) {
         memoryCache.delete(key)
+        deletedCount++
       }
     }
+    const duration = Date.now() - startTime
+    logger.info(`Memory cache CLEAR PATTERN: ${pattern} (${deletedCount} keys, ${duration}ms)`)
   },
 
   // Check if key exists
   async exists(key: string): Promise<boolean> {
-    const redisClient = getRedisClient()
+    const redisClient = await getRedisClient()
     
     if (redisClient) {
       try {
         const result = await redisClient.exists(key)
         return result === 1
       } catch (error) {
-        console.error(`Redis exists error for key ${key}:`, error)
+        logger.error(`Redis exists error for key ${key}`, error)
       }
     }
     
@@ -197,14 +370,14 @@ export const cache = {
 
   // Set expiration on existing key
   async expire(key: string, seconds: number): Promise<boolean> {
-    const redisClient = getRedisClient()
+    const redisClient = await getRedisClient()
     
     if (redisClient) {
       try {
         const result = await redisClient.expire(key, seconds)
         return result === 1
       } catch (error) {
-        console.error(`Redis expire error for key ${key}:`, error)
+        logger.error(`Redis expire error for key ${key}`, error)
       }
     }
     
@@ -219,13 +392,13 @@ export const cache = {
 
   // Get TTL for a key
   async ttl(key: string): Promise<number> {
-    const redisClient = getRedisClient()
+    const redisClient = await getRedisClient()
     
     if (redisClient) {
       try {
         return await redisClient.ttl(key)
       } catch (error) {
-        console.error(`Redis TTL error for key ${key}:`, error)
+        logger.error(`Redis TTL error for key ${key}`, error)
       }
     }
     
@@ -236,6 +409,16 @@ export const cache = {
       return ttl > 0 ? ttl : -2
     }
     return -1
+  },
+
+  // Get cache statistics
+  getStats() {
+    return metrics.getStats()
+  },
+
+  // Force log current metrics
+  logStats() {
+    metrics.logMetrics()
   },
 }
 

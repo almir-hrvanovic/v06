@@ -14,7 +14,8 @@ import {
   Building2,
   TrendingUp,
   Settings,
-  ClipboardList
+  ClipboardList,
+  Activity
 } from 'lucide-react'
 import { NavGroup } from '@/types/navigation'
 
@@ -138,6 +139,12 @@ export const navigationGroups: NavGroup[] = [
         titleKey: 'navigation.main.automation',
         href: '/dashboard/automation',
         icon: Workflow,
+        roles: ['SUPERUSER', 'ADMIN'],
+      },
+      {
+        titleKey: 'navigation.main.performance',
+        href: '/dashboard/performance',
+        icon: Activity,
         roles: ['SUPERUSER', 'ADMIN'],
       }
     ]

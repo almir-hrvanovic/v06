@@ -1,23 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db/index'
 import { UserRole } from '@/lib/db/types'
-import { hasPermission } from '@/utils/supabase/api-auth'
 import { z } from 'zod'
 import bcrypt from 'bcryptjs'
-import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
+import { apiAuth } from '@/utils/api/optimized-auth-wrapper'
+import { optimizeApiRoute } from '@/lib/api-optimization'
 
-export async function GET(request: NextRequest) {
+const getHandler = apiAuth.withPermission('users', 'read', async (request: NextRequest, user: any) => {
   try {
-    const user = await getAuthenticatedUser(request)
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
-
-    // Check permissions
-    if (!hasPermission(user.role, 'users', 'read')) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-    }
-
     const { searchParams } = new URL(request.url)
     const role = searchParams.get('role')
     const roles = searchParams.get('roles')
@@ -66,7 +56,16 @@ export async function GET(request: NextRequest) {
       orderBy: { name: 'asc' }
     })
 
-    return NextResponse.json({ data: users, total: users.length })
+    return {
+      success: true,
+      data: users,
+      total: users.length,
+      pagination: {
+        page: 1,
+        limit: users.length,
+        total: users.length
+      }
+    }
   } catch (error) {
     console.error('Get users error:', error)
     return NextResponse.json(
@@ -74,7 +73,7 @@ export async function GET(request: NextRequest) {
       { status: 500 }
     )
   }
-}
+})
 
 // Schema for creating users
 const createUserSchema = z.object({
@@ -83,18 +82,8 @@ const createUserSchema = z.object({
   role: z.nativeEnum(UserRole)
 })
 
-export async function POST(request: NextRequest) {
+const postHandler = apiAuth.withPermission('users', 'write', async (request: NextRequest, user: any) => {
   try {
-    const user = await getAuthenticatedUser(request)
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
-
-    // Check permissions
-    if (!hasPermission(user.role, 'users', 'write')) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-    }
-
     const body = await request.json()
     const validatedData = createUserSchema.parse(body)
 
@@ -149,10 +138,14 @@ export async function POST(request: NextRequest) {
     // In production, send email with temporary password
     console.log(`Created user ${newUser.email} with temporary password: ${tempPassword}`)
 
-    return NextResponse.json({
-      ...newUser,
-      tempPassword // In production, don't return this
-    })
+    return {
+      success: true,
+      data: {
+        ...newUser,
+        tempPassword
+      },
+      message: 'User created successfully'
+    }
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -167,4 +160,22 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     )
   }
-}
+})
+
+// Export optimized route handlers
+export const GET = optimizeApiRoute(getHandler, {
+  enableCaching: true,
+  cacheMaxAge: 180, // 3 minutes cache for users (they change frequently)
+  enableCompression: true,
+  enableETag: true,
+  optimizePayload: true,
+  excludeFields: ['password'] // Always exclude password field
+})
+
+export const POST = optimizeApiRoute(postHandler, {
+  enableCaching: false, // Don't cache POST requests
+  enableCompression: true,
+  enableResponseTiming: true,
+  optimizePayload: true,
+  excludeFields: ['password'] // Always exclude password field
+})

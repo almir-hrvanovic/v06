@@ -1,20 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db/index'
 import { createInquirySchema, inquiryFiltersSchema } from '@/lib/validations'
-import { hasPermission } from '@/utils/supabase/api-auth'
 import { onInquiryCreated } from '@/lib/automation/hooks'
-import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
+import { cache, cacheKeys } from '@/lib/redis'
+import { apiAuth } from '@/utils/api/optimized-auth-wrapper'
 
-export async function GET(request: NextRequest) {
+export const GET = apiAuth.withPermission('inquiries', 'read', async (request: NextRequest, user: any) => {
+  const startTime = Date.now()
+  
   try {
-    const user = await getAuthenticatedUser(request)
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
-
-    if (!hasPermission(user.role, 'inquiries', 'read')) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-    }
 
     const { searchParams } = new URL(request.url)
     const rawParams = Object.fromEntries(searchParams)
@@ -29,6 +23,19 @@ export async function GET(request: NextRequest) {
     }
     
     const filters = inquiryFiltersSchema.parse(params)
+    
+    // Generate cache key based on user role and filters
+    const cacheKey = `inquiries:${user.role}:${user.id}:${JSON.stringify(filters)}`
+    
+    // Try cache first (2-minute TTL for frequently changing data)
+    const cachedResult = await cache.get(cacheKey)
+    if (cachedResult) {
+      const duration = Date.now() - startTime
+      console.log(`[API] /inquiries cache HIT (${duration}ms) for user ${user.email}`)
+      return NextResponse.json(cachedResult)
+    }
+    
+    console.log(`[API] /inquiries cache MISS for user ${user.email} - querying database`)
 
     const where: any = {}
 
@@ -101,7 +108,7 @@ export async function GET(request: NextRequest) {
       db.inquiry.count({ where }),
     ])
 
-    return NextResponse.json({
+    const result = {
       success: true,
       data: inquiries,
       pagination: {
@@ -110,27 +117,27 @@ export async function GET(request: NextRequest) {
         total,
         pages: Math.ceil(total / filters.limit),
       },
-    })
+    }
+    
+    // Cache the result for 2 minutes (120 seconds)
+    await cache.set(cacheKey, result, 120)
+    
+    const duration = Date.now() - startTime
+    console.log(`[API] /inquiries database query completed (${duration}ms) for user ${user.email}`)
+    
+    return NextResponse.json(result)
   } catch (error) {
-    console.error('Get inquiries error:', error)
+    const duration = Date.now() - startTime
+    console.error(`[API] /inquiries error (${duration}ms):`, error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
     )
   }
-}
+})
 
-export async function POST(request: NextRequest) {
+export const POST = apiAuth.withPermission('inquiries', 'write', async (request: NextRequest, user: any) => {
   try {
-    const user = await getAuthenticatedUser(request)
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
-
-    if (!hasPermission(user.role, 'inquiries', 'write')) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-    }
-
     const body = await request.json()
     console.log('POST /api/inquiries - Request body:', JSON.stringify(body, null, 2))
     
@@ -198,6 +205,10 @@ export async function POST(request: NextRequest) {
 
     // Trigger automation rules
     await onInquiryCreated(inquiry.id, inquiry)
+    
+    // Invalidate inquiry caches since we added a new inquiry
+    await cache.clearPattern('inquiries:*')
+    console.log(`[Cache] Invalidated inquiry caches after creating inquiry ${inquiry.id}`)
 
     return NextResponse.json({
       success: true,
@@ -224,4 +235,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     )
   }
-}
+})

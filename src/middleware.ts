@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { applySecurity, securityHeaders, corsHeaders } from '@/middleware/security'
 import { serverMonitor } from '@/lib/server-monitoring'
-import { createClient } from '@/utils/supabase/middleware'
+import { authMiddleware } from '@/middleware/optimized-auth-middleware'
 import { AUTH_URLS, PUBLIC_ROUTES, PROTECTED_ROUTES } from '@/lib/auth-config'
 
 export async function middleware(request: NextRequest) {
@@ -48,37 +48,57 @@ export async function middleware(request: NextRequest) {
     return corsHeaders(request, response)
   }
   
-  // Create Supabase client with middleware
-  const { supabase, response } = createClient(request)
+  // Create default response
+  let response = NextResponse.next()
   
-  // Get session from Supabase
-  const { data: { session } } = await supabase.auth.getSession()
-  
-  console.log('Middleware check:', { 
-    pathname, 
-    hasSession: !!session,
-    userEmail: session?.user?.email
-  })
-
-  // Allow access to public routes
+  // Allow access to public routes (no auth needed)
   if (PUBLIC_ROUTES.some(route => pathname.startsWith(route))) {
     return securityHeaders(corsHeaders(request, response))
   }
 
-  // Protect dashboard routes - redirect to signin if no session
-  if (pathname.startsWith(PROTECTED_ROUTES.dashboard) && !session) {
-    console.log('Redirecting to signin - no Supabase session')
-    return NextResponse.redirect(new URL(AUTH_URLS.signIn, request.url))
-  }
+  // Use optimized auth middleware for protected routes
+  const authStartTime = Date.now()
+  const authResult = await authMiddleware.optimized(request, true)
+  const authDuration = Date.now() - authStartTime
+  
+  console.log('Optimized middleware check:', { 
+    pathname, 
+    hasUser: !!authResult.user,
+    userEmail: authResult.user?.email,
+    authDuration: `${authDuration}ms`,
+    cached: authDuration < 50 // Likely cached if under 50ms
+  })
 
-  // Protect API routes (except auth) - return 401 if no session
-  if (pathname.startsWith('/api') && !pathname.startsWith('/api/auth') && !session) {
-    return new NextResponse('Unauthorized', { status: 401 })
+  // Handle auth failures
+  if (authResult.response) {
+    // For dashboard routes, redirect to signin
+    if (pathname.startsWith(PROTECTED_ROUTES.dashboard) && authResult.response.status === 401) {
+      console.log('Redirecting to signin - optimized auth failed')
+      return NextResponse.redirect(new URL(AUTH_URLS.signIn, request.url))
+    }
+    
+    // For API routes, return the auth response (401/403)
+    if (pathname.startsWith('/api') && !pathname.startsWith('/api/auth')) {
+      return authResult.response
+    }
+    
+    // For other protected routes, redirect to signin
+    return NextResponse.redirect(new URL(AUTH_URLS.signIn, request.url))
   }
   
   // Add monitoring headers
   response.headers.set('x-request-id', requestId)
   response.headers.set('x-server-monitoring', 'active')
+  response.headers.set('x-auth-duration', `${authDuration}ms`)
+  response.headers.set('x-auth-cached', authDuration < 50 ? 'true' : 'false')
+  
+  // Add API optimization headers for API routes
+  if (pathname.startsWith('/api')) {
+    response.headers.set('x-api-optimization', 'enabled')
+    // Enable compression support signaling
+    response.headers.set('vary', 'Accept-Encoding')
+  }
+  
   if (isPlaywright) {
     response.headers.set('x-playwright-monitored', 'true')
   }
@@ -88,7 +108,7 @@ export async function middleware(request: NextRequest) {
   serverMonitor.log({
     level: response.status >= 400 ? 'warn' : 'info',
     source: 'middleware',
-    message: `${request.method} ${pathname} - ${response.status} (${duration}ms)`,
+    message: `${request.method} ${pathname} - ${response.status} (${duration}ms, auth: ${authDuration}ms)`,
     requestId,
     endpoint: pathname,
     method: request.method,
@@ -96,7 +116,10 @@ export async function middleware(request: NextRequest) {
     duration,
     data: {
       isPlaywright,
-      finalStatus: response.status
+      finalStatus: response.status,
+      authDuration,
+      authCached: authDuration < 50,
+      hasUser: !!authResult.user
     }
   })
   

@@ -2,8 +2,11 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db/index'
 import { hasPermission } from '@/utils/supabase/api-auth'
 import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
+import { cache } from '@/lib/redis'
 
 export async function GET(request: NextRequest) {
+  const startTime = Date.now()
+  
   try {
     const user = await getAuthenticatedUser(request)
     if (!user) {
@@ -14,13 +17,27 @@ export async function GET(request: NextRequest) {
     if (!['VPP', 'ADMIN', 'SUPERUSER'].includes(user.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
+
+    const { searchParams } = new URL(request.url)
+    const timeRange = parseInt(searchParams.get('timeRange') || '30')
+    
+    // Generate cache key based on time range
+    const cacheKey = `analytics:workload:${timeRange}`
+    
+    // Try cache first (5-minute TTL for analytics)
+    const cachedResult = await cache.get(cacheKey)
+    if (cachedResult) {
+      const duration = Date.now() - startTime
+      console.log(`[API] /analytics/workload cache HIT (${duration}ms) for timeRange ${timeRange}`)
+      return NextResponse.json(cachedResult)
+    }
+    
+    console.log(`[API] /analytics/workload cache MISS for timeRange ${timeRange} - querying database`)
     
     // Quick check: Count total inquiry items
     const totalItems = await db.inquiryItem.count()
     console.log('Total inquiry items in database:', totalItems)
 
-    const { searchParams } = new URL(request.url)
-    const timeRange = parseInt(searchParams.get('timeRange') || '30')
     const startDate = new Date()
     startDate.setDate(startDate.getDate() - timeRange)
 
@@ -178,9 +195,16 @@ export async function GET(request: NextRequest) {
     
     console.log('Full response:', JSON.stringify(response, null, 2))
     
+    // Cache the analytics result for 5 minutes (300 seconds)
+    await cache.set(cacheKey, response, 300)
+    
+    const duration = Date.now() - startTime
+    console.log(`[API] /analytics/workload database query completed (${duration}ms) for timeRange ${timeRange}`)
+    
     return NextResponse.json(response)
   } catch (error: any) {
-    console.error('Get workload analytics error:', error)
+    const duration = Date.now() - startTime
+    console.error(`[API] /analytics/workload error (${duration}ms):`, error)
     console.error('Error stack:', error.stack)
     return NextResponse.json(
       { error: 'Internal server error', details: error.message },

@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 import { db } from '@/lib/db/index'
+import { optimizeApiRoute } from '@/lib/api-optimization'
 
-export async function GET(request: NextRequest) {
+const getHandler = async (request: NextRequest) => {
   try {
     const user = await getAuthenticatedUser(request)
     if (!user) {
@@ -36,15 +37,15 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: 'Invalid analytics type' }, { status: 400 })
     }
 
-    return NextResponse.json(
-      {
-        type,
-        timeRange: days,
-        startDate: startDate.toISOString(),
-        data: analytics
-      },
-      { status: 200 }
-    )
+    // Return optimized data structure
+    return {
+      success: true,
+      type,
+      timeRange: days,
+      startDate: startDate.toISOString(),
+      data: analytics,
+      cached: false // This will be handled by optimization layer
+    }
   } catch (error) {
     console.error('Analytics error:', error)
     return NextResponse.json(
@@ -53,6 +54,16 @@ export async function GET(request: NextRequest) {
     )
   }
 }
+
+// Export optimized route handler with caching enabled for analytics data
+export const GET = optimizeApiRoute(getHandler, {
+  enableCaching: true,
+  cacheMaxAge: 600, // 10 minutes cache for analytics
+  enableCompression: true,
+  enableETag: true,
+  optimizePayload: true,
+  excludeFields: ['password', '__v', 'createdAt', 'updatedAt', 'email'] // Remove sensitive/unnecessary fields
+})
 
 async function getOverviewAnalytics(startDate: Date) {
   // Simplified version that works with the database abstraction

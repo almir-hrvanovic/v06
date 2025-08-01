@@ -4,6 +4,7 @@ import { db } from '@/lib/db/index'
 import { UserRole } from '@/lib/db/types'
 import { z } from 'zod'
 import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
+import { optimizeApiRoute } from '@/lib/api-optimization'
 
 // Schema for creating/updating customers
 const customerSchema = z.object({
@@ -13,7 +14,7 @@ const customerSchema = z.object({
   address: z.string().optional().nullable()
 })
 
-export async function GET(request: NextRequest) {
+const getHandler = async (request: NextRequest) => {
   try {
     const user = await getAuthenticatedUser(request)
     if (!user) {
@@ -53,7 +54,16 @@ export async function GET(request: NextRequest) {
       orderBy: { createdAt: 'desc' }
     })
 
-    return NextResponse.json({ data: customers, total: customers.length })
+    return { 
+      success: true,
+      data: customers, 
+      total: customers.length,
+      pagination: {
+        page: 1,
+        limit: customers.length,
+        total: customers.length
+      }
+    }
   } catch (error) {
     console.error('Failed to fetch customers:', error)
     return NextResponse.json(
@@ -63,7 +73,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-export async function POST(request: NextRequest) {
+const postHandler = async (request: NextRequest) => {
   try {
     const user = await getAuthenticatedUser(request)
     if (!user) {
@@ -117,7 +127,11 @@ export async function POST(request: NextRequest) {
       }
     })
 
-    return NextResponse.json(customer)
+    return { 
+      success: true,
+      data: customer,
+      message: 'Customer created successfully'
+    }
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -133,3 +147,20 @@ export async function POST(request: NextRequest) {
     )
   }
 }
+
+// Export optimized route handlers
+export const GET = optimizeApiRoute(getHandler, {
+  enableCaching: true,
+  cacheMaxAge: 300, // 5 minutes cache for customers
+  enableCompression: true,
+  enableETag: true,
+  optimizePayload: true,
+  excludeFields: ['email'] // Remove email from customer listings for privacy
+})
+
+export const POST = optimizeApiRoute(postHandler, {
+  enableCaching: false, // Don't cache POST requests
+  enableCompression: true,
+  enableResponseTiming: true,
+  optimizePayload: true
+})
