@@ -39,16 +39,51 @@ export function formatCurrency(amount: number | string, locale?: string): string
   }).format(num)
 }
 
-export function formatDate(date: Date | string | null | undefined, locale?: string): string {
+export function formatDate(date: any, locale?: string): string {
   // Handle null/undefined dates
   if (!date) {
     return 'N/A'
   }
   
-  const d = typeof date === 'string' ? new Date(date) : date
+  let d: Date
+  
+  // Handle different input types
+  if (typeof date === 'string') {
+    d = new Date(date)
+  } else if (date instanceof Date) {
+    d = date
+  } else if (typeof date === 'object' && date !== null) {
+    // Handle objects that might have toString() or toISOString() methods
+    if ('toISOString' in date && typeof date.toISOString === 'function') {
+      try {
+        d = new Date(date.toISOString())
+      } catch (e) {
+        console.warn('formatDate: Failed to convert object with toISOString', date)
+        return 'Invalid Date'
+      }
+    } else if ('toString' in date && typeof date.toString === 'function') {
+      try {
+        d = new Date(date.toString())
+      } catch (e) {
+        console.warn('formatDate: Failed to convert object with toString', date)
+        return 'Invalid Date'
+      }
+    } else {
+      console.warn('formatDate: Unknown object type', date)
+      return 'Invalid Date'
+    }
+  } else {
+    console.warn('formatDate: Unknown date type', typeof date, date)
+    return 'Invalid Date'
+  }
   
   // Check if date is valid
-  if (!d || isNaN(d.getTime()) || !isFinite(d.getTime())) {
+  try {
+    const time = d.getTime()
+    if (isNaN(time) || !isFinite(time)) {
+      return 'Invalid Date'
+    }
+  } catch (e) {
     return 'Invalid Date'
   }
   
@@ -60,16 +95,51 @@ export function formatDate(date: Date | string | null | undefined, locale?: stri
   }).format(d)
 }
 
-export function formatDateTime(date: Date | string | null | undefined, locale?: string): string {
+export function formatDateTime(date: any, locale?: string): string {
   // Handle null/undefined dates
   if (!date) {
     return 'N/A'
   }
   
-  const d = typeof date === 'string' ? new Date(date) : date
+  let d: Date
+  
+  // Handle different input types
+  if (typeof date === 'string') {
+    d = new Date(date)
+  } else if (date instanceof Date) {
+    d = date
+  } else if (typeof date === 'object' && date !== null) {
+    // Handle objects that might have toString() or toISOString() methods
+    if ('toISOString' in date && typeof date.toISOString === 'function') {
+      try {
+        d = new Date(date.toISOString())
+      } catch (e) {
+        console.warn('formatDateTime: Failed to convert object with toISOString', date)
+        return 'Invalid Date'
+      }
+    } else if ('toString' in date && typeof date.toString === 'function') {
+      try {
+        d = new Date(date.toString())
+      } catch (e) {
+        console.warn('formatDateTime: Failed to convert object with toString', date)
+        return 'Invalid Date'
+      }
+    } else {
+      console.warn('formatDateTime: Unknown object type', date)
+      return 'Invalid Date'
+    }
+  } else {
+    console.warn('formatDateTime: Unknown date type', typeof date, date)
+    return 'Invalid Date'
+  }
   
   // Check if date is valid
-  if (!d || isNaN(d.getTime()) || !isFinite(d.getTime())) {
+  try {
+    const time = d.getTime()
+    if (isNaN(time) || !isFinite(time)) {
+      return 'Invalid Date'
+    }
+  } catch (e) {
     return 'Invalid Date'
   }
   
@@ -85,16 +155,51 @@ export function formatDateTime(date: Date | string | null | undefined, locale?: 
   }).format(d)
 }
 
-export function formatRelativeTime(date: Date | string | null | undefined, locale?: string): string {
+export function formatRelativeTime(date: any, locale?: string): string {
   // Handle null/undefined dates
   if (!date) {
     return 'N/A'
   }
   
-  const d = typeof date === 'string' ? new Date(date) : date
+  let d: Date
+  
+  // Handle different input types
+  if (typeof date === 'string') {
+    d = new Date(date)
+  } else if (date instanceof Date) {
+    d = date
+  } else if (typeof date === 'object' && date !== null) {
+    // Handle objects that might have toString() or toISOString() methods
+    if ('toISOString' in date && typeof date.toISOString === 'function') {
+      try {
+        d = new Date(date.toISOString())
+      } catch (e) {
+        console.warn('formatRelativeTime: Failed to convert object with toISOString', date)
+        return 'Invalid Date'
+      }
+    } else if ('toString' in date && typeof date.toString === 'function') {
+      try {
+        d = new Date(date.toString())
+      } catch (e) {
+        console.warn('formatRelativeTime: Failed to convert object with toString', date)
+        return 'Invalid Date'
+      }
+    } else {
+      console.warn('formatRelativeTime: Unknown object type', date)
+      return 'Invalid Date'
+    }
+  } else {
+    console.warn('formatRelativeTime: Unknown date type', typeof date, date)
+    return 'Invalid Date'
+  }
   
   // Check if date is valid
-  if (!d || isNaN(d.getTime()) || !isFinite(d.getTime())) {
+  try {
+    const time = d.getTime()
+    if (isNaN(time) || !isFinite(time)) {
+      return 'Invalid Date'
+    }
+  } catch (e) {
     return 'Invalid Date'
   }
   
