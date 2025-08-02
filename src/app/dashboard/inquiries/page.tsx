@@ -2,11 +2,12 @@
 
 export const dynamic = 'force-dynamic'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, lazy, Suspense, useCallback } from 'react'
 import { useAuth } from '@/contexts/auth-context'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { useDebounce } from '@/hooks/use-debounce'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
@@ -32,7 +33,8 @@ import {
   ChevronDown,
   ChevronRight,
   Package,
-  UserPlus
+  UserPlus,
+  Loader2
 } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 import { formatWithSystemCurrency } from '@/lib/currency-helpers'
@@ -40,8 +42,21 @@ import { apiClient } from '@/lib/api-client'
 import { InquiryWithRelations, InquiryStatus, Priority } from '@/types'
 // import { ExcelExportButton } from '@/components/excel/excel-export-button'
 import { MobileTable } from '@/components/mobile/mobile-table'
-import { AssignItemDialog } from '@/components/inquiries/assign-item-dialog'
 import { useTranslations } from 'next-intl'
+import { getCachedCustomers } from '@/lib/customers-cache'
+
+// Lazy load components
+const AssignItemDialog = lazy(() => 
+  import('@/components/inquiries/assign-item-dialog').then(mod => ({ 
+    default: mod.AssignItemDialog 
+  }))
+)
+
+const InquiryItemsRow = lazy(() => 
+  import('@/components/inquiries/inquiry-items-row').then(mod => ({ 
+    default: mod.InquiryItemsRow 
+  }))
+)
 
 export default function InquiriesPage() {
   const t = useTranslations()
@@ -49,6 +64,7 @@ export default function InquiriesPage() {
   const router = useRouter()
   const [inquiries, setInquiries] = useState<InquiryWithRelations[]>([])
   const [loading, setLoading] = useState(true)
+  const [filterLoading, setFilterLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState<InquiryStatus | ''>('')
   const [priorityFilter, setPriorityFilter] = useState<Priority | ''>('')
@@ -57,6 +73,9 @@ export default function InquiriesPage() {
   const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set())
   const [assignDialogOpen, setAssignDialogOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState<any>(null)
+
+  // Debounce search term to avoid too many API calls
+  const debouncedSearchTerm = useDebounce(searchTerm, 500)
 
   const userRole = user?.role
 
@@ -69,11 +88,9 @@ export default function InquiriesPage() {
       }
       
       try {
-        const response = await apiClient.getCustomers()
+        const customers = await getCachedCustomers()
         if (isMounted) {
-          // Handle API response structure { data: [...], total: number }
-          const customersArray = Array.isArray(response) ? response : (response.data || response.customers || [])
-          setCustomers(customersArray)
+          setCustomers(customers)
         }
       } catch (error) {
         console.error('Failed to fetch customers:', error)
@@ -99,10 +116,16 @@ export default function InquiriesPage() {
       }
       
       try {
-        setLoading(true)
+        // Use filterLoading for subsequent loads, loading only for initial load
+        if (inquiries.length === 0) {
+          setLoading(true)
+        } else {
+          setFilterLoading(true)
+        }
+        
         const params = new URLSearchParams()
         
-        if (searchTerm) params.append('search', searchTerm)
+        if (debouncedSearchTerm) params.append('search', debouncedSearchTerm)
         if (statusFilter) params.append('status', statusFilter)
         if (priorityFilter) params.append('priority', priorityFilter)
         if (customerFilter) params.append('customerId', customerFilter)
@@ -113,7 +136,7 @@ export default function InquiriesPage() {
         if (isMounted) {
           // Handle both direct array and wrapped response formats
           const responseData = response as any
-          setInquiries(Array.isArray(responseData) ? responseData : responseData.data || [])
+          setInquiries(Array.isArray(responseData) ? responseData : responseData.inquiries || responseData.data || [])
         }
       } catch (error) {
         console.error('Failed to fetch inquiries:', error)
@@ -123,6 +146,7 @@ export default function InquiriesPage() {
       } finally {
         if (isMounted) {
           setLoading(false)
+          setFilterLoading(false)
         }
       }
     }
@@ -132,7 +156,7 @@ export default function InquiriesPage() {
     return () => {
       isMounted = false
     }
-  }, [user, isLoading, searchTerm, statusFilter, priorityFilter, customerFilter])
+  }, [user, isLoading, debouncedSearchTerm, statusFilter, priorityFilter, customerFilter])
 
   const refreshInquiries = async () => {
     if (isLoading || !user) {
@@ -140,7 +164,7 @@ export default function InquiriesPage() {
     }
     
     try {
-      setLoading(true)
+      setFilterLoading(true)
       const params = new URLSearchParams()
       
       if (searchTerm) params.append('search', searchTerm)
@@ -152,12 +176,12 @@ export default function InquiriesPage() {
       const response = await apiClient.getInquiries(Object.fromEntries(params))
       // Handle both direct array and wrapped response formats
       const responseData = response as any
-      setInquiries(Array.isArray(responseData) ? responseData : responseData.data || [])
+      setInquiries(Array.isArray(responseData) ? responseData : responseData.inquiries || responseData.data || [])
     } catch (error) {
       console.error('Failed to fetch inquiries:', error)
       setInquiries([])
     } finally {
-      setLoading(false)
+      setFilterLoading(false)
     }
   }
 
@@ -179,7 +203,7 @@ export default function InquiriesPage() {
   }
 
 
-  const toggleRowExpanded = (inquiryId: string) => {
+  const toggleRowExpanded = useCallback((inquiryId: string) => {
     setExpandedRows(prev => {
       const newSet = new Set(prev)
       if (newSet.has(inquiryId)) {
@@ -189,7 +213,7 @@ export default function InquiriesPage() {
       }
       return newSet
     })
-  }
+  }, [])
 
   if (loading) {
     return (
@@ -249,8 +273,8 @@ export default function InquiriesPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {inquiries.reduce((total, inquiry) => 
-                total + inquiry.items.filter(item => !item.assignedTo).length, 0
+              {inquiries.reduce((total, inquiry: any) => 
+                total + (inquiry.unassignedItemsCount || 0), 0
               )}
             </div>
           </CardContent>
@@ -288,7 +312,15 @@ export default function InquiriesPage() {
       {/* Filters */}
       <Card>
         <CardHeader>
-          <CardTitle>{t('inquiries.filters.title')}</CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle>{t('inquiries.filters.title')}</CardTitle>
+            {filterLoading && (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                {t('common.actions.loading')}
+              </div>
+            )}
+          </div>
         </CardHeader>
         <CardContent>
           {/* All Filters in one row - responsive grid: 1 col mobile, 2 col sm, 3 col md, 4 col lg+ */}
@@ -357,13 +389,18 @@ export default function InquiriesPage() {
         <CardHeader>
           <CardTitle>{t('inquiries.list.title')}</CardTitle>
           <CardDescription>
-            {t('inquiries.list.count', { count: inquiries.length })}
+            {t('inquiries.list.count', { count: inquiries.length })} | Expanded: {expandedRows.size}
           </CardDescription>
         </CardHeader>
         <CardContent className="p-0 lg:p-6">
           {/* Desktop Table - Show on lg screens and up */}
           <div className="hidden lg:block">
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto relative">
+              {filterLoading && (
+                <div className="absolute inset-0 bg-background/80 backdrop-blur-sm z-10 flex items-center justify-center">
+                  <Loader2 className="h-8 w-8 animate-spin" />
+                </div>
+              )}
               <Table>
               <TableHeader>
                 <TableRow>
@@ -387,19 +424,19 @@ export default function InquiriesPage() {
                       >
                         <TableCell>
                           <div className="flex items-start gap-2">
-                            <button
+                            <div
                               onClick={(e) => {
                                 e.stopPropagation()
                                 toggleRowExpanded(inquiry.id)
                               }}
-                              className="mt-1 p-0"
+                              className="mt-1 p-1 cursor-pointer hover:bg-muted rounded"
                             >
                               {isExpanded ? (
                                 <ChevronDown className="h-4 w-4" />
                               ) : (
                                 <ChevronRight className="h-4 w-4" />
                               )}
-                            </button>
+                            </div>
                             <div className="min-w-0">
                               <div className="font-medium">{inquiry.title}</div>
                               {inquiry.description && (
@@ -420,9 +457,9 @@ export default function InquiriesPage() {
                         <TableCell>{getPriorityBadge(inquiry.priority, t(`inquiries.priority.${inquiry.priority.toLowerCase()}`))}</TableCell>
                         <TableCell>
                           <div className="text-sm">
-                            <div>{t('inquiries.table.itemsCount', { count: inquiry.items.length })}</div>
+                            <div>{t('inquiries.table.itemsCount', { count: (inquiry as any).itemsCount || 0 })}</div>
                             <div className="text-muted-foreground">
-                              {t('inquiries.table.assignedCount', { count: inquiry.items.filter(item => item.assignedTo).length })}
+                              {t('inquiries.table.assignedCount', { count: (inquiry as any).assignedItemsCount || 0 })}
                             </div>
                           </div>
                         </TableCell>
@@ -467,109 +504,19 @@ export default function InquiriesPage() {
                         <TableRow>
                           <TableCell colSpan={7} className="p-0">
                             <div className="bg-muted/40 dark:bg-muted/20 p-4">
-                              <Table>
-                                <TableHeader>
-                                  <TableRow>
-                                    <TableHead className="pl-8">{t('inquiries.items.itemName')}</TableHead>
-                                    <TableHead>{t('inquiries.items.quantity')}</TableHead>
-                                    <TableHead>{t('inquiries.items.status')}</TableHead>
-                                    <TableHead>{t('inquiries.items.assignedTo')}</TableHead>
-                                    <TableHead>{t('inquiries.items.cost')}</TableHead>
-                                    <TableHead>{t('inquiries.items.delivery')}</TableHead>
-                                    <TableHead>{t('inquiries.items.actions')}</TableHead>
-                                  </TableRow>
-                                </TableHeader>
-                                <TableBody>
-                                  {inquiry.items.map((item, index) => (
-                                    <TableRow key={item.id} className="hover:bg-muted/50 dark:hover:bg-muted/20">
-                                      <TableCell className="pl-8">
-                                        <div className="flex items-center gap-2">
-                                          <Package className="h-4 w-4 text-muted-foreground" />
-                                          <span className="font-medium">{item.name}</span>
-                                        </div>
-                                      </TableCell>
-                                      <TableCell>
-                                        <div className="text-sm">
-                                          {item.quantity} {item.unit}
-                                        </div>
-                                      </TableCell>
-                                      <TableCell>
-                                        <Badge variant="outline" className="text-xs">
-                                          {item.status}
-                                        </Badge>
-                                      </TableCell>
-                                      <TableCell>
-                                        {item.assignedTo ? (
-                                          <div className="flex items-center space-x-2">
-                                            <User className="h-3 w-3 text-muted-foreground" />
-                                            <span className="text-sm">{item.assignedTo.name}</span>
-                                          </div>
-                                        ) : (
-                                          <span className="text-sm text-muted-foreground">{t('inquiries.items.unassigned')}</span>
-                                        )}
-                                      </TableCell>
-                                      <TableCell>
-                                        <div className="text-sm">
-                                          {item.costCalculation ? 
-                                            formatWithSystemCurrency(Number(item.costCalculation.totalCost)) : 
-                                            <span className="text-muted-foreground">-</span>
-                                          }
-                                        </div>
-                                      </TableCell>
-                                      <TableCell>
-                                        <div className="text-sm">
-                                          {item.requestedDelivery ? 
-                                            formatDate(item.requestedDelivery) : 
-                                            <span className="text-muted-foreground">-</span>
-                                          }
-                                        </div>
-                                      </TableCell>
-                                      <TableCell>
-                                        <div className="flex items-center gap-1">
-                                          <Button 
-                                            variant="ghost" 
-                                            size="sm"
-                                            onClick={(e) => {
-                                              e.stopPropagation()
-                                              router.push(`/dashboard/items/${item.id}`)
-                                            }}
-                                            title={t('inquiries.items.viewItem')}
-                                          >
-                                            <Eye className="h-4 w-4" />
-                                          </Button>
-                                          {(userRole === 'VPP' || userRole === 'VP' || userRole === 'ADMIN' || userRole === 'SUPERUSER') && (
-                                            <Button 
-                                              variant="ghost" 
-                                              size="sm"
-                                              onClick={(e) => {
-                                                e.stopPropagation()
-                                                router.push(`/dashboard/items/${item.id}/edit`)
-                                              }}
-                                              title={t('inquiries.items.editItem')}
-                                            >
-                                              <Edit className="h-4 w-4" />
-                                            </Button>
-                                          )}
-                                          {(userRole === 'VPP' || userRole === 'ADMIN' || userRole === 'SUPERUSER') && (
-                                            <Button 
-                                              variant="ghost" 
-                                              size="sm"
-                                              onClick={(e) => {
-                                                e.stopPropagation()
-                                                setSelectedItem(item)
-                                                setAssignDialogOpen(true)
-                                              }}
-                                              title={t('inquiries.items.assignToVP')}
-                                            >
-                                              <UserPlus className="h-4 w-4" />
-                                            </Button>
-                                          )}
-                                        </div>
-                                      </TableCell>
-                                    </TableRow>
-                                  ))}
-                                </TableBody>
-                              </Table>
+                              <Suspense fallback={
+                                <div className="flex items-center justify-center p-8">
+                                  <Loader2 className="h-6 w-6 animate-spin" />
+                                </div>
+                              }>
+                                <InquiryItemsRow 
+                                  inquiryId={inquiry.id} 
+                                  onAssignItem={(item) => {
+                                    setSelectedItem(item)
+                                    setAssignDialogOpen(true)
+                                  }}
+                                />
+                              </Suspense>
                             </div>
                           </TableCell>
                         </TableRow>
@@ -583,7 +530,12 @@ export default function InquiriesPage() {
           </div>
 
           {/* Mobile Table - Show on screens smaller than lg */}
-          <div className="block lg:hidden p-4">
+          <div className="block lg:hidden p-4 relative">
+            {filterLoading && (
+              <div className="absolute inset-0 bg-background/80 backdrop-blur-sm z-10 flex items-center justify-center">
+                <Loader2 className="h-8 w-8 animate-spin" />
+              </div>
+            )}
             <MobileTable 
               inquiries={inquiries}
               isLoading={loading}
@@ -606,15 +558,17 @@ export default function InquiriesPage() {
 
       {/* Assign Item Dialog */}
       {selectedItem && (
-        <AssignItemDialog
-          isOpen={assignDialogOpen}
-          onClose={() => {
-            setAssignDialogOpen(false)
-            setSelectedItem(null)
-          }}
-          item={selectedItem}
-          onAssigned={refreshInquiries}
-        />
+        <Suspense fallback={null}>
+          <AssignItemDialog
+            isOpen={assignDialogOpen}
+            onClose={() => {
+              setAssignDialogOpen(false)
+              setSelectedItem(null)
+            }}
+            item={selectedItem}
+            onAssigned={refreshInquiries}
+          />
+        </Suspense>
       )}
     </div>
   )

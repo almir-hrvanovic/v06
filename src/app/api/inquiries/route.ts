@@ -185,18 +185,45 @@ export async function POST(request: NextRequest) {
     
     const nextNumber = (latestInquiry?.sequentialNumber || 0) + 1
 
-    // Create inquiry with sequential number
+    // Extract items and attachmentIds from validated data
+    const { items, attachmentIds, ...inquiryData } = validatedData
+    
+    // Create inquiry with sequential number and nested items
     const inquiry = await db.inquiry.create({
       data: {
-        ...validatedData,
+        ...inquiryData,
         sequentialNumber: nextNumber,
         createdById: user.id,
-        status: 'DRAFT'
+        status: 'DRAFT',
+        // Create nested items if provided
+        items: items?.length > 0 ? {
+          create: items.map((item: any) => ({
+            name: item.name,
+            description: item.description,
+            quantity: item.quantity,
+            unit: item.unit,
+            notes: item.notes,
+            requestedDelivery: item.requestedDelivery,
+            priceEstimation: item.priceEstimation ? parseFloat(item.priceEstimation) : null,
+            status: 'PENDING'
+          }))
+        } : undefined,
+        // Create attachment relations if provided
+        attachments: attachmentIds?.length > 0 ? {
+          create: attachmentIds.map((attachmentId: string) => ({
+            attachmentId
+          }))
+        } : undefined
       },
       include: {
         customer: true,
         createdBy: true,
-        items: true
+        items: true,
+        attachments: {
+          include: {
+            attachment: true
+          }
+        }
       }
     })
 

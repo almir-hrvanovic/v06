@@ -26,8 +26,15 @@ import { apiClient } from '@/lib/api-client'
 import { createInquirySchema } from '@/lib/validations'
 import { Priority, Currency } from '@prisma/client'
 import { CurrencyInput } from '@/components/ui/currency-input'
-import { AdaptiveFileUpload } from '@/components/attachments/adaptive-file-upload'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { lazy, Suspense } from 'react'
+
+// Lazy load the file upload component
+const AdaptiveFileUpload = lazy(() => 
+  import('@/components/attachments/adaptive-file-upload').then(mod => ({ 
+    default: mod.AdaptiveFileUpload 
+  }))
+)
 
 type InquiryFormData = z.infer<typeof createInquirySchema>
 
@@ -62,9 +69,10 @@ export default function NewInquiryPage() {
     try {
       const response = await fetch('/api/customers')
       if (!response.ok) throw new Error('Failed to fetch customers')
-      const data = await response.json()
-      // API returns array directly, not wrapped in object
-      setCustomers(Array.isArray(data) ? data : [])
+      const result = await response.json()
+      // API returns wrapped response with data property
+      const customers = result.data || (Array.isArray(result) ? result : [])
+      setCustomers(customers)
     } catch (error) {
       toast.error(t('messages.error.failedToLoad'))
       console.error('Failed to fetch customers:', error)
@@ -335,18 +343,24 @@ export default function NewInquiryPage() {
                         {t('inquiries.form.documentation.uploadDescription')}
                       </DialogDescription>
                     </DialogHeader>
-                    <AdaptiveFileUpload
-                      onUploadComplete={(files) => {
-                        setUploadedFiles(prev => [...prev, ...files])
-                        setShowUploadDialog(false)
-                        toast.success(t('inquiries.form.documentation.uploadSuccess'))
-                      }}
-                      onUploadError={(error) => {
-                        console.error('Upload error:', error)
-                        toast.error(t('inquiries.form.documentation.uploadError'))
-                      }}
-                      maxFiles={10}
-                    />
+                    <Suspense fallback={
+                      <div className="flex items-center justify-center p-4">
+                        <Loader2 className="h-6 w-6 animate-spin" />
+                      </div>
+                    }>
+                      <AdaptiveFileUpload
+                        onUploadComplete={(files) => {
+                          setUploadedFiles(prev => [...prev, ...files])
+                          setShowUploadDialog(false)
+                          toast.success(t('inquiries.form.documentation.uploadSuccess'))
+                        }}
+                        onUploadError={(error) => {
+                          console.error('Upload error:', error)
+                          toast.error(t('inquiries.form.documentation.uploadError'))
+                        }}
+                        maxFiles={10}
+                      />
+                    </Suspense>
                   </DialogContent>
                 </Dialog>
               </div>

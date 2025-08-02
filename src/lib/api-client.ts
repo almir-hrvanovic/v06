@@ -45,6 +45,7 @@ export class ApiClient {
   // Inquiries
   async getInquiries(params?: Record<string, any>) {
     const searchParams = this.cleanParams(params)
+    // Use main inquiries endpoint
     return this.request(`/inquiries?${searchParams}`)
   }
 

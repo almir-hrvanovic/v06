@@ -9,6 +9,7 @@ import { FileIcon, UploadIcon, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { useTranslations } from 'next-intl'
 import { storageProvider } from '@/lib/storage-provider'
+import { getStorageSettings } from '@/lib/storage-settings-cache'
 
 interface AdaptiveFileUploadProps {
   onUploadComplete?: (files: UploadedFile[]) => void
@@ -47,20 +48,28 @@ export function AdaptiveFileUpload({
   const [refreshKey, setRefreshKey] = useState(0)
 
   useEffect(() => {
-    // Fetch storage settings
+    // Fetch storage settings with caching
     const fetchSettings = async () => {
       try {
-        const response = await fetch('/api/system-settings')
-        if (response.ok) {
-          const data = await response.json()
+        const cachedSettings = await getStorageSettings()
+        if (cachedSettings) {
+          setSettings(cachedSettings)
+        } else {
+          // Fallback to default settings
           setSettings({
-            storageProvider: data.storageProvider,
-            maxFileSize: data.maxFileSize,
-            allowedFileTypes: data.allowedFileTypes
+            storageProvider: 'UPLOADTHING',
+            maxFileSize: 16777216, // 16MB
+            allowedFileTypes: ['image/*', 'application/pdf']
           })
         }
       } catch (error) {
         console.error('Failed to fetch storage settings:', error)
+        // Fallback to default settings
+        setSettings({
+          storageProvider: 'UPLOADTHING',
+          maxFileSize: 16777216, // 16MB
+          allowedFileTypes: ['image/*', 'application/pdf']
+        })
       }
     }
     fetchSettings()

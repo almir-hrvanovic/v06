@@ -18,6 +18,7 @@ export function createExtendedPrismaOperations(prisma: PrismaClient): ExtendedDa
     
     inquiry: {
       findUnique: (args) => prisma.inquiry.findUnique(args),
+      findFirst: (args) => prisma.inquiry.findFirst(args),
       findMany: (args) => prisma.inquiry.findMany(args),
       create: (args) => prisma.inquiry.create(args),
       update: (args) => prisma.inquiry.update(args),
@@ -137,6 +138,7 @@ export function createExtendedTransactionOperations(tx: any): ExtendedDatabaseOp
     
     inquiry: {
       findUnique: (args) => tx.inquiry.findUnique(args),
+      findFirst: (args) => tx.inquiry.findFirst(args),
       findMany: (args) => tx.inquiry.findMany(args),
       create: (args) => tx.inquiry.create(args),
       update: (args) => tx.inquiry.update(args),
