@@ -6,7 +6,7 @@ import "../styles/i18n.css";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
-import { AuthProvider } from '@/components/providers/auth-provider'
+import { AuthContextProvider } from '@/contexts/auth-context'
 import { LocaleProvider } from '@/components/providers/locale-provider'
 import { ConsoleMonitorProvider } from '@/components/providers/console-monitor-provider'
 import { ThemeProvider } from '@/contexts/theme-context'
@@ -138,7 +138,7 @@ export default async function RootLayout({
           messages={messages}
         >
           <ThemeProvider defaultTheme="system" storageKey="gs-cms-theme">
-            <AuthProvider>
+            <AuthContextProvider>
               <DevAutoLoginProvider>
                 <LocaleProvider>
                   <ConsoleMonitorProvider>
@@ -146,7 +146,7 @@ export default async function RootLayout({
                   </ConsoleMonitorProvider>
                 </LocaleProvider>
               </DevAutoLoginProvider>
-            </AuthProvider>
+            </AuthContextProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

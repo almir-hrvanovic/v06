@@ -14,7 +14,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Badge } from '@/components/ui/badge'
 import { toast } from 'sonner'
 import { Search, Plus, Pencil, Trash2, Shield, CheckCircle, XCircle, Key, Copy } from 'lucide-react'
-import { useAuth } from '@/hooks/use-auth'
+import { useAuth } from '@/contexts/auth-context'
 import { useTranslations } from 'next-intl'
 
 export default function UsersPage() {

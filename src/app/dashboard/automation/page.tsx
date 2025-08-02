@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { useAuth } from '@/hooks/use-auth'
+import { useAuth } from '@/contexts/auth-context'
 import { useRouter } from 'next/navigation'
 import { Plus, Edit, Trash2, ToggleLeft, ToggleRight, Activity } from 'lucide-react'
 import { Button } from '@/components/ui/button'

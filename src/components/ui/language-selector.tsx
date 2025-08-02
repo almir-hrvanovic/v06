@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { useAuth } from '@/hooks/use-auth';
+import { useAuth } from '@/contexts/auth-context';
 import { toast } from 'sonner';
 import { setLocaleCookie } from '@/lib/locale';
 

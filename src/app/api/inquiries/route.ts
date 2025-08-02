@@ -131,7 +131,7 @@ export async function GET(request: NextRequest) {
                 name: true
               }
             },
-            costs: true
+            costCalculation: true
           }
         }
       }

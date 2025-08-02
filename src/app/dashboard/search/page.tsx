@@ -20,7 +20,7 @@ import {
   TrendingUp,
   Clock
 } from 'lucide-react'
-import { useAuth } from '@/hooks/use-auth'
+import { useAuth } from '@/contexts/auth-context'
 
 type EntityType = 'inquiries' | 'items' | 'users' | 'customers' | 'quotes' | 'orders'
 

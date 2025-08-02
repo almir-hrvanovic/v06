@@ -180,7 +180,7 @@ export function AttachmentDisplay({
                 <p className="text-xs text-muted-foreground">
                   {formatFileSize(item.attachment.fileSize)} • 
                   {t('attachments.uploadedBy', { name: item.attachment.uploadedBy.name })} • 
-                  {new Date(item.attachment.createdAt).toLocaleDateString()}
+                  {new Date(item.attachment.createdAt).toLocaleDateString('en-US')}
                 </p>
               </div>
             </div>

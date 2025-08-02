@@ -16,7 +16,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { NotificationDropdown } from '@/components/notifications/notification-dropdown'
 import { QuickLanguageSwitcher } from '@/components/language/language-switcher'
-import { useAuth } from '@/hooks/use-auth'
+import { useAuth } from '@/contexts/auth-context'
 import {
   Search,
   User,

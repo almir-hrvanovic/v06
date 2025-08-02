@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { useAuth } from '@/hooks/use-auth'
+import { useAuth } from '@/contexts/auth-context'
 import { useAssignmentsData } from '@/hooks/use-assignments-data'
 import { useSidebar } from '@/contexts/sidebar-context'
 import { Button } from '@/components/ui/button'

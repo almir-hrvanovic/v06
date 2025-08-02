@@ -1,7 +1,7 @@
 'use client'
 
 import { use, useState, useEffect, useCallback } from 'react'
-import { useAuth } from '@/hooks/use-auth'
+import { useAuth } from '@/contexts/auth-context'
 import { useRouter } from 'next/navigation'
 import { UserRole } from '@prisma/client'
 import { RuleForm } from '@/components/automation/rule-form'
@@ -113,7 +113,7 @@ export default function EditAutomationRulePage({ params }: PageProps) {
                     <span className="text-sm">{log.message}</span>
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    {new Date(log.createdAt).toLocaleString()}
+                    {new Date(log.createdAt).toLocaleString('en-US')}
                   </div>
                 </div>
               ))}

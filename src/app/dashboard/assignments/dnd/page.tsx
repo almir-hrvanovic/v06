@@ -3,7 +3,7 @@
 export const dynamic = 'force-dynamic'
 
 import { useState, useEffect, useCallback } from 'react'
-import { useAuth } from '@/hooks/use-auth'
+import { useAuth } from '@/contexts/auth-context'
 import {
   DndContext,
   closestCenter,

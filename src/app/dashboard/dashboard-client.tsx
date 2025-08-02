@@ -25,22 +25,27 @@ function DashboardContent({
     typeof window !== 'undefined' ? window.innerWidth : 1920
   )
   
-  // Determine device type based on viewport width
+  // Determine device type based on viewport width - use correct initial value
+  const getDeviceType = (width: number): 'mobile' | 'tablet' | 'desktop' => {
+    if (width < 768) return 'mobile'
+    if (width >= 768 && width < 1024) return 'tablet'
+    return 'desktop'
+  }
+  
+  // Always start with desktop to avoid hydration mismatch
   const [deviceType, setDeviceType] = useState<'mobile' | 'tablet' | 'desktop'>('desktop')
+  const [isClient, setIsClient] = useState(false)
   
   useEffect(() => {
+    // Mark as client-side
+    setIsClient(true)
+    
     const updateWidth = () => {
       const width = window.innerWidth
       setViewportWidth(width)
       
-      // Device type breakpoints
-      if (width < 768) {
-        setDeviceType('mobile')
-      } else if (width >= 768 && width < 1024) {
-        setDeviceType('tablet')
-      } else {
-        setDeviceType('desktop')
-      }
+      // Update device type
+      setDeviceType(getDeviceType(width))
     }
     updateWidth()
     window.addEventListener('resize', updateWidth)
@@ -50,7 +55,7 @@ function DashboardContent({
   return (
     <div className="flex h-screen bg-background">
       {/* Desktop Sidebar - Only on desktop */}
-      {deviceType === 'desktop' && (
+      {(!isClient || deviceType === 'desktop') && (
         <aside className={cn(
           "flex-shrink-0 transition-all duration-300",
           isCollapsed ? "w-16" : "w-64"
@@ -60,20 +65,20 @@ function DashboardContent({
       )}
       
       {/* Tablet Sidebar - Only on tablet */}
-      {deviceType === 'tablet' && <TabletSidebar />}
+      {isClient && deviceType === 'tablet' && <TabletSidebar />}
       
       <div className={cn(
         "flex flex-1 flex-col overflow-hidden transition-all duration-300",
         deviceType === 'tablet' && "ml-[88px]"
       )}>
         {/* Desktop Header - Only on desktop */}
-        {deviceType === 'desktop' && <Header />}
+        {(!isClient || deviceType === 'desktop') && <Header />}
         
         {/* Tablet Header - Only on tablet */}
-        {deviceType === 'tablet' && <TabletHeader />}
+        {isClient && deviceType === 'tablet' && <TabletHeader />}
         
         {/* Mobile Header - Only on mobile */}
-        {deviceType === 'mobile' && (
+        {isClient && deviceType === 'mobile' && (
           <MobileHeader className="supabase-header" />
         )}
         

@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useAuth } from '@/hooks/use-auth'
+import { useAuth } from '@/contexts/auth-context'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -178,7 +178,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-foreground mb-1">
-              ${stats.revenue.toLocaleString()}
+              ${stats.revenue.toLocaleString('en-US')}
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
               {t('dashboard.stats.fromLastMonth')}

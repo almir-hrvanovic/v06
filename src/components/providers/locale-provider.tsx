@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { useAuth } from '@/hooks/use-auth'
+import { useAuth } from '@/contexts/auth-context'
 
 export function LocaleProvider({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth()

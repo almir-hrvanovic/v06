@@ -3,7 +3,7 @@
  * Provides focus management, keyboard navigation, and ARIA support
  */
 
-import { useEffect, useRef, useState, useCallback, useMemo } from 'react'
+import { useEffect, useRef, useState, useCallback, useMemo, useId } from 'react'
 import {
   FocusManager,
   ScreenReaderAnnouncer,
@@ -435,7 +435,10 @@ export function useA11yLandmarks() {
 
 // ID generation hook for ARIA relationships
 export function useA11yId(prefix?: string) {
-  const id = useMemo(() => a11yUtils.generateId(prefix), [prefix])
+  const reactId = useId()
+  const id = useMemo(() => {
+    return prefix ? `${prefix}-${reactId}` : reactId
+  }, [prefix, reactId])
   
   return id
 }

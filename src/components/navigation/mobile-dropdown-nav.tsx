@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useAuth } from '@/hooks/use-auth'
+import { useAuth } from '@/contexts/auth-context'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'

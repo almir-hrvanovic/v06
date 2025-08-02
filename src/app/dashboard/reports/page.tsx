@@ -22,7 +22,7 @@ import {
   Eye,
   Plus
 } from 'lucide-react'
-import { useAuth } from '@/hooks/use-auth'
+import { useAuth } from '@/contexts/auth-context'
 
 export default function ReportsPage() {
   const { user } = useAuth()
@@ -301,7 +301,7 @@ export default function ReportsPage() {
                     <div className="flex items-center space-x-4 text-sm text-muted-foreground">
                       <span>{report.type}</span>
                       <span>•</span>
-                      <span>{report.generatedAt.toLocaleDateString()}</span>
+                      <span>{report.generatedAt.toLocaleDateString('en-US')}</span>
                       <span>•</span>
                       <span>{report.size}</span>
                     </div>

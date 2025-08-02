@@ -35,6 +35,9 @@ export function LoginModal({ open, onOpenChange, onSuccess }: LoginModalProps) {
     e.preventDefault()
     setError('')
     setLoading(true)
+    
+    // Close modal immediately for snappy feel
+    onOpenChange(false)
 
     try {
       const supabase = createClient()
@@ -46,15 +49,14 @@ export function LoginModal({ open, onOpenChange, onSuccess }: LoginModalProps) {
 
       if (authError) {
         setError(authError.message || 'Invalid email or password.')
+        // Reopen modal on error
+        onOpenChange(true)
       } else if (data?.user) {
         console.log('Login successful:', data.user.email)
         
         // Clear form
         setEmail('')
         setPassword('')
-        
-        // Close modal
-        onOpenChange(false)
         
         // Call success callback
         onSuccess?.()
@@ -71,8 +73,21 @@ export function LoginModal({ open, onOpenChange, onSuccess }: LoginModalProps) {
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-[#2a2a2a] border-[#404040] text-slate-100">
+    <>
+      <style jsx global>{`
+        /* Claude Code style - Remove Chrome autofill yellow background */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: #cccccc !important;
+          transition: background-color 5000s ease-in-out 0s;
+          box-shadow: inset 0 0 20px 20px #1e1e1e !important;
+        }
+      `}</style>
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent className="bg-[#2a2a2a] border-[#404040] text-slate-100">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-slate-100">
             {t('buttons.signIn')}
@@ -151,5 +166,6 @@ export function LoginModal({ open, onOpenChange, onSuccess }: LoginModalProps) {
         </form>
       </DialogContent>
     </Dialog>
+    </>
   )
 }

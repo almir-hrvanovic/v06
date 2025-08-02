@@ -50,7 +50,7 @@ const getHandler = apiAuth.withPermission('users', 'read', async (request: NextR
       orderBy: { name: 'asc' }
     })
 
-    return {
+    return NextResponse.json({
       success: true,
       data: users,
       total: users.length,
@@ -59,7 +59,7 @@ const getHandler = apiAuth.withPermission('users', 'read', async (request: NextR
         limit: users.length,
         total: users.length
       }
-    }
+    })
   } catch (error) {
     console.error('Get users error:', error)
     return NextResponse.json(
@@ -132,14 +132,14 @@ const postHandler = apiAuth.withPermission('users', 'write', async (request: Nex
     // In production, send email with temporary password
     console.log(`Created user ${newUser.email} with temporary password: ${tempPassword}`)
 
-    return {
+    return NextResponse.json({
       success: true,
       data: {
         ...newUser,
         tempPassword
       },
       message: 'User created successfully'
-    }
+    })
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(

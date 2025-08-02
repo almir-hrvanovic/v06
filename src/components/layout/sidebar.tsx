@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { useAuth } from '@/hooks/use-auth'
+import { useAuth } from '@/contexts/auth-context'
 import { UserRole } from '@prisma/client'
 import { useSidebar } from '@/contexts/sidebar-context'
 import { useTranslations } from 'next-intl'
@@ -49,7 +49,7 @@ interface NavItem {
 export function Sidebar() {
   const t = useTranslations()
   const pathname = usePathname()
-  const { user } = useAuth()
+  const { user, loading } = useAuth()
   const { 
     isCollapsed, 
     toggleCollapsed, 
@@ -159,9 +159,10 @@ export function Sidebar() {
     },
   ]
 
-  const filteredNavItems = navItems.filter(item => 
-    userRole && item.roles.includes(userRole)
-  )
+  // Show all items initially to prevent flashing, then filter by role
+  const filteredNavItems = userRole 
+    ? navItems.filter(item => item.roles.includes(userRole))
+    : navItems // Show all items during loading to prevent layout shift
 
   // Create navigation elements for keyboard navigation
   const navElements = Array.from(navItemRefs.current.values())
@@ -264,7 +265,7 @@ export function Sidebar() {
           'relative h-screen sidebar-nav border-r border-border transition-all',
           accessibility.reducedMotion ? '' : 'duration-300',
           isCollapsed ? 'w-16' : 'w-64',
-          accessibility.highContrast && 'border-2 border-solid'
+          accessibility.highContrast && 'border-2 border-solid',
         )}
         role="navigation"
         aria-label={isCollapsed ? 'Collapsed navigation menu' : 'Main navigation menu'}

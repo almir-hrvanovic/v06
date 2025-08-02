@@ -10,5 +10,5 @@ export function AuthProvider({ children }: AuthProviderProps) {
   return <>{children}</>
 }
 
-// Re-export useAuth from the main hook (with fixes applied)
-export { useAuth } from '@/hooks/use-auth'
+// Re-export useAuth from the context
+export { useAuth } from '@/contexts/auth-context'

@@ -11,6 +11,7 @@ export default function HomePage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [userEmail, setUserEmail] = useState("")
+  const [starRed, setStarRed] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -19,6 +20,7 @@ export default function HomePage() {
       const { data: { session } } = await supabase.auth.getSession()
       
       setIsAuthenticated(!!session)
+      setStarRed(!!session) // Keep star state in sync with auth
       setUserEmail(session?.user?.email || "")
     }
     
@@ -29,6 +31,11 @@ export default function HomePage() {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setIsAuthenticated(!!session)
       setUserEmail(session?.user?.email || "")
+      
+      // For logout, change star immediately
+      if (event === 'SIGNED_OUT') {
+        setStarRed(false)
+      }
     })
     
     return () => subscription.unsubscribe()
@@ -36,6 +43,7 @@ export default function HomePage() {
 
   const handleLogout = async () => {
     const supabase = createClient()
+    setStarRed(false) // Immediately update UI
     await supabase.auth.signOut()
     router.refresh()
   }
@@ -49,9 +57,10 @@ export default function HomePage() {
             <svg className="w-32 h-32 mx-auto" viewBox="0 0 100 100">
               <path 
                 d="M50 5 L61.8 39.1 L97.6 39.1 L69.9 60.9 L81.6 95 L50 73.2 L18.4 95 L30.1 60.9 L2.4 39.1 L38.2 39.1 Z" 
-                className={`transition-all duration-[2000ms] ease-in-out ${
-                  isAuthenticated ? 'fill-[#dc2626]' : 'fill-[#a6a6a6]'
-                }`} 
+                style={{
+                  fill: starRed ? '#dc2626' : '#a6a6a6',
+                  transition: 'fill 1s ease-in-out'
+                }} 
               />
             </svg>
           </div>
@@ -61,39 +70,42 @@ export default function HomePage() {
             finding love in strange repos + ahrvanovic
           </p>
           
-          {/* Buttons - fixed height container */}
-          <div className="mt-12 h-[50px] flex items-center justify-center gap-4">
-            {isAuthenticated ? (
-              <>
-                <Button 
-                  size="lg" 
-                  onClick={handleLogout}
-                  className="bg-transparent border border-[#404040] text-[#a6a6a6] hover:bg-[#2a2a2a] hover:text-[#cccccc] hover:border-[#525252] transition-all duration-300"
-                >
-                  Logout
-                </Button>
-                <Button 
-                  size="lg" 
-                  asChild
-                  className="bg-transparent border border-[#404040] text-[#a6a6a6] hover:bg-[#2a2a2a] hover:text-[#cccccc] hover:border-[#525252] transition-all duration-300"
-                >
-                  <Link href="/dashboard">Dashboard</Link>
-                </Button>
-              </>
-            ) : (
+          {/* Buttons - fixed height container with smooth transitions */}
+          <div className="mt-12 h-[50px] relative">
+            <div className={`absolute inset-0 flex items-center justify-center gap-4 transition-all duration-500 ease-out ${
+              isAuthenticated ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform -translate-y-2 pointer-events-none'
+            }`}>
+              <Button 
+                size="lg" 
+                onClick={handleLogout}
+                className="bg-transparent border border-[#404040] text-[#a6a6a6] hover:bg-[#2a2a2a] hover:text-[#cccccc] hover:border-[#525252] transition-colors duration-300"
+              >
+                Logout
+              </Button>
+              <Button 
+                size="lg" 
+                asChild
+                className="bg-transparent border border-[#404040] text-[#a6a6a6] hover:bg-[#2a2a2a] hover:text-[#cccccc] hover:border-[#525252] transition-colors duration-300"
+              >
+                <Link href="/dashboard">Dashboard</Link>
+              </Button>
+            </div>
+            <div className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ease-out ${
+              !isAuthenticated ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-2 pointer-events-none'
+            }`}>
               <Button 
                 size="lg" 
                 onClick={() => setShowLoginModal(true)}
-                className="bg-transparent border border-[#404040] text-[#a6a6a6] hover:bg-[#2a2a2a] hover:text-[#cccccc] hover:border-[#525252] transition-all duration-300"
+                className="bg-transparent border border-[#404040] text-[#a6a6a6] hover:bg-[#2a2a2a] hover:text-[#cccccc] hover:border-[#525252] transition-colors duration-300"
               >
                 Sign In
               </Button>
-            )}
+            </div>
           </div>
           
           {/* User info - always present container with fade transition */}
-          <div className={`mt-8 h-[60px] transition-opacity duration-1000 ease-in-out ${
-            isAuthenticated ? 'opacity-100' : 'opacity-0'
+          <div className={`mt-8 h-[60px] transition-all duration-700 ease-out transform ${
+            isAuthenticated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
           }`}>
             {isAuthenticated && (
               <div className="space-y-1">
@@ -112,7 +124,12 @@ export default function HomePage() {
       <LoginModal 
         open={showLoginModal} 
         onOpenChange={setShowLoginModal}
-        onSuccess={() => setShowLoginModal(false)}
+        onSuccess={() => {
+          // Start star animation quickly after modal closes
+          setTimeout(() => {
+            setStarRed(true)
+          }, 200) // Short delay, then 1s transition
+        }}
       />
     </div>
   )

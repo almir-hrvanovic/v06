@@ -18,7 +18,7 @@ import {
 import { NotificationDropdown } from '@/components/notifications/notification-dropdown'
 import { ThemeToggleItems } from '@/components/ui/theme-toggle'
 import { QuickLanguageSwitcher } from '@/components/language/language-switcher'
-import { useAuth } from '@/components/providers/auth-provider'
+import { useAuth } from '@/contexts/auth-context'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useState, useRef } from 'react'
@@ -28,7 +28,7 @@ import { useA11yKeyboardNav, useA11yId } from '@/hooks/use-accessibility'
 import { KEYBOARD_KEYS, ariaProps } from '@/lib/accessibility'
 
 export function Header() {
-  const { user, signOut: authSignOut } = useAuth()
+  const { user, signOut: authSignOut, loading } = useAuth()
   const t = useTranslations('header')
   const tRoles = useTranslations('roles')
   const router = useRouter()
@@ -189,7 +189,9 @@ export function Header() {
             <NotificationDropdown />
           </div>
 
-          {/* Professional User Menu */}
+          {/* Professional User Menu - Always render container to prevent layout shift */}
+          <div className={`transition-opacity duration-200 ${loading ? 'opacity-0' : 'opacity-100'}`}>
+          {user ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button 
@@ -331,6 +333,11 @@ export function Header() {
               </div>
             </DropdownMenuContent>
           </DropdownMenu>
+          ) : (
+            // Placeholder to maintain layout
+            <div className="w-[200px] h-[44px]" />
+          )}
+          </div>
 
           {/* Live region for announcements */}
           <div

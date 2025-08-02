@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { Currency } from '@prisma/client'
 import { getSystemSettings } from '@/lib/currency'
-import { useAuth } from '@/hooks/use-auth'
+import { useAuth } from '@/contexts/auth-context'
 
 interface CurrencySettings {
   mainCurrency: Currency

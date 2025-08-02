@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { useAuth } from '@/hooks/use-auth'
+import { useAuth } from '@/contexts/auth-context'
 import { UserRole } from '@prisma/client'
 import { useTranslations } from 'next-intl'
 import {

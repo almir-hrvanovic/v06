@@ -1,8 +1,8 @@
 'use client'
 
-import { useAuth } from '@/hooks/use-auth'
+import { useAuth } from '@/contexts/auth-context'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 interface SessionGuardProps {
   children: React.ReactNode
@@ -12,6 +12,15 @@ interface SessionGuardProps {
 export function SessionGuard({ children, redirectTo = '/' }: SessionGuardProps) {
   const { user, loading } = useAuth()
   const router = useRouter()
+  const [isInitialRender, setIsInitialRender] = useState(true)
+
+  useEffect(() => {
+    // Small delay to ensure smooth transition
+    const timer = setTimeout(() => {
+      setIsInitialRender(false)
+    }, 50)
+    return () => clearTimeout(timer)
+  }, [])
 
   useEffect(() => {
     if (loading) return
@@ -20,11 +29,11 @@ export function SessionGuard({ children, redirectTo = '/' }: SessionGuardProps) 
     }
   }, [user, loading, router, redirectTo])
 
-  // Loading state - keep it minimal to prevent flashing
-  if (loading) {
+  // During initial render or loading, show children with smooth transition
+  if (loading || isInitialRender) {
     return (
-      <div className="flex h-screen items-center justify-center bg-background">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-600"></div>
+      <div className={`transition-opacity duration-300 ${isInitialRender ? 'opacity-0' : 'opacity-100'}`}>
+        {children}
       </div>
     )
   }
@@ -34,6 +43,6 @@ export function SessionGuard({ children, redirectTo = '/' }: SessionGuardProps) 
     return null
   }
 
-  // Authenticated
+  // Authenticated - show normally
   return <>{children}</>
 }

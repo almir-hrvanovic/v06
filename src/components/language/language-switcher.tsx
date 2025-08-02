@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { useAuth } from '@/hooks/use-auth';
+import { useAuth } from '@/contexts/auth-context';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { 
