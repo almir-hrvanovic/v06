@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useAuth } from '@/hooks/use-auth';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { 
   DropdownMenu, 
@@ -69,6 +70,8 @@ export function LanguageSwitcher({
   const currentLocale = useLocale();
   const t = useTranslations();
   const { user } = useAuth();
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const [isChanging, setIsChanging] = useState(false);
 
   const currentLanguage = LANGUAGES.find(lang => 
@@ -76,7 +79,10 @@ export function LanguageSwitcher({
   ) || LANGUAGES[0];
 
   const handleLanguageChange = async (language: Language) => {
-    if (language.code === currentLocale) return;
+    // Check if it's the current language (check both code and fullLocale)
+    if (language.code === currentLocale || language.fullLocale === currentLocale) {
+      return;
+    }
     
     setIsChanging(true);
     
@@ -105,15 +111,18 @@ export function LanguageSwitcher({
       toast.success(
         `Language changed to ${language.nativeName}`,
         {
-          description: 'Language preference saved. The page will reload to apply the new language.',
+          description: 'Language preference saved.',
           duration: 2000
         }
       );
       
-      // Small delay for user feedback, then reload
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      // Reset loading state immediately since transition will handle the UI update
+      setIsChanging(false);
+      
+      // Use React transition for smooth update
+      startTransition(() => {
+        router.refresh();
+      });
       
     } catch (error) {
       console.error('Failed to change language:', error);
@@ -130,10 +139,10 @@ export function LanguageSwitcher({
           {LANGUAGES.map((language) => (
             <Button
               key={language.code}
-              variant={language.code === currentLocale ? 'default' : 'ghost'}
+              variant={(language.code === currentLocale || language.fullLocale === currentLocale) ? 'default' : 'ghost'}
               size="sm"
               onClick={() => handleLanguageChange(language)}
-              disabled={isChanging}
+              disabled={isChanging || isPending}
               className="h-8 px-2"
             >
               <span className="mr-1">{language.flag}</span>
@@ -152,10 +161,10 @@ export function LanguageSwitcher({
           <Button 
             variant="ghost" 
             size="sm" 
-            disabled={isChanging}
+            disabled={isChanging || isPending}
             className={className}
           >
-            {isChanging ? (
+            {(isChanging || isPending) ? (
               <Loader2 className="h-4 w-4 animate-spin" />
             ) : (
               <>
@@ -170,14 +179,14 @@ export function LanguageSwitcher({
             <DropdownMenuItem
               key={language.code}
               onClick={() => handleLanguageChange(language)}
-              disabled={isChanging}
+              disabled={isChanging || isPending}
               className="flex items-center justify-between"
             >
               <div className="flex items-center gap-2">
                 <span>{language.flag}</span>
                 <span>{language.nativeName}</span>
               </div>
-              {language.code === currentLocale && (
+              {(language.code === currentLocale || language.fullLocale === currentLocale) && (
                 <Check className="h-4 w-4" />
               )}
             </DropdownMenuItem>
@@ -193,10 +202,10 @@ export function LanguageSwitcher({
       <DropdownMenuTrigger asChild>
         <Button 
           variant="outline" 
-          disabled={isChanging}
+          disabled={isChanging || isPending}
           className={className}
         >
-          {isChanging ? (
+          {(isChanging || isPending) ? (
             <Loader2 className="h-4 w-4 animate-spin mr-2" />
           ) : (
             <Globe className="h-4 w-4 mr-2" />
@@ -229,7 +238,7 @@ export function LanguageSwitcher({
           <DropdownMenuItem
             key={language.code}
             onClick={() => handleLanguageChange(language)}
-            disabled={isChanging}
+            disabled={isChanging || isPending}
             className="flex items-center justify-between"
           >
             <div className="flex items-center gap-3">
@@ -240,7 +249,7 @@ export function LanguageSwitcher({
               </div>
             </div>
             <div className="flex items-center gap-2">
-              {language.code === currentLocale ? (
+              {(language.code === currentLocale || language.fullLocale === currentLocale) ? (
                 <Badge variant="default" className="text-xs">
                   {t('settings.language.current')}
                 </Badge>
@@ -251,7 +260,7 @@ export function LanguageSwitcher({
                   </Badge>
                 )
               )}
-              {language.code === currentLocale && (
+              {(language.code === currentLocale || language.fullLocale === currentLocale) && (
                 <Check className="h-4 w-4" />
               )}
             </div>
@@ -269,7 +278,7 @@ export function LanguageSwitcher({
           <DropdownMenuItem
             key={language.code}
             onClick={() => handleLanguageChange(language)}
-            disabled={isChanging}
+            disabled={isChanging || isPending}
             className="flex items-center justify-between"
           >
             <div className="flex items-center gap-3">
@@ -280,7 +289,7 @@ export function LanguageSwitcher({
               </div>
             </div>
             <div className="flex items-center gap-2">
-              {language.code === currentLocale ? (
+              {(language.code === currentLocale || language.fullLocale === currentLocale) ? (
                 <Badge variant="default" className="text-xs">
                   {t('settings.language.current')}
                 </Badge>
@@ -291,7 +300,7 @@ export function LanguageSwitcher({
                   </Badge>
                 )
               )}
-              {language.code === currentLocale && (
+              {(language.code === currentLocale || language.fullLocale === currentLocale) && (
                 <Check className="h-4 w-4" />
               )}
             </div>
