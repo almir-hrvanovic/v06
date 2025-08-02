@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
+import { optimizedAuth } from '@/utils/supabase/optimized-auth'
 import { db } from '@/lib/db/index'
 import { cache, cacheKeys } from '@/lib/upstash-redis'
 
@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
   const startTime = Date.now()
   
   try {
-    const authUser = await getAuthenticatedUser(request)
+    const authUser = await optimizedAuth.getUser(request)
     
     if (!authUser) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -44,9 +44,14 @@ export async function GET(request: NextRequest) {
     console.log(`[API] /users/me database query completed (${duration}ms) for ${authUser.email}`)
 
     return NextResponse.json(dbUser)
-  } catch (error) {
+  } catch (error: any) {
     const duration = Date.now() - startTime
     console.error(`[API] /users/me error (${duration}ms):`, error)
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+    console.error('Error stack:', error.stack)
+    return NextResponse.json({ 
+      error: 'Internal server error',
+      message: error.message,
+      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    }, { status: 500 })
   }
 }

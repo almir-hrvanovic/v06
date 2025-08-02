@@ -8,7 +8,7 @@ export default getRequestConfig(async () => {
 
   // Validate locale - support both old and new format
   const validLocales = ['hr', 'en', 'de', 'bs', 'hr-HR', 'en-US', 'de-DE', 'bs-BA'];
-  let validatedLocale = validLocales.includes(locale) ? locale : 'hr-HR';
+  const validatedLocale = validLocales.includes(locale) ? locale : 'hr-HR';
   
   // Normalize to simple format for file loading
   const normalizedLocale = validatedLocale.split('-')[0];

@@ -3,7 +3,7 @@ import { db } from '@/lib/db/index'
 import { PDFService } from '@/lib/pdf'
 import { generateReportHTML } from '@/lib/pdf-templates'
 import { z } from 'zod'
-import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
+import { optimizedAuth } from '@/utils/supabase/optimized-auth'
 
 const reportRequestSchema = z.object({
   title: z.string().min(1),
@@ -20,7 +20,7 @@ const reportRequestSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    const user = await getAuthenticatedUser(request)
+    const user = await optimizedAuth.getUser(request)
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
@@ -208,7 +208,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const user = await getAuthenticatedUser(request)
+    const user = await optimizedAuth.getUser(request)
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }

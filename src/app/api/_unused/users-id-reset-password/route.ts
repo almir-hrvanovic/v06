@@ -20,7 +20,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     }
 
     // Check permissions
-    if (!hasPermission(user.role, 'users', 'write')) {
+    if (!optimizedAuth.hasPermission(user.role, 'users', 'write')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 

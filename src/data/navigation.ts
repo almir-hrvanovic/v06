@@ -15,7 +15,8 @@ import {
   TrendingUp,
   Settings,
   ClipboardList,
-  Activity
+  Activity,
+  ShieldCheck
 } from 'lucide-react'
 import { NavGroup } from '@/types/navigation'
 
@@ -146,6 +147,12 @@ export const navigationGroups: NavGroup[] = [
         href: '/dashboard/performance',
         icon: Activity,
         roles: ['SUPERUSER', 'ADMIN'],
+      },
+      {
+        titleKey: 'navigation.main.authTest',
+        href: '/auth-test',
+        icon: ShieldCheck,
+        roles: ['SUPERUSER'],
       }
     ]
   }

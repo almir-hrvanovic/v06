@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db/index'
 import { updateInquirySchema, idSchema } from '@/lib/validations'
-import { hasPermission } from '@/utils/supabase/api-auth'
-import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
+import { optimizedAuth } from '@/utils/supabase/optimized-auth'
 
 export async function GET(
   request: NextRequest,
@@ -10,12 +9,12 @@ export async function GET(
 ) {
   try {
     const params = await context.params
-    const user = await getAuthenticatedUser(request)
+    const user = await optimizedAuth.getUser(request)
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    if (!hasPermission(user.role, 'inquiries', 'read')) {
+    if (!optimizedAuth.hasPermission(user.role, 'inquiries', 'read')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -94,12 +93,12 @@ export async function PUT(
 ) {
   try {
     const params = await context.params
-    const user = await getAuthenticatedUser(request)
+    const user = await optimizedAuth.getUser(request)
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    if (!hasPermission(user.role, 'inquiries', 'write')) {
+    if (!optimizedAuth.hasPermission(user.role, 'inquiries', 'write')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -205,12 +204,12 @@ export async function DELETE(
 ) {
   try {
     const params = await context.params
-    const user = await getAuthenticatedUser(request)
+    const user = await optimizedAuth.getUser(request)
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    if (!hasPermission(user.role, 'inquiries', 'delete')) {
+    if (!optimizedAuth.hasPermission(user.role, 'inquiries', 'delete')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 

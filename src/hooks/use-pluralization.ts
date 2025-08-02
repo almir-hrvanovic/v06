@@ -45,7 +45,7 @@ export function usePluralization() {
     }
 
     const pluralForm = getPluralForm(count);
-    let template = options[pluralForm as keyof PluralOptions] || options.other;
+    const template = options[pluralForm as keyof PluralOptions] || options.other;
     
     return template.replace('{count}', count.toString());
   };

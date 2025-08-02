@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db/index'
 import { z } from 'zod'
-import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
+import { optimizedAuth } from '@/utils/supabase/optimized-auth'
 
 const searchSchema = z.object({
   query: z.string().optional(),
@@ -32,7 +32,7 @@ const searchSchema = z.object({
 
 export async function GET(request: NextRequest) {
   try {
-    const user = await getAuthenticatedUser(request)
+    const user = await optimizedAuth.getUser(request)
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }

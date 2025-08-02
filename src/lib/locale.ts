@@ -25,7 +25,7 @@ export function getClientLocale(): string {
   
   // Try to get from cookie first
   const cookies = document.cookie.split(';');
-  for (let cookie of cookies) {
+  for (const cookie of cookies) {
     const [name, value] = cookie.trim().split('=');
     if (name === 'locale') {
       return value;

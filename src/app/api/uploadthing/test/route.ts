@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
-import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
+import { NextRequest, NextResponse } from 'next/server';
+import { optimizedAuth } from '@/utils/supabase/optimized-auth'
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     // Check environment variables
     const config = {
@@ -15,7 +15,7 @@ export async function GET() {
     // Check auth session
     let session = null;
     try {
-      session = await getAuthenticatedUser(request);
+      session = await getAuthenticatedUserFromRequest(request);
     } catch (error: any) {
       console.error('Auth error:', error);
     }
@@ -24,9 +24,9 @@ export async function GET() {
       success: true,
       config,
       session: session ? {
-        userId: user?.id,
-        userName: user?.name,
-        userEmail: user?.email,
+        userId: session?.id,
+        userName: session?.name,
+        userEmail: session?.email,
       } : null,
       timestamp: new Date().toISOString(),
     });

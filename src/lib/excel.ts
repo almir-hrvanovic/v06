@@ -210,7 +210,7 @@ export class ExcelService {
       summaryHeaderCell.alignment = { horizontal: 'center' }
 
       // Basic statistics
-      let currentRow = 3
+      const currentRow = 3
       const summaryData = [
         ['Total Inquiries', totalInquiries],
         ['Total Value', totalValue],

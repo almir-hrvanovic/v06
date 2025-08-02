@@ -74,7 +74,8 @@ function getSessionToken(request: NextRequest): string | null {
   const allCookies = request.cookies.getAll();
   logger.log('DEBUG', 'Available cookies', { 
     cookieNames: allCookies.map(c => c.name),
-    cookieCount: allCookies.length 
+    cookieCount: allCookies.length,
+    cookies: allCookies.map(c => ({ name: c.name, valueLength: c.value.length }))
   });
   
   // Try to find Supabase auth cookie
@@ -89,19 +90,39 @@ function getSessionToken(request: NextRequest): string | null {
       const authToken = request.cookies.get(cookieName)?.value;
       
       if (authToken) {
-        logger.log('INFO', 'Found Supabase auth cookie', { cookieName });
+        logger.log('INFO', 'Found Supabase auth cookie', { cookieName, isBase64: authToken.startsWith('base64-') });
         try {
-          const parsed = JSON.parse(authToken);
-          const token = parsed.access_token || authToken;
+          let parsed;
+          
+          // Handle base64-encoded cookies (new Supabase format)
+          if (authToken.startsWith('base64-')) {
+            const base64Value = authToken.substring(7); // Remove 'base64-' prefix
+            const decoded = Buffer.from(base64Value, 'base64').toString('utf-8');
+            parsed = JSON.parse(decoded);
+          } else {
+            // Try direct JSON parse for older format
+            parsed = JSON.parse(authToken);
+          }
+          
+          const token = parsed.access_token;
+          if (!token) {
+            logger.log('WARNING', 'No access_token in parsed cookie', { parsed: Object.keys(parsed) });
+            return null;
+          }
+          
           logger.endOperation('getSessionToken', true, { 
             source: 'supabase-cookie',
-            hasAccessToken: !!parsed.access_token 
+            hasAccessToken: true,
+            tokenLength: token.length
           });
           return token;
         } catch (e) {
-          logger.log('WARNING', 'Failed to parse auth cookie', { error: e });
-          logger.endOperation('getSessionToken', true, { source: 'supabase-cookie-raw' });
-          return authToken;
+          logger.log('ERROR', 'Failed to parse auth cookie', { 
+            error: e instanceof Error ? e.message : String(e),
+            cookieStart: authToken.substring(0, 50)
+          });
+          logger.endOperation('getSessionToken', false, { source: 'cookie-parse-error' });
+          return null;
         }
       }
     }
@@ -111,21 +132,41 @@ function getSessionToken(request: NextRequest): string | null {
   logger.log('DEBUG', 'Trying fallback cookie search');
   for (const cookie of allCookies) {
     if (cookie.name.startsWith('sb-') && cookie.name.endsWith('-auth-token')) {
-      logger.log('INFO', 'Found auth cookie via fallback', { cookieName: cookie.name });
+      logger.log('INFO', 'Found auth cookie via fallback', { 
+        cookieName: cookie.name,
+        isBase64: cookie.value.startsWith('base64-')
+      });
       try {
-        const parsed = JSON.parse(cookie.value);
-        const token = parsed.access_token || cookie.value;
+        let parsed;
+        
+        // Handle base64-encoded cookies (new Supabase format)
+        if (cookie.value.startsWith('base64-')) {
+          const base64Value = cookie.value.substring(7); // Remove 'base64-' prefix
+          const decoded = Buffer.from(base64Value, 'base64').toString('utf-8');
+          parsed = JSON.parse(decoded);
+        } else {
+          // Try direct JSON parse for older format
+          parsed = JSON.parse(cookie.value);
+        }
+        
+        const token = parsed.access_token;
+        if (!token) {
+          logger.log('WARNING', 'No access_token in fallback cookie', { parsed: Object.keys(parsed) });
+          continue;
+        }
+        
         logger.endOperation('getSessionToken', true, { 
           source: 'fallback-cookie',
-          cookieName: cookie.name 
+          cookieName: cookie.name,
+          tokenLength: token.length
         });
         return token;
-      } catch {
-        logger.endOperation('getSessionToken', true, { 
-          source: 'fallback-cookie-raw',
-          cookieName: cookie.name 
+      } catch (e) {
+        logger.log('ERROR', 'Failed to parse fallback cookie', { 
+          cookieName: cookie.name,
+          error: e instanceof Error ? e.message : String(e)
         });
-        return cookie.value;
+        continue;
       }
     }
   }
@@ -234,14 +275,15 @@ async function authenticateUser(sessionToken: string): Promise<AuthenticatedUser
     logger.log('DEBUG', 'Getting Supabase client');
     const supabase = await supabaseClientSingleton.getClient();
     
-    // 3. Verify current session with Supabase
+    // 3. Verify current session with Supabase using the token
     logger.log('DEBUG', 'Verifying session with Supabase');
-    const { data: { user }, error } = await supabase.auth.getUser();
+    const { data: { user }, error } = await supabase.auth.getUser(sessionToken);
     
     if (error || !user) {
       logger.log('ERROR', 'Supabase auth verification failed', { 
         error: error?.message,
-        hasUser: !!user 
+        hasUser: !!user,
+        tokenLength: sessionToken.length
       });
       logger.endOperation('authenticateUser', false, { reason: 'supabase-auth-failed' });
       return null;

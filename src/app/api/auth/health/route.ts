@@ -7,11 +7,11 @@ export async function GET(request: NextRequest) {
     const [
       { optimizedAuth },
       { cache },
-      { authMiddleware }
+      { getMiddlewareStats }
     ] = await Promise.all([
       import('@/utils/supabase/optimized-auth'),
       import('@/lib/upstash-redis'),
-      import('@/middleware/optimized-auth-middleware')
+      import('@/middleware/optimized-auth-middleware').then(m => ({ getMiddlewareStats: m.getMiddlewareStats }))
     ]);
 
     // Check if user has permission
@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
     const cacheStats = cache.getStats();
     
     // Get middleware performance stats
-    const middlewareStats = authMiddleware.getStats();
+    const middlewareStats = getMiddlewareStats();
     
     const healthData = {
       timestamp: new Date().toISOString(),

@@ -3,13 +3,13 @@ import { db } from '@/lib/db/index'
 import { writeFile, mkdir } from 'fs/promises'
 import { join, dirname } from 'path'
 import { existsSync } from 'fs'
-import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
+import { optimizedAuth } from '@/utils/supabase/optimized-auth'
 
 export async function POST(request: NextRequest) {
   try {
     console.log('[LocalUpload] Upload request received')
     
-    const user = await getAuthenticatedUser(request)
+    const user = await optimizedAuth.getUser(request)
     
     if (!user) {
       return NextResponse.json(

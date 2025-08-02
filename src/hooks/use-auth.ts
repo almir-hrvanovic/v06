@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
 import { User as SupabaseUser } from '@supabase/supabase-js'
@@ -17,13 +17,13 @@ export function useAuth(): AuthState {
   const router = useRouter()
   const [user, setUser] = useState<(SupabaseUser & Partial<DBUser>) | null>(null)
   const [loading, setLoading] = useState(true)
-  const [isInitialLoad, setIsInitialLoad] = useState(true)
+  const isInitialLoadRef = useRef(true)
   const supabase = createClient()
 
   useEffect(() => {
     async function loadUser() {
       try {
-        console.log('[useAuth] Starting auth check, isInitialLoad:', isInitialLoad);
+        console.log('[useAuth] Starting auth check, isInitialLoad:', isInitialLoadRef.current);
         
         // Get Supabase session
         const { data: { session }, error: sessionError } = await supabase.auth.getSession()
@@ -32,7 +32,7 @@ export function useAuth(): AuthState {
           console.error('[useAuth] Session error:', sessionError);
           setUser(null);
           setLoading(false);
-          setIsInitialLoad(false);
+          isInitialLoadRef.current = false;
           return;
         }
         
@@ -40,7 +40,7 @@ export function useAuth(): AuthState {
           console.log('[useAuth] Session found, user:', session.user.email);
           
           // Skip API call on initial load to prevent circular dependency
-          if (isInitialLoad) {
+          if (isInitialLoadRef.current) {
             console.log('[useAuth] Initial load - using session data only');
             // Set basic user data from session
             setUser({
@@ -49,7 +49,7 @@ export function useAuth(): AuthState {
               name: session.user.email?.split('@')[0] || 'User'
             });
             setLoading(false);
-            setIsInitialLoad(false);
+            isInitialLoadRef.current = false;
             return;
           }
           
@@ -104,7 +104,7 @@ export function useAuth(): AuthState {
         setUser(null)
       } finally {
         setLoading(false)
-        setIsInitialLoad(false)
+        isInitialLoadRef.current = false
       }
     }
 
@@ -116,7 +116,7 @@ export function useAuth(): AuthState {
       
       if (session?.user) {
         // For auth state changes after initial load, fetch user data
-        if (!isInitialLoad) {
+        if (!isInitialLoadRef.current) {
           setLoading(true)
           try {
             const response = await fetch('/api/users/me', {
@@ -161,7 +161,7 @@ export function useAuth(): AuthState {
     })
 
     return () => subscription.unsubscribe()
-  }, [supabase, isInitialLoad])
+  }, []) // Remove dependencies to prevent re-runs
 
   const signOut = async () => {
     await supabase.auth.signOut()

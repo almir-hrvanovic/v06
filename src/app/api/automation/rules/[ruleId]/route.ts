@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db/index'
 import { z } from 'zod'
 import { UserRole } from '@/lib/db/types'
-import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
+import { optimizedAuth } from '@/utils/supabase/optimized-auth'
 
 // GET /api/automation/rules/[ruleId] - Get single rule
 export async function GET(
@@ -10,7 +10,7 @@ export async function GET(
   { params }: { params: Promise<{ ruleId: string }> }
 ) {
   try {
-    const user = await getAuthenticatedUser(request)
+    const user = await optimizedAuth.getUser(request)
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
@@ -80,7 +80,7 @@ export async function PATCH(
   { params }: { params: Promise<{ ruleId: string }> }
 ) {
   try {
-    const user = await getAuthenticatedUser(request)
+    const user = await optimizedAuth.getUser(request)
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
@@ -127,7 +127,7 @@ export async function DELETE(
   { params }: { params: Promise<{ ruleId: string }> }
 ) {
   try {
-    const user = await getAuthenticatedUser(request)
+    const user = await optimizedAuth.getUser(request)
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }

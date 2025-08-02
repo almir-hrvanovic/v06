@@ -49,7 +49,7 @@ export async function middleware(request: NextRequest) {
   }
   
   // Create default response
-  let response = NextResponse.next()
+  const response = NextResponse.next()
   
   // Allow access to public routes (no auth needed)
   if (PUBLIC_ROUTES.some(route => pathname.startsWith(route))) {
@@ -73,16 +73,14 @@ export async function middleware(request: NextRequest) {
     )
     
     if (!supabaseToken) {
-      console.log('No Supabase auth token found, redirecting to signin')
-      return NextResponse.redirect(new URL(AUTH_URLS.signIn, request.url))
+      console.log('No Supabase auth token found, redirecting to landing page')
+      return NextResponse.redirect(new URL('/', request.url))
     }
   }
   
   // Add monitoring headers
   response.headers.set('x-request-id', requestId)
   response.headers.set('x-server-monitoring', 'active')
-  response.headers.set('x-auth-duration', `${authDuration}ms`)
-  response.headers.set('x-auth-cached', authDuration < 50 ? 'true' : 'false')
   
   // Add API optimization headers for API routes
   if (pathname.startsWith('/api')) {
@@ -100,7 +98,7 @@ export async function middleware(request: NextRequest) {
   serverMonitor.log({
     level: response.status >= 400 ? 'warn' : 'info',
     source: 'middleware',
-    message: `${request.method} ${pathname} - ${response.status} (${duration}ms, auth: ${authDuration}ms)`,
+    message: `${request.method} ${pathname} - ${response.status} (${duration}ms)`,
     requestId,
     endpoint: pathname,
     method: request.method,
@@ -108,10 +106,7 @@ export async function middleware(request: NextRequest) {
     duration,
     data: {
       isPlaywright,
-      finalStatus: response.status,
-      authDuration,
-      authCached: authDuration < 50,
-      hasUser: !!authResult.user
+      finalStatus: response.status
     }
   })
   

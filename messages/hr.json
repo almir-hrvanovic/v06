@@ -296,6 +296,7 @@
       "settings": "Postavke",
       "systemSettings": "Postavke sustava",
       "performance": "Performanse",
+      "authTest": "Test autentifikacije",
       "help": "Pomoć",
       "documentation": "Dokumentacija"
     },

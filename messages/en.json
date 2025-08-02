@@ -313,6 +313,7 @@
       "settings": "Settings",
       "systemSettings": "System Settings",
       "performance": "Performance",
+      "authTest": "Auth Test",
       "help": "Help",
       "documentation": "Documentation"
     },

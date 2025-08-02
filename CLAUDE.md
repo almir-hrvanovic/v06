@@ -14,6 +14,68 @@
 - File operations: Batch Read/Write/Edit operations
 - Bash commands: Group all terminal operations
 
+## 💋 KISS Protocol (Keep It Simple, Stupid)
+
+### STOP & CLARIFY Pattern
+**User says:** "I want X to happen"  
+**Claude responds:** "Got it. I'll make X happen by doing Y. Sound right?"  
+**User says:** "Yes" or "No, I meant Z"
+
+### 🚩 RED FLAGS - Call These Out Immediately
+
+**When User Sees Claude:**
+- Adding multiple files for a simple change
+- Writing paragraphs of explanation
+- Using setTimeout for CSS transitions
+- Creating new state variables unnecessarily
+- Saying "Let me refactor this properly"
+
+**User Should Say:**
+- "Stop. Too complex."
+- "You're overthinking"
+- "Just change the one thing"
+- "KISS"
+
+**When Claude Sees User:**
+- Asking for multiple unrelated changes at once
+- Not being specific about timing/colors/behavior
+
+**Claude Should Say:**
+- "Let me tackle one thing first: [specific thing]. OK?"
+- "What exactly should it look like?"
+
+### THE SIMPLE FIRST RULE
+Before any change, Claude states:
+1. What user wants
+2. The simplest way to do it
+3. What files will be touched
+
+Example:
+```
+User: "Make star change color on login"
+Claude: "I'll change the star's className to use isAuthenticated state. Only touching page.tsx. OK?"
+```
+
+### INCREMENTAL CHANGES
+- One feature at a time
+- Test it
+- Confirm it works
+- Then move to next
+
+### 🎯 MAGIC PHRASES
+
+**User Can Use:**
+- **"KISS"** - Claude will immediately simplify
+- **"One thing only"** - Claude will focus on just that
+- **"Show me first"** - Claude will explain before doing
+- **"Too many files"** - Claude will reduce scope
+
+**Claude Will Use:**
+- **"Simple fix:"** [explanation]
+- **"This touches only:"** [filename]
+- **"Before I continue..."**
+- **"Does this look too complex?"**
+
 ## 🛠️ Project Commands
 
 ### Build & Quality
@@ -21,7 +83,7 @@
 npm run build          # Build the project
 npm run test           # Run test suite
 npm run lint           # Lint and format
-npm run typecheck      # TypeScript checking
+npm run type-check     # TypeScript checking (correct script name)
 ```
 
 ### Development Workflow
@@ -194,6 +256,109 @@ npm run format         # Auto-format code
 - Use appropriate data structures
 - Profile and measure performance
 
+## ⚙️ Next.js Configuration
+
+### next.config.ts Structure
+```typescript
+import type { NextConfig } from 'next'
+import createNextIntlPlugin from 'next-intl/plugin'
+
+const nextConfig: NextConfig = {
+  // Output configuration
+  output: 'standalone',
+  
+  // React configuration
+  reactStrictMode: true,
+  
+  // Image optimization (use remotePatterns, NOT domains)
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'example.com',
+        port: '',
+        pathname: '/images/**',
+      },
+    ],
+  },
+  
+  // Experimental features (Next.js 15.4.4)
+  experimental: {
+    optimizePackageImports: ['package-name'],
+    // Note: optimizeCss is now default behavior
+  },
+  
+  // Performance optimizations
+  poweredByHeader: false,
+  compress: true,
+  productionBrowserSourceMaps: false,
+  
+  // TypeScript configuration
+  typescript: {
+    ignoreBuildErrors: false, // Always check types
+  },
+  
+  // ESLint configuration
+  eslint: {
+    ignoreDuringBuilds: false, // Always lint
+    dirs: ['src'], // Specify directories to lint
+  },
+}
+
+const withNextIntl = createNextIntlPlugin()
+export default withNextIntl(nextConfig)
+```
+
+### TypeScript Configuration (tsconfig.json)
+```json
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": ["node_modules"]
+}
+```
+
+### ESLint Configuration (.eslintrc.json)
+```json
+{
+  "extends": [
+    "next/core-web-vitals",
+    "prettier"
+  ],
+  "rules": {
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-html-link-for-pages": "off"
+  }
+}
+```
+
+### 📚 Configuration Documentation
+- **Full Guide**: [`/docs/nextjs-configuration-guide.md`](./docs/nextjs-configuration-guide.md)
+- **Deprecation Fixes**: ~~Moved to Deprecated folder - all fixes have been implemented~~
+
 ## 🔒 Security Best Practices
 
 - Never commit secrets to version control
@@ -344,7 +509,8 @@ The next development session should focus on implementing the performance optimi
 
 ### Key Implementation Details
 - **Database Import**: Use `import { db } from '@/lib/db'` (NOT `@/lib/prisma`)
-- **Auth Import**: Use `import { getAuthenticatedUser } from '@/utils/supabase/api-auth'`
+- **Auth Import for API Routes**: Use `import { getAuthenticatedUserFromRequest } from '@/utils/supabase/api-helpers'`
+- **⚠️ AUTH MIGRATION**: ~~Completed - docs moved to Deprecated folder~~
 - **User Hook**: Enhanced `useAuth` automatically fetches full DB user data
 - **Environment**: Configured for v06-development Supabase instance
 
@@ -357,10 +523,61 @@ The next development session should focus on implementing the performance optimi
 
 - **CRITICAL !!! FIRST THING TO CHECK! IS PROPER CENTRALISED AUTH AND DB CONNECTIONS - NO HARDCODE CONNECTIONS!**
 
+## 🚨 API Authentication Migration Status
+
+**CRITICAL**: API routes are being migrated from `getAuthenticatedUser` to `getAuthenticatedUserFromRequest`.
+
+### ✅ Already Fixed Routes (DO NOT "FIX" THESE AGAIN!)
+- `/api/users/me` ✅
+- `/api/system-settings` ✅ 
+- `/api/notifications` ✅
+
+### ⚠️ Migration Rules
+1. **BEFORE CHANGING ANY API AUTH**: Check [`/API_AUTH_MIGRATION_STATUS.md`](./API_AUTH_MIGRATION_STATUS.md)
+2. **USE**: `import { getAuthenticatedUserFromRequest } from '@/utils/supabase/api-helpers'`
+3. **DO NOT USE**: `import { getAuthenticatedUser } from '@/utils/supabase/api-auth'`
+4. **44+ routes still need migration** - See migration plan for details
+
+### 📋 Migration Documents
+- Current Status: [`/API_AUTH_MIGRATION_STATUS.md`](./API_AUTH_MIGRATION_STATUS.md)
+- ~~Migration completed - plan moved to Deprecated folder~~
+- Migration Script: [`/scripts/migrate-auth-category.sh`](./scripts/migrate-auth-category.sh)
+
 ## Critical Action Guidelines
 
 ### Code Modification Protocol
 - **CRITICAL!!!  IF CODE WILL BREAK FUNCIONALITY ASK FOR SPECIAL PERMISIONS!**
+- **CRITICAL!!!  DO NOT "FIX" ALREADY MIGRATED API ROUTES!**
+
+## 🚨🚨🚨 CRITICAL CONFIGURATION PROTECTION 🚨🚨🚨
+
+### ⛔ NEVER MODIFY THESE FILES (Configuration Locked)
+1. **`.eslintrc.json`** - ESLint configuration is FINAL
+2. **`tsconfig.json`** - TypeScript configuration is FINAL
+3. **`.prettierrc`** - Prettier configuration is FINAL
+4. **`.prettierignore`** - Prettier ignore is FINAL
+5. **`.editorconfig`** - Editor configuration is FINAL
+6. **`next.config.ts`** - Next.js configuration is FINAL (except env vars)
+
+### ⛔ PROTECTED CONFIGURATION SECTIONS
+- **ESLint Rules**: DO NOT add/remove/modify ANY ESLint rules
+- **TypeScript Compiler Options**: DO NOT change ANY compiler options
+- **Prettier Settings**: DO NOT change ANY formatting rules
+- **Package.json Scripts**: DO NOT modify lint/format/type-check scripts
+
+### ✅ Configuration Status (LOCKED)
+- ESLint: Configured with Next.js best practices
+- TypeScript: Strict mode with all checks enabled
+- Prettier: Team formatting standards set
+- Next.js 15.4.4: All deprecations fixed
+
+### 📋 Reference Documents (READ-ONLY)
+- [`/docs/nextjs-configuration-guide.md`](./docs/nextjs-configuration-guide.md)
+- [`/docs/eslint-typescript-configuration.md`](./docs/eslint-typescript-configuration.md)
+- ~~Next.js deprecation fixes completed - doc moved to Deprecated folder~~
+
+**IF ANYONE ASKS TO MODIFY LINTING/FORMATTING/TYPESCRIPT CONFIG**: 
+Direct them to read the configuration documents. Changes require team consensus and should not be made in individual sessions.
 
 ---
 

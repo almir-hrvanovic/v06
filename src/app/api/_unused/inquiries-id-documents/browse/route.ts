@@ -51,7 +51,7 @@ export async function GET(
       user.id === inquiry.createdById ||
       user.id === inquiry.assignedToId ||
       ['ADMIN', 'SUPERUSER', 'SALES'].includes(user.role) ||
-      hasPermission(user.role, 'inquiries', 'read')
+      optimizedAuth.hasPermission(user.role, 'inquiries', 'read')
 
     if (!canView) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })

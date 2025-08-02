@@ -3,6 +3,9 @@
  * Based on the template from Optimising_Doc/Templates/logging-utility.ts
  */
 
+// Use Date.now() for compatibility as performance.now() may not be available in all Node.js environments
+const getTimestamp = () => Date.now();
+
 export interface LogEntry {
   timestamp: Date;
   phase: string;
@@ -70,7 +73,7 @@ export class OptimizationLogger {
   startOperation(operationName: string): void {
     const metric: PerformanceMetric = {
       operation: operationName,
-      startTime: performance.now()
+      startTime: getTimestamp()
     };
     
     this.activeOperations.set(operationName, metric);
@@ -88,7 +91,7 @@ export class OptimizationLogger {
       return;
     }
 
-    metric.endTime = performance.now();
+    metric.endTime = getTimestamp();
     metric.duration = metric.endTime - metric.startTime;
     metric.success = success;
     metric.details = details;
@@ -201,6 +204,19 @@ export class OptimizationLogger {
       default:
         console.log(prefix, entry.message, entry.data || '');
     }
+  }
+
+  // Convenience methods for optimized auth
+  info(message: string, data?: any): void {
+    this.log('INFO', message, data);
+  }
+
+  error(message: string, error?: any): void {
+    this.log('ERROR', message, error);
+  }
+
+  performance(operation: string, duration: number, cached: boolean = false): void {
+    this.log('INFO', `${operation}: ${duration}ms${cached ? ' (CACHED)' : ' (COMPUTED)'}`, { duration, cached });
   }
 
   /**

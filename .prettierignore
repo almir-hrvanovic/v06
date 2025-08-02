@@ -1,0 +1,33 @@
+# Dependencies
+node_modules
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Build outputs
+.next
+out
+dist
+build
+
+# Environment files
+.env*
+
+# IDE
+.vscode
+.idea
+
+# Testing
+coverage
+.nyc_output
+
+# Misc
+*.log
+.DS_Store
+public/
+.cache
+*.min.js
+*.min.css
+
+# Prisma
+prisma/migrations

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db/index'
 import { z } from 'zod'
 import { Currency, StorageProvider } from '@/lib/db/types'
-import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
+import { optimizedAuth } from '@/utils/supabase/optimized-auth'
 
 // Validation schema for system settings
 const systemSettingsSchema = z.object({
@@ -63,7 +63,7 @@ const systemSettingsSchema = z.object({
 // GET /api/system-settings
 export async function GET(request: NextRequest) {
   try {
-    const user = await getAuthenticatedUser(request)
+    const user = await optimizedAuth.getUser(request)
     
     if (!user) {
       return NextResponse.json(
@@ -117,7 +117,7 @@ export async function PUT(request: NextRequest) {
   try {
     console.log('[SystemSettings] PUT request received')
     
-    const user = await getAuthenticatedUser(request)
+    const user = await optimizedAuth.getUser(request)
     
     if (!user) {
       console.log('[SystemSettings] No user found')

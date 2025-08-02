@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { hasPermission } from '@/utils/supabase/api-auth'
 import { db } from '@/lib/db/index'
 import { UserRole } from '@/lib/db/types'
 import { z } from 'zod'
-import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
+import { optimizedAuth } from '@/utils/supabase/optimized-auth'
 import { optimizeApiRoute } from '@/lib/api-optimization'
 
 // Schema for creating/updating customers
@@ -16,13 +15,13 @@ const customerSchema = z.object({
 
 const getHandler = async (request: NextRequest) => {
   try {
-    const user = await getAuthenticatedUser(request)
+    const user = await optimizedAuth.getUser(request)
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only certain roles can view customers
-    if (!hasPermission(user.role, 'customers', 'read')) {
+    if (!optimizedAuth.hasPermission(user.role, 'customers', 'read')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -75,13 +74,13 @@ const getHandler = async (request: NextRequest) => {
 
 const postHandler = async (request: NextRequest) => {
   try {
-    const user = await getAuthenticatedUser(request)
+    const user = await optimizedAuth.getUser(request)
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Only certain roles can create customers
-    if (!hasPermission(user.role, 'customers', 'write')) {
+    if (!optimizedAuth.hasPermission(user.role, 'customers', 'write')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 

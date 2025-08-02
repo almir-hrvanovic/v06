@@ -1,20 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db/index'
-import { hasPermission } from '@/utils/supabase/api-auth'
-import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
+import { optimizedAuth } from '@/utils/supabase/optimized-auth'
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ userId: string }> }
 ) {
   try {
-    const user = await getAuthenticatedUser(request)
+    const user = await optimizedAuth.getUser(request)
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Check permission
-    if (!hasPermission(user.role, 'workload', 'read')) {
+    if (!optimizedAuth.hasPermission(user.role, 'workload', 'read')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 

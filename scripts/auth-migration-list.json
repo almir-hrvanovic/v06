@@ -1,0 +1,9 @@
+[
+  "src/app/api/_unused/excel/customers/route.ts",
+  "src/app/api/_unused/excel/inquiries/route.ts",
+  "src/app/api/_unused/excel/users/route.ts",
+  "src/app/api/_unused/inquiries-id-documents/route.ts",
+  "src/app/api/_unused/production-orders-id-status/route.ts",
+  "src/app/api/_unused/quotes-id-send/route.ts",
+  "src/app/api/_unused/users-id-toggle-active/route.ts"
+]

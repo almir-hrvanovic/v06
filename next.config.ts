@@ -18,7 +18,6 @@ const nextConfig: NextConfig = {
   // Experimental features
   experimental: {
     optimizePackageImports: ['@radix-ui/react-icons', '@radix-ui/react-*', 'lucide-react'],
-    optimizeCss: true, // Enable CSS optimization to reduce font loading issues
     // serverComponentsExternalPackages: ['@prisma/client', 'bcryptjs'],
   },
   
@@ -34,11 +33,27 @@ const nextConfig: NextConfig = {
   
   // Image optimization
   images: {
-    domains: [
-      'localhost',
-      'uploadthing.com',
-      'utfs.io', // UploadThing CDN
-      ...(process.env.VERCEL_URL ? [process.env.VERCEL_URL] : []),
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+      {
+        protocol: 'https',
+        hostname: 'localhost',
+      },
+      {
+        protocol: 'https',
+        hostname: 'uploadthing.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'utfs.io',
+      },
+      ...(process.env.VERCEL_URL ? [{
+        protocol: 'https' as const,
+        hostname: process.env.VERCEL_URL,
+      }] : []),
     ],
   },
   
@@ -128,10 +143,6 @@ const nextConfig: NextConfig = {
   compress: true,
   productionBrowserSourceMaps: false,
   
-  // Dev indicators configuration
-  devIndicators: {
-    position: 'bottom-right',
-  },
   
   // React strict mode
   reactStrictMode: true,

@@ -1,14 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db/index'
 import { bulkAssignItemsSchema } from '@/lib/validations'
-import { canAssignItems } from '@/utils/supabase/api-auth'
 import { sendNotificationEmail } from '@/lib/email'
-import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
+import { optimizedAuth } from '@/utils/supabase/optimized-auth'
 
 export async function POST(request: NextRequest) {
   try {
     console.log('Assign route: Starting')
-    const user = await getAuthenticatedUser(request)
+    const user = await optimizedAuth.getUser(request)
     console.log('Assign route: User authenticated:', user?.email)
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
