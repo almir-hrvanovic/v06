@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useAuth } from '@/hooks/use-auth'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
@@ -82,11 +82,7 @@ export default function QuotesPage() {
 
   const userRole = user?.role
 
-  useEffect(() => {
-    fetchQuotes()
-  }, [searchTerm])
-
-  const fetchQuotes = async () => {
+  const fetchQuotes = useCallback(async () => {
     try {
       setLoading(true)
       const params = new URLSearchParams()
@@ -103,7 +99,11 @@ export default function QuotesPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [searchTerm])
+
+  useEffect(() => {
+    fetchQuotes()
+  }, [fetchQuotes])
 
   const handleSendQuote = async (quoteId: string) => {
     try {

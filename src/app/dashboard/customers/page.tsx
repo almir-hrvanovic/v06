@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useAuth } from '@/hooks/use-auth'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
@@ -79,11 +79,7 @@ export default function CustomersPage() {
 
   const userRole = user?.role
 
-  useEffect(() => {
-    fetchCustomers()
-  }, [searchTerm])
-
-  const fetchCustomers = async () => {
+  const fetchCustomers = useCallback(async () => {
     try {
       setLoading(true)
       const params = new URLSearchParams()
@@ -100,7 +96,11 @@ export default function CustomersPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [searchTerm, t])
+
+  useEffect(() => {
+    fetchCustomers()
+  }, [fetchCustomers])
 
   const handleCreate = async () => {
     try {

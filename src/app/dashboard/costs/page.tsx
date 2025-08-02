@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useAuth } from '@/hooks/use-auth'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
@@ -71,11 +71,7 @@ export default function CostsPage() {
 
   const userRole = user?.role
 
-  useEffect(() => {
-    fetchData()
-  }, [])
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       setLoading(true)
       
@@ -96,7 +92,11 @@ export default function CostsPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [user?.id, userRole])
+
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
 
   const handleCreateCostCalculation = async () => {
     if (!selectedItem) return

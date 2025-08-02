@@ -17,16 +17,43 @@ export function useAuth(): AuthState {
   const router = useRouter()
   const [user, setUser] = useState<(SupabaseUser & Partial<DBUser>) | null>(null)
   const [loading, setLoading] = useState(true)
+  const [isInitialLoad, setIsInitialLoad] = useState(true)
   const supabase = createClient()
 
   useEffect(() => {
     async function loadUser() {
       try {
+        console.log('[useAuth] Starting auth check, isInitialLoad:', isInitialLoad);
+        
         // Get Supabase session
-        const { data: { session } } = await supabase.auth.getSession()
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+        
+        if (sessionError) {
+          console.error('[useAuth] Session error:', sessionError);
+          setUser(null);
+          setLoading(false);
+          setIsInitialLoad(false);
+          return;
+        }
         
         if (session?.user) {
-          // Fetch additional user data from our database
+          console.log('[useAuth] Session found, user:', session.user.email);
+          
+          // Skip API call on initial load to prevent circular dependency
+          if (isInitialLoad) {
+            console.log('[useAuth] Initial load - using session data only');
+            // Set basic user data from session
+            setUser({
+              ...session.user,
+              role: 'SUPERUSER' as any, // Default role, will be updated on auth state change
+              name: session.user.email?.split('@')[0] || 'User'
+            });
+            setLoading(false);
+            setIsInitialLoad(false);
+            return;
+          }
+          
+          // Fetch additional user data from our database (only after initial load)
           try {
             const response = await fetch('/api/users/me', {
               credentials: 'include',
@@ -58,7 +85,11 @@ export function useAuth(): AuthState {
             }
           } catch (error) {
             console.error('Error fetching DB user:', error)
-            // Fallback if API fails
+            // Check if it's a network error (common during initial load)
+            if (error instanceof TypeError && error.message.includes('NetworkError')) {
+              console.log('[useAuth] Network error - likely CORS or initial load issue, using session data')
+            }
+            // Fallback if API fails - use session data with defaults
             setUser({
               ...session.user,
               role: 'SUPERUSER' as any,
@@ -73,6 +104,7 @@ export function useAuth(): AuthState {
         setUser(null)
       } finally {
         setLoading(false)
+        setIsInitialLoad(false)
       }
     }
 
@@ -80,49 +112,56 @@ export function useAuth(): AuthState {
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      console.log('[useAuth] Auth state changed, event:', _event);
+      
       if (session?.user) {
-        // Re-fetch user data on auth change
-        setLoading(true)
-        try {
-          const response = await fetch('/api/users/me', {
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
-            }
-          })
-          if (response.ok) {
-            const dbUser = await response.json()
-            setUser({
-              ...session.user,
-              id: dbUser.id,
-              role: dbUser.role,
-              name: dbUser.name || session.user.email?.split('@')[0] || 'User',
-              email: session.user.email || dbUser.email,
-              isActive: dbUser.isActive,
-              preferredLanguage: dbUser.preferredLanguage
+        // For auth state changes after initial load, fetch user data
+        if (!isInitialLoad) {
+          setLoading(true)
+          try {
+            const response = await fetch('/api/users/me', {
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json',
+              }
             })
-          } else {
+            if (response.ok) {
+              const dbUser = await response.json()
+              setUser({
+                ...session.user,
+                id: dbUser.id,
+                role: dbUser.role,
+                name: dbUser.name || session.user.email?.split('@')[0] || 'User',
+                email: session.user.email || dbUser.email,
+                isActive: dbUser.isActive,
+                preferredLanguage: dbUser.preferredLanguage
+              })
+            } else {
+              setUser({
+                ...session.user,
+                role: 'SUPERUSER' as any,
+                name: session.user.email?.split('@')[0] || 'User'
+              })
+            }
+          } catch (error) {
+            console.warn('[useAuth] Error in auth state change:', error)
+            // Use session data with defaults on error
             setUser({
               ...session.user,
               role: 'SUPERUSER' as any,
               name: session.user.email?.split('@')[0] || 'User'
             })
           }
-        } catch {
-          setUser({
-            ...session.user,
-            role: 'SUPERUSER' as any,
-            name: session.user.email?.split('@')[0] || 'User'
-          })
+          setLoading(false)
         }
       } else {
         setUser(null)
+        setLoading(false)
       }
-      setLoading(false)
     })
 
     return () => subscription.unsubscribe()
-  }, [supabase])
+  }, [supabase, isInitialLoad])
 
   const signOut = async () => {
     await supabase.auth.signOut()

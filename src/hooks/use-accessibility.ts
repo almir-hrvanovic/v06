@@ -480,10 +480,13 @@ export function useA11yComposite<T extends HTMLElement = HTMLElement>(
   const announcementHook = useA11yAnnouncements()
 
   // List navigation
-  const listHook = listNavigation ? useA11yListNavigation(listNavigation.items, {
-    orientation: listNavigation.orientation,
-    onSelect: listNavigation.onSelect
-  }) : null
+  const listHook = useA11yListNavigation(
+    listNavigation?.items || [],
+    listNavigation ? {
+      orientation: listNavigation.orientation,
+      onSelect: listNavigation.onSelect
+    } : undefined
+  )
 
   // Combine refs
   const combinedRef = useCallback((element: T | null) => {

@@ -3,32 +3,11 @@ import { db } from '@/lib/db/index';
 import { NextRequest, NextResponse } from 'next/server';
 import { UserRole } from '@/lib/db/types';
 import { cache, cacheKeys } from '@/lib/upstash-redis';
+import { OptimizationLogger } from '@/lib/optimization-logger';
 
-// Performance monitoring
-class OptimizationLogger {
-  private context: string;
-  private category: string;
-
-  constructor(context: string, category: string) {
-    this.context = context;
-    this.category = category;
-  }
-
-  info(message: string, data?: any) {
-    console.log(`[${this.context}:${this.category}] ${message}`, data || '');
-  }
-
-  error(message: string, error?: any) {
-    console.error(`[${this.context}:${this.category}] ${message}`, error || '');
-  }
-
-  performance(operation: string, duration: number, cached: boolean = false) {
-    const cacheInfo = cached ? ' (CACHED)' : ' (DB)';
-    console.log(`[${this.context}:${this.category}] ${operation}: ${duration}ms${cacheInfo}`);
-  }
-}
-
-const logger = new OptimizationLogger('auth-optimization', 'quick-wins');
+// Create logger for auth system debugging
+const logger = new OptimizationLogger('CRIT-005', 'auth-system');
+logger.log('INFO', 'Optimized auth module loaded');
 
 export interface AuthenticatedUser {
   id: string;
@@ -81,17 +60,78 @@ const requestCache = new Map<string, Promise<AuthenticatedUser | null>>();
 
 // Extract session token from request
 function getSessionToken(request: NextRequest): string | null {
+  logger.startOperation('getSessionToken');
+  
+  // Check authorization header first
   const authHeader = request.headers.get('authorization');
   if (authHeader?.startsWith('Bearer ')) {
-    return authHeader.substring(7);
+    const token = authHeader.substring(7);
+    logger.endOperation('getSessionToken', true, { source: 'auth-header' });
+    return token;
   }
   
-  // Try cookies
-  const accessToken = request.cookies.get('sb-access-token')?.value;
-  if (accessToken) {
-    return accessToken;
+  // Log all available cookies for debugging
+  const allCookies = request.cookies.getAll();
+  logger.log('DEBUG', 'Available cookies', { 
+    cookieNames: allCookies.map(c => c.name),
+    cookieCount: allCookies.length 
+  });
+  
+  // Try to find Supabase auth cookie
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (supabaseUrl) {
+    const projectRef = supabaseUrl.match(/https:\/\/([^.]+)\.supabase\.co/)?.[1];
+    logger.log('DEBUG', 'Supabase project reference', { projectRef });
+    
+    if (projectRef) {
+      // Try the standard Supabase cookie name pattern
+      const cookieName = `sb-${projectRef}-auth-token`;
+      const authToken = request.cookies.get(cookieName)?.value;
+      
+      if (authToken) {
+        logger.log('INFO', 'Found Supabase auth cookie', { cookieName });
+        try {
+          const parsed = JSON.parse(authToken);
+          const token = parsed.access_token || authToken;
+          logger.endOperation('getSessionToken', true, { 
+            source: 'supabase-cookie',
+            hasAccessToken: !!parsed.access_token 
+          });
+          return token;
+        } catch (e) {
+          logger.log('WARNING', 'Failed to parse auth cookie', { error: e });
+          logger.endOperation('getSessionToken', true, { source: 'supabase-cookie-raw' });
+          return authToken;
+        }
+      }
+    }
+  }
+  
+  // Fallback to any sb-*-auth-token cookie
+  logger.log('DEBUG', 'Trying fallback cookie search');
+  for (const cookie of allCookies) {
+    if (cookie.name.startsWith('sb-') && cookie.name.endsWith('-auth-token')) {
+      logger.log('INFO', 'Found auth cookie via fallback', { cookieName: cookie.name });
+      try {
+        const parsed = JSON.parse(cookie.value);
+        const token = parsed.access_token || cookie.value;
+        logger.endOperation('getSessionToken', true, { 
+          source: 'fallback-cookie',
+          cookieName: cookie.name 
+        });
+        return token;
+      } catch {
+        logger.endOperation('getSessionToken', true, { 
+          source: 'fallback-cookie-raw',
+          cookieName: cookie.name 
+        });
+        return cookie.value;
+      }
+    }
   }
 
+  logger.log('WARNING', 'No session token found');
+  logger.endOperation('getSessionToken', false, { reason: 'no-token-found' });
   return null;
 }
 
@@ -128,13 +168,24 @@ export function hasPermission(userRole: UserRole, resource: string, action: stri
 
 // Optimized user authentication with multi-level caching
 export async function getAuthenticatedUserOptimized(request: NextRequest): Promise<AuthenticatedUser | null> {
+  logger.startOperation('getAuthenticatedUserOptimized');
   const startTime = Date.now();
+  
   const sessionToken = getSessionToken(request);
   
   if (!sessionToken) {
-    logger.performance('Auth Check - No Token', Date.now() - startTime);
+    logger.log('WARNING', 'No session token found in request', {
+      path: request.nextUrl.pathname,
+      method: request.method
+    });
+    logger.endOperation('getAuthenticatedUserOptimized', false, { 
+      reason: 'no-token',
+      duration: Date.now() - startTime 
+    });
     return null;
   }
+  
+  logger.log('DEBUG', 'Session token found, proceeding with auth check');
 
   // Request-level cache check (prevents duplicate checks in same request)
   const requestKey = `req:${sessionToken}`;
@@ -157,28 +208,46 @@ export async function getAuthenticatedUserOptimized(request: NextRequest): Promi
 }
 
 async function authenticateUser(sessionToken: string): Promise<AuthenticatedUser | null> {
+  logger.startOperation('authenticateUser');
+  
   try {
     const cacheKey = cacheKeys.session(sessionToken);
+    logger.log('DEBUG', 'Checking Redis cache', { cacheKey });
     
     // 1. Try Redis cache first (fastest)
-    const cached = await cache.get<CachedSession>(cacheKey);
-    if (cached && cached.expiresAt > Date.now()) {
-      logger.info(`Session cache HIT: ${cached.user.email}`);
-      return cached.user;
+    try {
+      const cached = await cache.get<CachedSession>(cacheKey);
+      if (cached && cached.expiresAt > Date.now()) {
+        logger.log('INFO', 'Redis cache HIT', { 
+          email: cached.user.email,
+          expiresIn: cached.expiresAt - Date.now() 
+        });
+        logger.endOperation('authenticateUser', true, { source: 'redis-cache' });
+        return cached.user;
+      }
+      logger.log('DEBUG', 'Redis cache MISS');
+    } catch (redisError) {
+      logger.log('WARNING', 'Redis error, falling back to database', { error: redisError });
     }
-
-    logger.info('Session cache MISS - fetching from Supabase');
     
     // 2. Get Supabase client (singleton)
+    logger.log('DEBUG', 'Getting Supabase client');
     const supabase = await supabaseClientSingleton.getClient();
     
-    // 3. Verify JWT token with Supabase
-    const { data: { user }, error } = await supabase.auth.getUser(sessionToken);
+    // 3. Verify current session with Supabase
+    logger.log('DEBUG', 'Verifying session with Supabase');
+    const { data: { user }, error } = await supabase.auth.getUser();
     
     if (error || !user) {
-      logger.error('Supabase auth error:', error);
+      logger.log('ERROR', 'Supabase auth verification failed', { 
+        error: error?.message,
+        hasUser: !!user 
+      });
+      logger.endOperation('authenticateUser', false, { reason: 'supabase-auth-failed' });
       return null;
     }
+    
+    logger.log('INFO', 'Supabase auth successful', { userId: user.id, email: user.email });
 
     // 4. Get user from database (with caching)
     const dbUserKey = cacheKeys.userByEmail(user.email!);

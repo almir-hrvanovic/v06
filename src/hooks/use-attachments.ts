@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { toast } from 'sonner'
 
 interface Attachment {
@@ -30,7 +30,7 @@ export function useAttachments({ inquiryId, itemId }: UseAttachmentsProps) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  const fetchAttachments = async () => {
+  const fetchAttachments = useCallback(async () => {
     try {
       setLoading(true)
       const params = new URLSearchParams()
@@ -55,7 +55,7 @@ export function useAttachments({ inquiryId, itemId }: UseAttachmentsProps) {
     } finally {
       setLoading(false)
     }
-  }
+  }, [inquiryId, itemId])
 
   const linkAttachment = async (fileId: string) => {
     try {
@@ -118,7 +118,7 @@ export function useAttachments({ inquiryId, itemId }: UseAttachmentsProps) {
     if (inquiryId || itemId) {
       fetchAttachments()
     }
-  }, [inquiryId, itemId])
+  }, [inquiryId, itemId, fetchAttachments])
 
   return {
     attachments,

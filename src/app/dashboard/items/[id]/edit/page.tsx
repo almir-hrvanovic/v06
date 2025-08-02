@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { useAuth } from '@/hooks/use-auth'
 import { Button } from '@/components/ui/button'
@@ -90,14 +90,7 @@ export default function ItemEditPage() {
   const itemId = params.id as string
   const userRole = user?.role
 
-  useEffect(() => {
-    if (itemId) {
-      fetchItem()
-      fetchVpUsers()
-    }
-  }, [itemId])
-
-  const fetchItem = async () => {
+  const fetchItem = useCallback(async () => {
     try {
       setLoading(true)
       const response = await fetch(`/api/items/${itemId}`)
@@ -137,9 +130,9 @@ export default function ItemEditPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [itemId, router])
 
-  const fetchVpUsers = async () => {
+  const fetchVpUsers = useCallback(async () => {
     try {
       // Fetch both VP and VPP users
       const [vpResponse, vppResponse] = await Promise.all([
@@ -158,7 +151,14 @@ export default function ItemEditPage() {
     } catch (error) {
       console.error('Failed to fetch VP/VPP users:', error)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    if (itemId) {
+      fetchItem()
+      fetchVpUsers()
+    }
+  }, [itemId, fetchItem, fetchVpUsers])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

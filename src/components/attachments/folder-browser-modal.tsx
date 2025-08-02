@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -51,13 +51,7 @@ export function FolderBrowserModal({ inquiryId, isOpen, onClose }: FolderBrowser
   const [currentPath, setCurrentPath] = useState<string>('')
   const [folderExists, setFolderExists] = useState(false)
 
-  useEffect(() => {
-    if (isOpen && inquiryId) {
-      fetchFolderContents()
-    }
-  }, [isOpen, inquiryId, currentPath])
-
-  const fetchFolderContents = async () => {
+  const fetchFolderContents = useCallback(async () => {
     setLoading(true)
     try {
       const pathParam = currentPath ? `?path=${encodeURIComponent(currentPath)}` : ''
@@ -81,7 +75,13 @@ export function FolderBrowserModal({ inquiryId, isOpen, onClose }: FolderBrowser
     } finally {
       setLoading(false)
     }
-  }
+  }, [inquiryId, currentPath, t])
+
+  useEffect(() => {
+    if (isOpen && inquiryId) {
+      fetchFolderContents()
+    }
+  }, [isOpen, inquiryId, fetchFolderContents])
 
   const getFileIcon = (file: FileInfo) => {
     if (file.isDirectory) return <FolderIcon className="h-5 w-5" />

@@ -1,6 +1,6 @@
 'use client'
 
-import { use, useState, useEffect } from 'react'
+import { use, useState, useEffect, useCallback } from 'react'
 import { useAuth } from '@/hooks/use-auth'
 import { useRouter } from 'next/navigation'
 import { UserRole } from '@prisma/client'
@@ -30,15 +30,7 @@ export default function EditAutomationRulePage({ params }: PageProps) {
   const canManageRules = user?.role && 
     (user.role === UserRole.ADMIN || user.role === UserRole.SUPERUSER)
 
-  useEffect(() => {
-    if (!canManageRules) {
-      router.push('/dashboard')
-      return
-    }
-    fetchRule()
-  }, [canManageRules, router])
-
-  const fetchRule = async () => {
+  const fetchRule = useCallback(async () => {
     try {
       const response = await fetch(`/api/automation/rules/${ruleId}`)
       if (!response.ok) throw new Error('Failed to fetch rule')
@@ -50,7 +42,15 @@ export default function EditAutomationRulePage({ params }: PageProps) {
     } finally {
       setLoading(false)
     }
-  }
+  }, [ruleId, router])
+
+  useEffect(() => {
+    if (!canManageRules) {
+      router.push('/dashboard')
+      return
+    }
+    fetchRule()
+  }, [canManageRules, router, fetchRule])
 
   const handleSubmit = async (data: any) => {
     const response = await fetch(`/api/automation/rules/${ruleId}`, {

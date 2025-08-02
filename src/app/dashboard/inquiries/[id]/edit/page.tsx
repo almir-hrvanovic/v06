@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import { useAuth } from '@/hooks/use-auth'
 import { useTranslations } from 'next-intl'
@@ -52,11 +52,7 @@ export default function EditInquiryPage() {
     }
   })
 
-  useEffect(() => {
-    fetchInquiry()
-  }, [params.id])
-
-  const fetchInquiry = async () => {
+  const fetchInquiry = useCallback(async () => {
     try {
       const response = await apiClient.getInquiry(params.id as string) as any
       setInquiry(response.data)
@@ -76,7 +72,11 @@ export default function EditInquiryPage() {
     } finally {
       setLoadingInquiry(false)
     }
-  }
+  }, [params.id, router, t, form])
+
+  useEffect(() => {
+    fetchInquiry()
+  }, [fetchInquiry])
 
   const onSubmit = async (data: InquiryFormData) => {
     try {

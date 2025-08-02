@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState, useMemo } from 'react'
 import { useSidebar } from '@/contexts/sidebar-context'
 
 // Types and interfaces
@@ -246,7 +246,7 @@ function createSpringAnimation(
 // Main hook
 export function useSidebarGestures(customConfig?: Partial<GestureConfig>) {
   const { isCollapsed, setIsCollapsed } = useSidebar()
-  const config = { ...DEFAULT_CONFIG, ...customConfig }
+  const config = useMemo(() => ({ ...DEFAULT_CONFIG, ...customConfig }), [customConfig])
   const platform = useRef<PlatformInfo>(detectPlatform())
   
   // State

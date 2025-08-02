@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { redis } from '@/lib/redis'
+import { upstash } from '@/lib/upstash-redis'
 
 // Rate limiting configuration
 const RATE_LIMIT_WINDOW = 60 * 1000 // 1 minute
@@ -36,17 +36,16 @@ export async function redisRateLimit(request: NextRequest, routeType: string = '
   
   try {
     // Check if Redis is available
-    const redisClient = await redis()
-    if (!redisClient) {
+    if (!upstash) {
       // Fallback to in-memory rate limiting if Redis unavailable
       return null
     }
     
-    const current = await redisClient.incr(key)
+    const current = await upstash.incr(key)
     
     if (current === 1) {
       // First request, set expiration
-      await redisClient.expire(key, Math.floor(RATE_LIMIT_WINDOW / 1000))
+      await upstash.expire(key, Math.floor(RATE_LIMIT_WINDOW / 1000))
     }
     
     if (current > limit) {

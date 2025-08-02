@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { User, UserRole } from '@prisma/client'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -18,7 +18,7 @@ import { useAuth } from '@/hooks/use-auth'
 import { useTranslations } from 'next-intl'
 
 export default function UsersPage() {
-  const { user: authUser } = useAuth()
+  const { user: authUser, loading: authLoading } = useAuth()
   const t = useTranslations()
   const [users, setUsers] = useState<User[]>([])
   const [loading, setLoading] = useState(true)
@@ -51,15 +51,24 @@ export default function UsersPage() {
     }
   }
 
-  useEffect(() => {
-    fetchUsers()
-  }, [])
-
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
-      const response = await fetch('/api/users')
-      if (!response.ok) throw new Error('Failed to fetch users')
+      console.log('Fetching users...')
+      const response = await fetch('/api/users', {
+        credentials: 'include'
+      })
+      console.log('Response status:', response.status)
+      console.log('Response headers:', response.headers)
+      
+      if (!response.ok) {
+        const errorText = await response.text()
+        console.error('Error response:', errorText)
+        throw new Error(`Failed to fetch users: ${response.status}`)
+      }
+      
       const data = await response.json()
+      console.log('Response data:', data)
+      
       // Ensure data is an array
       const usersArray = Array.isArray(data) ? data : (data.data || data.users || [])
       setUsers(usersArray)
@@ -70,7 +79,18 @@ export default function UsersPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [t])
+
+  useEffect(() => {
+    // Only fetch users after auth is loaded and user is authenticated
+    if (!authLoading && authUser) {
+      fetchUsers()
+    } else if (!authLoading && !authUser) {
+      // User is not authenticated
+      setLoading(false)
+      console.log('User not authenticated, cannot fetch users')
+    }
+  }, [fetchUsers, authLoading, authUser])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -230,7 +250,47 @@ export default function UsersPage() {
     return null
   }
 
-  if (loading) {
+  // Show loading while auth is loading
+  if (authLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    )
+  }
+
+  // Check if user is authenticated
+  if (!authUser) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <Card className="max-w-md">
+          <CardContent className="pt-6">
+            <p className="text-center text-muted-foreground">
+              {t('messages.error.notAuthenticated')}
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    )
+  }
+
+  // Check if user has permission
+  if (!canManageUsers) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <Card className="max-w-md">
+          <CardContent className="pt-6">
+            <p className="text-center text-muted-foreground">
+              {t('messages.error.noPermission')}
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    )
+  }
+
+  // Show loading while fetching users
+  if (loading && users.length === 0) {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>

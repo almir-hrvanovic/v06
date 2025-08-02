@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useAuth } from '@/hooks/use-auth'
 import { useRouter } from 'next/navigation'
 import { Plus, Edit, Trash2, ToggleLeft, ToggleRight, Activity } from 'lucide-react'
@@ -44,15 +44,7 @@ export default function AutomationRulesPage() {
 
   const canDeleteRules = user?.role === UserRole.SUPERUSER
 
-  useEffect(() => {
-    if (!canManageRules) {
-      router.push('/dashboard')
-      return
-    }
-    fetchRules()
-  }, [canManageRules, router])
-
-  const fetchRules = async () => {
+  const fetchRules = useCallback(async () => {
     try {
       const response = await fetch('/api/automation/rules')
       if (!response.ok) throw new Error('Failed to fetch rules')
@@ -63,7 +55,15 @@ export default function AutomationRulesPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [t])
+
+  useEffect(() => {
+    if (!canManageRules) {
+      router.push('/dashboard')
+      return
+    }
+    fetchRules()
+  }, [canManageRules, router, fetchRules])
 
   const toggleRule = async (ruleId: string, isActive: boolean) => {
     try {

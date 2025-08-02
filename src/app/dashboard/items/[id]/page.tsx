@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { useAuth } from '@/hooks/use-auth'
 import { useTranslations } from 'next-intl'
@@ -80,13 +80,7 @@ export default function ItemDetailPage() {
   const itemId = params.id as string
   const userRole = user?.role
 
-  useEffect(() => {
-    if (itemId) {
-      fetchItem()
-    }
-  }, [itemId])
-
-  const fetchItem = async () => {
+  const fetchItem = useCallback(async () => {
     try {
       setLoading(true)
       const response = await fetch(`/api/items/${itemId}`)
@@ -112,7 +106,13 @@ export default function ItemDetailPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [itemId])
+
+  useEffect(() => {
+    if (itemId) {
+      fetchItem()
+    }
+  }, [itemId, fetchItem])
 
   const getItemStatusBadge = (status: string) => {
     const statusMap: { [key: string]: { variant: any, labelKey: string } } = {

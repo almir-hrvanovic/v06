@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
@@ -225,14 +225,18 @@ export function MobileSidebar({ className }: MobileSidebarProps) {
   }
 
   // Auto-focus first item when menu opens
-  useEffect(() => {
+  const handleAutoFocus = useCallback(() => {
     if (isOpen && navElements.length > 0) {
       // Small delay to ensure drawer is fully rendered
       setTimeout(() => {
         listNavigation.moveToFirst()
       }, 200)
     }
-  }, [isOpen, navElements.length])
+  }, [isOpen, navElements.length, listNavigation])
+
+  useEffect(() => {
+    handleAutoFocus()
+  }, [handleAutoFocus])
 
   // Keyboard navigation for menu button
   const menuButtonKeyboard = useA11yKeyboardNav({

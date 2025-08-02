@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useAuth } from '@/hooks/use-auth'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -46,11 +46,7 @@ export default function AnalyticsPage() {
 
   const userRole = user?.role
 
-  useEffect(() => {
-    fetchAnalytics()
-  }, [timeRange, activeTab])
-
-  const fetchAnalytics = async () => {
+  const fetchAnalytics = useCallback(async () => {
     try {
       setLoading(true)
       const response = await fetch(`/api/analytics?type=${activeTab}&timeRange=${timeRange}`)
@@ -68,7 +64,11 @@ export default function AnalyticsPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [activeTab, timeRange])
+
+  useEffect(() => {
+    fetchAnalytics()
+  }, [fetchAnalytics])
 
   const handleExport = async () => {
     try {

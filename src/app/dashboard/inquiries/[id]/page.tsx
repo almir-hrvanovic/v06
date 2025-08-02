@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { useAuth } from '@/hooks/use-auth'
 import Link from 'next/link'
@@ -57,13 +57,7 @@ export default function InquiryDetailPage() {
   const inquiryId = params.id as string
   const userRole = user?.role
 
-  useEffect(() => {
-    if (inquiryId) {
-      fetchInquiry()
-    }
-  }, [inquiryId])
-
-  const fetchInquiry = async () => {
+  const fetchInquiry = useCallback(async () => {
     try {
       setLoading(true)
       const response = await apiClient.getInquiry(inquiryId) as any
@@ -94,7 +88,13 @@ export default function InquiryDetailPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [inquiryId])
+
+  useEffect(() => {
+    if (inquiryId) {
+      fetchInquiry()
+    }
+  }, [inquiryId, fetchInquiry])
 
   const getStatusBadge = (status: InquiryStatus) => {
     const statusMap = {

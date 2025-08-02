@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { db } from '@/lib/db/index'
-import { redis } from '@/lib/redis'
+import { upstash, isRedisAvailable } from '@/lib/upstash-redis'
 import { serverMonitor } from '@/lib/server-monitoring'
 
 export async function GET() {
@@ -37,12 +37,11 @@ export async function GET() {
     serverMonitor.logDatabaseOperation('health_check', 'system', 'SELECT 1', undefined, error)
   }
 
-  // Check Redis
+  // Check Redis (Upstash)
   try {
     const redisStart = Date.now()
-    const redisClient = redis()
-    if (redisClient) {
-      await redisClient.ping()
+    if (isRedisAvailable() && upstash) {
+      await upstash.ping()
       const redisDuration = Date.now() - redisStart
       health.services.redis = 'healthy'
       
@@ -52,7 +51,7 @@ export async function GET() {
       serverMonitor.log({
         level: 'info',
         source: 'redis',
-        message: 'Redis not configured'
+        message: 'Upstash Redis not configured'
       })
     }
   } catch (error: any) {

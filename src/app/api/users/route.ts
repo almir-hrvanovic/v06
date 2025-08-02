@@ -4,6 +4,7 @@ import { UserRole } from '@/lib/db/types'
 import { z } from 'zod'
 import bcrypt from 'bcryptjs'
 import { apiAuth } from '@/utils/api/optimized-auth-wrapper'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
 import { optimizeApiRoute } from '@/lib/api-optimization'
 
 const getHandler = apiAuth.withPermission('users', 'read', async (request: NextRequest, user: any) => {
@@ -163,14 +164,97 @@ const postHandler = apiAuth.withPermission('users', 'write', async (request: Nex
 })
 
 // Export optimized route handlers
-export const GET = optimizeApiRoute(getHandler, {
-  enableCaching: true,
-  cacheMaxAge: 180, // 3 minutes cache for users (they change frequently)
-  enableCompression: true,
-  enableETag: true,
-  optimizePayload: true,
-  excludeFields: ['password'] // Always exclude password field
-})
+// Temporary simple GET handler to debug auth issues
+export async function GET(request: NextRequest) {
+  try {
+    // Use simple auth check
+    const user = await getAuthenticatedUser(request);
+    
+    if (!user) {
+      return NextResponse.json(
+        { error: 'Unauthorized - Please log in' },
+        { status: 401 }
+      );
+    }
+
+    // Check permissions
+    const hasPermission = ['SUPERUSER', 'ADMIN'].includes(user.role);
+    if (!hasPermission) {
+      return NextResponse.json(
+        { error: 'Forbidden - Insufficient permissions' },
+        { status: 403 }
+      );
+    }
+
+    // Fetch users
+    const { searchParams } = new URL(request.url);
+    const role = searchParams.get('role');
+    const roles = searchParams.get('roles');
+    const active = searchParams.get('active');
+    const search = searchParams.get('search');
+
+    const where: any = {};
+
+    if (roles) {
+      const roleArray = roles.split(',').filter(Boolean);
+      where.role = { in: roleArray };
+    } else if (role) {
+      where.role = role;
+    }
+
+    if (active !== null) {
+      where.isActive = active === 'true';
+    }
+
+    if (search) {
+      where.OR = [
+        { name: { contains: search, mode: 'insensitive' } },
+        { email: { contains: search, mode: 'insensitive' } }
+      ];
+    }
+
+    const users = await db.user.findMany({
+      where,
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        isActive: true,
+        createdAt: true,
+        _count: {
+          select: {
+            createdInquiries: true,
+            assignedInquiries: true,
+            assignedItems: true
+          }
+        }
+      },
+      orderBy: [
+        { role: 'asc' },
+        { name: 'asc' }
+      ]
+    });
+
+    return NextResponse.json(users);
+  } catch (error) {
+    console.error('Get users error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}
+
+// Original optimized handler (commented out temporarily)
+// export const GET = optimizeApiRoute(getHandler, {
+//   enableCaching: true,
+//   cacheMaxAge: 180, // 3 minutes cache for users (they change frequently)
+//   enableCompression: true,
+//   enableETag: true,
+//   optimizePayload: true,
+//   excludeFields: ['password'] // Always exclude password field
+// })
 
 export const POST = optimizeApiRoute(postHandler, {
   enableCaching: false, // Don't cache POST requests

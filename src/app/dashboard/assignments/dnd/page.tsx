@@ -134,13 +134,13 @@ export default function DragDropAssignmentPage() {
 
   useEffect(() => {
     fetchData()
-  }, [showAssigned])
+  }, [fetchData])
 
   useEffect(() => {
     applyFilters()
-  }, [items, filters, showAssigned, showCostedItems, assignments])
+  }, [applyFilters])
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       setLoading(true)
 
@@ -278,9 +278,9 @@ export default function DragDropAssignmentPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [t])
 
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     let filtered = [...items]
     
     console.log('applyFilters start:', { 
@@ -364,7 +364,7 @@ export default function DragDropAssignmentPage() {
 
     console.log('Final filtered items:', filtered.length)
     setFilteredItems(filtered)
-  }
+  }, [items, filters, showAssigned, showCostedItems])
 
   const handleDragStart = (event: DragStartEvent) => {
     setActiveId(event.active.id as string)

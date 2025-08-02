@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -77,11 +77,7 @@ export function SearchResults({
   const [totalResults, setTotalResults] = useState(0)
   const itemsPerPage = 20
 
-  useEffect(() => {
-    fetchResults()
-  }, [filters, sortField, sortDirection, currentPage])
-
-  const fetchResults = async () => {
+  const fetchResults = useCallback(async () => {
     setLoading(true)
     try {
       // In a real app, this would make an API call
@@ -98,7 +94,11 @@ export function SearchResults({
     } finally {
       setLoading(false)
     }
-  }
+  }, [entityType, filters, itemsPerPage])
+
+  useEffect(() => {
+    fetchResults()
+  }, [fetchResults, sortField, sortDirection, currentPage])
 
   const generateMockResults = (type: string, filters: SearchFilters): SearchResult[] => {
     // Generate mock data based on entity type

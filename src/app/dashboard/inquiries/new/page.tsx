@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/hooks/use-auth'
 import { useTranslations } from 'next-intl'
@@ -58,11 +58,7 @@ export default function NewInquiryPage() {
     control: form.control,
   })
 
-  useEffect(() => {
-    fetchCustomers()
-  }, [])
-
-  const fetchCustomers = async () => {
+  const fetchCustomers = useCallback(async () => {
     try {
       const response = await fetch('/api/customers')
       if (!response.ok) throw new Error('Failed to fetch customers')
@@ -75,7 +71,11 @@ export default function NewInquiryPage() {
     } finally {
       setLoadingCustomers(false)
     }
-  }
+  }, [t])
+
+  useEffect(() => {
+    fetchCustomers()
+  }, [fetchCustomers])
 
   const onSubmit = async (data: InquiryFormData) => {
     let payload: any

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { optimizedAuth } from '@/utils/supabase/optimized-auth';
-import { cache, cacheKeys } from '@/lib/redis';
+import { cache, cacheKeys } from '@/lib/upstash-redis';
 
 // Performance monitoring
 class OptimizationLogger {

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -66,18 +66,7 @@ export function ExcelExportDialog({
     includeFormatting: true
   })
 
-  useEffect(() => {
-    if (isOpen) {
-      fetchExportStats()
-      // Set default filename
-      setExportConfig(prev => ({
-        ...prev,
-        fileName: `${entityType}-export-${new Date().toISOString().split('T')[0]}.xlsx`
-      }))
-    }
-  }, [isOpen, entityType])
-
-  const fetchExportStats = async () => {
+  const fetchExportStats = useCallback(async () => {
     setIsLoadingStats(true)
     try {
       const response = await fetch(`/api/excel/${entityType}`)
@@ -94,7 +83,18 @@ export function ExcelExportDialog({
     } finally {
       setIsLoadingStats(false)
     }
-  }
+  }, [entityType])
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchExportStats()
+      // Set default filename
+      setExportConfig(prev => ({
+        ...prev,
+        fileName: `${entityType}-export-${new Date().toISOString().split('T')[0]}.xlsx`
+      }))
+    }
+  }, [isOpen, entityType, fetchExportStats])
 
   const handleExport = async () => {
     setIsExporting(true)

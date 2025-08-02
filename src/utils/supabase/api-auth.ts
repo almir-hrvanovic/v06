@@ -2,6 +2,10 @@ import { createClient } from './server';
 import { db } from '@/lib/db/index';
 import { NextRequest, NextResponse } from 'next/server';
 import { UserRole } from '@/lib/db/types';
+import { OptimizationLogger } from '@/lib/optimization-logger';
+
+// Create logger for simple auth debugging
+const logger = new OptimizationLogger('CRIT-005', 'simple-auth');
 
 export interface AuthenticatedUser {
   id: string;
@@ -12,16 +16,37 @@ export interface AuthenticatedUser {
 }
 
 export async function getAuthenticatedUser(request: NextRequest): Promise<AuthenticatedUser | null> {
+  logger.startOperation('getAuthenticatedUser');
+  
   try {
+    // Log request details
+    logger.log('DEBUG', 'Auth check started', {
+      path: request.nextUrl.pathname,
+      method: request.method,
+      hasCookies: request.cookies.getAll().length > 0
+    });
+    
     const supabase = await createClient();
+    logger.log('DEBUG', 'Supabase client created');
+    
     const { data: { user }, error } = await supabase.auth.getUser();
     
     if (error || !user) {
-      console.error('Supabase auth error:', error);
+      logger.log('ERROR', 'Supabase auth failed', { 
+        error: error?.message,
+        hasUser: !!user 
+      });
+      logger.endOperation('getAuthenticatedUser', false, { reason: 'auth-failed' });
       return null;
     }
+    
+    logger.log('INFO', 'Supabase auth successful', { 
+      userId: user.id, 
+      email: user.email 
+    });
 
     // Get full user details from database
+    logger.log('DEBUG', 'Fetching user from database');
     const dbUser = await db.user.findUnique({
       where: { email: user.email! },
       select: {
@@ -34,9 +59,27 @@ export async function getAuthenticatedUser(request: NextRequest): Promise<Authen
       }
     });
 
-    if (!dbUser || !dbUser.isActive) {
+    if (!dbUser) {
+      logger.log('ERROR', 'User not found in database', { email: user.email });
+      logger.endOperation('getAuthenticatedUser', false, { reason: 'user-not-found' });
       return null;
     }
+    
+    if (!dbUser.isActive) {
+      logger.log('WARNING', 'User account is inactive', { email: user.email });
+      logger.endOperation('getAuthenticatedUser', false, { reason: 'user-inactive' });
+      return null;
+    }
+
+    logger.log('INFO', 'User authenticated successfully', { 
+      userId: dbUser.id,
+      role: dbUser.role 
+    });
+    
+    logger.endOperation('getAuthenticatedUser', true, { 
+      userId: dbUser.id,
+      role: dbUser.role 
+    });
 
     return {
       id: dbUser.id,
@@ -46,7 +89,11 @@ export async function getAuthenticatedUser(request: NextRequest): Promise<Authen
       preferredLanguage: dbUser.preferredLanguage
     };
   } catch (error) {
-    console.error('Error getting authenticated user:', error);
+    logger.log('CRITICAL', 'Unexpected error in authentication', { 
+      error: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined
+    });
+    logger.endOperation('getAuthenticatedUser', false, { reason: 'exception' });
     return null;
   }
 }

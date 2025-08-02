@@ -217,8 +217,8 @@ export function useResponsiveBreakpoint(
   }, []);
 
   // Debounced resize handler
-  const handleResize = useCallback(
-    debounce(() => {
+  const handleResize = useMemo(
+    () => debounce(() => {
       const newDimensions = getViewportDimensions();
       setDimensions(newDimensions);
       

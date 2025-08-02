@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useAuth } from '@/hooks/use-auth'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
@@ -73,11 +73,7 @@ export default function AssignmentsPage() {
 
   const userRole = user?.role
 
-  useEffect(() => {
-    fetchData()
-  }, [searchTerm, selectedCustomer, selectedStatus])
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       setLoading(true)
       
@@ -102,7 +98,11 @@ export default function AssignmentsPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [searchTerm, selectedCustomer, selectedStatus])
+
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
 
   const handleItemSelection = (itemId: string, checked: boolean) => {
     if (checked) {

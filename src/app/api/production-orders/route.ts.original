@@ -1,0 +1,209 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { db } from '@/lib/db/index'
+import { UserRole } from '@/lib/db/types'
+import { getAuthenticatedUser } from '@/utils/supabase/api-auth'
+
+export async function GET(request: NextRequest) {
+  try {
+    const user = await getAuthenticatedUser(request)
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    // Only certain roles can view production orders
+    if (user.role !== UserRole.SUPERUSER && 
+        user.role !== UserRole.ADMIN && 
+        user.role !== UserRole.MANAGER) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
+    const { searchParams } = new URL(request.url)
+    const search = searchParams.get('search')
+    const status = searchParams.get('status')
+
+    const where: any = {}
+    
+    if (search) {
+      where.OR = [
+        { orderNumber: { contains: search, mode: 'insensitive' } },
+        { quote: { inquiry: { title: { contains: search, mode: 'insensitive' } } } },
+        { quote: { inquiry: { customer: { name: { contains: search, mode: 'insensitive' } } } } }
+      ]
+    }
+
+    if (status) {
+      where.status = status
+    }
+
+    const orders = await db.productionOrder.findMany({
+      where,
+      include: {
+        quote: {
+          include: {
+            inquiry: {
+              include: {
+                customer: {
+                  select: { id: true, name: true, email: true }
+                }
+              }
+            }
+          }
+        },
+        _count: {
+          select: { items: true }
+        }
+      },
+      orderBy: { createdAt: 'desc' }
+    })
+
+    return NextResponse.json(orders)
+  } catch (error) {
+    console.error('Failed to fetch production orders:', error)
+    return NextResponse.json(
+      { error: 'Failed to fetch production orders' },
+      { status: 500 }
+    )
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const user = await getAuthenticatedUser(request)
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    // Only certain roles can create production orders
+    if (user.role !== UserRole.SUPERUSER && 
+        user.role !== UserRole.ADMIN && 
+        user.role !== UserRole.MANAGER) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
+    const body = await request.json()
+    const { quoteId } = body
+
+    // Check if quote exists and is accepted
+    const quote = await db.quote.findUnique({
+      where: { id: quoteId },
+      include: {
+        inquiry: {
+          include: {
+            customer: true,
+            items: true
+          }
+        }
+      }
+    }) as any
+
+    if (!quote) {
+      return NextResponse.json(
+        { error: 'Quote not found' },
+        { status: 404 }
+      )
+    }
+
+    if (quote.status !== 'ACCEPTED') {
+      return NextResponse.json(
+        { error: 'Only accepted quotes can be converted to production orders' },
+        { status: 400 }
+      )
+    }
+
+    // Check if production order already exists for this quote
+    const existingOrder = await db.productionOrder.findUnique({
+      where: { quoteId }
+    })
+
+    if (existingOrder) {
+      return NextResponse.json(
+        { error: 'Production order already exists for this quote' },
+        { status: 400 }
+      )
+    }
+
+    // Generate order number
+    const orderCount = await ((db.productionOrder?.count as any)() || Promise.resolve(0))
+    const orderNumber = `PO-${new Date().getFullYear()}-${String(orderCount + 1).padStart(5, '0')}`
+
+    // Create production order
+    const order = await db.productionOrder.create({
+      data: {
+        orderNumber,
+        title: quote.title,
+        totalValue: quote.total,
+        quoteId,
+        status: 'PENDING',
+        items: {
+          create: (quote.inquiry?.items || []).map((item: any) => ({
+            name: item.name,
+            description: item.description,
+            quantity: item.quantity,
+            unit: item.unit,
+            inquiryItemId: item.id,
+            status: 'PENDING'
+          }))
+        }
+      },
+      include: {
+        quote: {
+          include: {
+            inquiry: {
+              include: {
+                customer: true
+              }
+            }
+          }
+        },
+        _count: {
+          select: { items: true }
+        }
+      }
+    })
+
+    // Create notification
+    await db.notification.create({
+      data: {
+        userId: user.id!,
+        type: 'PRODUCTION_ORDER_CREATED',
+        title: 'Production Order Created',
+        message: `Production order ${orderNumber} has been created for ${(quote as any)?.inquiry?.customer?.name || 'Unknown'}`,
+        isRead: false,
+        readAt: null,
+        data: {
+          orderId: order.id,
+          orderNumber: orderNumber,
+          relatedId: order.id,
+          relatedType: 'PRODUCTION_ORDER'
+        }
+      }
+    })
+
+    // Create audit log
+    await db.auditLog.create({
+      data: {
+        action: 'CREATE',
+        entity: 'PRODUCTION_ORDER',
+        entityId: order.id,
+        inquiryId: quote.inquiry?.id || null,
+        userId: user.id!,
+        oldData: {},
+        newData: order as any,
+        metadata: {
+          orderNumber,
+          quoteNumber: quote.quoteNumber,
+          customer: quote.inquiry?.customer?.name || 'Unknown',
+          amount: quote.total
+        }
+      }
+    })
+
+    return NextResponse.json(order)
+  } catch (error) {
+    console.error('Failed to create production order:', error)
+    return NextResponse.json(
+      { error: 'Failed to create production order' },
+      { status: 500 }
+    )
+  }
+}

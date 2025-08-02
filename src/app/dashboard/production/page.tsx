@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useAuth } from '@/hooks/use-auth'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -85,11 +85,7 @@ export default function ProductionOrdersPage() {
 
   const userRole = user?.role
 
-  useEffect(() => {
-    fetchOrders()
-  }, [searchTerm])
-
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
     try {
       setLoading(true)
       const params = new URLSearchParams()
@@ -106,7 +102,11 @@ export default function ProductionOrdersPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [searchTerm])
+
+  useEffect(() => {
+    fetchOrders()
+  }, [fetchOrders])
 
   const handleStatusUpdate = async (orderId: string, newStatus: string) => {
     try {

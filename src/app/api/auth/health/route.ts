@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
       { authMiddleware }
     ] = await Promise.all([
       import('@/utils/supabase/optimized-auth'),
-      import('@/lib/redis'),
+      import('@/lib/upstash-redis'),
       import('@/middleware/optimized-auth-middleware')
     ]);
 

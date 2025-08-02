@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState, useCallback } from 'react'
 
 type Theme = 'light' | 'dark' | 'system'
 
@@ -54,11 +54,15 @@ export function ThemeProvider({
   })
 
   // Apply the initial theme class immediately to prevent flash
-  useEffect(() => {
+  const applyInitialTheme = useCallback(() => {
     const root = window.document.documentElement
     root.classList.remove('light', 'dark')
     root.classList.add(actualTheme)
-  }, [])
+  }, [actualTheme])
+
+  useEffect(() => {
+    applyInitialTheme()
+  }, [applyInitialTheme])
 
   useEffect(() => {
     const root = window.document.documentElement
